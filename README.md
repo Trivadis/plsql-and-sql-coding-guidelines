@@ -25,6 +25,9 @@ Please file your bug reports, enhancement requests, questions and other support 
 3. [Create a branch](https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/), commit and publish your changes and enhancements
 4. [Create a pull request](https://help.github.com/articles/creating-a-pull-request/)
 
+## Related Resources
+-  [DOAG PL/SQL Conventions](https://github.com/Doag/PL-SQL-Conventions)
+
 ## License
 
 The Trivadis PL/SQL & SQL Coding Guidelines is licensed under the Apache License, Version 2.0. You may obtain a copy of the License at <http://www.apache.org/licenses/LICENSE-2.0>.
