@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Trivadis published their guidelines for PL/SQL &amp; SQL in 2009 in the context of the DOAG conference in Nuremberg. Since then these guidelines - written in Microsoft Word - have been continously extended and improved. We think it is time to make these guidelines more adaptable for the individual #SmartDB application needs and to simplify the continous improvement of these guidelines.
+Trivadis published their guidelines for PL/SQL &amp; SQL in 2009 in the context of the DOAG conference in Nuremberg. Since then these guidelines - written in Microsoft Word - have been continuously  extended and improved. We think it is time to make these guidelines more adaptable for the individual #SmartDB application needs and to simplify the continous improvement of these guidelines.
 
 The next step will be to convert the existing guidelines to a set of Markdown files and use Jekyll to generate the guidelines as static HTML files or PDF.
 
@@ -26,7 +26,7 @@ Please file your bug reports, enhancement requests, questions and other support 
 4. [Create a pull request](https://help.github.com/articles/creating-a-pull-request/)
 
 ## Related Resources
--  [DOAG PL/SQL Conventions](https://github.com/Doag/PL-SQL-Conventions)
+* [DOAG PL/SQL Conventions](https://github.com/Doag/PL-SQL-Conventions)
 
 ## License
 
