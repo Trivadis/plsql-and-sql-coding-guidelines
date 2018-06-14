@@ -26,8 +26,7 @@ Please file your bug reports, enhancement requests, questions and other support 
 4. [Create a pull request](https://help.github.com/articles/creating-a-pull-request/)
 
 ## Related Resources
-
-* [PL/SQL Conventions](https://github.com/Doag/PL-SQL-Conventions)
+* [DOAG PL/SQL Conventions](https://github.com/Doag/PL-SQL-Conventions)
 
 ## License
 
