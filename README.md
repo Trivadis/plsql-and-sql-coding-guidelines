@@ -30,4 +30,4 @@ Please file your bug reports, enhancement requests, questions and other support 
 
 ## License
 
-The Trivadis PL/SQL & SQL Coding Guidelines is licensed under the Apache License, Version 2.0. You may obtain a copy of the License at <http://www.apache.org/licenses/LICENSE-2.0>.
+The Trivadis PL/SQL & SQL Coding Guidelines are licensed under the Apache License, Version 2.0. You may obtain a copy of the License at <http://www.apache.org/licenses/LICENSE-2.0>.

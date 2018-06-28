@@ -1,0 +1,53 @@
+site_name: PL/SQL & SQL Coding Guidelines
+
+
+
+
+theme:
+  name: 'material'
+  custom_dir: custom-theme
+  logo: images/trivadis-logo.svg
+  favicon: images/favicon.ico
+  palette:
+    primary: 'white'
+    accent: 'red'
+
+extra_css:
+  - 'stylesheets/extra.css'
+
+markdown_extensions:
+  - markdown.extensions.admonition
+  - markdown.extensions.codehilite:
+      guess_lang: false
+  - markdown.extensions.def_list
+  - markdown.extensions.footnotes
+  - markdown.extensions.meta
+  - markdown.extensions.toc:
+      permalink: true
+  - pymdownx.arithmatex
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+extra:
+  social:
+    - type: github-alt
+      link: https://github.com/Trivadis
+    - type: twitter
+      link: https://twitter.com/trivadis
+
+plugins:
+  - search
+  - awesome-pages:
+      collapse_single_pages: false

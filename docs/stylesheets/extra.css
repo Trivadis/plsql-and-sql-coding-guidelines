@@ -1,0 +1,21 @@
+.md-typeset a {
+    color: #ff1744;
+    word-break: break-word;
+    text-decoration: none;
+}
+
+[data-md-color-accent=red] .md-typeset a:hover {
+    color: #ff1744;
+    word-break: break-word;
+    text-decoration: underline;
+}
+
+.md-nav__link--active, .md-nav__link:active {
+    color: #ff1744;
+    text-decoration: none;
+}
+
+[data-md-color-accent=red] .md-nav__link:hover {
+    color: #ff1744;
+    text-decoration: underline;
+}
