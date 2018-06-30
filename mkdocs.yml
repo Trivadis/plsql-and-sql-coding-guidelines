@@ -1,4 +1,5 @@
 site_name: PL/SQL & SQL Coding Guidelines
+site_version: 3.3-SNAPSHOT
 site_url: https://trivadis.github.io/plsql-and-sql-coding-guidelines/
 
 repo_name: trivadis/plsql-and-sql-coding-guidelines
@@ -53,7 +54,6 @@ extra:
       link: https://twitter.com/trivadis
 
 plugins:
-  - search:
-      separator: '[\s\-\.%]+'
+  - search
   - awesome-pages:
       collapse_single_pages: false
