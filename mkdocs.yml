@@ -53,6 +53,7 @@ extra:
       link: https://twitter.com/trivadis
 
 plugins:
-  - search
+  - search:
+      separator: '[\s\-\.%]+'
   - awesome-pages:
       collapse_single_pages: false
