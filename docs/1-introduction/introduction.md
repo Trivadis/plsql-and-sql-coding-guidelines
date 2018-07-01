@@ -25,13 +25,20 @@ Testability | The capability of the software product to enable modified software
 
 ### Severity of the rule
 
-Severity | Meaning
--------- | -----------
-Blocker  | Will or may result in a bug.
-Critical | Will have a high/direct impact on the maintenance cost.
-Major    | Will have a medium/potential impact on the maintenance cost.
-Minor    | Will have a low impact on the maintenance cost.
-Info     | Very low impact; it is just a remediation cost report.
+!!! bug "Blocker"
+    Will or may result in a bug.
+
+!!! danger "Critical"
+    Will have a high/direct impact on the maintenance cost.
+
+!!! warning "Major"
+    Will have a medium/potential impact on the maintenance cost.
+
+!!! tip "Minor"
+    Will have a low impact on the maintenance cost.
+
+!!! info "Info"
+    Very low impact; it is just a remediation cost report.
 
 ### Keywords used
 
