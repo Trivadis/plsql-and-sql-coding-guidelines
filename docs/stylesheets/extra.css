@@ -21,36 +21,26 @@
 }
 
 @media print {
-    .md-container {
-        display: block;
-        padding-top: 0;
-    }
 
-    .md-main {
-        display: block;
-        height: inherit;
-    }
-
-    .md-main__inner {
-        height: inherit;
-        padding-top: 0;
-    }
-
-    .md-typeset .codehilitetable .linenos {
+    /* disable menu */
+    .md-md-header {
         display: none;
     }
 
-    .md-typeset .footnote-ref {
-        display: inline-block;
+    /* disable scrollbar */
+    .md-typeset__scrollwrap, .md-typeset table:not([class]), .md-typeset .md-typeset__table table, .md-container,
+    .md-main, html {
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: hidden
+    }   
+
+    /* table-header-group leads to overlap with content */
+    thead {
+        display: table-row-group;
     }
 
-    .md-typeset .admonition {
-        display: block;
-    }
-
-    .md-typeset a::after {
-        color: inherit;
-        content: none;
+    tr {
+        page-break-inside: avoid;
     }
 
     h1 {
@@ -62,15 +52,3 @@
     }
 }
 
-@page {
-    size: A4;
-    margin-top: 1.0cm;
-    margin-right: 1.0cm;
-    margin-bottom: 2.0cm;
-    margin-left: 1.0cm; 
-
-    @bottom-center {
-        content: "Page " counter(page) " of " counter(pages);
-        font-family: "Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
-    }
-}

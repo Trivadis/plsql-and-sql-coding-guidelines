@@ -25,22 +25,40 @@ function write_text(){
 
 function write_guidelines(){
     DIR=$1
-    FIRST_HEADER=$2
+    HEADER=$2
     for f in ${DATA_DIR}/docs/${DIR}/g-*.md
     do
         echo "" >> ${TARGET_DIR}/docs/index.md
-        sed -e "s|# |${FIRST_HEADER} |g" $f >> ${TARGET_DIR}/docs/index.md
+        sed -e "s|# |${HEADER} |g" $f >> ${TARGET_DIR}/docs/index.md
     done
+}
+
+function get_version(){
+    VERSION="$(grep site_version ${DATA_DIR}/mkdocs.yml | awk '{print $2}')"
+    echo ${VERSION}
 }
 
 function convert_to_pdf(){
     cd ${TARGET_DIR}
     mkdocs build
     cd site
-    weasyprint index.html ${DATA_DIR}/plsql.pdf
+    wkhtmltopdf --javascript-delay 3000 \
+                --outline-depth 6 \
+                --print-media-type \
+                --margin-top 10 \
+                --margin-right 10 \
+                --margin-bottom 20 \
+                --margin-left 10 \
+                --footer-spacing 10 \
+                --footer-font-name "Roboto" \
+                --footer-font-size 8 \
+                --footer-left "Version $(get_version)" \
+                --footer-right "Page [page] of [topage]" \
+                toc --toc-header-text "PL/SQL and SQL Coding Guidelines" \
+                index.html ${DATA_DIR}/PLSQL-and-SQL-Coding-Guidelines.pdf
 }
 
-DATA_DIR="$(cd "$(dirname "${0}")" && pwd)"
+DATA_DIR="$(cd "$(dirname "${0}")/.." && pwd)"
 TARGET_DIR=${DATA_DIR}/work-pdf
 
 create_target_dir
@@ -70,4 +88,4 @@ write_file "5-complexity-analysis/complexity-analysis.md"
 write_file "6-code-reviews/code-reviews.md"
 write_file "7-tool-support/tool-support.md"
 write_file "9-appendix/appendix.md"
-#convert_to_pdf
+convert_to_pdf
