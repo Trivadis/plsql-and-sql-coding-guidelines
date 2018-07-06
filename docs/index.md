@@ -14,7 +14,7 @@ Trivadis<br/>
 ***
 
 <img src="images/steven-feuerstein.png" style="padding-top:5px; padding-right:15px; padding-bottom:15px; padding-left:0px;" title="Steven Feuerstein" align="left" width="150px"/>
-The Oracle Database Developer community is made stronger by resources freely shared by experts around the world, such as the Trivadis Coding Guidelines. If you have not yet adopted standards for writing SQL and PL/SQL in your applications, this is a great place to start.<br/><br/><br/>
+The Oracle Database Developer community is made stronger by resources freely shared by experts around the world, such as the Trivadis Coding Guidelines. If you have not yet adopted standards for writing SQL and PL/SQL in your applications, this is a great place to start.<br/><br/><br/><br/>
 
 <img src="images/steven-feuerstein-signature.png" title="Steven Feuerstein" width="280px"/>
 
