@@ -10,10 +10,13 @@
                 <title>Table of Contents</title>
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
                 <style>
+                    html {
+                        font-family: Roboto;
+                        color: rgba(0, 0, 0, .87)
+                    }
                     h1 {
                         text-align: center;
                         font-size: 20px;
-                        font-family: Roboto;
                     }
                     div {
                         border-bottom: 1px dashed rgb(200,200,200);
@@ -34,7 +37,6 @@
                     }
                     ul {
                         font-size: 20px;
-                        font-family: Roboto;
                         padding-left: 0em;
                     }
                     ul ul {
