@@ -1,0 +1,38 @@
+site_name: PL/SQL & SQL Coding Guidelines
+site_url: https://trivadis.github.io/plsql-and-sql-coding-guidelines/
+
+repo_name: trivadis/plsql-and-sql-coding-guidelines
+repo_url: https://github.com/trivadis/plsql-and-sql-coding-guidelines
+edit_uri: ""
+
+theme:
+  name: 'material'
+  custom_dir: custom-theme
+  logo: images/trivadis-logo.svg
+  favicon: images/favicon.ico
+  palette:
+    primary: 'white'
+    accent: 'red'
+
+extra_css:
+  - 'stylesheets/extra.css'
+
+extra_javascript:
+  - 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'
+
+markdown_extensions:
+  - admonition
+  - pymdownx.arithmatex
+
+extra:
+  guideline_version: 3.3
+  social:
+    - type: github-alt
+      link: https://github.com/Trivadis
+    - type: twitter
+      link: https://twitter.com/trivadis
+
+plugins:
+  - search
+  - awesome-pages:
+      collapse_single_pages: false
