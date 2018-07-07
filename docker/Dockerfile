@@ -1,7 +1,7 @@
 FROM centos:7.5.1804
 
 LABEL maintainer="philipp.salvisberg@trivadis.com"
-LABEL description="Tools to generate website, pdf and ebook using Materials for MkDocs."
+LABEL description="Tools to generate HTML and PDF using Materials for MkDocs and wkhtmltopdf."
 LABEL build.command="docker build . --tag trivadis/mktools:latest"
 
 RUN yum install -y https://centos7.iuscommunity.org/ius-release.rpm
