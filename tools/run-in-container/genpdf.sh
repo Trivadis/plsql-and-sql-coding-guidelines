@@ -58,7 +58,7 @@ function convert_to_pdf(){
                 --footer-spacing 10 \
                 --footer-font-name "Roboto" \
                 --footer-font-size 8 \
-                --footer-left "Version $(get_version)" \
+                --footer-left "PL/SQL & SQL Coding Guidelines Version $(get_version)" \
                 --footer-right "Page [page] of [topage]" \
                 --title "PL/SQL & SQL Coding Guidelines Version $(get_version)" \
                 cover ../docs/cover.html \
