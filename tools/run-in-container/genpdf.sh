@@ -11,6 +11,11 @@ function copy_resources() {
     cp -r ${DATA_DIR}/docs/stylesheets ${TARGET_DIR}/docs/stylesheets
 }
 
+function create_cover() {
+    sed -e "s/#VERSION#/$(get_version)/g" ${DATA_DIR}/docs/cover-template.html \
+        | sed -e "s/#YEAR#/$(date +'%Y')/g" > ${TARGET_DIR}/docs/cover.html
+}
+
 function write_file(){
     FILE=$1
     echo "" >> ${TARGET_DIR}/docs/index.md
@@ -56,6 +61,7 @@ function convert_to_pdf(){
                 --footer-left "Version $(get_version)" \
                 --footer-right "Page [page] of [topage]" \
                 --title "PL/SQL & SQL Coding Guidelines Version $(get_version)" \
+                cover ../docs/cover.html \
                 toc \
                 --xsl-style-sheet stylesheets/toc.xsl \
                 index.html ${DATA_DIR}/PLSQL-and-SQL-Coding-Guidelines.pdf
@@ -66,6 +72,7 @@ TARGET_DIR=${DATA_DIR}/pdf
 
 create_target_dir
 copy_resources
+create_cover
 write_file "index.md"
 write_file "1-introduction/introduction.md"
 write_file "2-naming-conventions/naming-conventions.md"
