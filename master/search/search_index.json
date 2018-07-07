@@ -1332,12 +1332,12 @@
         },
         {
             "location": "/4-language-usage/4-control-structures/2-case-if-decode-nvl-nvl2-coalesce/g-4230/",
-            "text": "G-4230: Always use a COALESCE instead of a NVL command, if parameter 2 of the NVL function is a function call or a SELECT statement.\n\n\n\n\nCritical\n\n\nEfficiency, Reliability\n\n\n\n\nCritical\n\n\nReason\n\n\nThe \nNVL\n function always evaluates both parameters before deciding which one to use. This can be harmful if parameter 2 is either a function call or a select statement, as it will be executed regardless of whether parameter 1 contains a NULL value or not.\n\n\nThe \nCOALESCE\n function does not have this drawback.\n\n\nExample (bad)\n\n\nSELECT NVL(dummy, my_package.expensive_null(value_in => dummy))\n  FROM dual;\n\n\n\n\nExample (good)\n\n\nSELECT COALESCE(dummy, my_package.expensive_null(value_in => dummy))\n  FROM dual;",
+            "text": "G-4230: Always use a COALESCE instead of a NVL command, if parameter 2 of the NVL function is a function call or a SELECT statement.\n\n\n\n\nCritical\n\n\nEfficiency, Reliability\n\n\n\n\nReason\n\n\nThe \nNVL\n function always evaluates both parameters before deciding which one to use. This can be harmful if parameter 2 is either a function call or a select statement, as it will be executed regardless of whether parameter 1 contains a NULL value or not.\n\n\nThe \nCOALESCE\n function does not have this drawback.\n\n\nExample (bad)\n\n\nSELECT NVL(dummy, my_package.expensive_null(value_in => dummy))\n  FROM dual;\n\n\n\n\nExample (good)\n\n\nSELECT COALESCE(dummy, my_package.expensive_null(value_in => dummy))\n  FROM dual;",
             "title": "G-4230: Always use a COALESCE instead of a NVL command, if parameter 2 of the NVL function is a function call or a SELECT statement."
         },
         {
             "location": "/4-language-usage/4-control-structures/2-case-if-decode-nvl-nvl2-coalesce/g-4230/#g-4230-always-use-a-coalesce-instead-of-a-nvl-command-if-parameter-2-of-the-nvl-function-is-a-function-call-or-a-select-statement",
-            "text": "Critical  Efficiency, Reliability   Critical",
+            "text": "Critical  Efficiency, Reliability",
             "title": "G-4230: Always use a COALESCE instead of a NVL command, if parameter 2 of the NVL function is a function call or a SELECT statement."
         },
         {
