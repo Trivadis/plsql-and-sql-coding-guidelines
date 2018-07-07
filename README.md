@@ -2,9 +2,21 @@
 
 ## Introduction
 
-Trivadis published their guidelines for PL/SQL &amp; SQL in 2009 in the context of the DOAG conference in Nuremberg. Since then these guidelines - written in Microsoft Word - have been continuously  extended and improved. We think it is time to make these guidelines more adaptable for the individual #SmartDB application needs and to simplify the continous improvement of these guidelines.
+Trivadis published their guidelines for PL/SQL &amp; SQL in 2009 in the context of the DOAG conference in Nuremberg. Since then these guidelines have been continuously extended and improved. Now they are managed as a set of markdown files. This makes the the guidelines more adaptable for individual application needs and simplifies the continous improvement.
 
-The next step will be to convert the existing guidelines to a set of Markdown files and use Jekyll to generate the guidelines as static HTML files or PDF.
+## HTML format
+
+HTML is the primary output format. [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) is used to generate static HTML files and [Mike](https://github.com/jimporter/mike) to publish version specific variants. The following sites are available:
+
+Link                                                                 | Content
+-------------------------------------------------------------------- | -------
+<https://trivadis.github.io/plsql-and-sql-coding-guidelines/>        | Latest Release
+<https://trivadis.github.io/plsql-and-sql-coding-guidelines/master/> | Current version based on the master branch, typically a snapshot version of the coming release
+<https://trivadis.github.io/plsql-and-sql-coding-guidelines/v3.3/>   | Released version 3.3
+
+## PDF format
+
+PDF is the secondary output format. [wkhtmltopdf](https://wkhtmltopdf.org/) is used to generate the [PLSQL-and-SQL-Coding-Guidelines.pdf](PLSQL-and-SQL-Coding-Guidelines.pdf).
 
 ## Releases
 
