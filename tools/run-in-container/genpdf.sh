@@ -61,8 +61,8 @@ function convert_to_pdf(){
                 index.html ${DATA_DIR}/PLSQL-and-SQL-Coding-Guidelines.pdf
 }
 
-DATA_DIR="$(cd "$(dirname "${0}")/.." && pwd)"
-TARGET_DIR=${DATA_DIR}/work-pdf
+DATA_DIR="$(cd "$(dirname "${0}")/../.." && pwd)"
+TARGET_DIR=${DATA_DIR}/pdf
 
 create_target_dir
 copy_resources
