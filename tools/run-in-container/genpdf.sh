@@ -34,7 +34,7 @@ function write_guidelines(){
 }
 
 function get_version(){
-    VERSION="$(grep site_version ${DATA_DIR}/mkdocs.yml | awk '{print $2}')"
+    VERSION="$(grep guideline_version ${DATA_DIR}/mkdocs.yml | awk '{print $2}')"
     echo ${VERSION}
 }
 

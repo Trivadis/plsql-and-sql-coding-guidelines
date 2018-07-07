@@ -1,5 +1,4 @@
 site_name: PL/SQL & SQL Coding Guidelines
-site_version: 3.3-SNAPSHOT
 site_url: https://trivadis.github.io/plsql-and-sql-coding-guidelines/
 
 repo_name: trivadis/plsql-and-sql-coding-guidelines
@@ -26,6 +25,7 @@ markdown_extensions:
   - pymdownx.arithmatex
 
 extra:
+  guideline_version: 3.3-SNAPSHOT
   social:
     - type: github-alt
       link: https://github.com/Trivadis
