@@ -26,7 +26,7 @@ Oracle<br/><br/>
 
 <img src="images/roger-troller.png" style="padding-top:5px; padding-right:15px; padding-bottom:15px; padding-left:0px;" title="Roger Troller" align="left" width="150px"/>Coding Guidelines are a crucial part of software development. It is a matter of fact, that code is more often read than written – therefore we should take efforts to ease the work of the reader, which is not necessarily the author.
 
-I am convinced that this standard may be a good starting point for your own guidelines.<br/><br/>
+I am convinced that this standard may be a good starting point for your own guidelines.<br/><br/><br/>
 
 Roger Troller<br/>
 Senior Consultant<br/>
