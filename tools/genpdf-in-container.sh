@@ -26,7 +26,7 @@ function write_text(){
 function write_guidelines(){
     DIR=$1
     HEADER=$2
-    for f in ${DATA_DIR}/docs/${DIR}/g-*.md
+    for f in ${DATA_DIR}/docs/${DIR}/*.md
     do
         echo "" >> ${TARGET_DIR}/docs/index.md
         sed -e "s|# |${HEADER} |g" $f >> ${TARGET_DIR}/docs/index.md
@@ -44,6 +44,7 @@ function convert_to_pdf(){
     cd site
     wkhtmltopdf --javascript-delay 3000 \
                 --outline-depth 6 \
+                --outline \
                 --print-media-type \
                 --margin-top 10 \
                 --margin-right 10 \
@@ -54,7 +55,9 @@ function convert_to_pdf(){
                 --footer-font-size 8 \
                 --footer-left "Version $(get_version)" \
                 --footer-right "Page [page] of [topage]" \
-                toc --toc-header-text "PL/SQL and SQL Coding Guidelines" \
+                --title "PL/SQL & SQL Coding Guidelines Version $(get_version)" \
+                toc \
+                --xsl-style-sheet stylesheets/toc.xsl \
                 index.html ${DATA_DIR}/PLSQL-and-SQL-Coding-Guidelines.pdf
 }
 
@@ -70,7 +73,7 @@ write_file "3-coding-style/coding-style.md"
 write_text "# Language Usage"
 write_text "## General"
 write_guidelines "4-language-usage/1-general" "###"
-write_text "## Numeric Data Types"
+write_text "## Variables &amp; Types"
 write_text "### General"
 write_guidelines "4-language-usage/2-variables-and-types/1-general" "####"
 write_text "### Numeric Data Types"
@@ -84,6 +87,46 @@ write_guidelines "4-language-usage/2-variables-and-types/5-large-objects" "####"
 write_text "## DML &amp; SQL"
 write_text "### General"
 write_guidelines "4-language-usage/3-dml-and-sql/1-general" "####"
+write_text "### Bulk Operations"
+write_guidelines "4-language-usage/3-dml-and-sql/2-bulk-operations" "####"
+write_text "## Control Structures"
+write_text "### CURSOR"
+write_guidelines "4-language-usage/4-control-structures/1-cursor" "####"
+write_text "### CASE / IF / DECODE / NVL / NVL2 / COALESCE"
+write_guidelines "4-language-usage/4-control-structures/2-case-if-decode-nvl-nvl2-coalesce" "####"
+write_text "### Flow Control"
+write_guidelines "4-language-usage/4-control-structures/3-flow-control" "####"
+write_text "## Exception Handling"
+write_guidelines "4-language-usage/5-exception-handling" "###"
+write_text "## Dynamic SQL"
+write_guidelines "4-language-usage/6-dynamic-sql" "###"
+write_text "## Stored Objects"
+write_text "### General"
+write_guidelines "4-language-usage/7-stored-objects/1-general" "####"
+write_text "### Packages"
+write_guidelines "4-language-usage/7-stored-objects/2-packages" "####"
+write_text "### Procedures"
+write_guidelines "4-language-usage/7-stored-objects/3-procedures" "####"
+write_text "### Functions"
+write_guidelines "4-language-usage/7-stored-objects/4-functions" "####"
+write_text "### Oracle Supplied Packages"
+write_guidelines "4-language-usage/7-stored-objects/5-oracle-supplied-packages" "####"
+write_guidelines "4-language-usage/7-stored-objects/6-object-types" "###"
+write_text "### Triggers"
+write_guidelines "4-language-usage/7-stored-objects/7-triggers" "####"
+write_text "### Sequences"
+write_guidelines "4-language-usage/7-stored-objects/8-sequences" "####"
+write_text "## Patterns"
+write_text "### Checking the Number of Rows"
+write_guidelines "4-language-usage/8-patterns/1-checking-the-number-of-rows" "####"
+write_text "### Access objects of foreign application schemas"
+write_guidelines "4-language-usage/8-patterns/2-access-objects-of-foreign-application-schemas" "####"
+write_text "### Validating input parameter size"
+write_guidelines "4-language-usage/8-patterns/3-validating-input-parameter-size" "####"
+write_text "### Ensure single execution at a time of a program unit"
+write_guidelines "4-language-usage/8-patterns/4-ensure-single-execution-at-a-time-of-a-program-unit" "####"
+write_text "### Use dbms_application_info package to follow progress of a process"
+write_guidelines "4-language-usage/8-patterns/5-use-dbms-application-info-package-to-follow-progress-of-a-process" "####"
 write_file "5-complexity-analysis/complexity-analysis.md"
 write_file "6-code-reviews/code-reviews.md"
 write_file "7-tool-support/tool-support.md"
