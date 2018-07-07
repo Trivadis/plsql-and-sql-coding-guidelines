@@ -70,4 +70,5 @@ Version | Who         | Date         | Comment
 3.1     | Troller     | April 2016   | Corrections
 3.2     | Salvisberg  | January 2017 | Various small corrections
 3.3     | Salvisberg  | 07.07.2018   | Migrated from Microsoft Word document to [MkDocs](https://www.mkdocs.org/), added missing reasons, prefixed rules with "G-" as in PL/SQL Cop.
+3.4     |             |              | work in progress
 
