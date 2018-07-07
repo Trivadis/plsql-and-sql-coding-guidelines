@@ -16,7 +16,7 @@ Link                                                                 | Content
 
 ## PDF format
 
-PDF is the secondary output format. [wkhtmltopdf](https://wkhtmltopdf.org/) is used to generate the [PLSQL-and-SQL-Coding-Guidelines.pdf](PLSQL-and-SQL-Coding-Guidelines.pdf).
+PDF is the secondary output format. [wkhtmltopdf](https://wkhtmltopdf.org/) is used to generate the [PLSQL-and-SQL-Coding-Guidelines.pdf](https://raw.githubusercontent.com/Trivadis/plsql-and-sql-coding-guidelines/master/PLSQL-and-SQL-Coding-Guidelines.pdf).
 
 ## Releases
 
