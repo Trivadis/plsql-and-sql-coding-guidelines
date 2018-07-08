@@ -32,7 +32,7 @@ n/a | 2230 | Try to use SIMPLE_INTEGER datatype when appropriate.  | Minor |  | 
 25 | 2510 | Avoid using the LONG and LONG RAW data types. | Major |  |  |  | &#10008; |  |  |  | 
 26 | 3110 | Always specify the target columns when coding an insert statement. | Major |  |  | &#10008; |  | &#10008; |  |  | 
 27 | 3120 | Always use table aliases when your SQL statement involves more than one source. | Major |  |  | &#10008; |  |  |  |  | 
-28 | 3130 | Try to use ANSI-join syntax. | Minor |  |  | &#10008; | &#10008; |  |  |  | 
+28 | 3130 | Try to use ANSI SQL-92 join syntax. | Minor |  |  | &#10008; | &#10008; |  |  |  | 
 29 | 3140 | Try to use anchored records as targets for your cursors. | Major |  |  | &#10008; |  | &#10008; |  |  | 
 n/a | 3150 | Try to use identity columns for surrogate keys. | Minor |  |  | &#10008; |  | &#10008; |  |  | 
 n/a | 3160 | Avoid virtual columns to be visible. | Major |  |  | &#10008; |  | &#10008; |  |  | 
