@@ -95,4 +95,4 @@ n/a | 8120 | Never check existence of a row to decide whether to create it or no
 79 | 8210 | Always use synonyms when accessing objects of another application schema. | Major | &#10008; |  | &#10008; |  |  |  |  | 
 n/a | 8310 | Always validate input parameter size by assigning the parameter to a size limited variable in the declaration section of program unit. | Minor |  |  | &#10008; |  | &#10008; | &#10008; |  | &#10008;
 n/a | 8410 | Always use application locks to ensure a program unit only running once at a given time. | Minor |  | &#10008; |  |  | &#10008; |  |  | 
-n/a | 8420 | Always use dbms_application_info to track program process transiently | Minor |  | &#10008; |  |  | &#10008; |  |  | 
+n/a | 8510 | Always use dbms_application_info to track program process transiently | Minor |  | &#10008; |  |  | &#10008; |  |  | 
