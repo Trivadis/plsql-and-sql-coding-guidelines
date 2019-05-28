@@ -21,9 +21,14 @@
     text-decoration: underline;
 }
 
-.md-typeset code, .md-typeset pre {
+.md-typeset code {
     word-break: keep-all;
 }
+
+.md-typeset pre {
+    word-break: keep-all;
+}
+
 
 @media print {
 
