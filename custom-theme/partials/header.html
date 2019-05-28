@@ -6,9 +6,9 @@
             {% if config.theme.logo.icon %}
               <i class="md-icon">{{ config.theme.logo.icon }}</i>
             {% elif config.theme.logo.startswith("http") %}
-              <img src="{{ config.theme.logo }}" height="23">
+              <img src="{{ config.theme.logo }}" height="21">
             {% else %}
-              <img src="{{ base_url }}/{{ config.theme.logo }}" height="23">
+              <img src="{{ base_url }}/{{ config.theme.logo }}" height="21">
             {% endif %}
           </a>
         </div>
