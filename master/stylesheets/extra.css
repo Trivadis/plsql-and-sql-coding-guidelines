@@ -21,6 +21,10 @@
     text-decoration: underline;
 }
 
+.md-typeset code, .md-typeset pre {
+    word-break: keep-all;
+}
+
 @media print {
 
     /* disable menu */
