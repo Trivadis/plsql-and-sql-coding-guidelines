@@ -113,7 +113,7 @@
         <div class="md-flex__cell md-flex__cell--shrink">
           <a href="https://trivadis.github.io/plsql-and-sql-coding-guidelines/" title="PL/SQL & SQL Coding Guidelines" class="md-header-nav__button md-logo">
             
-              <img src="../../../../images/trivadis-logo.svg" height="23">
+              <img src="../../../../images/trivadis-logo.svg" height="30">
             
           </a>
         </div>
@@ -125,7 +125,7 @@
             
               
                 <span class="md-header-nav__topic">
-                  PL/SQL & SQL Coding Guidelines Version 3.4-SNAPSHOT
+                  PL/SQL & SQL Coding Guidelines Version 3.3
                 </span>
                 <span class="md-header-nav__topic">
                   G-8410: Always use application locks to ensure a program unit only running once at a given time.
@@ -856,8 +856,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../3-dml-and-sql/1-general/g-3130/" title="G-3130: Try to use ANSI SQL-92 join syntax." class="md-nav__link">
-      G-3130: Try to use ANSI SQL-92 join syntax.
+    <a href="../../../3-dml-and-sql/1-general/g-3130/" title="G-3130: Try to use ANSI-join syntax." class="md-nav__link">
+      G-3130: Try to use ANSI-join syntax.
     </a>
   </li>
 
@@ -1684,8 +1684,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../7-stored-objects/3-procedures/g-7320/" title="G-7320: Avoid using RETURN statements in a PROCEDURE." class="md-nav__link">
-      G-7320: Avoid using RETURN statements in a PROCEDURE.
+    <a href="../../../7-stored-objects/3-procedures/g-7320/" title="7320: Avoid using RETURN statements in a PROCEDURE." class="md-nav__link">
+      7320: Avoid using RETURN statements in a PROCEDURE.
     </a>
   </li>
 
@@ -2172,8 +2172,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../5-use-dbms-application-info-package-to-follow-progress-of-a-process/g-8510/" title="G-8510: Always use dbms_application_info to track program process transiently." class="md-nav__link">
-      G-8510: Always use dbms_application_info to track program process transiently.
+    <a href="../../5-use-dbms-application-info-package-to-follow-progress-of-a-process/g-8420/" title="G-8420: Always use dbms_application_info to track program process transiently." class="md-nav__link">
+      G-8420: Always use dbms_application_info to track program process transiently.
     </a>
   </li>
 
@@ -2308,51 +2308,7 @@
 <p>This technique allows us to have locks across transactions as well as a proven way to clean up at the end of the session.</p>
 <p>The alternative using a table where a “Lock-Row” is stored has the disadvantage that in case of an error a proper cleanup has to be done to “unlock” the program unit.</p>
 <h2 id="example-bad">Example (bad)</h2>
-<pre><code>-- create locking table
-CREATE TABLE application_locks (
-   lock_name VARCHAR2(128 CHAR) NOT NULL PRIMARY KEY
-  ,lock_time TIMESTAMP          NOT NULL
-) ORGANIZATION INDEX;
--- definition
-CREATE OR REPLACE PACKAGE BODY lock_up IS
-   PROCEDURE request_lock (in_lock_name IN VARCHAR2) IS
-      PRAGMA AUTONOMOUS_TRANSACTION;
-   BEGIN
-      INSERT INTO application_locks (lock_name, lock_time) VALUES (in_lock_name, systimestamp);
-      COMMIT;
-   EXCEPTION
-      WHEN DUP_VAL_ON_INDEX THEN
-         RAISE err.e_lock_request_failed;
-   END request_lock;
-
-   PROCEDURE release_lock (in_lock_name IN VARCHAR2) IS
-      PRAGMA AUTONOMOUS_TRANSACTION;
-   BEGIN
-      DELETE FROM application_locks
-       WHERE lock_name = in_lock_name;
-      COMMIT;
-   END release_lock;
-END lock_up;
-/
--- call
-DECLARE
-   co_lock_name CONSTANT VARCHAR2(30 CHAR) := 'APPLICATION_LOCK';
-BEGIN
-   lock_up.request_lock(in_lock_name =&gt; co_lock_name);
-   -- processing
-   lock_up.release_lock(in_lock_name =&gt; co_lock_name);
-EXCEPTION
-   WHEN OTHERS THEN
-      -- log error
-      lock_up.release_lock(in_lock_name =&gt; co_lock_name);
-      RAISE;
-END;
-/
-</code></pre>
-
-<h2 id="example-good">Example (good)</h2>
-<pre><code>-- definition
-CREATE OR REPLACE PACKAGE BODY lock_up IS
+<pre><code>CREATE OR REPLACE PACKAGE BODY lock_up IS
    FUNCTION request_lock (in_lock_name         IN VARCHAR2
                          ,in_release_on_commit IN BOOLEAN := FALSE) RETURN VARCHAR2 IS
       l_lock_handle VARCHAR2(128 CHAR);
@@ -2380,8 +2336,10 @@ CREATE OR REPLACE PACKAGE BODY lock_up IS
    END release_lock;
 END lock_up;
 /
--- call
-DECLARE
+</code></pre>
+
+<h2 id="example-good">Example (good)</h2>
+<pre><code>DECLARE
    l_handle VARCHAR2(128 CHAR);
    co_lock_name CONSTANT VARCHAR2(30 CHAR) := 'APPLICATION_LOCK';
 BEGIN
@@ -2431,13 +2389,13 @@ END;
           </a>
         
         
-          <a href="../../5-use-dbms-application-info-package-to-follow-progress-of-a-process/g-8510/" title="G-8510: Always use dbms_application_info to track program process transiently." class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../../5-use-dbms-application-info-package-to-follow-progress-of-a-process/g-8420/" title="G-8420: Always use dbms_application_info to track program process transiently." class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                G-8510: Always use dbms_application_info to track program process transiently.
+                G-8420: Always use dbms_application_info to track program process transiently.
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

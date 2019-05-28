@@ -89,7 +89,8 @@
         page-break-before: always;
     }
 
-    [id*="10-"] {
+    [id*="10-"], 
+    [id^="g-8420"] {
         page-break-before: avoid;
     }
 }
