@@ -34,7 +34,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../../../images/favicon.ico">
-      <meta name="generator" content="mkdocs-0.17.4, mkdocs-material-2.9.1">
+      <meta name="generator" content="mkdocs-0.17.5, mkdocs-material-2.9.2">
     
     
       
@@ -2308,79 +2308,79 @@
 <p>This technique allows us to have locks across transactions as well as a proven way to clean up at the end of the session.</p>
 <p>The alternative using a table where a “Lock-Row” is stored has the disadvantage that in case of an error a proper cleanup has to be done to “unlock” the program unit.</p>
 <h2 id="example-bad">Example (bad)</h2>
-<pre><code>-- create locking table
-CREATE TABLE application_locks (
-   lock_name VARCHAR2(128 CHAR) NOT NULL PRIMARY KEY
-  ,lock_time TIMESTAMP          NOT NULL
-) ORGANIZATION INDEX;
--- definition
+<pre><code>-- Bad
+/* Example */
 CREATE OR REPLACE PACKAGE BODY lock_up IS
+   -- manage locks in a dedicated table created as follows:
+   --   CREATE TABLE app_locks (
+   --      lock_name VARCHAR2(128 CHAR) NOT NULL primary key
+   --   );
+
    PROCEDURE request_lock (in_lock_name IN VARCHAR2) IS
-      PRAGMA AUTONOMOUS_TRANSACTION;
    BEGIN
-      INSERT INTO application_locks (lock_name, lock_time) VALUES (in_lock_name, systimestamp);
-      COMMIT;
-   EXCEPTION
-      WHEN DUP_VAL_ON_INDEX THEN
-         RAISE err.e_lock_request_failed;
+      -- raises dup_val_on_index
+      INSERT INTO app_locks (lock_name) VALUES (in_lock_name);
    END request_lock;
 
-   PROCEDURE release_lock (in_lock_name IN VARCHAR2) IS
-      PRAGMA AUTONOMOUS_TRANSACTION;
+   PROCEDURE release_lock(in_lock_name IN VARCHAR2) IS
    BEGIN
-      DELETE FROM application_locks
-       WHERE lock_name = in_lock_name;
-      COMMIT;
+      DELETE FROM app_locks WHERE lock_name = in_lock_name;
    END release_lock;
 END lock_up;
 /
--- call
+
+/* Call bad example */
 DECLARE
    co_lock_name CONSTANT VARCHAR2(30 CHAR) := 'APPLICATION_LOCK';
 BEGIN
    lock_up.request_lock(in_lock_name =&gt; co_lock_name);
    -- processing
-   lock_up.release_lock(in_lock_name =&gt; co_lock_name);
+   lock_up.release_lock(in_lock_handle =&gt; l_handle);
 EXCEPTION
    WHEN OTHERS THEN
       -- log error
-      lock_up.release_lock(in_lock_name =&gt; co_lock_name);
+      lock_up.release_lock(in_lock_handle =&gt; l_handle);
       RAISE;
 END;
 /
 </code></pre>
 
 <h2 id="example-good">Example (good)</h2>
-<pre><code>-- definition
+<pre><code>/* Example */
 CREATE OR REPLACE PACKAGE BODY lock_up IS
-   FUNCTION request_lock (in_lock_name         IN VARCHAR2
-                         ,in_release_on_commit IN BOOLEAN := FALSE) RETURN VARCHAR2 IS
+   FUNCTION request_lock(
+      in_lock_name         IN VARCHAR2,
+      in_release_on_commit IN BOOLEAN := FALSE) 
+   RETURN VARCHAR2 IS
       l_lock_handle VARCHAR2(128 CHAR);
    BEGIN
-      SYS.DBMS_LOCK.ALLOCATE_UNIQUE (lockname        =&gt; in_lock_name
-                                    ,lockhandle      =&gt; l_lock_handle
-                                    ,expiration_secs =&gt; constants_up.co_one_week); 
-
-      IF sys.DBMS_LOCK.REQUEST(lockhandle        =&gt; l_lock_handle
-                              ,lockmode          =&gt; sys.DBMS_LOCK.X_MODE
-                              ,TIMEOUT           =&gt; sys.DBMS_LOCK.MAXWAIT
-                              ,release_on_commit =&gt; COALESCE(in_release_on_commit
-                                                            ,FALSE)) &gt; 0 THEN
+      sys.dbms_lock.allocate_unique(
+         lockname        =&gt; in_lock_name,
+         lockhandle      =&gt; l_lock_handle,
+         expiration_secs =&gt; constants_up.co_one_week
+      );
+      IF sys.dbms_lock.request(
+            lockhandle        =&gt; l_lock_handle,
+            lockmode          =&gt; sys.dbms_lock.x_mode,
+            timeout           =&gt; sys.dbms_lock.maxwait,
+            release_on_commit =&gt; COALESCE(in_release_on_commit, FALSE)
+         ) &gt; 0 
+      THEN
          RAISE err.e_lock_request_failed;
       END IF;
-
       RETURN l_lock_handle;
    END request_lock;
 
-   PROCEDURE release_lock (in_lock_handle IN VARCHAR2) IS
+   PROCEDURE release_lock(in_lock_handle IN VARCHAR2) IS
    BEGIN
-     IF sys.DBMS_LOCK.RELEASE(lockhandle =&gt; in_lock_handle) &gt; 0 THEN
+      IF sys.dbms_lock.release(lockhandle =&gt; in_lock_handle) &gt; 0 THEN
          RAISE err.e_lock_request_failed;
-     END IF;
+      END IF;
    END release_lock;
 END lock_up;
 /
--- call
+
+/* Call good example */
 DECLARE
    l_handle VARCHAR2(128 CHAR);
    co_lock_name CONSTANT VARCHAR2(30 CHAR) := 'APPLICATION_LOCK';
@@ -2478,7 +2478,7 @@ END;
     
       <script src="../../../../assets/javascripts/application.a59e2a89.js"></script>
       
-      <script>app.initialize({version:"0.17.4",url:{base:"../../../.."}})</script>
+      <script>app.initialize({version:"0.17.5",url:{base:"../../../.."}})</script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
