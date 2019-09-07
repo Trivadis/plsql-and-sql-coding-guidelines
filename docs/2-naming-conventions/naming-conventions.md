@@ -50,8 +50,8 @@ Optionally prefixed by a project abbreviation.
 
 Examples:
 
-* `employees_ct`
-* `orders_ct`
+* `employee_ct`
+* `order_ct`
 
 ### Column
 
@@ -64,6 +64,7 @@ Add a comment to the database dictionary for every column.
 Choose a naming convention that includes:
 
 either
+
 * the name of the object the trigger is added to,
 * the activity done by the trigger,
 * the suffix `_trg`
