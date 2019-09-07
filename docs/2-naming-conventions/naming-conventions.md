@@ -4,14 +4,13 @@
 
 1. Never use names with a leading numeric character.
 2. Always choose meaningful and specific names.
-3. Avoid using abbreviations unless the full name is excessively long.
-4. Avoid long abbreviations. Abbreviations should be shorter than 5 characters.
-5. Any abbreviations must be widely known and accepted. 
-6. Create a glossary with all accepted abbreviations.
-7. Never use ORACLE keywords as names. A list of ORACLEs keywords may be found in the dictionary view `V$RESERVED_WORDS`.
-8. Avoid adding redundant or meaningless prefixes and suffixes to identifiers.<br/>Example: `CREATE TABLE emp_table`.
-9. Always use one spoken language (e.g. English, German, French) for all objects in your application.
-10. Always use the same names for elements with the same meaning.
+3. Avoid using abbreviations. 
+4. If abbreviations are used, they must be widely known and accepted. 
+5. Create a glossary with all accepted abbreviations.
+6. Never use ORACLE keywords as names. A list of ORACLEs keywords may be found in the dictionary view `V$RESERVED_WORDS`.
+7. Avoid adding redundant or meaningless prefixes and suffixes to identifiers.<br/>Example: `CREATE TABLE emp_table`.
+8. Always use one spoken language (e.g. English, German, French) for all objects in your application.
+9. Always use the same names for elements with the same meaning.
 
 ## Naming Conventions for PL/SQL
 
@@ -36,7 +35,7 @@ In/Out Parameter             | `io_`  |         | `io_employee`
 Record Type Definitions      | `r_`   | `_type` | `r_employee_type`
 Array/Table Type Definitions | `t_`   | `_type` | `t_employees_type`
 Exception                    | `e_`   |         | `e_employee_exists`
-Constants                    | `co_`  |         | `co_empno`
+Constants                    | `k_`   |         | `k_empno`
 Subtypes                     |        | `_type` | `big_string_type`
 
 ## Database Object Naming Conventions
@@ -65,23 +64,22 @@ Add a comment to the database dictionary for every column.
 Choose a naming convention that includes:
 
 either
+* the name of the object the trigger is added to,
+* the activity done by the trigger,
+* the suffix `_trg`
+
+or
 
 * the name of the object the trigger is added to,
 * any of the triggering events:
     * `_br_iud` for Before Row on Insert, Update and Delete
     * `_io_id` for Instead of Insert and Delete
 
-or
-
-* the name of the object the trigger is added to,
-* the activity done by the trigger,
-* the suffix `_trg`
-
 Examples:
 
-* `employees_br_iud`
-* `orders_audit_trg`
-* `orders_journal_trg`
+* `employee_br_iud`
+* `order_audit_trg`
+* `order_journal_trg`
 
 ### Foreign Key Constraint
 
@@ -126,8 +124,8 @@ Optionally prefixed by a project abbreviation.
 
 Examples:
 
-* `employees_api` - API for the employee table
-* `logging_up` - Utilities including logging support
+* `employee_api` - API for the employee table
+* `logging` - Utilities including logging support
 
 ### Primary Key Constraint
 
@@ -135,9 +133,9 @@ Table name or table abbreviation followed by the suffix `_pk`.
 
 Examples:
 
-* `employees_pk`
-* `departments_pk`
-* `sct_contracts_pk`
+* `employee_pk`
+* `department_pk`
+* `sct_contract_pk`
 
 ### Procedure
 
@@ -154,19 +152,20 @@ Examples:
 * `check_order_state`
 
 ### Sequence
+Version: Pre 12 only, 12 and later use identity columns
 
-Name is built from the table name (or its abbreviation) the sequence serves as primary key generator and the suffix `_seq` or the purpose of the sequence followed by a `_seq`.
+Name is built from the table name the sequence serves as primary key generator and the suffix `_seq` or the purpose of the sequence followed by a `_seq`.
 
 Optionally prefixed by a project abbreviation.
 
 Examples:
 
-* `employees_seq`
+* `employee_seq`
 * `order_number_seq`
 
 ### Synonym
 
-Synonyms should be used to address an object in a foreign schema rather than to rename an object. Therefore, synonyms should share the name with the referenced object.
+Synonyms should share the name with the object referenced in another schema.
 
 ### System Trigger
 
@@ -182,7 +181,7 @@ Examples:
 
 ### Table
 
-Plural name of what is contained in the table (unless the table is designed to always hold one row only – then you should use a singular name)
+Singular name of what is contained in the table.
 
 Add a comment to the database dictionary for every table and every column in the table.
 
@@ -190,24 +189,32 @@ Optionally prefixed by a project abbreviation.
 
 Examples:
 
-* `employees`
-* `departments`
-* `sct_contracts`
-* `sct_contract_lines`
-* `sct_incentive_modules`
+* `employee`
+* `department`
+* `sct_contract`
+* `sct_contract_line`
+* `sct_incentive_module`
+
+Reason: Singular names have the following advantages over plural names:
+1) In general, tables represent entities. Entities are singular. This encourages the art of Entity-Relationship modeling.
+2) If all table names are singular, then you don't have to know if a table has a single row or multiple rows before you use it.
+3) What is the plural of news? lotus? knife? cactus? nucleus? There are so many words that are difficult and nonstandard to pluralize that it can add significant work to a project to 'figure out the plurals'.
+4) For non-native speakers of whatever language is being used for table names, point number 3 is magnified signicantly.
+5) Plurals add extra unnecessary length to table names.
+6) Bar far the biggest reason: There is no value in going through all the work to plural a table name. SQL statements often deal with a single row from a table with multiple rows, so you can't make the argument that employees is better than employee 'because the SQL will read better'.
 
 ### Temporary Table (Global Temporary Table)
 
 Naming as described for tables.
 
-Optionally suffixed by `_tmp`
+Optionally suffixed by `_gtt`
 
 Optionally prefixed by a project abbreviation.
 
 Examples:
 
-* `employees_tmp`
-* `contracts_tmp`
+* `employee_gtt`
+* `contract_gtt`
 
 ### Unique Key Constraint
 
@@ -215,15 +222,16 @@ Table name or table abbreviation followed by the role of the unique key constrai
 
 Examples:
 
-* `employees_name_uk`
-* `departments_deptno_uk`
-* `sct_contracts_uk`
+* `employee_name_uk`
+* `department_deptno_uk`
+* `sct_contract_uk`
 * `sct_coli_uk`
 * `sct_icmd_uk1`
 
 ### View
 
-Plural name of what is contained in the view.
+Singular name of what is contained in the view.
+
 Optionally suffixed by an indicator identifying the object as a view (mostly used, when a 1:1 view layer lies above the table layer)
 
 Add a comment to the database dictionary for every view and every column.
@@ -232,5 +240,5 @@ Optionally prefixed by a project abbreviation.
 
 Examples:
 
-* `active_orders`
-* `orders_v` - a view to the orders table
+* `active_order`
+* `order_v` - a view to the order table
