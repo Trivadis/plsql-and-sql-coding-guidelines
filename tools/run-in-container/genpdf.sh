@@ -19,7 +19,15 @@ function create_cover() {
 function write_file(){
     FILE=$1
     echo "" >> ${TARGET_DIR}/docs/index.md
-    sed -e 's/..\/image/image/g' ${DATA_DIR}/docs/${FILE} | sed -e 's/&#10008;/X/g' >> ${TARGET_DIR}/docs/index.md
+    sed -e 's/..\/image/image/g' ${DATA_DIR}/docs/${FILE} | \
+        sed -e 's|../4-language-usage/2-variables-and-types/1-general/g-2150|#g-2150-avoid-comparisons-with-null-value-consider-using-is-not-null|g' | \
+        sed -e 's|../3-coding-style/coding-style/#rules|#rules|g' | \
+        sed -e 's/&#10008;/X/g' >> ${TARGET_DIR}/docs/index.md
+}
+
+function fix_footnote_links() {
+    mv index.html index.ori.html
+    sed -e 's/a class="footnote-ref"/a /g' index.ori.html > index.html
 }
 
 function write_text(){
@@ -47,6 +55,7 @@ function convert_to_pdf(){
     cd ${TARGET_DIR}
     mkdocs build
     cd site
+    fix_footnote_links
     wkhtmltopdf --javascript-delay 3000 \
                 --outline-depth 6 \
                 --outline \

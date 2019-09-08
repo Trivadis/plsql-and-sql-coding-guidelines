@@ -23,6 +23,7 @@ extra_javascript:
 markdown_extensions:
   - admonition
   - pymdownx.arithmatex
+  - footnotes
 
 extra:
   guideline_version: 3.4-SNAPSHOT
