@@ -36,6 +36,16 @@
         display: none;
     }
 
+    /* disable header of footnotes */
+    .footnote h1 {
+        display: none;
+    }
+
+    /* do not show link details in brackets content: " [" attr(href) "]" */
+    .md-typeset a:after {
+        display: none;
+    }
+
     /* disable scrollbar */
     .md-typeset__scrollwrap, 
     .md-typeset table:not([class]), 
@@ -65,6 +75,11 @@
         page-break-before: avoid;
     }
 
+    [id="we-do-not-agree-with-all-your-standards"],
+    [id="column"],
+    [id="sequence"],
+    [id="temporary-table-global-temporary-table"],
+    [id="code-commenting"],
     [id="variables-types"], 
     [id="numeric-data-types"], 
     [id="character-data-types"], 

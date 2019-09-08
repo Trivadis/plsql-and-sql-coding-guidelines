@@ -7,7 +7,7 @@
 Rule | Description
 :--: | -----------
 1    | Keywords are written uppercase, names are written in lowercase.
-2    | 3 space indention.
+2    | 3 space indention[^2].
 3    | One command per line.
 4    | Keywords `LOOP`, `ELSE`, `ELSIF`, `END IF`, `WHEN` on a new line.
 5    | Commas in front of separated elements.
@@ -85,3 +85,13 @@ Check whether we passed a valid sql name
 </pre>
 */
 ```
+
+[^2]: 
+    Tabs are not used because the indentation depends on the editor configuration. 
+    We want to ensure that the code looks the same, indepenent of the editor used. 
+    Hence, no tabs. But why not use 8 spaces? That's the traditional value for a tab. 
+    When writing a package function the code in the body has an indentation of 3. 
+    That's 24 characters as a starting point for the code. We think it's too much. 
+    Especially if we try to keep a line below 100 or 80 characters. Other good options 
+    would be 2 or 4 spaces. We settled for 3 spaces as a compromise. 
+    The indentation is still good visible, but does not use to much space.

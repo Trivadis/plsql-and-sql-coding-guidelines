@@ -56,7 +56,7 @@ Examples:
 
 ### Column
 
-Singular name of what is stored in the column (unless the column data type is a collection, in this case you use plural names)
+Singular name of what is stored in the column (unless the column data type is a collection, in this case you use plural[^1] names)
 
 Add a comment to the database dictionary for every column.
 
@@ -182,7 +182,7 @@ Examples:
 
 ### Table
 
-Plural name of what is contained in the table (unless the table is designed to always hold one row only – then you should use a singular name)
+Plural[^1] name of what is contained in the table (unless the table is designed to always hold one row only – then you should use a singular name)
 
 Add a comment to the database dictionary for every table and every column in the table.
 
@@ -223,7 +223,7 @@ Examples:
 
 ### View
 
-Plural name of what is contained in the view.
+Plural[^1] name of what is contained in the view.
 Optionally suffixed by an indicator identifying the object as a view (mostly used, when a 1:1 view layer lies above the table layer)
 
 Add a comment to the database dictionary for every view and every column.
@@ -234,3 +234,11 @@ Examples:
 
 * `active_orders`
 * `orders_v` - a view to the orders table
+
+[^1]:
+    We see a table and a views as a collection. A jar containing beans is labeled with "beans". 
+    In Java we call such collection also beans (`List<Bean> beans`) and name an entry bean 
+    (`for (Bean bean : beans) {...}`). An entry of a table is a row (singular) and a table can 
+    contain an unbounded number of rows (plural). This and the fact that the Oracle database uses 
+    the same concept for their tables and views lead to the decision to use the plural 
+    to name a table or view.

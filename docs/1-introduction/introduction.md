@@ -64,5 +64,24 @@ Implementing formatting and coding standards has the following advantages for PL
 * The code is more efficient concerning performance and organization of the whole application.
 * The code is more modular and thus easier to use for other applications.
 
+### We have other standards
+
 This document only defines possible standards. These standards are not written in stone, but are meant as guidelines. If standards already exist, and they are different from those in this document, it makes no sense to change them.
  
+### We do not agree with all your standards
+
+There are basically two types of standards.
+
+1. Non-controversial 
+
+    These standards make sense. There is no reason not to follow them. An example of this category is [G-2150](../4-language-usage/2-variables-and-types/1-general/g-2150): Avoid comparisons with NULL value, consider using IS [NOT] NULL.
+
+2. Controversial
+
+    Almost every rule/guildeline falls into this category. An example of this category is [3 space indention](../3-coding-style/coding-style/#rules). - Why not 2 or 4 or even 8? Why not use tabs? You can argue in favor of all these options. In most cases it does not really matter which option you choose. Being consistent is more important. In this case it will make the code easier to read.
+
+For very controversial rules, we have started to include the reasoning either as a footnote or directly in the text.
+
+Usually it is not helpful to open an issue on GitHub to request to change a highly controversial rule such as the one mentioned. For example, use 2 spaces instead of 3 spaces for an indentation. This leads to a discussion where the people in favor of 4 spaces start to argument as well. There is no right or wrong here. You just have to agree on a standard.
+
+More effective is to fork [this repository](https://github.com/Trivadis/plsql-and-sql-coding-guidelines) and amend the standards fit your needs/expectations.
