@@ -2674,7 +2674,7 @@
 <li><code>orders_ct</code></li>
 </ul>
 <h3 id="column">Column</h3>
-<p>Singular name of what is stored in the column (unless the column data type is a collection, in this case you use plural names)</p>
+<p>Singular name of what is stored in the column (unless the column data type is a collection, in this case you use plural<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> names)</p>
 <p>Add a comment to the database dictionary for every column.</p>
 <h3 id="dml-instead-of-trigger">DML / Instead of Trigger</h3>
 <p>Choose a naming convention that includes:</p>
@@ -2767,7 +2767,7 @@
 <li><code>logon_trg</code></li>
 </ul>
 <h3 id="table">Table</h3>
-<p>Plural name of what is contained in the table (unless the table is designed to always hold one row only – then you should use a singular name)</p>
+<p>Plural<sup id="fnref2:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> name of what is contained in the table (unless the table is designed to always hold one row only – then you should use a singular name)</p>
 <p>Add a comment to the database dictionary for every table and every column in the table.</p>
 <p>Optionally prefixed by a project abbreviation.</p>
 <p>Examples:</p>
@@ -2798,7 +2798,7 @@
 <li><code>sct_icmd_uk1</code></li>
 </ul>
 <h3 id="view">View</h3>
-<p>Plural name of what is contained in the view.
+<p>Plural<sup id="fnref3:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> name of what is contained in the view.
 Optionally suffixed by an indicator identifying the object as a view (mostly used, when a 1:1 view layer lies above the table layer)</p>
 <p>Add a comment to the database dictionary for every view and every column.</p>
 <p>Optionally prefixed by a project abbreviation.</p>
@@ -2807,6 +2807,19 @@ Optionally suffixed by an indicator identifying the object as a view (mostly use
 <li><code>active_orders</code></li>
 <li><code>orders_v</code> - a view to the orders table</li>
 </ul>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>We see a table and a views as a collection. A jar containing beans is labeled with "beans". 
+In Java we call such collection also beans (<code>List&lt;Bean&gt; beans</code>) and name an entry bean 
+(<code>for (Bean bean : beans) {...}</code>). An entry of a table is a row (singular) and a table can 
+contain an unbounded number of rows (plural). This and the fact that the Oracle database uses 
+the same concept for their tables and views lead to the decision to use the plural 
+to name a table or view.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
                 
                   
                 
