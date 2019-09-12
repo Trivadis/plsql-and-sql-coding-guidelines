@@ -236,9 +236,9 @@ Examples:
 * `orders_v` - a view to the orders table
 
 [^1]:
-    We see a table and a views as a collection. A jar containing beans is labeled with "beans". 
-    In Java we call such collection also beans (`List<Bean> beans`) and name an entry bean 
+    We see a table and a view as a collection. A jar containing beans is labeled "beans". 
+    In Java we call such a collection also "beans" (`List<Bean> beans`) and name an entry "bean" 
     (`for (Bean bean : beans) {...}`). An entry of a table is a row (singular) and a table can 
     contain an unbounded number of rows (plural). This and the fact that the Oracle database uses 
     the same concept for their tables and views lead to the decision to use the plural 
-    to name a table or view.
+    to name a table or a view.
