@@ -892,8 +892,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../3-dml-and-sql/1-general/g-3160/" title="G-3160: Avoid virtual columns to be visible." class="md-nav__link">
-      G-3160: Avoid virtual columns to be visible.
+    <a href="../../3-dml-and-sql/1-general/g-3160/" title="G-3160: Avoid visible virtual columns." class="md-nav__link">
+      G-3160: Avoid visible virtual columns.
     </a>
   </li>
 
@@ -2134,8 +2134,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../8-patterns/4-ensure-single-execution-at-a-time-of-a-program-unit/g-8410/" title="G-8410: Always use application locks to ensure a program unit only running once at a given time." class="md-nav__link">
-      G-8410: Always use application locks to ensure a program unit only running once at a given time.
+    <a href="../../8-patterns/4-ensure-single-execution-at-a-time-of-a-program-unit/g-8410/" title="G-8410: Always use application locks to ensure a program unit is only running once at a given time." class="md-nav__link">
+      G-8410: Always use application locks to ensure a program unit is only running once at a given time.
     </a>
   </li>
 
@@ -2305,7 +2305,7 @@
 <h2 id="reason">Reason</h2>
 <p>This is error-prone because your local declaration overrides the global declaration. While it is technically possible to use the same names, it causes confusion for others needing to read and maintain this code. Additionally, you will need to be very careful to use the prefix <code>STANDARD</code> in front of any reference that needs to use Oracle’s default exception behavior.</p>
 <h2 id="example-bad">Example (bad)</h2>
-<p>Using the code below, we are not able to handle the no_data_found exception raised by the <code>SELECT</code> statement as we have overwritten that exception handler. In addition, our exception handler has not the exception number assigned, which is raise when the SELECT statement does not find any rows.</p>
+<p>Using the code below, we are not able to handle the no_data_found exception raised by the <code>SELECT</code> statement as we have overwritten that exception handler. In addition, our exception handler doesn't have an exception number assigned, which should be raised when the SELECT statement does not find any rows.</p>
 <pre><code>DECLARE
    l_dummy dual.dummy%TYPE;
    no_data_found    EXCEPTION;

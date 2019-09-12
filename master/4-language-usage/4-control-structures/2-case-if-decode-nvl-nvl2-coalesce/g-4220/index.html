@@ -892,8 +892,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../3-dml-and-sql/1-general/g-3160/" title="G-3160: Avoid virtual columns to be visible." class="md-nav__link">
-      G-3160: Avoid virtual columns to be visible.
+    <a href="../../../3-dml-and-sql/1-general/g-3160/" title="G-3160: Avoid visible virtual columns." class="md-nav__link">
+      G-3160: Avoid visible virtual columns.
     </a>
   </li>
 
@@ -2136,8 +2136,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../8-patterns/4-ensure-single-execution-at-a-time-of-a-program-unit/g-8410/" title="G-8410: Always use application locks to ensure a program unit only running once at a given time." class="md-nav__link">
-      G-8410: Always use application locks to ensure a program unit only running once at a given time.
+    <a href="../../../8-patterns/4-ensure-single-execution-at-a-time-of-a-program-unit/g-8410/" title="G-8410: Always use application locks to ensure a program unit is only running once at a given time." class="md-nav__link">
+      G-8410: Always use application locks to ensure a program unit is only running once at a given time.
     </a>
   </li>
 
@@ -2308,9 +2308,9 @@
 <p><code>DECODE</code> is an ORACLE specific function hard to understand and restricted to SQL only. The “newer” <code>CASE</code> function is much more common has a better readability and may be used within PL/SQL too.</p>
 <h2 id="example-bad">Example (bad)</h2>
 <pre><code>SELECT DECODE(dummy, 'X', 1 
-                      , 'Y', 2
-                      , 'Z', 3
-                      , 0)
+                   , 'Y', 2
+                   , 'Z', 3
+                        , 0)
   FROM dual;
 </code></pre>
 

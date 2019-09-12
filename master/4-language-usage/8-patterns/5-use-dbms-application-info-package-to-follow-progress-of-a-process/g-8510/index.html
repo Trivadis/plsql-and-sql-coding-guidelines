@@ -892,8 +892,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../3-dml-and-sql/1-general/g-3160/" title="G-3160: Avoid virtual columns to be visible." class="md-nav__link">
-      G-3160: Avoid virtual columns to be visible.
+    <a href="../../../3-dml-and-sql/1-general/g-3160/" title="G-3160: Avoid visible virtual columns." class="md-nav__link">
+      G-3160: Avoid visible virtual columns.
     </a>
   </li>
 
@@ -2082,8 +2082,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../4-ensure-single-execution-at-a-time-of-a-program-unit/g-8410/" title="G-8410: Always use application locks to ensure a program unit only running once at a given time." class="md-nav__link">
-      G-8410: Always use application locks to ensure a program unit only running once at a given time.
+    <a href="../../4-ensure-single-execution-at-a-time-of-a-program-unit/g-8410/" title="G-8410: Always use application locks to ensure a program unit is only running once at a given time." class="md-nav__link">
+      G-8410: Always use application locks to ensure a program unit is only running once at a given time.
     </a>
   </li>
 
@@ -2305,7 +2305,7 @@
 <p>Efficiency, Reliability</p>
 </div>
 <h2 id="reason">Reason</h2>
-<p>This technique allows us to view progress of a process without having to persistently write log data in either a table or a file. The information is accessible trough <code>V$SESSION</code> view.</p>
+<p>This technique allows us to view progress of a process without having to persistently write log data in either a table or a file. The information is accessible through the <code>V$SESSION</code> view.</p>
 <h2 id="example-bad">Example (bad)</h2>
 <pre><code>CREATE OR REPLACE PACKAGE BODY employee_api IS
    PROCEDURE process_emps IS
@@ -2359,7 +2359,7 @@ END employee_api;
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../../4-ensure-single-execution-at-a-time-of-a-program-unit/g-8410/" title="G-8410: Always use application locks to ensure a program unit only running once at a given time." class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../../4-ensure-single-execution-at-a-time-of-a-program-unit/g-8410/" title="G-8410: Always use application locks to ensure a program unit is only running once at a given time." class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -2368,7 +2368,7 @@ END employee_api;
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                G-8410: Always use application locks to ensure a program unit only running once at a given time.
+                G-8410: Always use application locks to ensure a program unit is only running once at a given time.
               </span>
             </div>
           </a>

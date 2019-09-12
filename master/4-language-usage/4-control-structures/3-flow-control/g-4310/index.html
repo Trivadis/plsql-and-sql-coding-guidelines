@@ -892,8 +892,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../3-dml-and-sql/1-general/g-3160/" title="G-3160: Avoid virtual columns to be visible." class="md-nav__link">
-      G-3160: Avoid virtual columns to be visible.
+    <a href="../../../3-dml-and-sql/1-general/g-3160/" title="G-3160: Avoid visible virtual columns." class="md-nav__link">
+      G-3160: Avoid visible virtual columns.
     </a>
   </li>
 
@@ -2143,8 +2143,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../8-patterns/4-ensure-single-execution-at-a-time-of-a-program-unit/g-8410/" title="G-8410: Always use application locks to ensure a program unit only running once at a given time." class="md-nav__link">
-      G-8410: Always use application locks to ensure a program unit only running once at a given time.
+    <a href="../../../8-patterns/4-ensure-single-execution-at-a-time-of-a-program-unit/g-8410/" title="G-8410: Always use application locks to ensure a program unit is only running once at a given time." class="md-nav__link">
+      G-8410: Always use application locks to ensure a program unit is only running once at a given time.
     </a>
   </li>
 
@@ -2319,10 +2319,11 @@
 <p>Maintainability, Testability</p>
 </div>
 <h2 id="reason">Reason</h2>
-<p>Code containing gotos is hard to format. Indentation should be used to show logical structure and gotos have an effect on logical structure. Trying to use indentation to show the logical structure of a goto, however, is difficult or impossible.</p>
-<p>Use of gotos is a matter of religion. In modern languages, you can easily replace nine out of ten gotos with equivalent structured constructs. In these simple cases, you should replace gotos out of habit. In the hard cases, 
-you can break the code into smaller routines; use nested ifs; test and retest a status variable; or restructure a conditional. Eliminating the goto is harder in these cases, but it's good mental exercise.</p>
-<p>Excerpt of <a href="http://logos.cs.uic.edu/476/notes/GoTo/GoToMcConnel.html">Using gotos by Steven C. McConnell</a>.</p>
+<blockquote>
+<p>Code containing gotos is hard to format. Indentation should be used to show logical structure, and gotos have an effect on logical structure. Using indentation to show the logical structure of a goto and its target, however, is difficult or impossible. (...)</p>
+<p>Use of gotos is a matter of religion. My dogma is that in modern languages, you can easily replace nine out of ten gotos with equivalent sequential constructs. In these simple cases, you should replace gotos out of habit. In the hard cases, you can still exorcise the goto in nine out of ten cases: You can break the code into smaller routines, use tryfinally, use nested ifs, test and retest a status variable, or restructure a conditional. Eliminating the goto is harder in these cases, but it’s good mental exercise (...).</p>
+<p>-- McConnell, Steve C. (2004). <em>Code Complete. Second Edition</em>. Microsoft Press.</p>
+</blockquote>
 <h2 id="example-bad">Example (bad)</h2>
 <pre><code>CREATE OR REPLACE PACKAGE BODY my_package IS
    PROCEDURE password_check (in_password IN VARCHAR2) IS 
