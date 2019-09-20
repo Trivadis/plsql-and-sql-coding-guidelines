@@ -50,8 +50,6 @@ Please file your bug reports, enhancement requests, questions and other support 
      run `./gh-deploy.sh`
    * Deploy into a version folder 
      run `./mike.sh deploy <version>`. `<version>` represents the folder name, e.g. `master` or `v3.4`.
-   * Set default version (latest)
-     run `./mike.sh set-default <version>`.
    * Build the PDF file
      run `./genpdf.sh`.
 5. `commit` changes and `push` all branches.
