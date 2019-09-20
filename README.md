@@ -46,10 +46,10 @@ Please file your bug reports, enhancement requests, questions and other support 
 2. [Fork this respository](https://github.com/trivadis/plsql-and-sql-coding-guidelines/fork)
 3. Check/change the version in [mkdocs.yml](mkdocs.yml)
 4. Open termin in [tools](tools) folder 
-   * Deploy into a version folder 
-     run `./mike.sh deploy <version>`. `<version>` represents the folder name, e.g. `master` or `v3.4`.
    * Deploy into default folder
      run `./gh-deploy.sh`
+   * Deploy into a version folder 
+     run `./mike.sh deploy <version>`. `<version>` represents the folder name, e.g. `master` or `v3.4`.
    * Set default version (latest)
      run `./mike.sh set-default <version>`.
    * Build the PDF file
