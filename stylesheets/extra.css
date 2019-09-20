@@ -21,10 +21,28 @@
     text-decoration: underline;
 }
 
+.md-typeset code {
+    word-break: keep-all;
+}
+
+.md-typeset pre {
+    word-break: keep-all;
+}
+
 @media print {
 
     /* disable menu */
     .md-md-header {
+        display: none;
+    }
+
+    /* disable header of footnotes */
+    .footnote h1 {
+        display: none;
+    }
+
+    /* do not show link details in brackets content: " [" attr(href) "]" */
+    .md-typeset a:after {
         display: none;
     }
 
@@ -57,6 +75,13 @@
         page-break-before: avoid;
     }
 
+    [id="we-do-not-agree-with-all-your-standards"],
+    [id="column"],
+    [id="function"],
+    [id="procedure"],
+    [id="table"],
+    [id="view"],
+    [id="code-commenting"],
     [id="variables-types"], 
     [id="numeric-data-types"], 
     [id="character-data-types"], 
@@ -89,8 +114,7 @@
         page-break-before: always;
     }
 
-    [id*="10-"], 
-    [id^="g-8420"] {
+    [id*="10-"] {
         page-break-before: avoid;
     }
 }

@@ -113,7 +113,7 @@
         <div class="md-flex__cell md-flex__cell--shrink">
           <a href="https://trivadis.github.io/plsql-and-sql-coding-guidelines/" title="PL/SQL & SQL Coding Guidelines" class="md-header-nav__button md-logo">
             
-              <img src="../../../../images/trivadis-logo.svg" height="30">
+              <img src="../../../../images/trivadis-logo.svg" height="21">
             
           </a>
         </div>
@@ -125,7 +125,7 @@
             
               
                 <span class="md-header-nav__topic">
-                  PL/SQL & SQL Coding Guidelines Version 3.3
+                  PL/SQL & SQL Coding Guidelines Version 3.4
                 </span>
                 <span class="md-header-nav__topic">
                   G-3170: Always use DEFAULT ON NULL declarations to assign default values to table columns if you refuse to store NULL values.
@@ -860,8 +860,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../g-3130/" title="G-3130: Try to use ANSI-join syntax." class="md-nav__link">
-      G-3130: Try to use ANSI-join syntax.
+    <a href="../g-3130/" title="G-3130: Try to use ANSI SQL-92 join syntax." class="md-nav__link">
+      G-3130: Try to use ANSI SQL-92 join syntax.
     </a>
   </li>
 
@@ -896,8 +896,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../g-3160/" title="G-3160: Avoid virtual columns to be visible." class="md-nav__link">
-      G-3160: Avoid virtual columns to be visible.
+    <a href="../g-3160/" title="G-3160: Avoid visible virtual columns." class="md-nav__link">
+      G-3160: Avoid visible virtual columns.
     </a>
   </li>
 
@@ -1747,8 +1747,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../7-stored-objects/3-procedures/g-7320/" title="7320: Avoid using RETURN statements in a PROCEDURE." class="md-nav__link">
-      7320: Avoid using RETURN statements in a PROCEDURE.
+    <a href="../../../7-stored-objects/3-procedures/g-7320/" title="G-7320: Avoid using RETURN statements in a PROCEDURE." class="md-nav__link">
+      G-7320: Avoid using RETURN statements in a PROCEDURE.
     </a>
   </li>
 
@@ -2143,8 +2143,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../8-patterns/4-ensure-single-execution-at-a-time-of-a-program-unit/g-8410/" title="G-8410: Always use application locks to ensure a program unit only running once at a given time." class="md-nav__link">
-      G-8410: Always use application locks to ensure a program unit only running once at a given time.
+    <a href="../../../8-patterns/4-ensure-single-execution-at-a-time-of-a-program-unit/g-8410/" title="G-8410: Always use application locks to ensure a program unit is only running once at a given time." class="md-nav__link">
+      G-8410: Always use application locks to ensure a program unit is only running once at a given time.
     </a>
   </li>
 
@@ -2179,8 +2179,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../8-patterns/5-use-dbms-application-info-package-to-follow-progress-of-a-process/g-8420/" title="G-8420: Always use dbms_application_info to track program process transiently." class="md-nav__link">
-      G-8420: Always use dbms_application_info to track program process transiently.
+    <a href="../../../8-patterns/5-use-dbms-application-info-package-to-follow-progress-of-a-process/g-8510/" title="G-8510: Always use dbms_application_info to track program process transiently." class="md-nav__link">
+      G-8510: Always use dbms_application_info to track program process transiently.
     </a>
   </li>
 
@@ -2325,7 +2325,7 @@
 <h2 id="example-bad">Example (bad)</h2>
 <pre><code>CREATE TABLE null_test (
    test_case        NUMBER(2) NOT NULL
-  ,column_defaulted VARCHAR2(10) DEFAULT 'Default')
+  ,column_defaulted VARCHAR2(10 CHAR) DEFAULT 'Default')
 /
 INSERT INTO null_test(test_case, column_defaulted) VALUES (1,'Value');
 INSERT INTO null_test(test_case, column_defaulted) VALUES (2,DEFAULT);
@@ -2343,7 +2343,7 @@ TEST_CASE  COLUMN_DEF
 <h2 id="example-good">Example (good)</h2>
 <pre><code>CREATE TABLE null_test (
    test_case        NUMBER(2) NOT NULL
-  ,column_defaulted VARCHAR2(10) DEFAULT ON NULL 'Default')
+  ,column_defaulted VARCHAR2(10 CHAR) DEFAULT ON NULL 'Default')
 /
 INSERT INTO null_test(test_case, column_defaulted) VALUES (1,'Value');
 INSERT INTO null_test(test_case, column_defaulted) VALUES (2,DEFAULT);
@@ -2377,7 +2377,7 @@ SELECT * FROM null_test;
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../g-3160/" title="G-3160: Avoid virtual columns to be visible." class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../g-3160/" title="G-3160: Avoid visible virtual columns." class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -2386,7 +2386,7 @@ SELECT * FROM null_test;
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                G-3160: Avoid virtual columns to be visible.
+                G-3160: Avoid visible virtual columns.
               </span>
             </div>
           </a>
