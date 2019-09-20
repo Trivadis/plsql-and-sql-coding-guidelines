@@ -60,6 +60,15 @@ Singular name of what is stored in the column (unless the column data type is a 
 
 Add a comment to the database dictionary for every column.
 
+### Check Constraint
+
+Table name or table abbreviation followed by the column and/or role of the check constraint, a `_ck` and an optional number suffix.
+
+Examples:
+
+* `employees_salary_min_ck`
+* `orders_mode_ck`
+
 ### DML / Instead of Trigger
 
 Choose a naming convention that includes:
