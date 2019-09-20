@@ -1,0 +1,120 @@
+.md-typeset a {
+    color: #ff1744;
+    word-break: break-word;
+    text-decoration: none;
+}
+
+[data-md-color-accent=red] .md-typeset a:hover {
+    color: #ff1744;
+    word-break: break-word;
+    text-decoration: underline;
+}
+
+.md-nav__link--active, 
+.md-nav__link:active {
+    color: #ff1744;
+    text-decoration: none;
+}
+
+[data-md-color-accent=red] .md-nav__link:hover {
+    color: #ff1744;
+    text-decoration: underline;
+}
+
+.md-typeset code {
+    word-break: keep-all;
+}
+
+.md-typeset pre {
+    word-break: keep-all;
+}
+
+@media print {
+
+    /* disable menu */
+    .md-md-header {
+        display: none;
+    }
+
+    /* disable header of footnotes */
+    .footnote h1 {
+        display: none;
+    }
+
+    /* do not show link details in brackets content: " [" attr(href) "]" */
+    .md-typeset a:after {
+        display: none;
+    }
+
+    /* disable scrollbar */
+    .md-typeset__scrollwrap, 
+    .md-typeset table:not([class]), 
+    .md-typeset 
+    .md-typeset__table table, 
+    .md-container,
+    .md-main, 
+    html {
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: hidden
+    }   
+
+    /* table-header-group leads to overlap with content */
+    thead {
+        display: table-row-group;
+    }
+
+    tr {
+        page-break-inside: avoid;
+    }
+
+    h1 {
+        page-break-before: always;
+    }
+
+    #about { 
+        page-break-before: avoid;
+    }
+
+    [id="we-do-not-agree-with-all-your-standards"],
+    [id="column"],
+    [id="function"],
+    [id="procedure"],
+    [id="table"],
+    [id="view"],
+    [id="code-commenting"],
+    [id="variables-types"], 
+    [id="numeric-data-types"], 
+    [id="character-data-types"], 
+    [id="boolean-data-types"], 
+    [id="large-objects"],
+    [id="dml-sql"], 
+    [id="bulk-operations"], 
+    [id="control-structures"], 
+    [id="case-if-decode-nvl-nvl2-coalesce"], 
+    [id="flow-control"], 
+    [id="exception-handling"], 
+    [id="dynamic-sql"], 
+    [id="stored-objects"], 
+    [id="packages"],
+    [id="procedures"], 
+    [id="functions"], 
+    [id="oracle-supplied-packages"],
+    [id="object-types"],
+    [id="triggers"],
+    [id="sequences"],
+    [id="patterns"],
+    [id="access-objects-of-foreign-application-schemas"], 
+    [id="validating-input-parameter-size"],
+    [id="ensure-single-execution-at-a-time-of-a-program-unit"], 
+    [id="use-dbms_application_info-package-to-follow-progress-of-a-process"] {
+        page-break-before: always;
+    }
+
+    [id^="g-"] {
+        page-break-before: always;
+    }
+
+    [id*="10-"] {
+        page-break-before: avoid;
+    }
+}
