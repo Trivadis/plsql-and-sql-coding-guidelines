@@ -26,7 +26,7 @@ markdown_extensions:
   - footnotes
 
 extra:
-  guideline_version: 3.5-SNAPSHOT
+  guideline_version: 3.4
   social:
     - type: github-alt
       link: https://github.com/Trivadis
