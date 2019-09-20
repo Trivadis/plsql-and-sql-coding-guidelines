@@ -332,6 +332,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#check-constraint" title="Check Constraint" class="md-nav__link">
+    Check Constraint
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#dml-instead-of-trigger" title="DML / Instead of Trigger" class="md-nav__link">
     DML / Instead of Trigger
   </a>
@@ -2417,6 +2424,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#check-constraint" title="Check Constraint" class="md-nav__link">
+    Check Constraint
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#dml-instead-of-trigger" title="DML / Instead of Trigger" class="md-nav__link">
     DML / Instead of Trigger
   </a>
@@ -2676,6 +2690,13 @@
 <h3 id="column">Column</h3>
 <p>Singular name of what is stored in the column (unless the column data type is a collection, in this case you use plural<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> names)</p>
 <p>Add a comment to the database dictionary for every column.</p>
+<h3 id="check-constraint">Check Constraint</h3>
+<p>Table name or table abbreviation followed by the column and/or role of the check constraint, a <code>_ck</code> and an optional number suffix.</p>
+<p>Examples:</p>
+<ul>
+<li><code>employees_salary_min_ck</code></li>
+<li><code>orders_mode_ck</code></li>
+</ul>
 <h3 id="dml-instead-of-trigger">DML / Instead of Trigger</h3>
 <p>Choose a naming convention that includes:</p>
 <p>either</p>
@@ -2767,13 +2788,15 @@
 <li><code>logon_trg</code></li>
 </ul>
 <h3 id="table">Table</h3>
-<p>Plural<sup id="fnref2:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> name of what is contained in the table (unless the table is designed to always hold one row only – then you should use a singular name)</p>
+<p>Plural<sup id="fnref2:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> name of what is contained in the table (unless the table is designed to always hold one row only – then you should use a singular name).</p>
+<p>Suffixed by <code>_eb</code> when protected by an editioning view.</p>
 <p>Add a comment to the database dictionary for every table and every column in the table.</p>
 <p>Optionally prefixed by a project abbreviation.</p>
 <p>Examples:</p>
 <ul>
 <li><code>employees</code></li>
 <li><code>departments</code></li>
+<li><code>countries_eb</code> - table interfaced by an editioning view named <code>countries</code></li>
 <li><code>sct_contracts</code></li>
 <li><code>sct_contract_lines</code></li>
 <li><code>sct_incentive_modules</code></li>
@@ -2800,12 +2823,14 @@
 <h3 id="view">View</h3>
 <p>Plural<sup id="fnref3:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> name of what is contained in the view.
 Optionally suffixed by an indicator identifying the object as a view (mostly used, when a 1:1 view layer lies above the table layer)</p>
+<p>Editioning views are named like the original underlying table to avoid changing the existing application code when introducing edition based redefinition (EBR).</p>
 <p>Add a comment to the database dictionary for every view and every column.</p>
 <p>Optionally prefixed by a project abbreviation.</p>
 <p>Examples:</p>
 <ul>
 <li><code>active_orders</code></li>
 <li><code>orders_v</code> - a view to the orders table</li>
+<li><code>countries</code> - an editioning view for table <code>countries_eb</code></li>
 </ul>
 <div class="footnote">
 <hr />
