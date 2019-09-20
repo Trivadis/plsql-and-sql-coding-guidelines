@@ -37,6 +37,25 @@ Please file your bug reports, enhancement requests, questions and other support 
 3. [Create a branch](https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/), commit and publish your changes and enhancements
 4. [Create a pull request](https://help.github.com/articles/creating-a-pull-request/)
 
+## How to Build the HTML Site and PDF Documenation
+
+1. Install Docker in your environment
+   * [Install Docker Desktop for Mac](https://docs.docker.com/docker-for-mac/install/)
+   * [Install Docker Desktop on Windows](https://docs.docker.com/docker-for-windows/install/)
+   * [Install Docker Server on Linux](https://docs.docker.com/install/#server)
+2. [Fork this respository](https://github.com/trivadis/plsql-and-sql-coding-guidelines/fork)
+3. Check/change the version in [mkdocs.yml](mkdocs.yml)
+4. Open termin in [tools](tools) folder 
+   * Deploy into a version folder 
+     run `./mike.sh deploy <version>`. `<version>` represents the folder name, e.g. `master` or `v3.4`.
+   * Deploy into default folder
+     run `./gh-deploy.sh`
+   * Set default version (latest)
+     run `./mike.sh set-default <version>`.
+   * Build the PDF file
+     run `./genpdf.sh`.
+5. `commit` changes and `push` all branches.
+
 ## Related Resources
 * [DOAG PL/SQL Conventions](https://github.com/Doag/PL-SQL-Conventions)
 
