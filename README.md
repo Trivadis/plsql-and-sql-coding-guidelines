@@ -8,11 +8,11 @@ Trivadis published their guidelines for PL/SQL &amp; SQL in 2009 in the context 
 
 HTML is the primary output format. [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) is used to generate static HTML files and [Mike](https://github.com/jimporter/mike) to publish version specific variants. The following sites are available:
 
-Link                                                                 | Content
--------------------------------------------------------------------- | -------
-<https://trivadis.github.io/plsql-and-sql-coding-guidelines/>        | Latest Release
-<https://trivadis.github.io/plsql-and-sql-coding-guidelines/master/> | Current version based on the master branch, typically a snapshot version of the coming release
-<https://trivadis.github.io/plsql-and-sql-coding-guidelines/v3.3/>   | Released version 3.3
+* [Current version based on the master branch, snapshot version of the coming release](https://trivadis.github.io/plsql-and-sql-coding-guidelines/master/)
+* [Latest Release](https://trivadis.github.io/plsql-and-sql-coding-guidelines/)
+* Releases
+   * [Version 3.4](https://trivadis.github.io/plsql-and-sql-coding-guidelines/v3.4/)
+   * [Version 3.3](https://trivadis.github.io/plsql-and-sql-coding-guidelines/v3.3/)
 
 ## PDF format
 
