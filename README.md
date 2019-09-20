@@ -20,7 +20,7 @@ PDF is the secondary output format. [wkhtmltopdf](https://wkhtmltopdf.org/) is u
 
 ## Releases
 
-Releases are published [here](https://github.com/trivadis/plsql-and-sql-coding-guidelines/releases).
+You find all releases and release information [here](https://github.com/trivadis/plsql-and-sql-coding-guidelines/releases).
 
 ## Issues
 Please file your bug reports, enhancement requests, questions and other support requests within [Github's issue tracker](https://help.github.com/articles/about-issues/).
