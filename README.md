@@ -33,7 +33,7 @@ Please file your bug reports, enhancement requests, questions and other support 
 ## How to Contribute
 
 1. Describe your idea by [submitting an issue](https://github.com/trivadis/plsql-and-sql-coding-guidelines/issues/new)
-2. [Fork the utPLSQL-SQLDeveloper respository](https://github.com/trivadis/plsql-and-sql-coding-guidelines/fork)
+2. [Fork this respository](https://github.com/trivadis/plsql-and-sql-coding-guidelines/fork)
 3. [Create a branch](https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/), commit and publish your changes and enhancements
 4. [Create a pull request](https://help.github.com/articles/creating-a-pull-request/)
 
