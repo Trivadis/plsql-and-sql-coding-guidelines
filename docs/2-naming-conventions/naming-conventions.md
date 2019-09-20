@@ -182,7 +182,9 @@ Examples:
 
 ### Table
 
-Plural[^1] name of what is contained in the table (unless the table is designed to always hold one row only – then you should use a singular name)
+Plural[^1] name of what is contained in the table (unless the table is designed to always hold one row only – then you should use a singular name).
+
+Suffixed by `_eb` when protected by an editioning view.
 
 Add a comment to the database dictionary for every table and every column in the table.
 
@@ -192,6 +194,7 @@ Examples:
 
 * `employees`
 * `departments`
+* `countries_eb` - table interfaced by an editioning view named `countries`
 * `sct_contracts`
 * `sct_contract_lines`
 * `sct_incentive_modules`
@@ -226,6 +229,8 @@ Examples:
 Plural[^1] name of what is contained in the view.
 Optionally suffixed by an indicator identifying the object as a view (mostly used, when a 1:1 view layer lies above the table layer)
 
+Editioning views are named like the original underlying table to avoid changing the existing application code when introducing edition based redefinition (EBR).
+
 Add a comment to the database dictionary for every view and every column.
 
 Optionally prefixed by a project abbreviation.
@@ -234,6 +239,7 @@ Examples:
 
 * `active_orders`
 * `orders_v` - a view to the orders table
+* `countries` - an editioning view for table `countries_eb`
 
 [^1]:
     We see a table and a view as a collection. A jar containing beans is labeled "beans". 
