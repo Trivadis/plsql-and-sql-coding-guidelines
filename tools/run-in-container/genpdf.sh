@@ -7,6 +7,7 @@ function create_target_dir(){
 
 function copy_resources() {
     cp ${DATA_DIR}/mkdocs.yml ${TARGET_DIR}/mkdocs.yml
+    cp -r ${DATA_DIR}/custom-theme ${TARGET_DIR}/custom-theme
     cp -r ${DATA_DIR}/docs/images ${TARGET_DIR}/docs
     cp -r ${DATA_DIR}/docs/stylesheets ${TARGET_DIR}/docs/stylesheets
 }
@@ -73,7 +74,7 @@ function convert_to_pdf(){
                 cover ../docs/cover.html \
                 toc \
                 --xsl-style-sheet stylesheets/toc.xsl \
-                index.html ${DATA_DIR}/PLSQL-and-SQL-Coding-Guidelines.pdf
+                index.html ${DATA_DIR}/docs/9-appendix/PLSQL-and-SQL-Coding-Guidelines.pdf
 }
 
 DATA_DIR="$(cd "$(dirname "${0}")/../.." && pwd)"

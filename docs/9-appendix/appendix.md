@@ -1,6 +1,16 @@
 # Appendix 
 
-## A - Mapping new guidelines to prior versions
+## A - PL/SQL & SQL Coding Guidelines as PDF
+
+These guidelines are primarily produced in [HTML](https://trivadis.github.io/plsql-and-sql-coding-guidelines/) using [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/). 
+
+However, we provide these guidelines also as [PDF](PLSQL-and-SQL-Coding-Guidelines.pdf) produced by [wkhtmltopdf](https://wkhtmltopdf.org/).
+
+[![Trivadis PL/SQL & SQl Coding Guidelines in PDF format](../images/pdf-thumbnail.png)](PLSQL-and-SQL-Coding-Guidelines.pdf)
+
+The formatting is not perfect, but it should be adequate for those who want to work with offline documents.
+
+## B - Mapping new guidelines to prior versions
 
 Old Id  | New Id | Text | Severity | Change-ability | Efficiency | Maintain-ability | Portability | Reliability | Reusability | Security | Testability
 :-----: | :-----:| ---- | :------: | :------------: | :--------: | :--------------: | :---------: | :---------: | :---------: | :------: | :---------:
