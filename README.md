@@ -41,22 +41,26 @@ Please file your bug reports, enhancement requests, questions and other support 
 3. [Create a branch](https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/), commit and publish your changes and enhancements
 4. [Create a pull request](https://help.github.com/articles/creating-a-pull-request/)
 
-## How to Build the HTML Site and PDF Documenation
+## How to Build the HTML Site
 
 1. Install Docker in your environment
    * [Install Docker Desktop for Mac](https://docs.docker.com/docker-for-mac/install/)
    * [Install Docker Desktop on Windows](https://docs.docker.com/docker-for-windows/install/)
    * [Install Docker Server on Linux](https://docs.docker.com/install/#server)
 2. [Fork this respository](https://github.com/trivadis/plsql-and-sql-coding-guidelines/fork)
-3. Check/change the version in [mkdocs.yml](mkdocs.yml)
-4. Open a terminal in the [tools](tools) folder 
-   * Deploy version site 
-     run `./mike.sh deploy <version>`. `<version>` represents the folder name, e.g. `master` or `v3.4`.
-   * Set default version (redirect to chosen `<version>`, should be latest)
-     run `./mike.sh set-default <version>`.
-   * Build the PDF file
+3. For Windows users only
+   * Enable Windows to run Bash Shell, using one of the four options described [here](https://itsfoss.com/run-linux-commands-in-windows/).
+4. Check/change the version in [mkdocs.yml](mkdocs.yml)
+5. Open a terminal window in the [tools](tools) folder 
+   * Build/update the PDF file
      run `./genpdf.sh`.
-5. `commit` changes and `push` all branches.
+   * Test the HTML site locally
+     run `./serve.sh` and open [http://localhost:8000](http://localhost:8000)
+   * Deploy HTML site
+     run `./mike.sh deploy master`.
+   * Set default version (HTML redirect)
+     run `./mike.sh set-default master`.
+6. `commit` changes and `push` all branches.
 
 ## Related Resources
 * [DOAG PL/SQL Conventions](https://github.com/Doag/PL-SQL-Conventions)
