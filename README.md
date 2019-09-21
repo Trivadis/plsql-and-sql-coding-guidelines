@@ -16,7 +16,11 @@ HTML is the primary output format. [Material for MkDocs](https://squidfunk.githu
 
 ## PDF format
 
-PDF is the secondary output format. [wkhtmltopdf](https://wkhtmltopdf.org/) is used to generate the [PLSQL-and-SQL-Coding-Guidelines.pdf](https://raw.githubusercontent.com/Trivadis/plsql-and-sql-coding-guidelines/master/PLSQL-and-SQL-Coding-Guidelines.pdf).
+PDF is the secondary output format. [wkhtmltopdf](https://wkhtmltopdf.org/) is used to produce it. 
+
+Starting with version 3.5 you may access the PDF document from the [appendix in the HTML site](https://trivadis.github.io/plsql-and-sql-coding-guidelines/master/9-appendix/appendix/). 
+
+The PDF version is also accessible per version from [Releases](https://github.com/Trivadis/plsql-and-sql-coding-guidelines/releases).
 
 ## Releases
 
