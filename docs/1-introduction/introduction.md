@@ -84,4 +84,4 @@ For very controversial rules, we have started to include the reasoning either as
 
 Usually it is not helpful to open an issue on GitHub to request to change a highly controversial rule such as the one mentioned. For example, use 2 spaces instead of 3 spaces for an indentation. This leads to a discussion where the people in favor of 4 spaces start to argument as well. There is no right or wrong here. You just have to agree on a standard.
 
-More effective is to fork [this repository](https://github.com/Trivadis/plsql-and-sql-coding-guidelines) and amend the standards fit your needs/expectations.
+More effective is to fork [this repository](https://github.com/Trivadis/plsql-and-sql-coding-guidelines) and amend the standards to fit your needs/expectations.
