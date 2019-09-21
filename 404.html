@@ -5,10 +5,10 @@
   <title>Redirecting</title>
   <script>
     // redirect if not version or master is referenced
-    if (localtion.href.indexOf("/v") == -1 && localtion.href.indexOf("/master/") == -1) {
+    if (location.href.indexOf("/v") == -1 && location.href.indexOf("/master/") == -1) {
       window.location.replace(window.location.href.replace("https://trivadis.github.io/plsql-and-sql-coding-guidelines", "https://trivadis.github.io/plsql-and-sql-coding-guidelines/v3.4"));
     } else {
-      window.location.replace("/master")
+      window.location.replace("master")
     }
   </script>
 </head>
