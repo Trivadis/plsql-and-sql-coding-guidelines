@@ -51,7 +51,7 @@ Please file your bug reports, enhancement requests, questions and other support 
    * [Install Docker Server on Linux](https://docs.docker.com/install/#server)
 2. [Fork this respository](https://github.com/trivadis/plsql-and-sql-coding-guidelines/fork)
 3. For Windows users only
-   * Enable Windows to run Bash Shell, using one of the four options described [here](https://itsfoss.com/run-linux-commands-in-windows/).
+   * Install [Git for Windows](https://gitforwindows.org/), it provides Git command line tools, a GUI and a Bash emulator
 4. Check/change the version in [mkdocs.yml](mkdocs.yml)
 5. Open a terminal window in the [tools](tools) folder 
    * Build/update the PDF file
