@@ -8,7 +8,7 @@ Trivadis published their guidelines for PL/SQL &amp; SQL in 2009 in the context 
 
 HTML is the primary output format. [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) is used to generate static HTML files and [Mike](https://github.com/jimporter/mike) to publish version specific variants. The following sites are available:
 
-* [Current version based on the master branch, snapshot version of the coming release](https://trivadis.github.io/plsql-and-sql-coding-guidelines/master/)
+* [Current version based on the main branch, snapshot version of the coming release](https://trivadis.github.io/plsql-and-sql-coding-guidelines/main/)
 * [Latest Release](https://trivadis.github.io/plsql-and-sql-coding-guidelines/)
 * Releases
    * [Version 3.6](https://trivadis.github.io/plsql-and-sql-coding-guidelines/v3.6/)
@@ -20,7 +20,7 @@ HTML is the primary output format. [Material for MkDocs](https://squidfunk.githu
 
 PDF is the secondary output format. [wkhtmltopdf](https://wkhtmltopdf.org/) is used to produce it. 
 
-Starting with version 3.5 you may access the PDF document from the [appendix in the HTML site](https://trivadis.github.io/plsql-and-sql-coding-guidelines/master/9-appendix/appendix/). 
+Starting with version 3.5 you may access the PDF document from the [appendix in the HTML site](https://trivadis.github.io/plsql-and-sql-coding-guidelines/main/9-appendix/appendix/). 
 
 The PDF version is also accessible per version from [Releases](https://github.com/Trivadis/plsql-and-sql-coding-guidelines/releases).
 
@@ -59,9 +59,9 @@ Please file your bug reports, enhancement requests, questions and other support 
    * Test the HTML site locally
      run `./serve.sh` and open [http://localhost:8000](http://localhost:8000)
    * Deploy HTML site
-     run `./mike.sh deploy master`.
+     run `./mike.sh deploy main`.
    * Set default version (HTML redirect)
-     run `./mike.sh set-default master`.
+     run `./mike.sh set-default main`.
 6. `commit` changes and `push` all branches.
 
 ## Related Resources
