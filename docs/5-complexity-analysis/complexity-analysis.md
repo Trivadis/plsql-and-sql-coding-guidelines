@@ -54,7 +54,7 @@ where
 
 Take, for example, a control flow graph of a simple program. The program begins executing at the red node, then enters a loop (group of three nodes immediately below the red node). On exiting the loop, there is a conditional statement (group below the loop), and finally the program exits at the blue node. For this graph, $E = 9$, $N = 8$ and $P = 1$, so the cyclomatic complexity of the program is $3$.<br/><br/>
 
-```
+``` sql
 BEGIN
    FOR i IN 1..3
    LOOP

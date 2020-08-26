@@ -11,26 +11,26 @@
             .page {
                margin-top: 0mm;
             }
-            .page .cover-image .title {
-                position: absolute;
-                top: 20px;
-                left: 25px;
-                color:white;
+            .page .title {
+                color: #6D65AB;
                 font-size: 77pt;
                 font-weight: bold;
                 line-height: 90%;
             }
-            .page .cover-image .subtitle {
+            .page .cover-image {
                 position: relative;
-                bottom: 58px;
-                left: 25px;
-                color: white;
+                top: 50px;
+            }
+            .page .subtitle {
+                position: relative;
+                top: 100px;
+                color: #FC7C77;
                 font-size: 28pt;
                 font-weight: bold;
             }
             .page .version {
                 position: relative;
-                top: -20px;
+                top: 150px;
                 font-size: 14pt;
             }
             .page .copyright {
@@ -44,14 +44,14 @@
         </style>
     <body>
         <div class="page">
+            <div class="title">
+                PL/SQL &amp; SQL<br/>Coding Guidelines
+            </div>
             <div class="cover-image">
                 <img src="images/cover.png" style="width: 100%;"/>
-                <div class="title">
-                    PL/SQL &amp; SQL<br/>Coding Guidelines
-                </div>
-                <div class="subtitle">
-                    Tips for Development &amp; Operation
-                </div>
+            </div>
+            <div class="subtitle">
+                Tips for Development &amp; Operation
             </div>
             <div class="version">
                 Document Version #VERSION#
@@ -60,7 +60,7 @@
                 </div>
             </div>
             <div class="logo">
-                <img src="images/trivadis-logo.jpg" style="height: 60px;"/>
+                <img src="images/trivadis-logo.jpg" style="height: 55.5px;"/>
             </div>
         </div>
     </body>

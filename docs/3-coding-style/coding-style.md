@@ -18,7 +18,7 @@ Rule | Description
 
 ### Example
 
-```
+``` sql
 PROCEDURE set_salary(in_employee_id IN employees.employee_id%TYPE) IS
    CURSOR c_employees(p_employee_id IN employees.employee_id%TYPE) IS 
       SELECT last_name
@@ -70,7 +70,7 @@ Tag      | Meaning                                                 | Example
 
 This is an example using the documentation capabilities of SQL Developer. 
 
-```
+``` sql
 /**
 Check whether we passed a valid sql name
 
