@@ -44,7 +44,9 @@ function write_guidelines(){
     for f in ${DATA_DIR}/docs/${DIR}/*.md
     do
         echo "" >> ${TARGET_DIR}/docs/index.md
-        sed -e "s|# |${HEADER} |g" $f >> ${TARGET_DIR}/docs/index.md
+        sed -e "s|# |${HEADER} |g" $f | \
+        sed -e 's|../../../../4-language-usage/3-dml-and-sql/3-transaction-control/g-3310|#g-3310-never-commit-within-a-cursor-loop|g' | \
+        sed -e 's|../../../../4-language-usage/3-dml-and-sql/3-transaction-control/g-3320|#g-3320-try-to-move-transactions-within-a-non-cursor-loop-into-procedures|g' >> ${TARGET_DIR}/docs/index.md
     done
 }
 
