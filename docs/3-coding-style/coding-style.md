@@ -6,8 +6,8 @@
 
 Rule | Description
 :--: | -----------
-1    | Keywords are written uppercase, names are written in lowercase.
-2    | 3 space indention[^2].
+1    | Keywords and names are written in lowercase[^2].
+2    | 3 space indention[^3].
 3    | One command per line.
 4    | Keywords `LOOP`, `ELSE`, `ELSIF`, `END IF`, `WHEN` on a new line.
 5    | Commas in front of separated elements.
@@ -19,33 +19,33 @@ Rule | Description
 ### Example
 
 ``` sql
-PROCEDURE set_salary(in_employee_id IN employees.employee_id%TYPE) IS
-   CURSOR c_employees(p_employee_id IN employees.employee_id%TYPE) IS 
-      SELECT last_name
+procedure set_salary(in_employee_id in employees.employee_id%type) is
+   cursor c_employees(p_employee_id in employees.employee_id%type) is 
+      select last_name
             ,first_name
             ,salary
-        FROM employees
-       WHERE employee_id = p_employee_id
-       ORDER BY last_name
+        from employees
+       where employee_id = p_employee_id
+       order by last_name
                ,first_name;
 
-   r_employee     c_employees%ROWTYPE;
-   l_new_salary   employees.salary%TYPE;
-BEGIN
-   OPEN  c_employees(p_employee_id => in_employee_id);
-   FETCH c_employees INTO r_employee;
-   CLOSE c_employees;
+   r_employee     c_employees%rowtype;
+   l_new_salary   employees.salary%type;
+begin
+   open  c_employees(p_employee_id => in_employee_id);
+   fetch c_employees into r_employee;
+   close c_employees;
 
    new_salary (in_employee_id => in_employee_id
               ,out_salary     => l_new_salary);
 
    -- Check whether salary has changed
-   IF r_employee.salary <> l_new_salary THEN
-      UPDATE employees
-         SET salary = l_new_salary
-       WHERE employee_id = in_employee_id;
-   END IF;
-END set_salary;
+   if r_employee.salary <> l_new_salary then
+      update employees
+         set salary = l_new_salary
+       where employee_id = in_employee_id;
+   end if;
+end set_salary;
 ```
 
 ## Code Commenting
@@ -80,15 +80,21 @@ Check whether we passed a valid sql name
 
 <b>Call Example:</b>
 <pre>
-   SELECT TVDAssert.valid_sql_name('TEST') from dual;
-   SELECT TVDAssert.valid_sql_name('123') from dual
+   select TVDAssert.valid_sql_name('TEST') from dual;
+   select TVDAssert.valid_sql_name('123') from dual
 </pre>
 */
 ```
 
 [^2]: 
+    It used to be good practice to use uppercase keywords and lowercase names to help visualize code structure. 
+    But practically all editors support more or less advanced color highlighting of code, similar to the examples in these guidelines. 
+    Hence as of version 4.0 we are now recommending all lowercase, as this is easier and faster for the brain to process. 
+    You may choose to prefer the old rule - however, it is important to always be consistent, like for example keywords always in uppercase and names always in lowercase.
+
+[^3]: 
     Tabs are not used because the indentation depends on the editor configuration. 
-    We want to ensure that the code looks the same, indepenent of the editor used. 
+    We want to ensure that the code looks the same, independent of the editor used. 
     Hence, no tabs. But why not use 8 spaces? That's the traditional value for a tab. 
     When writing a package function the code in the body has an indentation of 3. 
     That's 24 characters as a starting point for the code. We think it's too much. 
