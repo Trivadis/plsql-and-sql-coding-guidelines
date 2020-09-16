@@ -9,7 +9,7 @@ Rule | Description
 1    | Keywords and names are written in lowercase[^2].
 2    | 3 space indention[^3].
 3    | One command per line.
-4    | Keywords `LOOP`, `ELSE`, `ELSIF`, `END IF`, `WHEN` on a new line.
+4    | Keywords `loop`, `else`, `elsif`, `end if`, `when` on a new line.
 5    | Commas in front of separated elements.
 6    | Call parameters aligned, operators aligned, values aligned.
 7    | SQL keywords are right aligned within a SQL command.
