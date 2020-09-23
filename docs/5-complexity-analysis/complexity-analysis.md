@@ -33,7 +33,7 @@ Cyclomatic complexity (or conditional complexity) is a software metric used to m
 
 Cyclomatic complexity is computed using the control flow graph of the program: the nodes of the graph correspond to indivisible groups of commands of a program, and a directed edge connects two nodes if the second command might be executed immediately after the first command. Cyclomatic complexity may also be applied to individual functions, modules, methods or classes within a program.
 
-The cyclomatic complexity of a section of source code is the count of the number of linearly independent paths through the source code. For instance, if the source code contains no decision points, such as IF statements or FOR loops, the complexity would be 1, since there is only a single path through the code. If the code has a single IF statement containing a single condition there would be two paths through the code, one path where the IF statement is evaluated as TRUE and one path where the IF statement is evaluated as FALSE.
+The cyclomatic complexity of a section of source code is the count of the number of linearly independent paths through the source code. For instance, if the source code contains no decision points, such as `if` statements or `for` loops, the complexity would be 1, since there is only a single path through the code. If the code has a single `if` statement containing a single condition there would be two paths through the code, one path where the `if` statement is evaluated as `true` and one path where the `if` statement is evaluated as `false`.
 
 ### Calculation
 
@@ -54,26 +54,26 @@ where
 
 Take, for example, a control flow graph of a simple program. The program begins executing at the red node, then enters a loop (group of three nodes immediately below the red node). On exiting the loop, there is a conditional statement (group below the loop), and finally the program exits at the blue node. For this graph, $E = 9$, $N = 8$ and $P = 1$, so the cyclomatic complexity of the program is $3$.<br/><br/>
 
-```
-BEGIN
-   FOR i IN 1..3
-   LOOP
+``` sql
+begin
+   for i in 1..3
+   loop
       dbms_output.put_line('in loop');
-   END LOOP;
+   end loop;
    --
-   IF 1 = 1
-   THEN
+   if 1 = 1
+   then
       dbms_output.put_line('yes');
-   END IF;
+   end if;
    --
    dbms_output.put_line('end');
-END;
+end;
 /
 ```
 
 For a single program (or subroutine or method), P is always equal to 1. Cyclomatic complexity may, however, be applied to several such programs or subprograms at the same time (e.g., to all of the methods in a class), and in these cases P will be equal to the number of programs in question, as each subprogram will appear as a disconnected subset of the graph.
 
-It can be shown that the cyclomatic complexity of any structured program with only one entrance point and one exit point is equal to the number of decision points (i.e., 'if' statements or conditional loops) contained in that program plus one.
+It can be shown that the cyclomatic complexity of any structured program with only one entrance point and one exit point is equal to the number of decision points (i.e., `if` statements or conditional loops) contained in that program plus one.
 
 Cyclomatic complexity may be extended to a program with multiple exit points; in this case it is equal to: 
 

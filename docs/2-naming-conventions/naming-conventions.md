@@ -8,8 +8,8 @@
 4. Avoid long abbreviations. Abbreviations should be shorter than 5 characters.
 5. Any abbreviations must be widely known and accepted. 
 6. Create a glossary with all accepted abbreviations.
-7. Never use ORACLE keywords as names. A list of ORACLEs keywords may be found in the dictionary view `V$RESERVED_WORDS`.
-8. Avoid adding redundant or meaningless prefixes and suffixes to identifiers.<br/>Example: `CREATE TABLE emp_table`.
+7. Never use ORACLE keywords as names. A list of ORACLEs keywords may be found in the dictionary view `v$reserved_words`.
+8. Avoid adding redundant or meaningless prefixes and suffixes to identifiers.<br/>Example: `create table emp_table`.
 9. Always use one spoken language (e.g. English, German, French) for all objects in your application.
 10. Always use the same names for elements with the same meaning.
 

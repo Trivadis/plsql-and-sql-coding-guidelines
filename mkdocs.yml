@@ -22,6 +22,8 @@ extra_javascript:
 
 markdown_extensions:
   - admonition
+  - codehilite:
+      linenums: true
   - pymdownx.arithmatex
   - footnotes
 

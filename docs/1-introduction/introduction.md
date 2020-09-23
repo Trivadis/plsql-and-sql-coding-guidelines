@@ -78,7 +78,7 @@ There are basically two types of standards.
 
 2. Controversial
 
-    Almost every rule/guildeline falls into this category. An example of this category is [3 space indention](../../3-coding-style/coding-style/#rules). - Why not 2 or 4 or even 8? Why not use tabs? You can argue in favor of all these options. In most cases it does not really matter which option you choose. Being consistent is more important. In this case it will make the code easier to read.
+    Almost every rule/guideline falls into this category. An example of this category is [3 space indention](../../3-coding-style/coding-style/#rules). - Why not 2 or 4 or even 8? Why not use tabs? You can argue in favor of all these options. In most cases it does not really matter which option you choose. Being consistent is more important. In this case it will make the code easier to read.
 
 For very controversial rules, we have started to include the reasoning either as a footnote or directly in the text.
 

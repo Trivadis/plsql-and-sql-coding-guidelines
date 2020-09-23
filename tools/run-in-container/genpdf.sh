@@ -44,7 +44,9 @@ function write_guidelines(){
     for f in ${DATA_DIR}/docs/${DIR}/*.md
     do
         echo "" >> ${TARGET_DIR}/docs/index.md
-        sed -e "s|# |${HEADER} |g" $f >> ${TARGET_DIR}/docs/index.md
+        sed -e "s|# |${HEADER} |g" $f | \
+        sed -e 's|../../../../4-language-usage/3-dml-and-sql/3-transaction-control/g-3310|#g-3310-never-commit-within-a-cursor-loop|g' | \
+        sed -e 's|../../../../4-language-usage/3-dml-and-sql/3-transaction-control/g-3320|#g-3320-try-to-move-transactions-within-a-non-cursor-loop-into-procedures|g' >> ${TARGET_DIR}/docs/index.md
     done
 }
 
@@ -107,6 +109,8 @@ write_text "### General"
 write_guidelines "4-language-usage/3-dml-and-sql/1-general" "####"
 write_text "### Bulk Operations"
 write_guidelines "4-language-usage/3-dml-and-sql/2-bulk-operations" "####"
+write_text "### Transaction Control"
+write_guidelines "4-language-usage/3-dml-and-sql/3-transaction-control" "####"
 write_text "## Control Structures"
 write_text "### CURSOR"
 write_guidelines "4-language-usage/4-control-structures/1-cursor" "####"
