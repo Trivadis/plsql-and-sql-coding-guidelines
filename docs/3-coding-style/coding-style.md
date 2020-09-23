@@ -100,4 +100,4 @@ Check whether we passed a valid sql name
     That's 24 characters as a starting point for the code. We think it's too much. 
     Especially if we try to keep a line below 100 or 80 characters. Other good options 
     would be 2 or 4 spaces. We settled for 3 spaces as a compromise. 
-    The indentation is still good visible, but does not use to much space.
+    The indentation is still good visible, but does not use too much space.
