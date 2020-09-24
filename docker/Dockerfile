@@ -5,14 +5,17 @@ LABEL description="Tools to generate HTML and PDF using Materials for MkDocs and
 LABEL build.command="docker build . --tag trivadis/mktools:latest"
 
 # install python, not part of centos
-# see https://www.osetc.com/en/how-to-install-the-latest-python-3-3-6-x-3-7-x-on-centos-7-or-rhel-7.html
-RUN yum install -y https://centos7.iuscommunity.org/ius-release.rpm
-RUN yum update -y
-RUN yum install -y python36u python36u-libs python36u-devel python36u-pip
+# see https://computingforgeeks.com/how-to-install-python-on-3-on-centos/
+RUN yum -y update
+RUN yum -y groupinstall "Development Tools"
+RUN yum -y install openssl-devel bzip2-devel libffi-devel
+RUN yum -y install wget
+RUN wget https://www.python.org/ftp/python/3.8.3/Python-3.8.3.tgz
+RUN tar xvf Python-3.8.3.tgz
+RUN /bin/bash -c 'cd Python-3.8*/; ./configure --enable-optimizations; make altinstall'
 
-# install git and wget
+# install git
 RUN yum install -y git
-RUN yum install -y wget
 
 # install wkhtmltox 0.12.4 since 0.12.5 cannot create TOCs, see https://github.com/wkhtmltopdf/wkhtmltopdf/issues/3995
 # RUN yum install -y https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox-0.12.5-1.centos7.x86_64.rpm
