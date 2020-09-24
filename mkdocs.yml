@@ -6,9 +6,11 @@ repo_url: https://github.com/trivadis/plsql-and-sql-coding-guidelines
 edit_uri: ""
 
 theme:
+  logo: images/trivadis-logo.svg
+  icon:
+    repo: fontawesome/brands/github-alt
   name: 'material'
   custom_dir: custom-theme
-  logo: images/trivadis-logo.svg
   favicon: images/favicon.ico
   palette:
     primary: 'white'
@@ -22,17 +24,20 @@ extra_javascript:
 
 markdown_extensions:
   - admonition
-  - codehilite:
+  - pymdownx.highlight:
       linenums: true
+      linenums_style: table
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
   - pymdownx.arithmatex
   - footnotes
 
 extra:
   guideline_version: 4.0-SNAPSHOT
   social:
-    - type: github-alt
+    - icon: fontawesome/brands/github-alt
       link: https://github.com/Trivadis
-    - type: twitter
+    - icon: fontawesome/brands/twitter
       link: https://twitter.com/trivadis
 
 plugins:
