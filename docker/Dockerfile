@@ -1,4 +1,4 @@
-FROM centos:7.6.1810
+FROM centos:8
 
 LABEL maintainer="philipp.salvisberg@trivadis.com"
 LABEL description="Tools to generate HTML and PDF using Materials for MkDocs and wkhtmltopdf."
