@@ -26,8 +26,8 @@ RUN wget -q https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/
     rm -rf /tmp/wkhtmltox*
 
 # install python modules (most recent versions)
-RUN pip3.6 install --upgrade pip
-RUN pip3.6 install mkdocs \
+RUN pip3.8 install --upgrade pip
+RUN pip3.8 install mkdocs \
                    mkdocs-material \
                    mkdocs-awesome-pages-plugin \
                    pymdown-extensions \
