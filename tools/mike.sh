@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 DATA_DIR="$(cd "$(dirname "${0}")/.." && pwd)"
 GIT_USERNAME="$(git config user.name)"

@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 GIT_USERNAME=$1
 GIT_EMAIL=$2

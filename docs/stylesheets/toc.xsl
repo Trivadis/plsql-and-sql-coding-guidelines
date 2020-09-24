@@ -16,7 +16,7 @@
                     }
                     h1 {
                         text-align: center;
-                        font-size: 20px;
+                        font-size: 16px;
                     }
                     div {
                         border-bottom: 1px dashed rgb(200,200,200);
@@ -27,16 +27,16 @@
                     }
                     li {
                         list-style: none; 
-                        padding-top: 20px;
+                        padding-top: 16px;
                     }
                     li li {
-                        padding-top: 5px;
+                        padding-top: 4px;
                     }
                     li li li {
                         padding-top: 0px;
                     }
                     ul {
-                        font-size: 20px;
+                        font-size: 16px;
                         padding-left: 0em;
                     }
                     ul ul {
@@ -44,7 +44,7 @@
                         padding-left: 1em;
                     }
                     ul ul ul ul {
-                        font-size: 12.8px;
+                        font-size: 10px;
                         margin-top: 0px;
                         margin-bottom: 0px;
                     }

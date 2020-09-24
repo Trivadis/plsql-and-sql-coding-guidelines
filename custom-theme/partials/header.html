@@ -1,51 +1,41 @@
 <header class="md-header" data-md-component="header">
-    <nav class="md-header-nav md-grid">
-      <div class="md-flex">
-        <div class="md-flex__cell md-flex__cell--shrink">
-          <a href="{{ config.site_url | default(nav.homepage.url, true) }}" title="{{ config.site_name }}" class="md-header-nav__button md-logo">
-            {% if config.theme.logo.icon %}
-              <i class="md-icon">{{ config.theme.logo.icon }}</i>
-            {% elif config.theme.logo.startswith("http") %}
-              <img src="{{ config.theme.logo }}" height="21">
+  <nav class="md-header-nav md-grid" aria-label="{{ lang.t('header.title') }}">
+    <a href="{{ config.site_url | default(nav.homepage.url, true) | url }}" title="{{ config.site_name }} Version {{ config.extra.guideline_version }}" class="md-header-nav__button md-logo" aria-label="{{ config.site_name }}">
+      {% include "partials/logo.html" %}
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      {% include ".icons/material/menu" ~ ".svg" %}
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      {% if config.site_name == page.title %}
+        <div class="md-header-nav__ellipsis md-ellipsis">
+          {{ config.site_name }} Version {{ config.extra.guideline_version }}
+        </div>
+      {% else %}
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            {{ config.site_name }} Version {{ config.extra.guideline_version }}
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            {% if page and page.meta and page.meta.title %}
+              {{ page.meta.title }}
             {% else %}
-              <img src="{{ base_url }}/{{ config.theme.logo }}" height="21">
+              {{ page.title }}
             {% endif %}
-          </a>
+          </span>
         </div>
-        <div class="md-flex__cell md-flex__cell--shrink">
-          <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
-        </div>
-        <div class="md-flex__cell md-flex__cell--stretch">
-          <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
-            {% block site_name %}
-              {% if config.site_name == page.title %}
-                {{ config.site_name }} Version {{ config.extra.guideline_version }}
-              {% else %}
-                <span class="md-header-nav__topic">
-                  {{ config.site_name }} Version {{ config.extra.guideline_version }}
-                </span>
-                <span class="md-header-nav__topic">
-                  {{ page.title }}
-                </span>
-              {% endif %}
-            {% endblock %}
-          </div>
-        </div>
-        <div class="md-flex__cell md-flex__cell--shrink">
-          {% block search_box %}
-            {% if "search" in config["plugins"] %}
-              <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
-              {% include "partials/search.html" %}
-            {% endif %}
-          {% endblock %}
-        </div>
-        {% if config.repo_url %}
-          <div class="md-flex__cell md-flex__cell--shrink">
-            <div class="md-header-nav__source">
-              {% include "partials/source.html" %}
-            </div>
-          </div>
-        {% endif %}
+      {% endif %}
+    </div>
+    {% if "search" in config["plugins"] %}
+      <label class="md-header-nav__button md-icon" for="__search">
+        {% include ".icons/material/magnify.svg" %}
+      </label>
+      {% include "partials/search.html" %}
+    {% endif %}
+    {% if config.repo_url %}
+      <div class="md-header-nav__source">
+        {% include "partials/source.html" %}
       </div>
-    </nav>
-  </header>
+    {% endif %}
+  </nav>
+</header>
