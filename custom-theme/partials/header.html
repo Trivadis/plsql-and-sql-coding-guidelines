@@ -1,6 +1,6 @@
 <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="{{ lang.t('header.title') }}">
-    <a href="{{ config.site_url | default(nav.homepage.url, true) | url }}" title="{{ config.site_name }}" class="md-header-nav__button md-logo" aria-label="{{ config.site_name }}">
+    <a href="{{ config.site_url | default(nav.homepage.url, true) | url }}" title="{{ config.site_name }} Version {{ config.extra.guideline_version }}" class="md-header-nav__button md-logo" aria-label="{{ config.site_name }}">
       {% include "partials/logo.html" %}
     </a>
     <label class="md-header-nav__button md-icon" for="__drawer">
@@ -9,12 +9,12 @@
     <div class="md-header-nav__title" data-md-component="header-title">
       {% if config.site_name == page.title %}
         <div class="md-header-nav__ellipsis md-ellipsis">
-          {{ config.site_name }}
+          {{ config.site_name }} Version {{ config.extra.guideline_version }}
         </div>
       {% else %}
         <div class="md-header-nav__ellipsis">
           <span class="md-header-nav__topic md-ellipsis">
-            {{ config.site_name }}
+            {{ config.site_name }} Version {{ config.extra.guideline_version }}
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             {% if page and page.meta and page.meta.title %}
