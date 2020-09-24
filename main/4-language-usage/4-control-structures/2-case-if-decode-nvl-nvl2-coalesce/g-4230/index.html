@@ -8,33 +8,13 @@
     
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
-      <meta http-equiv="x-ua-compatible" content="ie=edge">
       
       
         <link rel="canonical" href="https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/4-control-structures/2-case-if-decode-nvl-nvl2-coalesce/g-4230/">
       
       
-      
-        <meta name="lang:clipboard.copy" content="Copy to clipboard">
-      
-        <meta name="lang:clipboard.copied" content="Copied to clipboard">
-      
-        <meta name="lang:search.language" content="en">
-      
-        <meta name="lang:search.pipeline.stopwords" content="True">
-      
-        <meta name="lang:search.pipeline.trimmer" content="True">
-      
-        <meta name="lang:search.result.none" content="No matching documents">
-      
-        <meta name="lang:search.result.one" content="1 matching document">
-      
-        <meta name="lang:search.result.other" content="# matching documents">
-      
-        <meta name="lang:search.tokenizer" content="[\s\-]+">
-      
       <link rel="shortcut icon" href="../../../../images/favicon.ico">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.2">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.14">
     
     
       
@@ -42,27 +22,24 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/application.30686662.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.d3202873.min.css">
       
-        <link rel="stylesheet" href="../../../../assets/stylesheets/application-palette.a8b3c06d.css">
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ff0a5ce4.min.css">
       
       
         
         
-        <meta name="theme-color" content="">
+        <meta name="theme-color" content="#ffffff">
       
     
-    
-      <script src="../../../../assets/javascripts/modernizr.74668098.js"></script>
     
     
       
         <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
-        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
       
     
-    <link rel="stylesheet" href="../../../../assets/fonts/material-icons.css">
     
     
       <link rel="stylesheet" href="../../../../stylesheets/extra.css">
@@ -73,74 +50,75 @@
     
   </head>
   
-    
-    
-    <body dir="ltr" data-md-color-primary="white" data-md-color-accent="red">
   
-    <svg class="md-svg">
-      <defs>
-        
-        
-          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
-        
-      </defs>
-    </svg>
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="white" data-md-color-accent="red">
+  
+    
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
-    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
-    
-      <a href="#g-4230-always-use-a-coalesce-instead-of-a-nvl-command-if-parameter-2-of-the-nvl-function-is-a-function-call-or-a-select-statement" tabindex="1" class="md-skip">
-        Skip to content
-      </a>
-    
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#g-4230-always-use-a-coalesce-instead-of-a-nvl-command-if-parameter-2-of-the-nvl-function-is-a-function-call-or-a-select-statement" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
     
       <header class="md-header" data-md-component="header">
-    <nav class="md-header-nav md-grid">
-      <div class="md-flex">
-        <div class="md-flex__cell md-flex__cell--shrink">
-          <a href="https://trivadis.github.io/plsql-and-sql-coding-guidelines/" title="PL/SQL & SQL Coding Guidelines" class="md-header-nav__button md-logo">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://trivadis.github.io/plsql-and-sql-coding-guidelines/" title="PL/SQL & SQL Coding Guidelines Version 4.0-SNAPSHOT" class="md-header-nav__button md-logo" aria-label="PL/SQL & SQL Coding Guidelines">
+      
+  <img src="../../../../images/trivadis-logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            PL/SQL & SQL Coding Guidelines Version 4.0-SNAPSHOT
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
             
-              <img src="../../../../images/trivadis-logo.svg" height="21">
+              G-4230: Always use a COALESCE instead of a NVL command, if parameter 2 of the NVL function is a function call or a SELECT statement.
             
-          </a>
+          </span>
         </div>
-        <div class="md-flex__cell md-flex__cell--shrink">
-          <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
-        </div>
-        <div class="md-flex__cell md-flex__cell--stretch">
-          <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
-            
-              
-                <span class="md-header-nav__topic">
-                  PL/SQL & SQL Coding Guidelines Version 4.0-SNAPSHOT
-                </span>
-                <span class="md-header-nav__topic">
-                  G-4230: Always use a COALESCE instead of a NVL command, if parameter 2 of the NVL function is a function call or a SELECT statement.
-                </span>
-              
-            
-          </div>
-        </div>
-        <div class="md-flex__cell md-flex__cell--shrink">
-          
-            
-              <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
-              
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
 <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
-      <label class="md-icon md-search__icon" for="__search"></label>
-      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
-        &#xE5CD;
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
       </button>
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="result">
+        <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
-            Type to start searching
+            Initializing search
           </div>
           <ol class="md-search-result__list"></ol>
         </div>
@@ -148,72 +126,55 @@
     </div>
   </div>
 </div>
-            
-          
-        </div>
+    
+    
+      <div class="md-header-nav__source">
         
-          <div class="md-flex__cell md-flex__cell--shrink">
-            <div class="md-header-nav__source">
-              
-
-
-  
-
-<a href="https://github.com/trivadis/plsql-and-sql-coding-guidelines" title="Go to repository" class="md-source" data-md-source="github">
-  
-    <div class="md-source__icon">
-      <svg viewBox="0 0 24 24" width="24" height="24">
-        <use xlink:href="#__github" width="24" height="24"></use>
-      </svg>
-    </div>
-  
+<a href="https://github.com/trivadis/plsql-and-sql-coding-guidelines" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+  </div>
   <div class="md-source__repository">
     trivadis/plsql-and-sql-coding-guidelines
   </div>
 </a>
-            </div>
-          </div>
-        
       </div>
-    </nav>
-  </header>
     
-    <div class="md-container">
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
       
         
       
       
-      <main class="md-main" role="main">
-        <div class="md-main__inner md-grid" data-md-component="container">
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
           
             
               <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
-                    <nav class="md-nav md-nav--primary" data-md-level="0">
-  <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <a href="https://trivadis.github.io/plsql-and-sql-coding-guidelines/" title="PL/SQL & SQL Coding Guidelines" class="md-nav__button md-logo">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://trivadis.github.io/plsql-and-sql-coding-guidelines/" title="PL/SQL & SQL Coding Guidelines" class="md-nav__button md-logo" aria-label="PL/SQL & SQL Coding Guidelines">
       
-        <img src="../../../../images/trivadis-logo.svg" width="48" height="48">
-      
+  <img src="../../../../images/trivadis-logo.svg" alt="logo">
+
     </a>
     PL/SQL & SQL Coding Guidelines
   </label>
   
     <div class="md-nav__source">
       
-
-
-  
-
-<a href="https://github.com/trivadis/plsql-and-sql-coding-guidelines" title="Go to repository" class="md-source" data-md-source="github">
-  
-    <div class="md-source__icon">
-      <svg viewBox="0 0 24 24" width="24" height="24">
-        <use xlink:href="#__github" width="24" height="24"></use>
-      </svg>
-    </div>
-  
+<a href="https://github.com/trivadis/plsql-and-sql-coding-guidelines" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+  </div>
   <div class="md-source__repository">
     trivadis/plsql-and-sql-coding-guidelines
   </div>
@@ -279,13 +240,15 @@
 
   <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" checked>
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" checked>
     
     <label class="md-nav__link" for="nav-5">
       Language Usage
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+    <nav class="md-nav" aria-label="Language Usage" data-md-level="1">
       <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon"></span>
         Language Usage
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -298,13 +261,15 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-1" type="checkbox" id="nav-5-1">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-1" type="checkbox" id="nav-5-1">
     
     <label class="md-nav__link" for="nav-5-1">
       General
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+    <nav class="md-nav" aria-label="General" data-md-level="2">
       <label class="md-nav__title" for="nav-5-1">
+        <span class="md-nav__icon md-icon"></span>
         General
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -406,13 +371,15 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-2" type="checkbox" id="nav-5-2">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-2" type="checkbox" id="nav-5-2">
     
     <label class="md-nav__link" for="nav-5-2">
       Variables &amp; Types
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+    <nav class="md-nav" aria-label="Variables &amp; Types" data-md-level="2">
       <label class="md-nav__title" for="nav-5-2">
+        <span class="md-nav__icon md-icon"></span>
         Variables &amp; Types
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -425,13 +392,15 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-2-1" type="checkbox" id="nav-5-2-1">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-2-1" type="checkbox" id="nav-5-2-1">
     
     <label class="md-nav__link" for="nav-5-2-1">
       General
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+    <nav class="md-nav" aria-label="General" data-md-level="3">
       <label class="md-nav__title" for="nav-5-2-1">
+        <span class="md-nav__icon md-icon"></span>
         General
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -581,13 +550,15 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-2-2" type="checkbox" id="nav-5-2-2">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-2-2" type="checkbox" id="nav-5-2-2">
     
     <label class="md-nav__link" for="nav-5-2-2">
       Numeric Data Types
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+    <nav class="md-nav" aria-label="Numeric Data Types" data-md-level="3">
       <label class="md-nav__title" for="nav-5-2-2">
+        <span class="md-nav__icon md-icon"></span>
         Numeric Data Types
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -641,13 +612,15 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-2-3" type="checkbox" id="nav-5-2-3">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-2-3" type="checkbox" id="nav-5-2-3">
     
     <label class="md-nav__link" for="nav-5-2-3">
       Character Data Types
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+    <nav class="md-nav" aria-label="Character Data Types" data-md-level="3">
       <label class="md-nav__title" for="nav-5-2-3">
+        <span class="md-nav__icon md-icon"></span>
         Character Data Types
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -713,13 +686,15 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-2-4" type="checkbox" id="nav-5-2-4">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-2-4" type="checkbox" id="nav-5-2-4">
     
     <label class="md-nav__link" for="nav-5-2-4">
       Boolean Data Types
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+    <nav class="md-nav" aria-label="Boolean Data Types" data-md-level="3">
       <label class="md-nav__title" for="nav-5-2-4">
+        <span class="md-nav__icon md-icon"></span>
         Boolean Data Types
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -749,13 +724,15 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-2-5" type="checkbox" id="nav-5-2-5">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-2-5" type="checkbox" id="nav-5-2-5">
     
     <label class="md-nav__link" for="nav-5-2-5">
       Large Objects
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+    <nav class="md-nav" aria-label="Large Objects" data-md-level="3">
       <label class="md-nav__title" for="nav-5-2-5">
+        <span class="md-nav__icon md-icon"></span>
         Large Objects
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -790,13 +767,15 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-3" type="checkbox" id="nav-5-3">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-3" type="checkbox" id="nav-5-3">
     
     <label class="md-nav__link" for="nav-5-3">
       DML &amp; SQL
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+    <nav class="md-nav" aria-label="DML &amp; SQL" data-md-level="2">
       <label class="md-nav__title" for="nav-5-3">
+        <span class="md-nav__icon md-icon"></span>
         DML &amp; SQL
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -809,13 +788,15 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-3-1" type="checkbox" id="nav-5-3-1">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-3-1" type="checkbox" id="nav-5-3-1">
     
     <label class="md-nav__link" for="nav-5-3-1">
       General
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+    <nav class="md-nav" aria-label="General" data-md-level="3">
       <label class="md-nav__title" for="nav-5-3-1">
+        <span class="md-nav__icon md-icon"></span>
         General
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -953,13 +934,15 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-3-2" type="checkbox" id="nav-5-3-2">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-3-2" type="checkbox" id="nav-5-3-2">
     
     <label class="md-nav__link" for="nav-5-3-2">
       BULK Operations
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+    <nav class="md-nav" aria-label="BULK Operations" data-md-level="3">
       <label class="md-nav__title" for="nav-5-3-2">
+        <span class="md-nav__icon md-icon"></span>
         BULK Operations
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -989,13 +972,15 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-3-3" type="checkbox" id="nav-5-3-3">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-3-3" type="checkbox" id="nav-5-3-3">
     
     <label class="md-nav__link" for="nav-5-3-3">
       Transaction Control
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+    <nav class="md-nav" aria-label="Transaction Control" data-md-level="3">
       <label class="md-nav__title" for="nav-5-3-3">
+        <span class="md-nav__icon md-icon"></span>
         Transaction Control
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -1044,13 +1029,15 @@
 
   <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-4" type="checkbox" id="nav-5-4" checked>
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-4" type="checkbox" id="nav-5-4" checked>
     
     <label class="md-nav__link" for="nav-5-4">
       Control Structures
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+    <nav class="md-nav" aria-label="Control Structures" data-md-level="2">
       <label class="md-nav__title" for="nav-5-4">
+        <span class="md-nav__icon md-icon"></span>
         Control Structures
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -1063,13 +1050,15 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-4-1" type="checkbox" id="nav-5-4-1">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-4-1" type="checkbox" id="nav-5-4-1">
     
     <label class="md-nav__link" for="nav-5-4-1">
       CURSOR
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+    <nav class="md-nav" aria-label="CURSOR" data-md-level="3">
       <label class="md-nav__title" for="nav-5-4-1">
+        <span class="md-nav__icon md-icon"></span>
         CURSOR
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -1137,13 +1126,15 @@
 
   <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-4-2" type="checkbox" id="nav-5-4-2" checked>
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-4-2" type="checkbox" id="nav-5-4-2" checked>
     
     <label class="md-nav__link" for="nav-5-4-2">
       CASE / IF / DECODE / NVL / NVL2 / COALESCE
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+    <nav class="md-nav" aria-label="CASE / IF / DECODE / NVL / NVL2 / COALESCE" data-md-level="3">
       <label class="md-nav__title" for="nav-5-4-2">
+        <span class="md-nav__icon md-icon"></span>
         CASE / IF / DECODE / NVL / NVL2 / COALESCE
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -1182,13 +1173,14 @@
 
   <li class="md-nav__item md-nav__item--active">
     
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
     
       
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
         G-4230: Always use a COALESCE instead of a NVL command, if parameter 2 of the NVL function is a function call or a SELECT statement.
+        <span class="md-nav__icon md-icon"></span>
       </label>
     
     <a href="./" title="G-4230: Always use a COALESCE instead of a NVL command, if parameter 2 of the NVL function is a function call or a SELECT statement." class="md-nav__link md-nav__link--active">
@@ -1196,13 +1188,16 @@
     </a>
     
       
-<nav class="md-nav md-nav--secondary">
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
     
   
   
-    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
@@ -1225,10 +1220,6 @@
   </a>
   
 </li>
-      
-      
-      
-      
       
     </ul>
   
@@ -1267,8 +1258,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../g-4260/" title="G-4260: Avoid inverting boolean conditions." class="md-nav__link">
-      G-4260: Avoid inverting boolean conditions.
+    <a href="../g-4260/" title="G-4260: Avoid inverting boolean conditions with NOT." class="md-nav__link">
+      G-4260: Avoid inverting boolean conditions with NOT.
     </a>
   </li>
 
@@ -1297,13 +1288,15 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-4-3" type="checkbox" id="nav-5-4-3">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-4-3" type="checkbox" id="nav-5-4-3">
     
     <label class="md-nav__link" for="nav-5-4-3">
       Flow Control
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+    <nav class="md-nav" aria-label="Flow Control" data-md-level="3">
       <label class="md-nav__title" for="nav-5-4-3">
+        <span class="md-nav__icon md-icon"></span>
         Flow Control
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -1470,13 +1463,15 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-5" type="checkbox" id="nav-5-5">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-5" type="checkbox" id="nav-5-5">
     
     <label class="md-nav__link" for="nav-5-5">
       Exception Handling
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+    <nav class="md-nav" aria-label="Exception Handling" data-md-level="2">
       <label class="md-nav__title" for="nav-5-5">
+        <span class="md-nav__icon md-icon"></span>
         Exception Handling
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -1578,13 +1573,15 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-6" type="checkbox" id="nav-5-6">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-6" type="checkbox" id="nav-5-6">
     
     <label class="md-nav__link" for="nav-5-6">
       Dynamic SQL
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+    <nav class="md-nav" aria-label="Dynamic SQL" data-md-level="2">
       <label class="md-nav__title" for="nav-5-6">
+        <span class="md-nav__icon md-icon"></span>
         Dynamic SQL
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -1626,13 +1623,15 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-7" type="checkbox" id="nav-5-7">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-7" type="checkbox" id="nav-5-7">
     
     <label class="md-nav__link" for="nav-5-7">
       Stored Objects
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+    <nav class="md-nav" aria-label="Stored Objects" data-md-level="2">
       <label class="md-nav__title" for="nav-5-7">
+        <span class="md-nav__icon md-icon"></span>
         Stored Objects
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -1645,13 +1644,15 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-7-1" type="checkbox" id="nav-5-7-1">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-7-1" type="checkbox" id="nav-5-7-1">
     
     <label class="md-nav__link" for="nav-5-7-1">
       General
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+    <nav class="md-nav" aria-label="General" data-md-level="3">
       <label class="md-nav__title" for="nav-5-7-1">
+        <span class="md-nav__icon md-icon"></span>
         General
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -1753,13 +1754,15 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-7-2" type="checkbox" id="nav-5-7-2">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-7-2" type="checkbox" id="nav-5-7-2">
     
     <label class="md-nav__link" for="nav-5-7-2">
       Packages
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+    <nav class="md-nav" aria-label="Packages" data-md-level="3">
       <label class="md-nav__title" for="nav-5-7-2">
+        <span class="md-nav__icon md-icon"></span>
         Packages
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -1825,13 +1828,15 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-7-3" type="checkbox" id="nav-5-7-3">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-7-3" type="checkbox" id="nav-5-7-3">
     
     <label class="md-nav__link" for="nav-5-7-3">
       Procedures
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+    <nav class="md-nav" aria-label="Procedures" data-md-level="3">
       <label class="md-nav__title" for="nav-5-7-3">
+        <span class="md-nav__icon md-icon"></span>
         Procedures
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -1885,13 +1890,15 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-7-4" type="checkbox" id="nav-5-7-4">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-7-4" type="checkbox" id="nav-5-7-4">
     
     <label class="md-nav__link" for="nav-5-7-4">
       Functions
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+    <nav class="md-nav" aria-label="Functions" data-md-level="3">
       <label class="md-nav__title" for="nav-5-7-4">
+        <span class="md-nav__icon md-icon"></span>
         Functions
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -1981,13 +1988,15 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-7-5" type="checkbox" id="nav-5-7-5">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-7-5" type="checkbox" id="nav-5-7-5">
     
     <label class="md-nav__link" for="nav-5-7-5">
       Oracle Supplied Packages
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+    <nav class="md-nav" aria-label="Oracle Supplied Packages" data-md-level="3">
       <label class="md-nav__title" for="nav-5-7-5">
+        <span class="md-nav__icon md-icon"></span>
         Oracle Supplied Packages
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -2029,13 +2038,15 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-7-7" type="checkbox" id="nav-5-7-7">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-7-7" type="checkbox" id="nav-5-7-7">
     
     <label class="md-nav__link" for="nav-5-7-7">
       Triggers
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+    <nav class="md-nav" aria-label="Triggers" data-md-level="3">
       <label class="md-nav__title" for="nav-5-7-7">
+        <span class="md-nav__icon md-icon"></span>
         Triggers
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -2089,13 +2100,15 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-7-8" type="checkbox" id="nav-5-7-8">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-7-8" type="checkbox" id="nav-5-7-8">
     
     <label class="md-nav__link" for="nav-5-7-8">
       Sequences
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+    <nav class="md-nav" aria-label="Sequences" data-md-level="3">
       <label class="md-nav__title" for="nav-5-7-8">
+        <span class="md-nav__icon md-icon"></span>
         Sequences
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -2130,13 +2143,15 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-8" type="checkbox" id="nav-5-8">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-8" type="checkbox" id="nav-5-8">
     
     <label class="md-nav__link" for="nav-5-8">
       Patterns
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+    <nav class="md-nav" aria-label="Patterns" data-md-level="2">
       <label class="md-nav__title" for="nav-5-8">
+        <span class="md-nav__icon md-icon"></span>
         Patterns
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -2149,13 +2164,15 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-8-1" type="checkbox" id="nav-5-8-1">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-8-1" type="checkbox" id="nav-5-8-1">
     
     <label class="md-nav__link" for="nav-5-8-1">
       Checking the Number of Rows
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+    <nav class="md-nav" aria-label="Checking the Number of Rows" data-md-level="3">
       <label class="md-nav__title" for="nav-5-8-1">
+        <span class="md-nav__icon md-icon"></span>
         Checking the Number of Rows
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -2197,13 +2214,15 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-8-2" type="checkbox" id="nav-5-8-2">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-8-2" type="checkbox" id="nav-5-8-2">
     
     <label class="md-nav__link" for="nav-5-8-2">
       Access objects of foreign application schemas
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+    <nav class="md-nav" aria-label="Access objects of foreign application schemas" data-md-level="3">
       <label class="md-nav__title" for="nav-5-8-2">
+        <span class="md-nav__icon md-icon"></span>
         Access objects of foreign application schemas
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -2233,13 +2252,15 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-8-3" type="checkbox" id="nav-5-8-3">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-8-3" type="checkbox" id="nav-5-8-3">
     
     <label class="md-nav__link" for="nav-5-8-3">
       Validating input parameter size
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+    <nav class="md-nav" aria-label="Validating input parameter size" data-md-level="3">
       <label class="md-nav__title" for="nav-5-8-3">
+        <span class="md-nav__icon md-icon"></span>
         Validating input parameter size
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -2269,13 +2290,15 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-8-4" type="checkbox" id="nav-5-8-4">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-8-4" type="checkbox" id="nav-5-8-4">
     
     <label class="md-nav__link" for="nav-5-8-4">
       Ensure single execution at a time of a program unit
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+    <nav class="md-nav" aria-label="Ensure single execution at a time of a program unit" data-md-level="3">
       <label class="md-nav__title" for="nav-5-8-4">
+        <span class="md-nav__icon md-icon"></span>
         Ensure single execution at a time of a program unit
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -2305,13 +2328,15 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-8-5" type="checkbox" id="nav-5-8-5">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-8-5" type="checkbox" id="nav-5-8-5">
     
     <label class="md-nav__link" for="nav-5-8-5">
       Use dbms_application_info package to follow progress of a process
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+    <nav class="md-nav" aria-label="Use dbms_application_info package to follow progress of a process" data-md-level="3">
       <label class="md-nav__title" for="nav-5-8-5">
+        <span class="md-nav__icon md-icon"></span>
         Use dbms_application_info package to follow progress of a process
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -2403,13 +2428,16 @@
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
-<nav class="md-nav md-nav--secondary">
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
     
   
   
-    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
@@ -2433,10 +2461,6 @@
   
 </li>
       
-      
-      
-      
-      
     </ul>
   
 </nav>
@@ -2450,6 +2474,9 @@
               
                 
                 
+                  
+                
+                
                 <h1 id="g-4230-always-use-a-coalesce-instead-of-a-nvl-command-if-parameter-2-of-the-nvl-function-is-a-function-call-or-a-select-statement">G-4230: Always use a COALESCE instead of a NVL command, if parameter 2 of the NVL function is a function call or a SELECT statement.</h1>
 <div class="admonition danger">
 <p class="admonition-title">Critical</p>
@@ -2459,20 +2486,18 @@
 <p>The <code>nvl</code> function always evaluates both parameters before deciding which one to use. This can be harmful if parameter 2 is either a function call or a select statement, as it will be executed regardless of whether parameter 1 contains a <code>null</code> value or not.</p>
 <p>The <code>coalesce</code> function does not have this drawback.</p>
 <h2 id="example-bad">Example (bad)</h2>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="k">select</span> <span class="n">nvl</span><span class="p">(</span><span class="n">dummy</span><span class="p">,</span> <span class="n">my_package</span><span class="p">.</span><span class="n">expensive_null</span><span class="p">(</span><span class="n">value_in</span> <span class="o">=&gt;</span> <span class="n">dummy</span><span class="p">))</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="n">nvl</span><span class="p">(</span><span class="n">dummy</span><span class="p">,</span> <span class="n">my_package</span><span class="p">.</span><span class="n">expensive_null</span><span class="p">(</span><span class="n">value_in</span> <span class="o">=&gt;</span> <span class="n">dummy</span><span class="p">))</span>
   <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
-</pre></div>
+</code></pre></div>
 </td></tr></table>
 
 <h2 id="example-good">Example (good)</h2>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="k">select</span> <span class="n">coalesce</span><span class="p">(</span><span class="n">dummy</span><span class="p">,</span> <span class="n">my_package</span><span class="p">.</span><span class="n">expensive_null</span><span class="p">(</span><span class="n">value_in</span> <span class="o">=&gt;</span> <span class="n">dummy</span><span class="p">))</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="n">coalesce</span><span class="p">(</span><span class="n">dummy</span><span class="p">,</span> <span class="n">my_package</span><span class="p">.</span><span class="n">expensive_null</span><span class="p">(</span><span class="n">value_in</span> <span class="o">=&gt;</span> <span class="n">dummy</span><span class="p">))</span>
   <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
-</pre></div>
+</code></pre></div>
 </td></tr></table>
-                
-                  
                 
               
               
@@ -2489,34 +2514,34 @@
 <footer class="md-footer">
   
     <div class="md-footer-nav">
-      <nav class="md-footer-nav__inner md-grid">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../g-4220/" title="G-4220: Try to use CASE rather than DECODE." class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+          <a href="../g-4220/" title="G-4220: Try to use CASE rather than DECODE." class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
                 G-4220: Try to use CASE rather than DECODE.
-              </span>
+              </div>
             </div>
           </a>
         
         
-          <a href="../g-4240/" title="G-4240: Always use a CASE instead of a NVL2 command if parameter 2 or 3 of NVL2 is either a function call or a SELECT statement." class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
+          <a href="../g-4240/" title="G-4240: Always use a CASE instead of a NVL2 command if parameter 2 or 3 of NVL2 is either a function call or a SELECT statement." class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
                 G-4240: Always use a CASE instead of a NVL2 command if parameter 2 or 3 of NVL2 is either a function call or a SELECT statement.
-              </span>
+              </div>
             </div>
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
             </div>
           </a>
         
@@ -2527,19 +2552,31 @@
     <div class="md-footer-meta__inner md-grid">
       <div class="md-footer-copyright">
         
-        powered by
-        <a href="https://www.mkdocs.org">MkDocs</a>
-        and
-        <a href="https://squidfunk.github.io/mkdocs-material/">
-          Material for MkDocs</a>
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
       </div>
       
   <div class="md-footer-social">
-    <link rel="stylesheet" href="../../../../assets/fonts/font-awesome.css">
     
-      <a href="https://github.com/Trivadis" class="md-footer-social__link fa fa-github-alt"></a>
+      
+      
+        
+        
+      
+      <a href="https://github.com/Trivadis" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+      </a>
     
-      <a href="https://twitter.com/trivadis" class="md-footer-social__link fa fa-twitter"></a>
+      
+      
+        
+        
+      
+      <a href="https://twitter.com/trivadis" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      </a>
     
   </div>
 
@@ -2549,9 +2586,18 @@
       
     </div>
     
-      <script src="../../../../assets/javascripts/application.c648116f.js"></script>
+      <script src="../../../../assets/javascripts/vendor.2d1db4bd.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.6627ddf3.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
       
-      <script>app.initialize({version:"1.0.4",url:{base:"../../../.."}})</script>
+      <script>
+        app = initialize({
+          base: "../../../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../../../assets/javascripts/worker/search.5eca75d3.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
