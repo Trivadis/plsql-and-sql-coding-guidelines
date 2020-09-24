@@ -71,7 +71,10 @@ function convert_to_pdf(){
     mkdocs build
     cd site
     fix_footnote_links
-    wkhtmltopdf --javascript-delay 3000 \
+    wkhtmltopdf --enable-local-file-access \
+                --allow "." \
+                --disable-smart-shrinking \
+                --javascript-delay 6000 \
                 --outline-depth 6 \
                 --outline \
                 --print-media-type \
