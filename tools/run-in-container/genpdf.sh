@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 function create_target_dir(){
     rm -Rf ${TARGET_DIR}
