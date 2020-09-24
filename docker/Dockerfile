@@ -17,14 +17,6 @@ RUN /bin/bash -c 'cd Python-3.8*/; ./configure --enable-optimizations; make alti
 # install git
 RUN yum install -y git
 
-# install wkhtmltox 0.12.4 since 0.12.5 cannot create TOCs, see https://github.com/wkhtmltopdf/wkhtmltopdf/issues/3995
-# RUN yum install -y https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox-0.12.5-1.centos7.x86_64.rpm
-RUN yum install -y yum install -y wkhtmltopdf
-RUN wget -q https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz -O /tmp/wkhtmltox.tar.xz && \
-    tar xvf /tmp/wkhtmltox.tar.xz -C /tmp && \
-    cp -rp /tmp/wkhtmltox/* /usr/local && \
-    rm -rf /tmp/wkhtmltox*
-
 # install python modules (most recent versions)
 RUN pip3.8 install --upgrade pip
 RUN pip3.8 install mkdocs \
@@ -33,7 +25,10 @@ RUN pip3.8 install mkdocs \
                    pymdown-extensions \
                    mike 
 
-ENV LC_ALL=en_US.utf8
+# install wkhtmltox 0.12.6
+RUN yum install -y https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox-0.12.6-1.centos8.x86_64.rpm
+
+# set environment
 ENV LANG=en_US.utf8
 
 # volume for GitHub project's root folder containing docs folder  
