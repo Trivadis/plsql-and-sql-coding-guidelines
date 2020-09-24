@@ -1,3 +1,14 @@
+/* fix logo size */
+.md-header-nav__button.md-logo img, .md-header-nav__button.md-logo svg {
+    width: auto;
+    height: 21px;
+}
+
+/* fix image border */
+.md-typeset img[align=left], .md-typeset svg[align=left] {
+    margin: auto;
+}
+
 .md-typeset a {
     color: #ff1744;
     word-break: break-word;
@@ -10,6 +21,7 @@
     text-decoration: underline;
 }
 
+.md-nav__item
 .md-nav__link--active, 
 .md-nav__link:active {
     color: #ff1744;
@@ -29,7 +41,19 @@
     word-break: keep-all;
 }
 
+.md-typeset a {
+    color:  #ff1744;
+    word-break: break-word;
+}
+
+
+/* fixing colors because wkhtmltopdf does not understand colors such as "var(--md-typeset-a-color);" */
 @media print {
+
+    /* fix image size */
+    .md-typeset img, .md-typeset svg {
+        zoom: 80%;
+    }
 
     /* disable menu */
     .md-md-header {
@@ -41,22 +65,110 @@
         display: none;
     }
 
+    /* fix font size of normal text */
+    .md-typeset {
+        font-size: 10pt;
+    }
+
+    /* fix font size of text in tables */
+    .md-typeset table:not([class]) {
+        font-size: 8pt;
+    }
+
+    /* fix colors of table headers */
+    .md-typeset table:not([class]) th {
+        color: white;
+        background-color: rgba(0, 0, 0, 0.54);
+        min-width: 60pt;
+    }
+
+    /* fix color of footnote and font */
+    .md-typeset .footnote {
+        color: black;
+        font-size: 8pt;
+    }
+
+    /* fix font of code in footnote */
+    .md-typeset .footnote code {
+        font-size: 8pt;
+    }
+
+    /* hide footnode link */
+    .md-typeset .footnote-backref::before {
+        display: none;
+    }
+
+    /* fix code background color */
+    .md-typeset code {
+        font-size: 8pt;
+        background-color: whitesmoke;
+    }
+
+    /* fix code foreground color */
+    .md-typeset code, .md-typeset pre, .md-typeset kbd {
+        color: #36464e;
+    }
+
+    /* fix code color for line numbers */
+    .highlighttable .linenodiv pre {
+        color: rgba(0, 0, 0, 0.54);
+        text-align: right;
+    }
+
+    /* fix settings for line numbers */
+    .highlighttable .linenos {
+        padding: 6pt 6pt;
+        font-size: 8pt;
+        background-color: rgba(0,0,0,.07);
+    }
+
+    /* fix code highlighting colors */
+    .codehilite .k, .highlight .k, .codehilite .kd, .highlight .kd, .codehilite .kn, .highlight .kn, .codehilite .kp, .highlight .kp, .codehilite .kr, .highlight .kr, .codehilite .kt, .highlight .kt {
+        color: #3f6ec6;
+    }
+    .codehilite .kc, .highlight .kc, .codehilite .n, .highlight .n {
+        color: #36464e;
+    }
+    .codehilite .p, .highlight .p {
+        color: rgba(0, 0, 0, 0.54);
+    }
+    .codehilite .o, .highlight .o, .codehilite .ow, .highlight .ow {
+        color: rgba(0, 0, 0, 0.54);
+    }
+    .codehilite .c, .highlight .c, .codehilite .cm, .highlight .cm, .codehilite .c1, .highlight .c1, .codehilite .ch, .highlight .ch, .codehilite .cs, .highlight .cs, .codehilite .sd, .highlight .sd {
+        color: rgba(0, 0, 0, 0.54)
+    }
+    .codehilite .m, .highlight .m, .codehilite .mf, .highlight .mf, .codehilite .mh, .highlight .mh, .codehilite .mi, .highlight .mi, .codehilite .il, .highlight .il, .codehilite .mo, .highlight .mo {
+        color: #d52a2a;
+    }
+    .codehilite .cpf, .highlight .cpf, .codehilite .l, .highlight .l, .codehilite .s, .highlight .s, .codehilite .sb, .highlight .sb, .codehilite .sc, .highlight .sc, .codehilite .s2, .highlight .s2, .codehilite .si, .highlight .si, .codehilite .s1, .highlight .s1, .codehilite .ss, .highlight .ss {
+        color: #1c7d4d;
+    }
+    .codehilite .no, .highlight .no, .codehilite .nb, .highlight .nb, .codehilite .bp, .highlight .bp {
+        color: #6e59d9;
+    }
+
+    /* add space between line numbers and code */
+    span.linenos {
+        padding-right: 12pt;
+    }
+
+    /* fix background color in body */
+    body {
+        background-color: white;
+    }
+
+    /* fix row seperators */
+    .md-typeset table:not([class]) td {
+        padding: .6rem .8rem;
+        border-top: .05rem solid rgba(0,0,0,.07);
+        vertical-align: top;
+    }
+
     /* do not show link details in brackets content: " [" attr(href) "]" */
     .md-typeset a:after {
         display: none;
     }
-
-    /* disable scrollbar */
-    .md-typeset__scrollwrap, 
-    .md-typeset table:not([class]), 
-    .md-typeset 
-    .md-typeset__table table, 
-    .md-container,
-    .md-main, 
-    html {
-        overflow-x: hidden;
-        -webkit-overflow-scrolling: hidden
-    }   
 
     /* table-header-group leads to overlap with content */
     thead {
@@ -75,6 +187,8 @@
         page-break-before: avoid;
     }
 
+    [id="severity-of-the-rule"],
+    [id="keywords-used"],
     [id="we-do-not-agree-with-all-your-standards"],
     [id="column"],
     [id="function"],
