@@ -12,6 +12,17 @@ function copy_resources() {
     cp -r ${DATA_DIR}/docs/stylesheets ${TARGET_DIR}/docs/stylesheets
 }
 
+# Materials for MkDocs 5.5.14 uses CSS that leads to wkhtmltopdf 0.12.6 printing all line numbers before the code with 
+#   - "codehilite" plugin and "linenums: true"
+#   - "pymdownx.highlight" plugin and "linenums_style: table" (default)
+# The workaround is to use "pymdownx.highlight" with "linenums_style: pymdownx-inline" and some CSS fixes
+# This is acceptable since the PDF is the secondary format and "pymdownx.highlight" is the newer plugin
+# with some nice features for the HTML version.
+function fix_mkdocs_yml() {
+    mv ${TARGET_DIR}/mkdocs.yml ${TARGET_DIR}/mkdocs.ori.yml
+    sed -e 's/linenums_style: table/linenums_style: pymdownx-inline/g' ${TARGET_DIR}/mkdocs.ori.yml > ${TARGET_DIR}/mkdocs.yml
+}
+
 function create_cover() {
     sed -e "s/#VERSION#/$(get_version)/g" ${DATA_DIR}/docs/cover-template.html \
         | sed -e "s/#YEAR#/$(date +'%Y')/g" > ${TARGET_DIR}/docs/cover.html
@@ -85,6 +96,7 @@ TARGET_DIR=${DATA_DIR}/pdf
 
 create_target_dir
 copy_resources
+fix_mkdocs_yml
 create_cover
 write_file "index.md"
 write_file "1-introduction/introduction.md"
