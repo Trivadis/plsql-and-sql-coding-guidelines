@@ -123,4 +123,6 @@ n/a | 8120 | Never check existence of a row to decide whether to create it or no
 n/a | 8310 | Always validate input parameter size by assigning the parameter to a size limited variable in the declaration section of program unit. | Minor |  |  | &#10008; |  | &#10008; | &#10008; |  | &#10008;
 n/a | 8410 | Always use application locks to ensure a program unit is only running once at a given time. | Minor |  | &#10008; |  |  | &#10008; |  |  | 
 n/a | 8510 | Always use dbms_application_info to track program process transiently. | Minor |  | &#10008; |  |  | &#10008; |  |  | 
-n/a | 9010 | Try to label your sub blocks. | Minor |  |  | &#10008; |  |  |  |  | 
+n/a | 9010 | Always use a format model in string to date/time conversion functions. | Major | &#10008; |  | &#10008; |  | &#10008; |  | &#10008; | &#10008;
+n/a | 9020 | Try to use a format model and NLS_NUMERIC_CHARACTERS in string to number conversion functions. | Major | &#10008; |  | &#10008; |  | &#10008; |  | &#10008; | &#10008;
+n/a | 9030 | Try to define a default value on conversion errors. | Minor |  |  | &#10008; |  | &#10008; |  |  | &#10008;
