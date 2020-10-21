@@ -52,6 +52,15 @@ Example     | Precedes text used to illustrate a rule or a recommendation.
 Reason      | Explains the thoughts and purpose behind a rule or a recommendation.
 Restriction | Describes the circumstances to be fulfilled to make use of a rule.
 
+### Validator support ###
+
+The tool PL/SQL Cop (see the "Tool Support" chapter) cannot support *all* the guidelines in this document. Those guidelines that are *not* supported by PL/SQL Cop validators are marked like this:
+
+!!! missing "Unsupported in PL/SQL Cop Validators"
+    Reason why the specific guideline is not supported by the validators.
+
+The PL/SQL Cop repository documents the [details of validator limitations](https://github.com/Trivadis/plsql-cop-cli/blob/main/validator-limitations.md#guidelines).
+
 ### Why are standards important
 
 For a machine executing a program, code formatting is of no importance. However, for the human eye, well-formatted code is much easier to read. Modern tools can help to implement format and coding rules.
