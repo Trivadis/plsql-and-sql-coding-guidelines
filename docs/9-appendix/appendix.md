@@ -102,7 +102,7 @@ n/a | 7170 | Avoid using an IN OUT parameter as IN or OUT only. | Major |  | &#1
 65 | 7210 | Try to keep your packages small. Include only few procedures and functions that are used in the same context. | Minor |  | &#10008; | &#10008; |  |  |  |  | 
 66 | 7220 | Always use forward declaration for private functions and procedures. | Minor | &#10008; |  |  |  |  |  |  | 
 67 | 7230 | Avoid declaring global variables public. | Major |  |  |  |  | &#10008; |  |  | 
-68 | 7240 | Never use RETURN in package initialization block. | Minor |  |  | &#10008; |  |  |  |  | 
+n/a | 7250 | Never use RETURN in package initialization block. | Minor |  |  | &#10008; |  |  |  |  | 
 69 | 7310 | Avoid standalone procedures – put your procedures in packages. | Minor |  |  | &#10008; |  |  |  |  | 
 70 | 7320 | Avoid using RETURN statements in a PROCEDURE. | Major |  |  | &#10008; |  |  |  |  | &#10008;
 n/a | 7330 | Always assign values to OUT parameters. | Major |  |  | &#10008; |  |  |  |  | &#10008;
