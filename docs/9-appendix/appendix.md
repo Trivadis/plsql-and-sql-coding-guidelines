@@ -43,6 +43,7 @@ n/a | 2230 | Try to use SIMPLE_INTEGER datatype when appropriate.  | Minor |  | 
 23 | 2340 | Always define your VARCHAR2 variables using CHAR SEMANTIC (if not defined anchored). | Minor |  |  |  |  | &#10008; |  |  | 
 24 | 2410 | Try to use boolean data type for values with dual meaning. | Minor |  |  | &#10008; |  |  |  |  | 
 25 | 2510 | Avoid using the LONG and LONG RAW data types. | Major |  |  |  | &#10008; |  |  |  | 
+n/a | 2610 | Never use self-defined weak ref cursor types. | Minor | &#10008; |  | &#10008; | &#10008; |  | &#10008; |  | 
 26 | 3110 | Always specify the target columns when coding an insert statement. | Major |  |  | &#10008; |  | &#10008; |  |  | 
 n/a | 3115 | Avoid self-assigning a column. | Minor |  |  | &#10008; |  |  |  |  | 
 27 | 3120 | Always use table aliases when your SQL statement involves more than one source. | Major |  |  | &#10008; |  |  |  |  | 
@@ -89,6 +90,7 @@ n/a | 5010 | Try to use a error/logging framework for your application. | Critic
 55 | 5050 | Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded  20nnn error number or hard-coded message.  | Major | &#10008; |  | &#10008; |  |  |  |  | 
 56 | 5060 | Avoid unhandled exceptions. | Major |  |  |  |  | &#10008; |  |  | 
 57 | 5070 | Avoid using Oracle predefined exceptions. | Critical |  |  |  |  | &#10008; |  |  | 
+n/a | 5080 | Always use FORMAT_ERROR_BACKTRACE when using FORMAT_ERROR_STACK or SQLERRM. | Minor |  |  | &#10008; |  |  |  |  | &#10008;
 58 | 6010 | Always use a character variable to execute dynamic SQL. | Major |  |  | &#10008; |  |  |  |  | &#10008;
 59 | 6020 | Try to use output bind arguments in the RETURNING INTO clause of dynamic DML statements rather than the USING clause.  | Minor |  |  | &#10008; |  |  |  |  | 
 60 | 7110 | Try to use named notation when calling program units. | Major | &#10008; |  | &#10008; |  |  |  |  | 
