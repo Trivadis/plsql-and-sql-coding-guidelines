@@ -72,6 +72,7 @@ n/a | 4260 | Avoid inverting boolean conditions with NOT. | Minor |  |  | &#1000
 n/a | 4270 | Avoid comparing boolean values to boolean literals. | Minor |  |  | &#10008; |  |  |  |  | &#10008;
 39 | 4310 | Never use GOTO statements in your code. | Major |  |  | &#10008; |  |  |  |  | &#10008;
 40 | 4320 | Always label your loops. | Minor |  |  | &#10008; |  |  |  |  | 
+n/a | 4325 | Never reuse labels in inner scopes. | Major |  |  | &#10008; |  | &#10008; |  |  | &#10008;
 41 | 4330 | Always use a CURSOR FOR loop to process the complete cursor results unless you are using bulk operations. | Minor |  |  | &#10008; |  |  |  |  | 
 42 | 4340 | Always use a NUMERIC FOR loop to process a dense array. | Minor |  |  | &#10008; |  |  |  |  | 
 43 | 4350 | Always use 1 as lower and COUNT() as upper bound when looping through a dense array.  | Major |  |  |  |  | &#10008; |  |  | 
