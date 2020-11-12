@@ -267,6 +267,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#validator-support" class="md-nav__link">
+    Validator support
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#why-are-standards-important" class="md-nav__link">
     Why are standards important
   </a>
@@ -869,6 +876,44 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-2-6" type="checkbox" id="nav-5-2-6">
+    
+    <label class="md-nav__link" for="nav-5-2-6">
+      Cursor Variables
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Cursor Variables" data-md-level="3">
+      <label class="md-nav__title" for="nav-5-2-6">
+        <span class="md-nav__icon md-icon"></span>
+        Cursor Variables
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../4-language-usage/2-variables-and-types/6-cursor-variables/g-2610/" class="md-nav__link">
+      G-2610: Never use self-defined weak ref cursor types.
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -1414,6 +1459,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../4-language-usage/4-control-structures/3-flow-control/g-4325/" class="md-nav__link">
+      G-4325: Never reuse labels in inner scopes.
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../4-language-usage/4-control-structures/3-flow-control/g-4330/" class="md-nav__link">
       G-4330: Always use a CURSOR FOR loop to process the complete cursor results unless you are using bulk operations.
     </a>
@@ -1639,6 +1696,18 @@
   <li class="md-nav__item">
     <a href="../../4-language-usage/5-exception-handling/g-5070/" class="md-nav__link">
       G-5070: Avoid using Oracle predefined exceptions.
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../4-language-usage/5-exception-handling/g-5080/" class="md-nav__link">
+      G-5080: Always use FORMAT_ERROR_BACKTRACE when using FORMAT_ERROR_STACK or SQLERRM.
     </a>
   </li>
 
@@ -1904,8 +1973,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../4-language-usage/7-stored-objects/2-packages/g-7240/" class="md-nav__link">
-      G-7240: Never use RETURN in package initialization block.
+    <a href="../../4-language-usage/7-stored-objects/2-packages/g-7250/" class="md-nav__link">
+      G-7250: Never use RETURN in package initialization block.
     </a>
   </li>
 
@@ -2458,6 +2527,68 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-9" type="checkbox" id="nav-5-9">
+    
+    <label class="md-nav__link" for="nav-5-9">
+      Function Usage
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Function Usage" data-md-level="2">
+      <label class="md-nav__title" for="nav-5-9">
+        <span class="md-nav__icon md-icon"></span>
+        Function Usage
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../4-language-usage/9-function-usage/g-9010/" class="md-nav__link">
+      G-9010: Always use a format model in string to date/time conversion functions.
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../4-language-usage/9-function-usage/g-9020/" class="md-nav__link">
+      G-9020: Try to use a format model and NLS_NUMERIC_CHARACTERS in string to number conversion functions.
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../4-language-usage/9-function-usage/g-9030/" class="md-nav__link">
+      G-9030: Try to define a default value on conversion errors.
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -2566,6 +2697,13 @@
           <li class="md-nav__item">
   <a href="#keywords-used" class="md-nav__link">
     Keywords used
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validator-support" class="md-nav__link">
+    Validator support
   </a>
   
 </li>
@@ -2718,6 +2856,13 @@
 </tr>
 </tbody>
 </table>
+<h3 id="validator-support">Validator support</h3>
+<p>The tool PL/SQL Cop (see the "Tool Support" chapter) cannot support <em>all</em> the guidelines in this document. Those guidelines that are <em>not</em> supported by PL/SQL Cop validators are marked like this:</p>
+<div class="admonition missing">
+<p class="admonition-title">Unsupported in PL/SQL Cop Validators</p>
+<p>Reason why the specific guideline is not supported by the validators.</p>
+</div>
+<p>The PL/SQL Cop repository documents the <a href="https://github.com/Trivadis/plsql-cop-cli/blob/main/validator-limitations.md#guidelines">details of validator limitations</a>.</p>
 <h3 id="why-are-standards-important">Why are standards important</h3>
 <p>For a machine executing a program, code formatting is of no importance. However, for the human eye, well-formatted code is much easier to read. Modern tools can help to implement format and coding rules.</p>
 <p>Implementing formatting and coding standards has the following advantages for PL/SQL development:</p>

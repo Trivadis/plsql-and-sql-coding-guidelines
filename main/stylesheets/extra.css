@@ -204,6 +204,7 @@
     [id="character-data-types"], 
     [id="boolean-data-types"], 
     [id="large-objects"],
+    [id="cursor-variables"],
     [id="dml-sql"], 
     [id="bulk-operations"], 
     [id="transaction-control"], 
@@ -224,7 +225,8 @@
     [id="access-objects-of-foreign-application-schemas"], 
     [id="validating-input-parameter-size"],
     [id="ensure-single-execution-at-a-time-of-a-program-unit"], 
-    [id="use-dbms_application_info-package-to-follow-progress-of-a-process"] {
+    [id="use-dbms_application_info-package-to-follow-progress-of-a-process"], 
+    [id="function-usage"] {
         page-break-before: always;
     }
 

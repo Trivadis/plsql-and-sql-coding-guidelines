@@ -778,6 +778,44 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-2-6" type="checkbox" id="nav-5-2-6">
+    
+    <label class="md-nav__link" for="nav-5-2-6">
+      Cursor Variables
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Cursor Variables" data-md-level="3">
+      <label class="md-nav__title" for="nav-5-2-6">
+        <span class="md-nav__icon md-icon"></span>
+        Cursor Variables
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../2-variables-and-types/6-cursor-variables/g-2610/" class="md-nav__link">
+      G-2610: Never use self-defined weak ref cursor types.
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -1323,6 +1361,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../4-control-structures/3-flow-control/g-4325/" class="md-nav__link">
+      G-4325: Never reuse labels in inner scopes.
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../4-control-structures/3-flow-control/g-4330/" class="md-nav__link">
       G-4330: Always use a CURSOR FOR loop to process the complete cursor results unless you are using bulk operations.
     </a>
@@ -1548,6 +1598,18 @@
   <li class="md-nav__item">
     <a href="../../../5-exception-handling/g-5070/" class="md-nav__link">
       G-5070: Avoid using Oracle predefined exceptions.
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../5-exception-handling/g-5080/" class="md-nav__link">
+      G-5080: Always use FORMAT_ERROR_BACKTRACE when using FORMAT_ERROR_STACK or SQLERRM.
     </a>
   </li>
 
@@ -1869,8 +1931,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../2-packages/g-7240/" class="md-nav__link">
-      G-7240: Never use RETURN in package initialization block.
+    <a href="../../2-packages/g-7250/" class="md-nav__link">
+      G-7250: Never use RETURN in package initialization block.
     </a>
   </li>
 
@@ -2423,6 +2485,68 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-9" type="checkbox" id="nav-5-9">
+    
+    <label class="md-nav__link" for="nav-5-9">
+      Function Usage
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Function Usage" data-md-level="2">
+      <label class="md-nav__title" for="nav-5-9">
+        <span class="md-nav__icon md-icon"></span>
+        Function Usage
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../9-function-usage/g-9010/" class="md-nav__link">
+      G-9010: Always use a format model in string to date/time conversion functions.
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../9-function-usage/g-9020/" class="md-nav__link">
+      G-9020: Try to use a format model and NLS_NUMERIC_CHARACTERS in string to number conversion functions.
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../9-function-usage/g-9030/" class="md-nav__link">
+      G-9030: Try to define a default value on conversion errors.
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -2540,7 +2664,7 @@
 </div>
 <div class="admonition missing">
 <p class="admonition-title">Unsupported in PL/SQL Cop Validators</p>
-<p>Rule G-7170 is not expected to be implemented in the static code analysis validators.</p>
+<p>We cannot determine the usage of an <code>in out</code> parameter in a reliable way, especially when other units are involved which are maintained in another file.</p>
 </div>
 <h2 id="reason">Reason</h2>
 <p>Avoid using parameter mode <code>in out</code> unless you actually use the parameter both as input and output. If the code body only reads from the parameter, use <code>in</code>; if the code body only assigns to the parameter, use <code>out</code>. If at the beginning of a project you expect a parameter to be both input and output and therefore choose <code>in out</code> just in case, but later development shows the parameter actually is only <code>in</code> or <code>out</code>, you should change the parameter mode accordingly.</p>
