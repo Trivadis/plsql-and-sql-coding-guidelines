@@ -74,7 +74,7 @@ function convert_to_pdf(){
     wkhtmltopdf --enable-local-file-access \
                 --allow "." \
                 --disable-smart-shrinking \
-                --javascript-delay 6000 \
+                --javascript-delay 12000 \
                 --outline-depth 6 \
                 --outline \
                 --print-media-type \

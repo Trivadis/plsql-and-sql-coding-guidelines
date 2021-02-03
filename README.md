@@ -11,6 +11,7 @@ HTML is the primary output format. [Material for MkDocs](https://squidfunk.githu
 * [Current version based on the main branch, snapshot version of the coming release](https://trivadis.github.io/plsql-and-sql-coding-guidelines/main/)
 * [Latest Release](https://trivadis.github.io/plsql-and-sql-coding-guidelines/)
 * Releases
+   * [Version 4.0](https://trivadis.github.io/plsql-and-sql-coding-guidelines/v4.0/)
    * [Version 3.6](https://trivadis.github.io/plsql-and-sql-coding-guidelines/v3.6/)
    * [Version 3.5](https://trivadis.github.io/plsql-and-sql-coding-guidelines/v3.5/)
    * [Version 3.4](https://trivadis.github.io/plsql-and-sql-coding-guidelines/v3.4/)
@@ -20,7 +21,7 @@ HTML is the primary output format. [Material for MkDocs](https://squidfunk.githu
 
 PDF is the secondary output format. [wkhtmltopdf](https://wkhtmltopdf.org/) is used to produce it. 
 
-Starting with version 3.5 you may access the PDF document from the [appendix in the HTML site](https://trivadis.github.io/plsql-and-sql-coding-guidelines/main/9-appendix/appendix/). 
+Starting with version 3.5 you may access the PDF document from the [appendix in the HTML site](https://trivadis.github.io/plsql-and-sql-coding-guidelines/9-appendix/appendix/). 
 
 The PDF version is also accessible per version from [Releases](https://github.com/Trivadis/plsql-and-sql-coding-guidelines/releases).
 
@@ -54,6 +55,8 @@ Please file your bug reports, enhancement requests, questions and other support 
    * Install [Git for Windows](https://gitforwindows.org/), it provides Git command line tools, a GUI and a Bash emulator
 4. Check/change the version in [mkdocs.yml](mkdocs.yml)
 5. Open a terminal window in the [tools](tools) folder 
+   * Build/update the table in appendix B
+     run `./genappendix.sh`.
    * Build/update the PDF file
      run `./genpdf.sh`.
    * Test the HTML site locally

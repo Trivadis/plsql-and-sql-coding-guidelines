@@ -19,8 +19,8 @@ The Oracle Database Developer community is made stronger by resources freely sha
 <img src="images/steven-feuerstein-signature.png" title="Steven Feuerstein" width="280px"/>
 
 Steven Feuerstein<br/>
-Team Lead, Oracle Developer Advocates<br/>
-Oracle<br/><br/>
+Senior Advisor<br/>
+Insum Solutions<br/>
 
 ***
 
