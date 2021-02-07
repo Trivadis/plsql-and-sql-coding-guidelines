@@ -1,32 +1,28 @@
-FROM centos:8
+FROM oraclelinux:8
 
 LABEL maintainer="philipp.salvisberg@trivadis.com"
 LABEL description="Tools to generate HTML and PDF using Materials for MkDocs and wkhtmltopdf."
 LABEL build.command="docker build . --tag trivadis/mktools:latest"
 
-# install python, not part of centos
-# see https://computingforgeeks.com/how-to-install-python-on-3-on-centos/
-RUN yum -y update
-RUN yum -y groupinstall "Development Tools"
-RUN yum -y install openssl-devel bzip2-devel libffi-devel
-RUN yum -y install wget
-RUN wget https://www.python.org/ftp/python/3.8.3/Python-3.8.3.tgz
-RUN tar xvf Python-3.8.3.tgz
-RUN /bin/bash -c 'cd Python-3.8*/; ./configure --enable-optimizations; make altinstall'
+# install python
+RUN dnf -y update
+RUN dnf -y install python38 python38-pip
 
 # install git
-RUN yum install -y git
+RUN dnf -y install git
 
-# install python modules (most recent versions)
-RUN pip3.8 install --upgrade pip
-RUN pip3.8 install mkdocs \
-                   mkdocs-material \
-                   mkdocs-awesome-pages-plugin \
-                   pymdown-extensions \
-                   mike 
+# install python modules
+# using "--root" should suppress "WARNING: Running pip install with root privileges is generally not a good idea." in future releases
+RUN python3 -m pip install --upgrade pip --root /
+RUN python3 -m pip install --root / \
+        'mkdocs==1.1.2' \
+        'mkdocs-material==6.2.8' \
+        'mkdocs-awesome-pages-plugin==2.5.0' \
+        'pymdown-extensions==8.1.1' \
+        'mike==0.5.5' 
 
 # install wkhtmltox 0.12.6
-RUN yum install -y https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox-0.12.6-1.centos8.x86_64.rpm
+RUN dnf -y install https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox-0.12.6-1.centos8.x86_64.rpm
 
 # set environment
 ENV LANG=en_US.utf8

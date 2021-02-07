@@ -18,10 +18,10 @@ theme:
 
 extra_css:
   - 'stylesheets/extra.css'
-
+  - 'css/version-select.css'
 extra_javascript:
   - 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'
-
+  - 'js/version-select.js'
 markdown_extensions:
   - admonition
   - pymdownx.highlight:
