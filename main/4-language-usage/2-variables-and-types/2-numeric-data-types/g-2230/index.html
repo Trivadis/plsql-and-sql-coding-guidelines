@@ -2799,7 +2799,7 @@
 9</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">create</span> <span class="k">or</span> <span class="k">replace</span> <span class="n">package</span> <span class="n">body</span> <span class="n">constants_up</span> <span class="k">is</span>
    <span class="n">co_big_increase</span> <span class="n">constant</span> <span class="nb">number</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span> <span class="p">:</span><span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 
-   <span class="k">function</span> <span class="n">big_increase</span> <span class="k">return</span> <span class="nb">number</span> <span class="k">is</span>
+   <span class="k">function</span> <span class="n">big_increase</span> <span class="k">return</span> <span class="nb">number</span> <span class="k">deterministic</span> <span class="k">is</span>
    <span class="k">begin</span>
       <span class="k">return</span> <span class="n">co_big_increase</span><span class="p">;</span>
    <span class="k">end</span> <span class="n">big_increase</span><span class="p">;</span>
@@ -2819,7 +2819,7 @@
 9</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">create</span> <span class="k">or</span> <span class="k">replace</span> <span class="n">package</span> <span class="n">body</span> <span class="n">constants_up</span> <span class="k">is</span>
    <span class="n">co_big_increase</span> <span class="n">constant</span> <span class="n">simple_integer</span> <span class="p">:</span><span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 
-   <span class="k">function</span> <span class="n">big_increase</span> <span class="k">return</span> <span class="n">simple_integer</span> <span class="k">is</span>
+   <span class="k">function</span> <span class="n">big_increase</span> <span class="k">return</span> <span class="n">simple_integer</span> <span class="k">deterministic</span> <span class="k">is</span>
    <span class="k">begin</span>
       <span class="k">return</span> <span class="n">co_big_increase</span><span class="p">;</span>
    <span class="k">end</span> <span class="n">big_increase</span><span class="p">;</span>
