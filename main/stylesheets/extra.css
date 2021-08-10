@@ -1,7 +1,8 @@
 /* fix logo size */
 .md-header-nav__button.md-logo img, .md-header-nav__button.md-logo svg {
     width: auto;
-    height: 21px;
+    height: 46px;
+    padding-top: 14px;
 }
 
 /* fix image border */
