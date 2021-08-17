@@ -8,7 +8,7 @@ Good standards and guidelines are based on the wealth of experience and knowledg
 
 <img src="images/urban-lankes-signature.png" title="Urban Lankes" width="200px"/><br/>
 Urban Lankes<br/>
-CEO and Chairman of the Board of Directors<br/>
+Chairman<br/>
 biGENIUS AG<br/>
 
 ***
