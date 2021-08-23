@@ -1,495 +1,495 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/1-introduction/introduction/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/2-naming-conventions/naming-conventions/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/3-coding-style/coding-style/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/1-general/g-1010/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/1-general/g-1020/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/1-general/g-1030/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/1-general/g-1040/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/1-general/g-1050/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/1-general/g-1060/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/1-general/g-1070/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/1-general/g-1080/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/2-variables-and-types/1-general/g-2110/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/2-variables-and-types/1-general/g-2120/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/2-variables-and-types/1-general/g-2130/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/2-variables-and-types/1-general/g-2135/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/2-variables-and-types/1-general/g-2140/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/2-variables-and-types/1-general/g-2145/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/2-variables-and-types/1-general/g-2150/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/2-variables-and-types/1-general/g-2160/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/2-variables-and-types/1-general/g-2170/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/2-variables-and-types/1-general/g-2180/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/2-variables-and-types/1-general/g-2185/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/2-variables-and-types/1-general/g-2190/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/2-variables-and-types/2-numeric-data-types/g-2210/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/2-variables-and-types/2-numeric-data-types/g-2220/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/2-variables-and-types/2-numeric-data-types/g-2230/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/2-variables-and-types/3-character-data-types/g-2310/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/2-variables-and-types/3-character-data-types/g-2320/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/2-variables-and-types/3-character-data-types/g-2330/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/2-variables-and-types/3-character-data-types/g-2340/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/2-variables-and-types/4-boolean-data-types/g-2410/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/2-variables-and-types/5-large-objects/g-2510/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/2-variables-and-types/6-cursor-variables/g-2610/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/3-dml-and-sql/1-general/g-3110/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/3-dml-and-sql/1-general/g-3115/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/3-dml-and-sql/1-general/g-3120/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/3-dml-and-sql/1-general/g-3130/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/3-dml-and-sql/1-general/g-3140/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/3-dml-and-sql/1-general/g-3150/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/3-dml-and-sql/1-general/g-3160/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/3-dml-and-sql/1-general/g-3170/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/3-dml-and-sql/1-general/g-3180/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/3-dml-and-sql/1-general/g-3185/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/3-dml-and-sql/1-general/g-3190/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/3-dml-and-sql/1-general/g-3195/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/3-dml-and-sql/2-bulk-operations/g-3210/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/3-dml-and-sql/3-transaction-control/g-3310/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/3-dml-and-sql/3-transaction-control/g-3320/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/4-control-structures/1-cursor/g-4110/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/4-control-structures/1-cursor/g-4120/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/4-control-structures/1-cursor/g-4130/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/4-control-structures/1-cursor/g-4140/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/4-control-structures/2-case-if-decode-nvl-nvl2-coalesce/g-4210/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/4-control-structures/2-case-if-decode-nvl-nvl2-coalesce/g-4220/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/4-control-structures/2-case-if-decode-nvl-nvl2-coalesce/g-4230/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/4-control-structures/2-case-if-decode-nvl-nvl2-coalesce/g-4240/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/4-control-structures/2-case-if-decode-nvl-nvl2-coalesce/g-4250/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/4-control-structures/2-case-if-decode-nvl-nvl2-coalesce/g-4260/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/4-control-structures/2-case-if-decode-nvl-nvl2-coalesce/g-4270/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/4-control-structures/3-flow-control/g-4310/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/4-control-structures/3-flow-control/g-4320/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/4-control-structures/3-flow-control/g-4325/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/4-control-structures/3-flow-control/g-4330/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/4-control-structures/3-flow-control/g-4340/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/4-control-structures/3-flow-control/g-4350/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/4-control-structures/3-flow-control/g-4360/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/4-control-structures/3-flow-control/g-4370/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/4-control-structures/3-flow-control/g-4375/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/4-control-structures/3-flow-control/g-4380/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/4-control-structures/3-flow-control/g-4385/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/4-control-structures/3-flow-control/g-4390/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/4-control-structures/3-flow-control/g-4395/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/5-exception-handling/g-5010/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/5-exception-handling/g-5020/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/5-exception-handling/g-5030/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/5-exception-handling/g-5040/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/5-exception-handling/g-5050/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/5-exception-handling/g-5060/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/5-exception-handling/g-5070/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/5-exception-handling/g-5080/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/6-dynamic-sql/g-6010/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/6-dynamic-sql/g-6020/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/7-stored-objects/1-general/g-7110/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/7-stored-objects/1-general/g-7120/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/7-stored-objects/1-general/g-7125/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/7-stored-objects/1-general/g-7130/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/7-stored-objects/1-general/g-7140/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/7-stored-objects/1-general/g-7150/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/7-stored-objects/1-general/g-7160/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/7-stored-objects/1-general/g-7170/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/7-stored-objects/2-packages/g-7210/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/7-stored-objects/2-packages/g-7220/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/7-stored-objects/2-packages/g-7230/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/7-stored-objects/2-packages/g-7250/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/7-stored-objects/3-procedures/g-7310/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/7-stored-objects/3-procedures/g-7320/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/7-stored-objects/3-procedures/g-7330/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/7-stored-objects/4-functions/g-7410/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/7-stored-objects/4-functions/g-7420/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/7-stored-objects/4-functions/g-7430/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/7-stored-objects/4-functions/g-7440/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/7-stored-objects/4-functions/g-7450/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/7-stored-objects/4-functions/g-7460/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/7-stored-objects/5-oracle-supplied-packages/g-7510/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/7-stored-objects/6-object-types/object-types/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/7-stored-objects/7-triggers/g-7710/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/7-stored-objects/7-triggers/g-7720/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/7-stored-objects/7-triggers/g-7730/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/7-stored-objects/8-sequences/g-7810/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/8-patterns/1-checking-the-number-of-rows/g-8110/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/8-patterns/1-checking-the-number-of-rows/g-8120/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/8-patterns/2-access-objects-of-foreign-application-schemas/g-8210/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/8-patterns/3-validating-input-parameter-size/g-8310/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/8-patterns/4-ensure-single-execution-at-a-time-of-a-program-unit/g-8410/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/8-patterns/5-use-dbms-application-info-package-to-follow-progress-of-a-process/g-8510/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/9-function-usage/g-9010/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/9-function-usage/g-9020/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/9-function-usage/g-9030/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/5-complexity-analysis/complexity-analysis/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/6-code-reviews/code-reviews/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/7-tool-support/tool-support/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://trivadis.github.io/plsql-and-sql-coding-guidelines/9-appendix/appendix/</loc>
-     <lastmod>2021-08-17</lastmod>
+     <lastmod>2021-08-23</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>
