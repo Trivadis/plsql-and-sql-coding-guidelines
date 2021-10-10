@@ -27,7 +27,7 @@
     <breakParenCondition>true</breakParenCondition>
     <identSpaces>3</identSpaces>
     <breaksAfterSelect>false</breaksAfterSelect>
-    <spaceAfterCommas>true</spaceAfterCommas>
+    <spaceAfterCommas>false</spaceAfterCommas>
     <kwCase>oracle.dbtools.app.Format.Case.lower</kwCase>
     <formatWhenSyntaxError>false</formatWhenSyntaxError>
 </options>
