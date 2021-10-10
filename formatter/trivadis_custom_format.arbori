@@ -1,0 +1,4037 @@
+/*
+ * Copyright 2021 Philipp Salvisberg <philipp.salvisberg@trivadis.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+include "std.arbori"
+
+/**
+ * Lightweight Formatter for SQL Developer and SQLcl
+ * The idea is to keep the code formatted "as is" and apply chosen formatting rules only.
+ *
+ * The Arbori program is processed from top to bottom.
+ *
+ * To structure the Arbori program the concept of "phases" and "sections" are used.
+ * A phase consists of one ore more sections.
+ * A section consists of one or more Arbori queries.
+ *
+ * The following phases are defined:
+ *
+ * - Phase 0 - Main program with minimal configuration.
+ * - Phase 1 - Initialization and preprocessing.
+ * - Phase 2 - Apply rules.
+ *
+ * The start of a phase is visualized by a comment series like this
+ *
+ * -- ================================
+ * -- Phase <PhaseNumber> - <Comment>.
+ * -- ================================
+ *
+ * The sections have the following format <Category><SectionNumber>.
+ * The next table explains the meaning of a category:
+ *
+ * Cat.  Meaning                 Description                                             Phases  Tests?
+ * ----  ----------------------  ------------------------------------------------------  ------  ------
+ * D     Debug                   Initialize or produce debugging output.                 1, 2    No
+ * I     Initialization Section  Identifies a section in an initialization phase.        1       No
+ * O     SQLDev Option           Implements a SQL Developer option (Advanced Format).    2       Yes
+ * R     Trivadis Rule           Implements a Trivadis PL/SQL & SQL Guideline.           2       Yes
+ * A     Add-on Section/Rule     Additional formatting rule, that is not based on        2       Yes
+ *                               the Trivadis PL/SQL & SQL Guidelines. Nonetheless it's
+ *                               considered important to improve the formatting result.
+ *
+ * The SectionNumber identifies a section within a category.
+ *
+ * The start of a section is visualized by a comment series like this
+ *
+ * -- -------------------------------------
+ * -- <Category><SectionNumber>: <Comment>.
+ * -- -------------------------------------
+ *
+ * The lightweight formatter honors most of the SQLDev options. However, the following options
+ * are ignored, have limitations or are considered only partially:
+ *
+ * - Indentation: indent with. Options: Tab; Spaces. (useTab).
+ *   The formatter supports only indentation with spaces. Spaces are used even if "Tab" is configured.
+ *   Using tab would lead to various issues in combination with other settings (e.g. leading commas).
+ *
+ * - Line Breaks: Commas per line in procedures. Options: Integer value. (breaksProcArgs).
+ *   The formatter ignores this configuration.
+ *   The idea of the lightweight formatter is to leave this decision to the developer.
+ *
+ * - Line Breaks: For compound_condition parenthesis. Options: true; false. (breakParenCondition).
+ *   The formatter ignores this configuration.
+ *   The idea of the lightweight formatter is to leave this decision to the developer.
+ *
+ * - Line Breaks: After statements. Options: Double break; Single break; Preserve original. (extraLinesAfterSignificantStatements).
+ *   The formatter ignores this configuration.
+ *   The idea of the lightweight formatter is to leave this decision to the developer.
+ *
+ * The following SQL options are honored, but not implemented by this Arbori program.
+ * They are implemented by SQLDev's oracle.dbtools.app.Format class. As a result the behavior cannot be overridden.
+ *
+ * - Format:
+ *   - Convert Case Only. Options: true, false. (adjustCaseOnly).
+ * - Advanced Format:
+ *   - General: Keywords case. Options: UPPER; lower; Init cap; Keep unchanged. (kwCase).
+ *   - General: Identifiers case. Options: UPPER; lower; Init cap; Keep unchanged. (idCase).
+ *   - General: 1-line long comments. Options: Keep unchanged; Wrap multiline; Wrap singleline. (singleLineComments).
+ *   - Line Breaks: Before line comments. Options: true; false. (forceLinebreaksBeforeComment).
+ */
+
+-- ====================================================================================================================
+-- Phase 0: Main Configuration.
+-- ====================================================================================================================
+
+-- Sections:
+-- - I2: Minimal Arbori program (expected by the formatter).
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- I2: Minimal Arbori program (expected by the formatter).
+-- --------------------------------------------------------------------------------------------------------------------
+
+-- ":indentCondtions" must be used,
+-- otherwise the Arbori program will be considered invalid and the default is used.
+-- The Arbori query "dummy" never called, hence it does not matter what node is selected.
+-- However, I chose to use "identifier" to avoid an Arbori warning.
+dummy:
+    :indentConditions & [node) identifier
+;
+
+-- "skipWhitespaceBeforeNode" must be defined,
+-- otherwise the Arbori program will be considered invalid and the default is used.
+skipWhiteSpaceBeforeNode:
+  runOnce
+-> {
+    var doNotCallCallbackFunction;
+}
+
+-- ====================================================================================================================
+-- Phase 1 - Initialization and pre-processing.
+-- ====================================================================================================================
+
+-- Sections:
+-- - D1: Initialize timer.
+-- - I3: Do not format nodes.
+-- - I4: Identifiers.
+-- - I5: Globals.
+-- - I6: Remove duplicate empty lines.
+-- - I7: Keep existing whitespace.
+-- - I8: Save indentations of parser node positions in first selection directive.
+-- - I9: Remove duplicate spaces in scope.
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- D1: Initialize timer.
+-- --------------------------------------------------------------------------------------------------------------------
+
+startCustomFormat:
+    runOnce
+-> {
+    var startTime = (new Date()).getTime();
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- I3: Do not format node
+-- --------------------------------------------------------------------------------------------------------------------
+
+-- This is considered pre-processing because the provided callback function is used
+-- and we do not write tests for this.
+
+-- Callback function to ensure numeric literals are formatted correctly (without whitespaces)
+dontFormatNode:
+      [node) numeric_literal
+    | [node) path             -- expected in in SQL*Plus, SQLcl commands only
+->
+;
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- I4: Identifiers
+-- --------------------------------------------------------------------------------------------------------------------
+
+-- analytic functions, to be treated as keywords
+"analytics":
+      [identifier) identifier
+    & [call) analytic_function
+    & [call = [identifier
+;
+
+-- all identifiers
+"ids":
+    [identifier) identifier
+;
+
+-- Callback function to reduce the list of keywords by the identifiers provided here
+-- This is relevant for general options "Keyword case" and "Indentifier case".
+identifiers:
+    "ids" - "analytics"
+->
+;
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- I5: Globals.
+-- --------------------------------------------------------------------------------------------------------------------
+
+-- Global variables, which are likely to be used in more than one Arbori query/action
+define_global_variables:
+    runOnce
+-> {
+    // Java classes
+    var ArrayList = Java.type('java.util.ArrayList');
+    var Format = Java.type('oracle.dbtools.app.Format');
+    var HashMap = Java.type('java.util.HashMap');
+    var HashSet = Java.type('java.util.HashSet');
+    var Integer = Java.type('java.lang.Integer');
+    var LexerToken = Java.type('oracle.dbtools.parser.LexerToken');
+    var logger = Java.type('oracle.dbtools.util.Logger');
+    var Pattern = Java.type("java.util.regex.Pattern");
+    var Substitutions = Java.type('oracle.dbtools.parser.Substitutions');
+    var System = Java.type('java.lang.System');
+    var Token = Java.type('oracle.dbtools.parser.Token');
+
+    // use reflection to access hidden field newlinePositions
+    var newlinePositionsField = Format.class.getDeclaredField("newlinePositions");
+    newlinePositionsField.setAccessible(true);
+    var newlinePositions = newlinePositionsField.get(struct);
+
+    // get option for "Alignment: Column and Table aliases"
+    var alignTabColAliases = struct.options.get("alignTabColAliases");
+
+    // get option for "Alignment: Type Declarations"
+    var alignTypeDecl = struct.options.get("alignTypeDecl");
+
+    // get option for "Alignment: Named Argument Separator =>"
+    var alignNamedArgs = struct.options.get("alignNamedArgs");
+
+    // get option for "Alignment: Assignment Operator :="
+    var alignAssignments = struct.options.get("alignAssignments");
+
+    // get option for "Alignment: Equality Predicate ="
+    var alignEquality = struct.options.get("alignEquality");
+
+    // get option for "Alignment: Right-align query keywords"
+    var alignRight = struct.options.get("alignRight");
+
+    // get option for "Indentation: Indent spaces" (number of spaces for a single indentation)
+    var indentSpaces = struct.options.get("identSpaces");
+
+    // get option for "Line breaks: On Concatenation"
+    var breaksConcat = struct.options.get("breaksConcat");
+
+    // get option for "Line Breaks: On Boolean connectors"
+    var breaksAroundLogicalConjunctions = struct.options.get("breaksAroundLogicalConjunctions");
+
+    // get option for "Line Breaks: On ANSI joins"
+    var breakAnsiiJoin = struct.options.get("breakAnsiiJoin");
+
+    // get option for "Line Breaks: On subqueries"
+    var breakOnSubqueries = struct.options.get("breakOnSubqueries");
+
+    // get option for "Line Breaks: Max char line width"
+    var maxCharLineSize = struct.options.get("maxCharLineSize");
+
+    // get option for "Line Breaks: SELECT/FROM/WHERE"
+    var breaksAfterSelect = struct.options.get("breaksAfterSelect");
+
+    // get option for "White Space: Around operators"
+    var spaceAroundOperators = struct.options.get("spaceAroundOperators");
+
+    // get option for "White Space: After commas"
+    var spaceAfterCommas = struct.options.get("spaceAfterCommas");
+
+    // get option for "Whitespace: Around parenthesis"
+    var spaceAroundBrackets = struct.options.get("spaceAroundBrackets");
+
+    // lexer tokens including hidden tokens (LINE_COMMENT, COMMENT, WS, MACRO_SKIP, SQLPLUSLINECONTINUE_SKIP)
+    // are relevant to find comments between tokens. These variables are populated in
+    // keepSignificantWhitespaceBeforeLeafNodes
+    var tokens = null;
+    var mapParserPosToLexerPos = new HashMap();
+
+    // parser tokens in first conditional compilation branch with original indent - populated in I8
+    var indentInConditionalBranch = new HashMap();
+}
+
+-- Global functions, which are likely to be used in more than one Arbory action
+define_global_functions:
+    runOnce
+-> {
+    // Return a string with the requested number of spaces.
+    var getSpaces = function(numberOfSpaces) {
+        var result = "";
+        for (var i=0; i<numberOfSpaces; i++) {
+            result += " ";
+        }
+        return result;
+    }
+
+    // Return the indentation at a node position. Converts the default null to a single space
+    var getIndent = function(nodeFrom) {
+        // map is based on Integer; therefore nodeFrom must be converted to an Integer
+        var indent = newlinePositions.get(Integer.valueOf(nodeFrom));
+        if (indent == null) {
+            return " ";
+        }
+        return indent;
+    }
+
+    // Returns the indentation without leading new lines from a string.
+    var getNumCharsAfterNewLine = function(indent) {
+        if (indent.indexOf("\n") != -1) {
+            return indent.length() - indent.lastIndexOf("\n") - 1;
+        }
+        return indent.length();
+    }
+
+    // Returns the leading new lines from a node position (without trailing spaces).
+    var getLeadingNewLines = function(nodeFrom) {
+        var startPos=nodeFrom;
+        var indent = getIndent(startPos);
+        if (indent.indexOf("\n") != -1) {
+            return indent.substring(0, indent.lastIndexOf("\n") + 1);
+        }
+        return "";
+    }
+
+    // Returns the column of a node position. Considers all preceding nodes.
+    var getColumn = function(nodeFrom) {
+        var startPos=nodeFrom;
+        var col=getNumCharsAfterNewLine(getIndent(startPos));
+        var indent = getIndent(startPos);
+        for (var i=startPos-1; i>=0 && indent.indexOf("\n") == -1; i=i-1) {
+            col += target.src.get(i).content.length();
+            var indent = getIndent(i);
+            col += getNumCharsAfterNewLine(indent);
+        }
+        return col;
+    }
+
+    // Same as getColumn but does not contain the very first indentation.
+    var getColumnWithoutFirstIndent = function(nodeFrom) {
+        var startPos=nodeFrom;
+        var col=getNumCharsAfterNewLine(getIndent(startPos));
+        var indent = getIndent(startPos);
+        for (var i=startPos-1; i>=0 && indent.indexOf("\n") == -1; i=i-1) {
+            col += target.src.get(i).content.length();
+            var indent = getIndent(i);
+            if (indent.indexOf("\n") == -1) {
+                col += getNumCharsAfterNewLine(indent);
+            }
+        }
+        return col;
+    }
+
+    // Returns true if a node or one of its children contains an indentation with a new line character.
+    var containsLineBreak = function(node) {
+        return containsLineBreakBetweenPos(node.from, node.to);
+    }
+
+    // Returns true if a new line character is found in the provided position range
+    var containsLineBreakBetweenPos = function(from, to) {
+        for (var i = from; i < to; i++) {
+            var value = getIndent(i);
+            if (value.indexOf("\n") != -1) {
+                return true;
+            }
+        }
+    }
+
+    // Returns true if single-line or multi-line comments exists between two node positions.
+    var hasCommentsBetweenPos = function(startPos, endPos) {
+        // maps are based on Integers; therefore startPost and endPos must be converted to Integers
+        tokenStartPos = mapParserPosToLexerPos.get(Integer.valueOf(startPos));
+        tokenEndPos = mapParserPosToLexerPos.get(Integer.valueOf(endPos));
+        for (var i = tokenStartPos; i < tokenEndPos; i++) {
+            var type = tokens[i].type;
+            if (type == Token.LINE_COMMENT || type == Token.COMMENT) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Returns the the last comment (sl or ml) between two node positions.
+    var getLastCommentBetweenPos = function(startPos, endPos) {
+        var comment = "";
+        // maps are based on Integers; therefore startPost and endPos must be converted to Integers
+        tokenStartPos = mapParserPosToLexerPos.get(Integer.valueOf(startPos));
+        tokenEndPos = mapParserPosToLexerPos.get(Integer.valueOf(endPos));
+        for (var i = tokenStartPos; i < tokenEndPos; i++) {
+            var type = tokens[i].type;
+            if (type == Token.LINE_COMMENT || type == Token.COMMENT) {
+                comment = tokens[i].content;
+            }
+        }
+        return comment;
+    }
+
+    // Returns the maximum column of nodes in an array list of tuples.
+    var getMaxColumn = function(list, nodeName) {
+        var maxCol = 0;
+        for (var i=0; i < list.length; i++) {
+            var node = list.get(i).get(nodeName)
+            var col = getColumn(node.from);
+            if (col > maxCol) {
+                maxCol = col;
+            }
+        }
+        return maxCol;
+    }
+
+    // Adds a tuple to a map indexed by scope.
+    var addTupleToMap = function(tuple, scopeNodeName, map) {
+        var scope = tuple.get(scopeNodeName);
+        var list = map.get(scope);
+        if (list == null) {
+            list = new ArrayList();
+        }
+        list.add(tuple);
+        map.put(scope, list);
+    }
+
+    // Increase the indent for a parent and all its descendants; but only for leaf nodes to avoid duplicate indentation.
+    var addIndent = function(parent, increaseBy) {
+        if (parent != null) {
+            var descendants = parent.descendants();
+            for (var i = 0, len = descendants.length; i < len; i++) {
+                var node = descendants.get(i);
+                var indent = getIndent(node.from);
+                if (indent.indexOf("\n") != -1) {
+                    if (node.children().size() == 0) {
+                        struct.putNewline(node.from, indent + getSpaces(increaseBy));
+                    }
+                }
+            }
+        }
+    }
+
+    // Aligns all nodes per scope.
+    var align = function(map, alignNodeName, indentNodeName, logText) {
+        var it = map.keySet().iterator();
+        while (it.hasNext()) {
+            var scope = it.next();
+            var list = map.get(scope);
+            var maxCol = getMaxColumn(list, alignNodeName);
+            alignAtPos(maxCol, list, alignNodeName, indentNodeName, logText);
+        }
+    }
+
+    // Aligns all nodes at a target position.
+    var alignAtPos = function(targetPos, list, alignNodeName, indentNodeName, logText) {
+        for (var i=0; i<list.length; i++) {
+            var alignNode = list.get(i).get(alignNodeName);
+            var indent = getIndent(alignNode.from);
+            var col = getColumn(alignNode.from);
+            if (targetPos != col) {
+                if (targetPos > col) {
+                    indent += getSpaces(targetPos - col);
+                } else {
+                    indent = indent.substring(0, targetPos + 1);
+                }
+                struct.putNewline(alignNode.from, indent);
+                logger.fine(struct.getClass(), logText + ": at " + alignNode.from + ".");
+                if (indentNodeName != null) {
+                    var indentNode = list.get(i).get(indentNodeName);
+                    if (indentNode != null) {
+                        addIndent(indentNode, targetPos - col);
+                        logger.fine(struct.getClass(), logText + ": add indent for " + indentNode.from + ".");
+                    }
+                }
+            }
+        }
+    }
+
+    // Returns the content of the token position range.
+    var getContent = function(fromPos, toPos) {
+        var content = "";
+        for (var i=fromPos; i<toPos; i++) {
+            content += target.src.get(i).content;
+            content += getIndent(i+1);
+        }
+        return content;
+    }
+
+    // Returns the content of the last line in a text.
+    var getLastLine = function(text) {
+        if (text != null) {
+            var index = text.lastIndexOf("\n");
+            if (index > 0) {
+                return text.substring(text, index);
+            }
+        }
+        return text;
+    }
+
+    // Returns true if there is no other parameter defined on the same line.
+    var firstParameterOnLine = function(nodeFrom, scopeFrom) {
+        if (getIndent(nodeFrom).indexOf("\n") == -1) {
+            for (var i=nodeFrom-1; i>=scopeFrom; i=i-1) {
+                var prevNode = target.root.leafAtPos(i);
+                if (prevNode.contains("decl_id")) {
+                    return false;
+                }
+                if (getIndent(prevNode.from).indexOf("\n") != -1) {
+                    break;
+                }
+            }
+        }
+        return true;
+    }
+
+    // Returns true if there is a a new line in the node range; search backwards.
+    var hasNewline = function(from, to) {
+        for (var i=from; i>=to; i=i-1) {
+            if (getIndent(i).indexOf("\n") != -1) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Reduce indentation for nodes with leading commas.
+    var fixIndentOfLeadingCommas = function(map, nodeName, logText) {
+        if (struct.breaksBeforeComma()) {
+            var comma = 1;
+            if (spaceAfterCommas) {
+                comma += 1;
+            }
+            var it = map.keySet().iterator();
+            while (it.hasNext()) {
+                var scope = it.next();
+                var list = map.get(scope);
+                for (var i=0; i<list.length; i++) {
+                    var node = list.get(i).get(nodeName);
+                    var indent = getIndent(node.from);
+                    if (indent.indexOf("\n") != -1) {
+                        var content = target.src.get(node.from).content;
+                        if (content == ",") {
+                            struct.putNewline(node.from, indent.substring(0, indent.length - comma));
+                            logger.fine(struct.getClass(), logText + ": reduced intent at " + node.from + ".");
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // Returns true if the node is part of a statement that should be fully formatted.
+    var overrideIndents = function(nodeFrom) {
+        // "subquery" could be added to handle select statements that do not end on semicolon.
+        // But this will have an impact on other statements using "subquery".
+        return hasParentOfType(nodeFrom, [
+           "select",
+           "create_view",
+           "create_materialized_view",
+           "insert",
+           "update",
+           "delete",
+           "merge",
+           "block_stmt",
+           "pkg_body",
+           "create_plsql"
+        ]);
+    }
+
+    // Returns true if a the node or an ancestors has one of the provided symbols.
+    var hasParentOfType = function(nodeFrom, symbols) {
+        var node = target.root.leafAtPos(nodeFrom);
+        while (node != null) {
+            for (var i=0; i < symbols.length; i++) {
+                if (node.contains(symbols[i])) {
+                    return true;
+                }
+            }
+            node = node.parent();
+        }
+        return false;
+    }
+
+    //-- Alternative implementation of Java String's replaceAll method due to
+    //-- https://github.com/oracle/graaljs/issues/460 .
+    //-- We cannot influence the JS engine initialization in an Arbori program,
+    //-- and therefore cannot delete the String.prototype.replaceAll.
+    //-- However, it would be possible to pass a JS regex, e.g.
+    //--     someString.replaceAll(/old/g, "new");
+    //-- This works, but when a backslash (e.g. \n for newline) is used in the regex an error is thrown.
+    //-- As soon as the issue 460 is fixed in the GraalVM JS script engine and this new version is used
+    //-- in SQLcl and SQLDev this workaround can be eliminated.
+    var replaceAll = function(input, pattern, replacement) {
+        var p = Pattern.compile(pattern);
+        var m = p.matcher(input);
+        var result = "";
+        var pos = 0;
+        while (m.find()) {
+            result += input.substring(pos, m.start());
+            result += replacement;
+            pos = m.end();
+        }
+        if (input.length > pos) {
+            result += input.substring(pos);
+        }
+        return result;
+    }
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- I6: Remove duplicate empty lines.
+-- --------------------------------------------------------------------------------------------------------------------
+
+-- Replace multiple, consecutive empty lines with one empty line.
+-- This code changes the input (target.input) and the lexer tokens (target.src).
+-- Therefore this code must run at the beginning of the Arbori program.
+max_one_empty_line:
+    runOnce
+-> {
+    var offOnRanges = [];
+
+    var populateOffOnRanges = function(tokens) {
+        var off = -1;
+        offOnRanges = [];
+        for (var i in tokens) {
+            var type = tokens[i].type;
+            if (type == Token.LINE_COMMENT || type == Token.COMMENT) {
+                if (tokens[i].content.toLowerCase().indexOf("@formatter:off") != -1 || tokens[i].content.toLowerCase().indexOf("noformat start") != -1) {
+                    off = tokens[i].begin;
+                }
+                if (off != -1) {
+                    if (tokens[i].content.toLowerCase().indexOf("@formatter:on") != -1 || tokens[i].content.toLowerCase().indexOf("noformat end") != -1) {
+                        offOnRanges.push([off, tokens[i].end]);
+                        off = -1;
+                    }
+                }
+            }
+        }
+    }
+
+    var inOffOnRange = function(pos) {
+        for (var x in offOnRanges) {
+            if (pos >= offOnRanges[x][0] && pos < offOnRanges[x][1]) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    var removeDuplicateEmptyLines = function() {
+        var tokens = LexerToken.parse(target.input,true);  // parse with WS symbols
+        populateOffOnRanges(tokens);
+        var substitutions = new Substitutions(target.input);
+        var firstEOLToken = 0;
+        var secondEOLToken = 0;
+        var lastEOLToken = 0;
+        for (i = 0; i < tokens.length; i++) {
+            var type = tokens[i].type;
+            if (tokens[i].content == "\n") {
+                if (firstEOLToken == 0) {
+                    firstEOLToken = tokens[i];
+                } else if (secondEOLToken == 0) {
+                    secondEOLToken = tokens[i];
+                } else {
+                    lastEOLToken = tokens[i];
+                }
+                continue;
+            }
+            if (type != Token.WS) {
+                if (lastEOLToken != 0) {
+                    if (!inOffOnRange(secondEOLToken.begin)) {
+                        substitutions.put(secondEOLToken.begin,lastEOLToken.begin,"");
+                    }
+                }
+                firstEOLToken = 0;
+                secondEOLToken = 0;
+                lastEOLToken = 0;
+            }
+        }
+        // update source code
+        target.input = substitutions.transformInput();
+    }
+
+    // replacements
+    removeDuplicateEmptyLines();
+
+    // tokens without WS and comments (mimicking default behaviour)
+    var Lexer = Java.type('oracle.dbtools.parser.Lexer');
+    var defaultTokens = Lexer.parse(target.input);
+
+    // produce a new parse tree based on the updated lexer tokens
+    var Parsed = Java.type('oracle.dbtools.parser.Parsed');
+    var SqlEarley = Java.type('oracle.dbtools.parser.plsql.SqlEarley')
+    var newTarget = new Parsed(target.input, defaultTokens, SqlEarley.getInstance(), Java.to(["sql_statements"], "java.lang.String[]"));
+
+    // update token list based on fixed source code (without WS tokens)
+    target.src.clear();
+    target.src.addAll(newTarget.src);
+
+    // enable next line to print all node names on the console (e.g. when SQLDev UI shows unnamed nodes)
+    // target.root.printTree();
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- I7: Keep existing whitespace.
+-- --------------------------------------------------------------------------------------------------------------------
+
+-- add explicit whitespace before each leaf node, if the whitespace before is not a single space (default)
+keep_significant_whitespace_before_leaf_nodes:
+    runOnce
+-> {
+    tokens = LexerToken.parse(target.input, true);  // include hidden tokens not relevant to build a parse tree
+    var hiddenTokenCount = 0;
+    var wsBefore = "";
+    for (var i in tokens) {
+        var type = tokens[i].type;
+        // count hidden tokens
+        if (type == Token.LINE_COMMENT || type == Token.COMMENT || type == Token.WS ||
+            type == Token.MACRO_SKIP || type == Token.SQLPLUSLINECONTINUE_SKIP)
+        {
+            hiddenTokenCount++;
+            // concatenate whitespace before a node
+            if (type == Token.WS) {
+                wsBefore += tokens[i].content;
+            } else {
+                // ensure that other hidden token are not counted as whitespace
+                wsBefore = "";
+            }
+        } else {
+            // enforce uniform datatype in map; therefore convert values to Integer
+            mapParserPosToLexerPos.put(Integer.valueOf(i-hiddenTokenCount), i);
+            if (i-hiddenTokenCount == 0 && hiddenTokenCount == wsBefore.length) {
+                // first parser token with leading whitespace only (no other hidden tokens like comments)
+                struct.putNewline(0, "");
+                logger.fine(struct.getClass(), "keepSignificantWhitespaceBeforeLeafNodes: remove all whitespace at 0.");
+            } else if (wsBefore != " ") {
+                // add collected whitespace before leaf node (actually at the position of the leaf node)
+                // add also empty strings to ensure that not a space is added between tokens
+                struct.putNewline(i-hiddenTokenCount, wsBefore);
+                logger.fine(struct.getClass(), "keepSignificantWhitespaceBeforeLeafNodes: add "
+                    + wsBefore.length + " whitespace at " + (i-hiddenTokenCount) + ".");
+            }
+            wsBefore = "";
+        }
+    }
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- I8: Save indentations of parser node positions in first selection directive.
+-- --------------------------------------------------------------------------------------------------------------------
+
+-- Only tokens of the first branch in a condition compilation block are visible as parser tokens.
+-- The parser expects valid code within this branch. If the branch contains something
+-- else (e.g. code templates as used in FTLDB or tePLSQLPL) an incomplete
+-- parse tree is produced and therefore also an unsatisfactory formatting result.
+
+-- We populate a hash map containing parser token positions in the first conditional compilation block
+-- with their initial indent. At the end of the Arbori program we reset the indentation to the
+-- original values. This way we don't have to deal with conditional compilation in other sections.
+-- We cannot use dontFormatNode because the indent of the first position in a consecutive list
+-- of positions is ignored. However, depending on the configuration the case of keywords and
+-- identifiers is changed.
+
+saveIndentInConditionalBranch:
+    runOnce
+-> {
+    var pos = 0;
+    var withinFirstBranch = false;
+    for (var i in tokens) {
+        var type = tokens[i].type
+        var content = tokens[i].content.toLowerCase()
+        if (type == Token.MACRO_SKIP && content.startsWith("$if ")) {
+            withinFirstBranch = true;
+            continue;
+        }
+        if (withinFirstBranch && type == Token.MACRO_SKIP && content.startsWith("$")) {
+            withinFirstBranch = false;
+            continue;
+        }
+        if (type != Token.LINE_COMMENT && type != Token.COMMENT && type != Token.WS &&
+            type != Token.MACRO_SKIP && type != Token.SQLPLUSLINECONTINUE_SKIP)
+        {
+            if (withinFirstBranch) {
+                // enforce uniform datatype in map; therefore convert values to Integer
+                indentInConditionalBranch.put(Integer.valueOf(pos), getIndent(pos));
+                logger.fine(struct.getClass(), "saveIndentInConditionalBranch: at " + pos + ".");
+            }
+            pos++;
+        }
+    }
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- I9: Remove duplicate spaces in scope.
+-- --------------------------------------------------------------------------------------------------------------------
+
+-- In scope are statements for that are formatted fully (see overrideIndents).
+-- Only spaces after the last new line character are considered. So, all line breaks are kept.
+
+remove_duplicate_spaces_in_scope:
+    runOnce
+-> {
+    var it = newlinePositions.keySet().iterator();
+    while (it.hasNext()) {
+        var pos = it.next();
+        if (overrideIndents(pos)) {
+            var indent = getIndent(pos);
+            var nlpos = indent.lastIndexOf("\n");
+            if (nlpos == -1) {
+                if (indent.length > 1) {
+                    struct.putNewline(pos, " ");
+                    logger.fine(struct.getClass(), "remove_duplicate_spaces_in_scope: single space at " + pos + ".");
+                }
+            } else {
+                var spaces = indent.length - nlpos - 1;
+                if (spaces > 0) {
+                    struct.putNewline(pos, indent.substring(0, nlpos+1));
+                    logger.fine(struct.getClass(), "remove_duplicate_spaces_in_scope: keeping line breaks only at "
+                        + pos + ".");
+                }
+            }
+        }
+    }
+}
+
+-- ====================================================================================================================
+-- Phase 2 - Apply rules.
+-- ====================================================================================================================
+
+-- Sections:
+-- - A1: Do not use tabs.
+-- - A2: Remove trailing spaces.
+-- - A3: Do not format code between @formatter:off and @formatter:on comments.
+-- - O2: White Space: Around operators. Options: true; false. (spaceAroundOperators).
+-- - A13: Keep short nodes on the same line.
+-- - A5: No space before node.
+-- - A6: No space after node.
+-- - A7: One space before node.
+-- - A8: One space after node.
+-- - A17: Whitespace around node.
+-- - A15: Line break before node.
+-- - A14: Line break after node.
+-- - O3: White Space: Around parenthesis. Options: Default; Inside; Outside; No space. (spaceAroundBrackets).
+-- - R3: One command per line & R4: Keywords "loop", "else", "elsif", "end", "when" on a new line.
+-- - O6: Line Breaks: SELECT/FROM/WHERE. Options: true; false. (breaksAfterSelect).
+-- - O9: Line Breaks: On Boolean connectors. Options: Before&After; Before; After; No Breaks.
+--       (breaksAroundLogicalConjunctions).
+-- - A12: Line breaks before THEN after multiline conditions.
+-- - O12: Line Breaks: IF/CASE/WHILE. Options: Indented Actions, Inlined Conditions;
+--        Terse (line breaks only after actions); Line breaks after Conditions and Actions;
+--        Indented Conditions and Actions. (flowControl).
+-- - O1: Line Breaks: On concatenation. Options: Before; After; No Breaks. (breaksConcat).
+-- - O10: Line Breaks: On ANSI joins. Options: true; false. (breakAnsiiJoin).
+-- - O11: Line Breaks: On subqueries. Options: true; false. (breakOnSubqueries).
+-- - A16: Line break if the parent element uses multiple lines.
+-- - R5: Commas in front of separated elements.
+-- - R2: 3 space indention.
+-- - R7: SQL keywords are right aligned within a SQL command.
+-- - A11: Align parameter names.
+-- - A10: Align parameter modes.
+-- - O8: Alignment: Type Declarations. Options: true; false. (alignTypeDecl).
+-- - O4: Alignment: Assignment Operator :=. Options: true; false. (alignAssignments).
+-- - O7: Alignment: Equality Predicate =. Options: true; false. (alignEquality).
+-- - R6: Call parameters aligned, operators aligned, values aligned.
+-- - A9: Align xmltable columns.
+-- - A20: Align json_table columns.
+-- - O5: Alignment: Column and Table aliases. Options: true; false. (alignTabColAliases).
+-- - A4: Split long lines.
+-- - A18: Indent comment like the subsequent grammar element.
+-- - A19: Restore original indent of nodes in first conditional branch.
+-- - A21: Remove non-whitespace indentations.
+-- - D2: Log time spent in this program.
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- A1: Do not use tabs.
+-- --------------------------------------------------------------------------------------------------------------------
+
+-- replace tabs with the configured indentation (default is 3)
+a1_replace_tabs_with_spaces:
+    runOnce
+-> {
+    var indent = getSpaces(indentSpaces);
+    var it = newlinePositions.keySet().iterator();
+    while (it.hasNext()) {
+        var key = it.next();
+        var value = newlinePositions.get(key);
+        if (value.indexOf("\t") != -1) {
+            struct.putNewline(key, value.replaceAll("\t", indent));
+            logger.fine(struct.getClass(), "a1_replace_tabs_with_spaces: at " + key + ".");
+        }
+    }
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- A2: Remove trailing spaces.
+-- --------------------------------------------------------------------------------------------------------------------
+
+a2_remove_trailing_spaces:
+    runOnce
+-> {
+    var indent = getSpaces(indentSpaces);
+    var it = newlinePositions.keySet().iterator();
+    while (it.hasNext()) {
+        var key = it.next();
+        var value = newlinePositions.get(key);
+        // handle Linux and Windows line separators regardless of the OS
+        var newValue = replaceAll(replaceAll(value, "[ ]+\\n", "\n"), "[ ]+\\r\\n", "\r\n");
+        if (!value.equals(newValue)) {
+            struct.putNewline(key, newValue);
+            logger.fine(struct.getClass(), "a2_remove_trailing_spaces: at " + key + ".");
+        }
+    }
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- A3: Do not format code between @formatter:off and @formatter:on comments.
+-- --------------------------------------------------------------------------------------------------------------------
+
+a3_dont_format_off_on_ranges:
+    runOnce
+-> {
+    var hiddenTokenCount = 0;
+    var format = true;
+    for (var i in tokens) {
+        var type = tokens[i].type;
+        if (type == Token.LINE_COMMENT || type == Token.COMMENT) {
+            var content = tokens[i].content.toLowerCase();
+            if (content.indexOf("@formatter:off") != -1 || content.indexOf("noformat start") != -1) {
+                format = false;
+            }
+            if (content.indexOf("@formatter:on") != -1 || content.indexOf("noformat end") != -1) {
+                format = true;
+            }
+            hiddenTokenCount++;
+        } else if (type == Token.WS || type == Token.MACRO_SKIP || type == Token.SQLPLUSLINECONTINUE_SKIP) {
+            hiddenTokenCount++
+        } else {
+            // expected types are QUOTED_STRING; DQUOTED_STRING; BQUOTED_STRING; DIGITS; OPERATION; IDENTIFIER; AUXILIARY; INCOMPLETE
+            if (!format) {
+                // map expects Integers; therefore convert values to Integer
+                var pos = Integer.valueOf(i-hiddenTokenCount);
+                struct.unformattedPositions.add(pos);
+                logger.fine(struct.getClass(), "a3_dont_format_off_on_ranges: at " + pos + ".");
+            }
+        }
+    }
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- O2: White Space: Around operators. Options: true; false. (spaceAroundOperators).
+-- --------------------------------------------------------------------------------------------------------------------
+
+o2_whitespace_around_operators:
+      [node) '<'
+    | [node) '>'
+    | [node) '='
+    | [node) '!'
+    | [node) '~'
+    | [node) '^'
+    | [node) '+'
+    | [node) '-'
+    | [node) '*'
+    | [node) '/' & ![node-1) block_stmt & ![node-1) create_plsql
+    | [node) '|'
+    | [node) ':'
+-> {
+    var node = tuple.get("node");
+    var space;
+    if (spaceAroundOperators) {
+       space = " ";
+    } else {
+       space = "";
+    }
+    if (getIndent(node.from).indexOf("\n") == -1) {
+        if (node.from > 0) {
+            struct.putNewline(node.from, space);
+            logger.fine(struct.getClass(), "o2_whitespace_around_operators: before at " + node.from + ".");
+        }
+    }
+    if (getIndent(node.to).indexOf("\n") == -1) {
+        struct.putNewline(node.to, space);
+        logger.fine(struct.getClass(), "o2_whitespace_around_operators: after at " + node.to + ".");
+    }
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- A13: Keep short nodes on the same line.
+-- --------------------------------------------------------------------------------------------------------------------
+
+-- Short is defined as "maxCharLineSize / 2" or less. By default this is 60 characters.
+-- Function or procedure calls with assoc args are ignored.
+
+a13_nodes:
+      [node) comparison_condition
+    | [node) function_call & ![node^) dotted_expr
+    | [node) function_expression
+    | [node) dotted_name
+    | [node) dotted_expr
+    | [node) column[4,12)
+    | [node) compound_expression & ![node^) compound_expression
+    | [node) pls_expr & ![node^) pls_expr
+    | [node) "expr_list" & ![node^) "expr_list"
+    | [node) entry
+    | [node) JSON_value_on_error_clause
+    | [node) constrained_type
+    | [node) ty_def
+    | [node) assoc_arg
+    | [node) pragma_args
+    | [node) subprg_property
+    | [node) adt_field
+    | [node) excptn_d
+    | [node) external_parm_list_entry
+    | [node) excptn_handler
+    | [node) pragma
+    | [node) iterator_control_list
+;
+
+a13_calls_with_assoc_args:
+      [node) function_call
+    & [arg) assoc_arg
+    & node < arg
+;
+
+a13_records:
+      [node) ty_def
+    & [child) 'RECORD'
+    & node < child
+;
+
+a13_iterator_control_list_subquery:
+      [node) iterator_control_list
+    & [node^) iterator
+    & [subquery) subquery
+    & node < subquery
+;
+
+a13_short_nodes:
+    ((a13_nodes - a13_calls_with_assoc_args) - a13_records) - a13_iterator_control_list_subquery
+-> {
+    var getNodeLength = function(node) {
+        var len = 0;
+        for (var i=node.from; i < node.to; i++) {
+            var indent = getIndent(i);
+            if (indent.length > 1) {
+                len += 1;
+            } else {
+                len += indent.length;
+            }
+            len += target.src.get(i).content.length;
+        }
+        return len;
+    }
+    var reduceNodeIndents = function(node) {
+        for (var i=node.from+1; i < node.to; i++) {
+            var indent = getIndent(i);
+            if (indent.indexOf("\n") != -1 || indent.length > 1) {
+                struct.putNewline(i, " ");
+                logger.fine(struct.getClass(), "a13_short_nodes: one space indent at " + i + ".");
+            }
+        }
+    }
+
+    var containsConcat = function(node) {
+        // 3 concat chars means that there are at least 2 concats. See also o1_concatenation_option
+        var found = 0;
+        for (var i=node.from+1; i < node.to; i++) {
+            if (target.src.get(i).content == '|') {
+                found++;
+                if (found >= 3) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    var maxLen = maxCharLineSize / 2;
+    var node = tuple.get("node");
+    if (getNodeLength(node) <= maxLen) {
+        if (breaksConcat == Format.Breaks.None || !containsConcat(node)) {
+            reduceNodeIndents(node);
+        }
+    }
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- A5: No space before node.
+-- --------------------------------------------------------------------------------------------------------------------
+
+a5_semicolon:
+    [node) ';'
+;
+
+a5_dot:
+    [node) '.'
+;
+
+a5_concat:
+      [node-1) '|'
+    & [node) '|'
+;
+
+a5_not_equal:
+      [node-1) '<' & [node) '>'
+    | [node-1) '!' & [node) '='
+    | [node-1) '^' & [node) '='
+    | [node-1) '~' & [node) '='
+;
+
+a5_assignment:
+      [node-1) ':'
+    & [node) '='
+;
+
+a5_greater_equal:
+      [node-1) '>'
+    & [node) '='
+;
+
+a5_less_equal:
+      [node-1) '<'
+    & [node) '='
+;
+
+a5_greater_greater:
+      [node-1) '>' & [node) '>'
+    | [node) '>' & [node+1) '>'
+;
+
+a5_less_less:
+      [node-1) '<'
+    & [node) '<'
+;
+
+a5_param_assoc:
+      [node-1) '='
+    & [node) '>'
+;
+
+a5_percent:
+      [node) '%'
+;
+
+a5_at:
+      [node) '@'
+;
+
+a5_slash:
+     ([node-1) block_stmt | [node-1) create_plsql)
+   & [node) '/'
+;
+
+a5_open_paren_before_datatype:
+      [node) '('
+    & (
+          [node^) datatype
+        | [node^^) datatype
+        | [node^^) constrained_type
+        | [node^) ty_def
+      )
+;
+
+a5_brackets:
+      [node) '['
+    | [node) ']'
+;
+
+a5_indicator_variable:
+      [node) bind_var
+    & [node-1) bind_var
+;
+
+a5_star_star:
+     [node) '*'
+   & [node-1) '*'
+;
+
+a5_no_space_before:
+      a5_semicolon
+    | a5_dot
+    | a5_concat
+    | a5_not_equal
+    | a5_assignment
+    | a5_greater_equal
+    | a5_less_equal
+    | a5_greater_greater
+    | a5_less_less
+    | a5_param_assoc
+    | a5_percent
+    | a5_at
+    | a5_slash
+    | a5_open_paren_before_datatype
+    | a5_brackets
+    | a5_indicator_variable
+    | a5_star_star
+-> {
+    var node = tuple.get("node");
+    var content = target.src.get(node.from).content;
+    if (content == '/') {
+        struct.putNewline(node.from, System.lineSeparator());
+        logger.fine(struct.getClass(), "a5_no_space_before: <" + content + ">, add line break at " + node.from + ".");
+    } else if (content != '.' || getIndent(node.from).indexOf("\n") == -1 || target.src.get(node.from+1).content == '.') {
+        // support fluent type methods across multiple lines
+        struct.putNewline(node.from, "");
+        logger.fine(struct.getClass(), "a5_no_space_before: <" + content + "> at " + node.from + ".");
+    }
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- A6: No space after node.
+-- --------------------------------------------------------------------------------------------------------------------
+
+a6_dot:
+    [node) '.'
+;
+
+a6_less_less:
+      [node-1) '<'
+    & [node) '<'
+;
+
+a6_percent:
+    [node) '%'
+;
+
+a6_brackets:
+      [node) '['
+;
+
+a6_host_variable:
+      [node) ':'
+    & [node^) bind_var
+;
+
+a6_pragma_exception_init:
+      [node) identifier
+    & [node-1) 'PRAGMA'
+    & ?node = 'EXCEPTION_INIT'
+;
+
+a6_unary_add_op:
+    [node) unary_add_op
+;
+
+a6_no_space_after:
+      a6_dot
+    | a6_less_less
+    | a6_percent
+    | a6_brackets
+    | a6_host_variable
+    | a6_pragma_exception_init
+    | a6_unary_add_op
+-> {
+    var node = tuple.get("node");
+    struct.putNewline(node.to, "");
+    var content = target.src.get(node.from).content;
+    logger.fine(struct.getClass(), "a6_no_space_after: <" + content + "> at " + node.to + ".");
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- A7: One space before node.
+-- --------------------------------------------------------------------------------------------------------------------
+
+a7_param_list:
+    [node) fml_part
+;
+
+a7_as_alias:
+    [node) as_alias
+;
+
+a7_table_alias:
+      [node) identifier
+    & [node-1) query_table_expression
+;
+
+a7_insert_all:
+      [node) 'ALL'
+    & [node^^) multi_table_insert
+;
+
+a7_insert_into:
+      [node) 'INTO'
+    & [node^^) single_table_insert
+;
+
+a7_parameter_parts:
+      [node) mode & [node^) prm_spec
+    | [node) prm_spec_unconstrained_type & [node^) prm_spec
+;
+
+a7_for_loop_identifier:
+      [node) iterand_decl
+    & [node^) iterator
+;
+
+a7_iterand_mutable_opt:
+      [node) mutable_opt
+    & [node^) iterand_decl
+;
+
+a7_iterand_type:
+      [node) constrained_type
+    & [node^) iterand_decl
+;
+
+a7_assignment:
+      [node) ':'
+    & [node+1) '='
+;
+
+a7_accessible_by:
+      [node) 'BY'
+    & [node+1) 'ACCESSIBLE'
+;
+
+a7_end_label:
+      [node) identifier
+    & (
+          [node-1) 'END'
+        | [node-1) 'LOOP'
+        | [node-1) 'CASE'
+      )
+;
+
+a7_type_definition:
+      [node) 'IS'
+    & [node^) ty_d
+;
+
+a7_iterator_control_list_all:
+      [node) iterator_control_list
+    & [node^) iterator
+;
+
+a7_iterator_control_list_subquery:
+      [node) iterator_control_list
+    & [node^) iterator
+    & [subquery) subquery
+    & node < subquery
+;
+
+a7_iterator_control_list:
+    a7_iterator_control_list_all - a7_iterator_control_list_subquery
+;
+
+a7_when_cond:
+      [node) WHEN_cond_opt
+    & [node^) exit_stmt
+;
+
+a7_reverse_loop:
+      [node) 'REVERSE'
+    & [node^) iterator_control
+;
+
+a7_in_out_mode:
+      [node) 'OUT'
+    & [node-1) 'IN'
+    & [node^) mode
+;
+
+a7_one_space_before:
+      a7_param_list
+    | a7_as_alias
+    | a7_table_alias
+    | a7_insert_all
+    | a7_insert_into
+    | a7_parameter_parts
+    | a7_for_loop_identifier
+    | a7_iterand_mutable_opt
+    | a7_iterand_type
+    | a7_iterator_control_list
+    | a7_assignment
+    | a7_accessible_by
+    | a7_end_label
+    | a7_type_definition
+    | a7_when_cond
+    | a7_reverse_loop
+    | a7_in_out_mode
+-> {
+    var node = tuple.get("node");
+    if (!hasCommentsBetweenPos(node.from, node.to)) {
+        struct.putNewline(node.from, " ");
+        var content = target.src.get(node.from).content;
+        logger.fine(struct.getClass(), "a7_one_space_before: <" + content + "> at " + node.from + ".");
+    }
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- A8: One space after node.
+-- --------------------------------------------------------------------------------------------------------------------
+
+a8_if:
+      ![node+1) ';'
+    & [node) 'IF'
+;
+
+a8_end:
+      [node) 'END'
+    & (
+          [node+1) 'IF'
+        | [node+1) 'LOOP'
+        | [node+1) 'CASE'
+      )
+;
+
+a8_for_loop_identifier:
+      [node) iterand_decl
+    & [node^) iterator
+;
+
+a8_as:
+      [node) 'AS'
+    & [node^) as_alias
+;
+
+a8_on:
+      [node) 'ON'
+    & [node^) on_using_condition
+;
+
+a8_join:
+    [node) 'JOIN'
+;
+
+a8_from:
+      [node) 'FROM'
+    & [node^) from_clause
+;
+
+a8_delete_from:
+      ([node) 'FROM' | [node) 'DELETE' & ![node+1) 'FROM')
+    & [node^) delete
+;
+
+a8_create_or_replace:
+      [node) 'CREATE'
+    | [node) 'OR' & [node-1) 'CREATE'
+    | [node) 'REPLACE' & [node-1) 'OR' & [node-2) 'CREATE'
+    | [node) 'PACKAGE'
+    | [node) 'BODY'
+    | [node) 'VIEW'
+    | [node) 'PROCEDURE'
+    | [node) 'FUNCTION'
+    | [node) 'TYPE' & ![node-1) '%'
+;
+
+a8_accessible_by:
+      [node) 'ACCESSIBLE'
+    | [node) 'BY' & [node-1) 'ACCESSIBLE'
+;
+
+a8_merge:
+      [node) 'MERGE' & [node^) merge
+    | [node) 'INTO' & [node^) merge
+    | [node-1) 'INTO' & ![node+1) 'USING' & [node^) merge
+    | [node-2) 'INTO' & ![node+1) 'USING' & [node^) merge
+    | [node) 'USING' & [node^) merge
+    | [node) 'WHEN' & ([node^) merge_update_clause | [node^) merge_insert_clause)
+    | [node) 'NOT' & [node^) merge_insert_clause
+    | [node) 'MATCHED' & ([node^) merge_update_clause | [node^) merge_insert_clause)
+;
+
+a8_case:
+    [node) 'CASE' & [node+1) simple_case_expression
+;
+
+a8_select_clauses:
+      [node) 'SELECT'
+    | [node) 'INTO'
+    | [node) 'FROM'
+    | [node) 'WHERE'
+    | [node) 'CONNECT'
+    | [node) 'BY'
+    | [node) 'START' & [node+1) 'WITH'
+    | [node) 'WITH' & [node-1) 'START'
+    | [node) 'GROUP'
+    | [node) 'HAVING'
+    | [node) 'ORDER'
+;
+
+a8_pragma:
+   [node) 'PRAGMA'
+;
+
+a8_pragma_coverage:
+      [node) identifier
+    & [node-1) 'PRAGMA'
+    & ?node = 'COVERAGE'
+;
+
+a8_pragma_deprecate:
+      [node) identifier
+    & [node-1) 'PRAGMA'
+    & ?node = 'DEPRECATE'
+;
+
+a8_variable_identifier:
+      [node) identifier
+    & [node+1) object_d_rhs
+;
+
+a8_close:
+      [node) 'CLOSE'
+    & [node^) close_statement
+;
+
+a8_fetch:
+   [node) 'FETCH'
+;
+
+a8_reverse_loop:
+      [node) 'REVERSE'
+    & [node^) iterator_control
+;
+
+a8_return:
+      [node) 'RETURN'
+    & [node^) subprg_spec
+;
+
+a8_goto:
+      [node) 'GOTO'
+    & [node^) goto_stmt
+;
+
+a8_one_space_after:
+      a8_if
+    | a8_end
+    | a8_for_loop_identifier
+    | a8_as
+    | a8_on
+    | a8_join
+    | a8_from
+    | a8_delete_from
+    | a8_create_or_replace
+    | a8_accessible_by
+    | a8_merge
+    | a8_case
+    | a8_select_clauses
+    | a8_pragma
+    | a8_pragma_coverage
+    | a8_pragma_deprecate
+    | a8_variable_identifier
+    | a8_close
+    | a8_fetch
+    | a8_reverse_loop
+    | a8_return
+    | a8_goto
+-> {
+    var node = tuple.get("node");
+    if (!hasCommentsBetweenPos(node.from, node.to)) {
+        struct.putNewline(node.to, " ");
+        var content = target.src.get(node.from).content;
+        logger.fine(struct.getClass(), "a8_one_space_after: <" + content + "> at " + node.to + ".");
+    }
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- A17: Whitespace around node.
+-- --------------------------------------------------------------------------------------------------------------------
+
+-- Ensures that a node is surrounded with at least one whitespace.
+-- This is different To A7 and A8 because it keeps existing new lines.
+
+a17_whitespace_around_node:
+      [node) 'AND'
+    | [node) 'OR'
+    | [node) 'RETURN' & [node-1) fml_part
+    | [node) is_or_as
+
+-> {
+    var node = tuple.get("node");
+    if (getIndent(node.from).length == 0) {
+        struct.putNewline(node.from, " ");
+        logger.fine(struct.getClass(), "a17_whitespace_around_node: before at " + node.from + ".");
+    }
+    if (getIndent(node.to).length == 0) {
+        struct.putNewline(node.to, " ");
+        logger.fine(struct.getClass(), "a17_whitespace_around_node: after at " + node.to + ".");
+    }
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- A15: Line break before node.
+-- --------------------------------------------------------------------------------------------------------------------
+
+a15_various:
+      [node) insert_into_clause & [node^^) multi_table_insert
+    | [node) subquery & [node^) multi_table_insert
+    | [node) prm_spec & [node-1) ','
+    | [node) subprg_property
+    | [node) ')' & [node^) create_view#[114,130)
+    | [node) ')' & [node^) create_materialized_view[33,79)
+;
+
+a15_is_or_as:
+      [node) is_or_as
+    & [prop) subprg_properties
+    & [node-1) subprg_spec
+    & node-1 = prop^
+;
+
+a15_view_column_alias:
+      [parent) create_view#[114,130)
+    & [node) alias_in_out_constraints
+    & parent < node
+;
+
+a15_materialized_view_column_alias:
+      [parent) create_materialized_view[33,79)
+    & [node) identifier
+    & parent < node
+;
+
+a15_line_break_before:
+      a15_various
+    | a15_is_or_as
+    | a15_view_column_alias
+    | a15_materialized_view_column_alias
+-> {
+    var node = tuple.get("node");
+    if (getIndent(node.from).indexOf("\n") == -1) {
+        struct.putNewline(node.from, System.lineSeparator());
+        var content = target.src.get(node.from).content;
+        logger.fine(struct.getClass(), "a15_line_break_before: <" + content + "> at " + node.from + ".");
+    }
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- A14: Line break after node.
+-- --------------------------------------------------------------------------------------------------------------------
+
+a14_line_break_after:
+      [node) 'AS' & [node^) create_view#
+    | [node) 'AS' & [node^) create_materialized_view
+-> {
+    var node = tuple.get("node");
+    if (getIndent(node.to).indexOf("\n") == -1) {
+        struct.putNewline(node.to, System.lineSeparator());
+        var content = target.src.get(node.from).content;
+        logger.fine(struct.getClass(), "a14_line_break_after: <" + content + "> at " + node.to + ".");
+    }
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- O3: White Space: Around parenthesis. Options: Default; Inside; Outside; No space. (spaceAroundBrackets).
+-- --------------------------------------------------------------------------------------------------------------------
+
+o3_whitespace_around_open_paren:
+     [node) '('
+-> {
+    var node = tuple.get("node");
+    if (spaceAroundBrackets != Format.Space.Default) {
+        if (getIndent(node.from).indexOf("\n") == -1) {
+            var spaceBefore;
+            if (spaceAroundBrackets == Format.Space.Inside || spaceAroundBrackets == Format.Space.NoSpace) {
+                spaceBefore = "";
+            } else {
+                spaceBefore = " ";
+            }
+            struct.putNewline(node.from, spaceBefore);
+            logger.fine(struct.getClass(), "o3_whitespace_around_open_paren: " + spaceBefore.length + " space before at " + node.from + ".");
+        }
+    }
+    if (getIndent(node.to).indexOf("\n") == -1) {
+        var spaceAfter;
+        if (spaceAroundBrackets ==  Format.Space.Outside || spaceAroundBrackets == Format.Space.NoSpace || spaceAroundBrackets == Format.Space.Default) {
+            spaceAfter = "";
+        } else {
+            spaceAfter = " ";
+        }
+        struct.putNewline(node.to, spaceAfter);
+        logger.fine(struct.getClass(), "o3_whitespace_around_open_paren: " + spaceAfter.length + " space after at " + node.to + ".");
+    }
+}
+
+o3_whitespace_around_close_paren:
+   [node) ')'
+-> {
+    var node = tuple.get("node");
+    if (getIndent(node.from).indexOf("\n") == -1) {
+        var spaceBefore;
+        if (spaceAroundBrackets == Format.Space.Outside || spaceAroundBrackets == Format.Space.NoSpace || spaceAroundBrackets == Format.Space.Default) {
+            spaceBefore = "";
+        } else {
+            spaceBefore = " ";
+        }
+        struct.putNewline(node.from, spaceBefore);
+        logger.fine(struct.getClass(), "o3_whitespace_around_close_paren: <" + spaceBefore + "> before at " + node.from + ".");
+    }
+    if (spaceAroundBrackets != Format.Space.Default) {
+        if (getIndent(node.to).indexOf("\n") == -1) {
+            var spaceAfter;
+            if (spaceAroundBrackets ==  Format.Space.Inside || spaceAroundBrackets == Format.Space.NoSpace) {
+                spaceAfter = "";
+            } else {
+                spaceAfter = " ";
+            }
+            struct.putNewline(node.to, spaceAfter);
+            logger.fine(struct.getClass(), "o3_whitespace_around_close_paren: <" + spaceAfter + "> after at " + node.to + ".");
+        }
+    }
+}
+
+-- based on issue #99, applied only with Format.Space.Default
+o3_no_space_before_open_paren:
+      [node) '('
+    & (
+          [node^) fml_part
+        | [node^) "(x,y,z)" & [node^^) function_expression
+        | [node^) paren_expr_list & [node^^) function_call
+      )
+-> {
+    if (spaceAroundBrackets == Format.Space.Default) {
+        var node = tuple.get("node");
+        struct.putNewline(node.from, "");
+        logger.fine(struct.getClass(), "o3_no_space_before_open_paren: at " + node.from + ".");
+    }
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- R3: One command per line.
+-- R4: Keywords "loop", "else", "elsif", "end", "when" on a new line.
+-- --------------------------------------------------------------------------------------------------------------------
+
+r3_sqlplus_commands:
+    [node) sqlplus_command
+;
+
+r3_sql_commands:
+    [node) sql_statement
+;
+
+r3_plsql_commands:
+      [node) subprg_spec & ([node^) basic_d | [node^) decl_list)
+    | [node) adt_field
+    | [node) body_adt_field
+    | [node) basic_decl_item
+    | [node) stmt & ![node^) sqlplus_command
+    | [node) external_parm_list_entry
+;
+
+r3_plsql_keywords:
+      [node) 'LOOP' & ![node-1) 'END'
+    | [node) 'WHEN'
+          & ![node^^) exit_stmt
+          & ![node^) merge_insert_clause
+          & ![node^) merge_update_clause
+          & ![node^) continue_stmt
+          & ![node^^) iterator_control
+    | [node) 'BEGIN'
+    | [node) 'END'
+    | [node) 'ELSIF'
+    | [node) 'ELSE'
+;
+
+r3_case_expressions:
+      [parent) case_expression
+    & ([node) 'WHEN' | [node) 'ELSE' | [node) 'END')
+    & parent < node
+;
+
+r3_commands:
+      r3_sqlplus_commands
+    | r3_sql_commands
+    | r3_plsql_commands
+    | r3_plsql_keywords
+    | r3_case_expressions
+-> {
+    var node = tuple.get("node");
+    // do not add a line break on the first line.
+    if (node.from > 0) {
+        var indent = getIndent(node.from);
+        if (indent.indexOf("\n") == -1) {
+            struct.putNewline(node.from, System.lineSeparator());
+            logger.fine(struct.getClass(), "r3_commands: add line break at " + node.from + ".");
+        } else {
+            // remove existing indentation; enforce conformity in these cases
+            var newIndent = getLeadingNewLines(node.from);
+            struct.putNewline(node.from, newIndent);
+            logger.fine(struct.getClass(), "r3_commands: remove indentation at " + node.from + ".");
+        }
+    }
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- O6: Line Breaks: SELECT/FROM/WHERE. Options: true; false. (breaksAfterSelect).
+-- --------------------------------------------------------------------------------------------------------------------
+
+-- Chosen keywords on separated lines. The keywords start an indented section (see R2).
+-- Not compatible with alignRight (breaksAfterSelect wins).
+
+o6_select_before:
+      [parent) subquery
+    & (
+          [node) 'WITH'
+        | [node) 'SELECT'
+        | [node) 'INTO'
+        | [node) 'FROM'
+        | [node) 'WHERE'
+        | [node) 'CONNECT'
+        | [node) 'START' & [node+1) 'WITH'
+        | [node) 'GROUP'
+        | [node) 'HAVING'
+        | [node) 'ORDER' & [node^) order_by_clause & node^^ = parent
+      )
+    & parent < node
+;
+
+o6_select_after:
+      [parent) subquery
+    & (
+          [node) 'WITH'
+        | [node) 'SELECT'
+        | [node) 'INTO'
+        | [node) 'FROM'
+        | [node) 'WHERE'
+        | [node-1) 'CONNECT' & [node) 'BY'
+        | [node-1) 'START'   & [node) 'WITH'
+        | [node-1) 'GROUP'   & [node) 'BY'
+        | [node) 'HAVING'
+        | [node-1) 'ORDER'   & [node) 'BY'
+      )
+    & parent < node
+;
+
+o6_update_before:
+      [parent) update
+    & (
+          [node) 'UPDATE'
+        | [node) 'SET'
+        | [node) 'WHERE'
+        | [node) 'RETURN'
+        | [node) 'RETURNING'
+        | [node) 'LOG' & [node+1) 'ERRORS'
+      )
+    & parent < node
+;
+
+o6_update_after:
+      [parent) update
+    & (
+          [node) 'UPDATE'
+        | [node) 'SET'
+        | [node) 'WHERE'
+        | [node) 'RETURN'
+        | [node) 'RETURNING'
+        | [node-1) 'LOG' & [node) 'ERRORS'
+      )
+    & parent < node
+;
+
+o6_delete_before:
+      [parent) delete
+    & (
+          [node) 'UPDATE'
+        | [node) 'FROM'
+        | [node) 'WHERE'
+        | [node) 'RETURN'
+        | [node) 'RETURNING'
+        | [node) 'LOG' & [node+1) 'ERRORS'
+      )
+    & parent < node
+;
+
+o6_delete_after:
+      [parent) delete
+    & (
+          [node) 'UPDATE'
+        | [node) 'WHERE'
+        | [node) 'RETURN'
+        | [node) 'RETURNING'
+        | [node-1) 'LOG' & [node) 'ERRORS'
+      )
+    & parent < node
+;
+
+
+o6_line_break_before:
+      o6_select_before
+    | o6_update_before
+    | o6_delete_before
+-> {
+    if (breaksAfterSelect) {
+        var node = tuple.get("node");
+        var indent = getIndent(node.from);
+        if (indent.indexOf("\n") == -1) {
+            struct.putNewline(node.from, System.lineSeparator());
+            logger.fine(struct.getClass(), "o6_line_break_before: at " + node.from + ".");
+        }
+    }
+}
+
+o6_line_break_after:
+      o6_select_after
+    | o6_update_after
+    | o6_delete_after
+-> {
+    if (breaksAfterSelect) {
+        var node = tuple.get("node");
+        var indent = getIndent(node.to);
+        if (indent.indexOf("\n") == -1) {
+            struct.putNewline(node.to, System.lineSeparator());
+            logger.fine(struct.getClass(), "o6_line_break_after: at " + node.to + ".");
+        }
+    }
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- O9: Line Breaks: On Boolean connectors. Options: Before&After; Before; After; No Breaks.
+--     (breaksAroundLogicalConjunctions).
+-- --------------------------------------------------------------------------------------------------------------------
+
+o9_boolean_in_paren:
+      [node) AND_OR
+    & [parent) compound_condition
+    &  parent < node
+    & [parent-1) '('
+;
+
+o9_boolean:
+    [node) AND_OR
+;
+
+o9_boolean_option:
+      (:breaksBeforeLogicalConjunction | :breaksAfterLogicalConjunction)
+    & (o9_boolean - o9_boolean_in_paren)
+-> {
+    var node = tuple.get("node")
+    if (struct.breaksBeforeLogicalConjunction()) {
+        if (getIndent(node.from).indexOf("\n") == -1) {
+            if (breaksAroundLogicalConjunctions != Format.Breaks.BeforeAndAfter) {
+               struct.putNewline(node.to, " ");
+            }
+            struct.putNewline(node.from, System.lineSeparator());
+            logger.fine(struct.getClass(), "o9_boolean_option: add line break before at " + node.from + ".");
+        }
+    }
+    if (struct.breaksAfterLogicalConjunction()) {
+        if (getIndent(node.to).indexOf("\n") == -1) {
+            if (breaksAroundLogicalConjunctions != Format.Breaks.BeforeAndAfter) {
+               struct.putNewline(node.from, " ");
+            }
+            struct.putNewline(node.to, System.lineSeparator());
+            logger.fine(struct.getClass(), "o9_boolean_option: add line break after at " + node.from + ".");
+        }
+    }
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- A12: Line breaks before THEN after multiline conditions.
+-- --------------------------------------------------------------------------------------------------------------------
+
+a12_add_line_break_before_then:
+    [node+1) 'THEN'
+-> {
+    var node = tuple.get("node");
+    var then = tuple.get("node+1");
+    if (containsLineBreak(node)) {
+        if (getIndent(then.from).indexOf("\n") == -1) {
+            struct.putNewline(then.from, System.lineSeparator());
+            logger.fine(struct.getClass(), "a12_add_line_break_before_then: at " + then.from + ".");
+        }
+    } else {
+        if (getIndent(then.from) != " ") {
+            struct.putNewline(then.from, " ");
+            logger.fine(struct.getClass(), "a12_add_line_break_before_then: add space at " + then.from + ".");
+        }
+    }
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- O12: Line Breaks: IF/CASE/WHILE. Options: Indented Actions, Inlined Conditions;
+--      Terse (line breaks only after actions); Line breaks after Conditions and Actions;
+--      Indented Conditions and Actions. (flowControl).
+-- --------------------------------------------------------------------------------------------------------------------
+
+-- Indentation is handled in R2.
+-- Line breaks are handled here.
+-- WHILE condition is kept "as is", it is also not handled in SQLDev 20.4.1 / SQLcl 21.1.1.
+
+o12_line_break_around_conditions:
+      (
+          [node) condition
+        | [node) expr
+        | [node) pls_expr
+      )
+    & (
+          [keyword) 'WHEN'
+        | [keyword) 'IF'
+        | [keyword) 'ELSIF'
+      )
+    & node = keyword+1
+-> {
+    var node = tuple.get("node");
+    if (struct.indentConditions()) {
+        if (getIndent(node.from).indexOf("\n") == -1) {
+            struct.putNewline(node.from, System.lineSeparator());
+            logger.fine(struct.getClass(), "o12_line_break_around_conditions: before at " + node.from + ".");
+        }
+    } else {
+        if (getIndent(node.from) != " ") {
+            struct.putNewline(node.from, " ");
+            logger.fine(struct.getClass(), "o12_line_break_around_conditions: add space before at " + node.from + ".");
+        }
+    }
+    if (struct.indentConditions() || struct.breakAfterConditions()) {
+        if (getIndent(node.to).indexOf("\n") == -1) {
+            struct.putNewline(node.to, System.lineSeparator());
+            logger.fine(struct.getClass(), "o12_line_break_around_conditions: after at " + node.to + ".");
+        }
+    } else {
+        if (getIndent(node.to) != " ") {
+            struct.putNewline(node.from, " ");
+            logger.fine(struct.getClass(), "o12_line_break_around_conditions: add space after at " + node.from + ".");
+        }
+    }
+}
+
+o12_line_break_before_actions:
+      (
+          [node) stmt
+        | [node) expr
+        | [node) pls_expr
+      )
+    & (
+          [keyword) 'THEN'
+        | [keyword) 'ELSE'
+      )
+    & node = keyword+1
+-> {
+    var node = tuple.get("node");
+    if (struct.indentActions()) {
+        if (getIndent(node.from).indexOf("\n") == -1) {
+            struct.putNewline(node.from, System.lineSeparator());
+            logger.fine(struct.getClass(), "o12_line_break_before_actions: at " + node.from + ".");
+        }
+    } else {
+        if (getIndent(node.from) != " ") {
+            struct.putNewline(node.from, " ");
+            logger.fine(struct.getClass(), "o12_line_break_before_actions: add space at " + node.from + ".");
+        }
+    }
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- O1: Line Breaks: On concatenation. Options: Before; After; No Breaks. (breaksConcat).
+-- --------------------------------------------------------------------------------------------------------------------
+
+-- only when expression consists of more than one concatenation (||)
+-- add only missing line breaks, use indentation according column position of previous node
+o1_concatenation_option:
+      (:breaksBeforeConcat | :breaksAfterConcat)
+    & ?node+1 = '||'
+    & ([parent) arith_expr | [parent) compound_expression)
+    & parent << node
+-> {
+    var parent = tuple.get("parent");
+    var countConcat = 0;
+    for (var i=parent.from; i<parent.to && countConcat < 4; i++) {
+        if (target.src.get(i).content == '|') {
+            countConcat++;
+        }
+    }
+    if (countConcat >= 4) {
+        var node = tuple.get("node")
+        var concat = tuple.get("node+1");
+        if (struct.breaksBeforeConcat()) {
+            struct.putNewline(concat.to, " "); // Before and After is not an option
+            if (getIndent(concat.from).indexOf("\n") == -1) {
+                struct.putNewline(concat.from, System.lineSeparator());
+                logger.fine(struct.getClass(), "o1_concatenation_option: add line break before at " + concat.from + ".");
+            }
+        } else if (struct.breaksAfterConcat()) {
+            struct.putNewline(concat.from, " "); // Before and After is not an option
+            if (getIndent(concat.to).indexOf("\n") == -1) {
+                struct.putNewline(concat.to, System.lineSeparator());
+                logger.fine(struct.getClass(), "o1_concatenation_option: add line break after at " + concat.to + ".");
+            }
+        }
+    }
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- O10: Line Breaks: On ANSI joins. Options: true; false. (breakAnsiiJoin).
+-- --------------------------------------------------------------------------------------------------------------------
+
+o10_join_clause_keywords:
+      [parent) from_clause
+    & (
+            [keyword) 'INNER'
+          | [keyword) 'CROSS'
+          | [keyword) 'NATURAL'
+          | [keyword) 'FULL'
+          | [keyword) 'LEFT'
+          | [keyword) 'RIGHT'
+          | [keyword) 'JOIN'
+          | [keyword) 'PARTITION'
+          | [keyword) 'BY'
+          | [keyword) 'ON'
+          | [keyword) 'USING'
+          | [keyword) 'OUTER'
+          | [keyword) 'APPLY'
+
+      )
+    &  parent < keyword
+;
+
+-- no break on 'PARTITION', even if it is part of the outer join clause, looks better with default settings
+o10_join_clause_break_keywords:
+      [parent) from_clause
+    & (
+            [keyword) 'INNER'   & ![keyword-1) 'NATURAL'
+          | [keyword) 'CROSS'
+          | [keyword) 'NATURAL'
+          | [keyword) 'FULL'    & ![keyword-1) 'NATURAL'
+          | [keyword) 'LEFT'    & ![keyword-1) 'NATURAL'
+          | [keyword) 'RIGHT'   & ![keyword-1) 'NATURAL'
+          | [keyword) 'JOIN'
+              & ![keyword-1) 'INNER'
+              & ![keyword-1) 'CROSS'
+              & ![keyword-1) 'NATURAL'
+              & ![keyword-1) outer_join_type
+              & ![keyword-1) "inner_cross_join_clause"[26,55)
+          --| [keyword) 'PARTITION'
+          | [keyword) 'ON'
+          | [keyword) 'USING'
+          | [keyword) 'OUTER' & [keyword+1) 'APPLY'
+      )
+    &  parent < keyword
+;
+
+o10_space_around_join_keywords:
+    o10_join_clause_keywords - o10_join_clause_break_keywords
+-> {
+    if (breakAnsiiJoin) {
+        var keyword = tuple.get("keyword");
+        if (getIndent(keyword.from) != " ") {
+            struct.putNewline(keyword.from, " ");
+            logger.fine(struct.getClass(), "o10_space_around_join_keywords at " + keyword.from + ".");
+        }
+        if (getIndent(keyword.to) != " ") {
+            struct.putNewline(keyword.to, " ");
+            logger.fine(struct.getClass(), "o10_space_around_join_keywords at " + keyword.to + ".");
+        }
+    }
+}
+
+o10_break_on_join_keywords:
+    o10_join_clause_break_keywords
+-> {
+    if (breakAnsiiJoin) {
+        var keyword = tuple.get("keyword");
+        if (getIndent(keyword.from).indexOf("\n") == -1) {
+            struct.putNewline(keyword.from, System.lineSeparator());
+            logger.fine(struct.getClass(), "o10_break_on_join_keywords: add line break at " + keyword.from + ".");
+        }
+    }
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- O11: Line Breaks: On subqueries. Options: true; false. (breakOnSubqueries).
+-- --------------------------------------------------------------------------------------------------------------------
+
+o11_break_on_subqueries:
+      [lparen) '('
+    & [node) subquery
+    & [rparen) ')'
+    & lparen = node-1
+    & rparen = node+1
+-> {
+    if (breakOnSubqueries) {
+        var node = tuple.get("node");
+        if (hasNewline(node.to-1, node.from+1)) {
+            var rparen = tuple.get("rparen");
+            if (getIndent(node.from).indexOf("\n") == -1) {
+                struct.putNewline(node.from, System.lineSeparator());
+                logger.fine(struct.getClass(), "o11_break_on_subqueries: before subquery at " + node.from + ".");
+            }
+            if (getIndent(rparen.from).indexOf("\n") == -1) {
+                struct.putNewline(rparen.from, System.lineSeparator());
+                logger.fine(struct.getClass(), "o11_break_on_subqueries: before ')' at " + rparen.from + ".");
+            }
+        }
+    }
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- A16: Line break if the parent element uses multiple lines.
+-- --------------------------------------------------------------------------------------------------------------------
+
+a16_select:
+      [parent) subquery
+    & (
+          [node) 'FROM'
+        | [node) 'WHERE'
+        | [node) 'CONNECT'
+        | [node) 'START'
+        | [node) 'GROUP'
+        | [node) 'HAVING'
+        | [node) 'ORDER' & [node^) order_by_clause & node^^ = parent
+      )
+    & parent < node
+;
+
+a16_single_table_insert:
+      [parent) single_table_insert
+    & (
+          [node) returning_clause
+        | [node) values_clause
+        | [node) error_logging_clause
+      )
+    & parent < node
+;
+
+a16_multi_table_insert:
+      [parent) multi_table_insert
+    & (
+          [node) insert_into_clause
+        | [node) values_clause
+        | [node) error_logging_clause
+      )
+    & parent < node
+;
+
+a16_delete:
+      [parent) delete
+    & (
+          [node) where_clause
+        | [node) returning_clause
+        | [node) error_logging_clause
+      )
+    & node^ = parent
+;
+
+a16_merge:
+      [parent) merge
+    & (
+          [node) 'USING'
+        | [node) 'ON'
+        | [node) merge_update_clause
+        | [node) merge_insert_clause
+        | [node) error_logging_clause
+      )
+    & parent < node
+;
+
+a16_permutted_merge_insert_update:
+      [parent) merge
+    & [child) permutted_merge_insert_update
+    & (
+          [node) 'UPDATE'
+        | [node) 'SET'
+        | [node) where_clause
+        | [node) 'DELETE'
+        | [node) 'INSERT'
+        | [node) 'VALUES'
+      )
+    & child < node
+    & parent < child
+;
+
+a16_add_line_breaks_before_dml_clause:
+      a16_select
+    | a16_single_table_insert
+    | a16_multi_table_insert
+    | a16_delete
+    | a16_merge
+    | a16_permutted_merge_insert_update
+-> {
+    var parent = tuple.get("parent");
+    var node = tuple.get("node");
+    if (hasNewline(parent.to-1, parent.from+1)) {
+        if (getIndent(node.from).indexOf("\n") == -1) {
+            struct.putNewline(node.from, System.lineSeparator());
+            logger.fine(struct.getClass(), "a16_add_line_breaks_before_subquery_clause: at " + node.from + ".");
+        }
+    }
+}
+
+a16_select_term:
+      [parent) select_list
+    & [parent^) select_clause
+    & [node) select_term
+    & [comma) ','
+    & comma = node-1
+    & parent < node
+;
+
+a16_name_list:
+      [parent) name_list
+    & [parent^) into_list
+    & [node) name
+    & [comma) ','
+    & comma = node-1
+    & parent < node
+;
+
+a16_group_by_col:
+      [parent) group_by_list
+    & [node) group_by_col
+    & [comma) ','
+    & comma = node-1
+    & parent < node
+;
+
+a16_order_by_1desc:
+      [parent) order_by_clause
+    & [node) "ord_by_1desc"
+    & [comma) ','
+    & comma = node-1
+    & parent < node
+;
+
+a16_add_line_breaks_before:
+      a16_select_term
+    | a16_name_list
+    | a16_group_by_col
+    | a16_order_by_1desc
+-> {
+    var parent = tuple.get("parent");
+    var node = tuple.get("node");
+    var comma = tuple.get("comma")
+    if (hasNewline(parent.to-1, parent.from+1)) {
+        if (getIndent(node.from).indexOf("\n") == -1 && getIndent(comma.from).indexOf("\n") == -1) {
+            if (struct.breaksBeforeComma()) {
+                struct.putNewline(comma.from, System.lineSeparator());
+                logger.fine(struct.getClass(), "a16_add_line_breaks_before: comma at " + comma.from + ".");
+            } else {
+                struct.putNewline(node.from, System.lineSeparator());
+                logger.fine(struct.getClass(), "a16_add_line_breaks_before: node at " + node.from + ".");
+            }
+        }
+    }
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- R5: Commas in front of separated elements.
+-- --------------------------------------------------------------------------------------------------------------------
+
+-- Considers the following SQLDev settings:
+-- - Line Breaks On Comma
+--     "Before" enforces a line break before the comma (this is rule 5)
+--     "After" enforces line break after the comma
+--     "No Breaks" keeps line breaks before/after comma "as is"
+-- - White Space After Commas
+--     "checked" enforces exactly one space after the comma
+--     "unchecked" enforces no space after a comma
+
+r5_commas:
+    [node) ','
+-> {
+    var getIndentAfterComma = function(indent) {
+        var plus = 1;
+        if (spaceAfterCommas) {
+           plus++;
+        }
+        return indent + getSpaces(plus);
+    }
+
+    var getIndentForComma = function(indent) {
+        var len = indent.length() - 1;
+        if (spaceAfterCommas) {
+           len = len - 1;
+        }
+        if (len > 0) {
+            return indent.substring(0, len);
+        } else {
+            return indent;
+        }
+    }
+
+    var removeLeadingSpaces = function(nodeFrom) {
+        var indent = getIndent(nodeFrom);
+        if (indent.indexOf("\n") != -1) {
+            var pos = 0;
+            for (var i=0; i<indent.length(); i++) {
+                if (indent.substring(i, i+1) == " ") {
+                    pos++;
+                } else {
+                    break;
+                }
+            }
+            struct.putNewline(nodeFrom, indent.substring(pos));
+        } else {
+            struct.putNewline(nodeFrom, "");
+        }
+    }
+
+    var addSpacesAroundComma = function(commaNode) {
+        // always handle space after comma
+        removeLeadingSpaces(commaNode.from);
+        removeLeadingSpaces(commaNode.to);
+        if (spaceAfterCommas) {
+            var indent = getIndent(commaNode.to);
+            if (indent.indexOf("\n") == -1) {
+                struct.putNewline(commaNode.to, " " + indent);
+            }
+        }
+    }
+
+    var addBreakAfterComma = function(commaNode) {
+        var indentCommaNode = getIndent(commaNode.from);
+        if (indentCommaNode.indexOf("\n") != -1 && !hasCommentsBetweenPos(commaNode.from-1, commaNode.to)) {
+            // A new line was added before the comma instead of after.
+            struct.putNewline(commaNode.to, getIndentAfterComma(indentCommaNode));
+            logger.fine(struct.getClass(), "r5_commas: fix indent after comma at " + commaNode.to + ".");
+            struct.putNewline(commaNode.from, "");
+        }
+    }
+
+    var addBreakBeforeComma = function(commaNode) {
+        var indentCommaNode = getIndent(commaNode.from);
+        var indentNextNode = getIndent(commaNode.to);
+        if (indentNextNode.indexOf("\n") != -1) {
+            // A new line was added after the comma instead of before.
+            struct.putNewline(commaNode.from, getIndentForComma(indentNextNode));
+            logger.fine(struct.getClass(), "r5_commas: fix indent before comma at " + commaNode.from + ".");
+            var comment = getLastCommentBetweenPos(commaNode.from-1, commaNode.to);
+            if (comment != null && comment.startsWith("--")) {
+                // we must not remove the newline after a single-line comment (belongs to the single line comment)
+            } else {
+                // remove all whitespace before node
+                struct.putNewline(commaNode.to, "");
+            }
+        }
+    }
+
+    var node = tuple.get("node");
+    if (struct.breaksAfterComma()) {
+        addBreakAfterComma(node);
+    }
+    if (struct.breaksBeforeComma()) {
+        addBreakBeforeComma(node);
+    }
+    addSpacesAroundComma(node);
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- R2: 3 space indention.
+-- --------------------------------------------------------------------------------------------------------------------
+
+-- Determine the left margin for each position managed in newlinePositions with a newline char ("\n") and then
+-- ensure that the indentation is >= the this left margin, by adding missing spaces.
+-- This code must be executed after missing line breaks have been added.
+
+-- For chosen statements such as select, insert, update, delete merge, PL/SQL blocks etc. the left margin
+-- is enforced, this means unneeded leading spaces are removed. For other statements such as create table,
+-- alter table, create index, alter index, etc. the indentation is left "as is" if the existing left margin
+-- is larger than the calculated one.
+
+-- The calculation of the left margin depends primarily on
+--   - breaksAfterSelect
+--   - alignRight
+-- In case of "breaksAfterSelect = true" a simple indentation is used.
+-- In case of "breaksAfterSelect = false" the left margin for select, insert, update and delete statements
+-- depends on the length of the first keyword. For example, for an order_by_clause just the keyword "order"
+-- is relevant. This means that the expressions on subsequent lines of an order_by_clause start under the
+-- "by" keyword.
+-- In case of "alignRight = true" the margin is is based on the primary keyword of a statement.
+-- "select", "insert", "update" or "delete". In all these cases the length of the keyword is 6 characters.
+-- The left margin is therefore increased by 7 characters, even for keywords that are longer than 6 characters.
+-- For example "returning". In R6 the keyword will be right aligned to the primary keyword by reducing the
+-- the indentation. This is consistent with the alignment of commas in R5. Right-aligning in these cases
+-- is only possible if the indentation is large enough.
+
+r2_init_left_margin:
+    runOnce
+-> {
+    // Left margin is expressed in number of spaces.
+    var leftMargin = new HashMap();
+    var it = newlinePositions.keySet().iterator();
+    while (it.hasNext()) {
+        var key = it.next();
+        var value = newlinePositions.get(key);
+        if (value.indexOf("\n") != -1) {
+            // enforce uniform datatype in map; therefore convert values to Integer
+            leftMargin.put(key, Integer.valueOf(0));
+        }
+    }
+
+    // Increase the left margin for the descendants; but only for leaf nodes to avoid duplicate indentation.
+    var addMargin = function(parent, increaseBy, logText) {
+        var descendants = parent.descendants();
+        for (var i = 0, len = descendants.length; i < len; i++) {
+            var node = descendants.get(i);
+            var margin = leftMargin.get(node.from);
+            if (margin != null) {
+                if (node.children().size() == 0) {
+                    // enforce uniform datatype in map; therefore convert values to Integer
+                    leftMargin.put(node.from, Integer.valueOf(margin+increaseBy));
+                    logger.finer(struct.getClass(), logText + ": set margin to "
+                        + (margin+increaseBy) + " spaces at " + node.from + ".");
+                }
+            }
+        }
+    }
+
+    // Returns the left margin of a node.
+    var getMargin = function(node) {
+        var i = node.from;
+        while (i >= 0) {
+            // map expects Integers; therefore convert values to Integer
+            var margin = leftMargin.get(Integer.valueOf(i));
+            if (margin != null) {
+                return margin;
+            }
+            i--;
+        }
+        return null;
+    }
+
+    // Returns the first word within a string.
+    var getFirstWord = function(text) {
+        var i = text.indexOf(" ");
+        if (i == -1) {
+            return text;
+        } else {
+            return text.substring(0, i);
+        }
+    }
+
+    // Increase left margin by first keyword in node.
+    var addMarginByFirstKeyword = function(node, mainKeywordLength, logText) {
+        return addMarginByName(node, mainKeywordLength,
+            getFirstWord(target.src.get(node.from).content), logText);
+    }
+
+    // Increase left margin by keyword and according SQLDev settings.
+    var addMarginByName = function(node, mainKeywordLength, name, logText) {
+        var spaces;
+        if (breaksAfterSelect) {
+            spaces = indentSpaces;
+        } else if (alignRight) {
+            var firstWord = getFirstWord(name);
+            spaces = mainKeywordLength + name.length - firstWord.length + 1;
+        } else {
+            spaces = name.length + 1;
+        }
+        addMargin(node, spaces, logText);
+        return spaces;
+    }
+
+    // Returns true if the node is in parenthesis.
+    var isInParen = function(node) {
+        if (target.src.get(node.from).content == '(') {
+            return true;
+        } else if (node.from == 0) {
+            return false;
+        } else if (target.src.get(node.from-1).content == '(') {
+            return true;
+        }
+        return false;
+    }
+
+    // Returns true if the node starts with a open parenthesis and a new line (designed for subquery node)
+    var hasNewLineAfterParen = function(node) {
+        if (target.src.get(node.from).content == '(') {
+            return getIndent(node.from+1).indexOf("\n") != -1;
+        } else if (node.from == 0) {
+            return false;
+        } else if (target.src.get(node.from-1).content == '(') {
+            return getIndent(node.from).indexOf("\n") != -1;
+        }
+        return false;
+    }
+}
+
+r2_common:
+      [node) basic_d
+    | [node) full_cursor_body
+    | [node) stmt
+    | [node) case_stmt_alt
+    | [node) else_clause_opt & [node^) case_stmt
+    | [node) select & [node^) full_cursor_body
+    | [node) excptn_handler
+    | [node) subquery_factoring_clause
+    | [node) cursor_open_statement
+    | [node) ty_def
+    | [node) field_list & ![node^) field_list
+    | [node) fml_part
+    | [node) paren_expr_list
+    | [node) "expr_list" & [node-1) '(' & [node^) in_condition[24,35)
+    | [node) xmltable
+    | [node) json_table
+    | [node) JSON_columns_clause
+    | [node) expr & [node-1) '(' & [node^) query_table_expression
+    | [node) pls_expr & [node-1) '(' & ![node^) paren_expr_list
+    | [node) compound_condition & [node-1) '('
+    | [node^) function
+    | [node^) function_expression
+    | [node^) XML_attributes_clause
+    | [node) JSON_OBJECT_content & [node^) JSON_function
+    | [node) white_list_items & ![node^) white_list_items
+    | [node) pragma
+    | [node) default_expr_opt
+    | [node) call_specification
+    | [node) external_parameter_list
+    | [node) pragma_arg_list & ![node^) pragma_arg_list
+    | [node) using_clause_opt & [node^) exec_immediate_statement
+    | [node^) exec_immediate_statement & ![node) 'EXECUTE'
+    | [node^) fetch_statement & ![node) 'FETCH'
+    | [node^) bulk_loop_stmt & ![node) 'FORALL'
+    | [node) analytic_clause & ![node^) over_clause
+    | [node) 'RETURN' & [node^) subprg_spec
+;
+
+r2_flowcontrol_condition:
+      (
+          [node) condition
+        | [node) pls_expr
+      )
+    & (
+          [keyword) 'WHEN'
+        | [keyword) 'IF'
+        | [keyword) 'ELSIF'
+      )
+    & node = keyword+1
+;
+
+r2_case_expression:
+      [node) simple_case_expression[4,27)#
+    | [node) searched_case_expression#
+    | [node) expr & [node^) simple_case_expression[4,27)#
+    | [node) else_clause & [node^) case_expression
+    | [node) expr & [node^) else_clause & [node^^) case_expression
+    | [node) expr & [node^) searched_case_expression#
+    | [node) condition & [node-1) 'WHEN'
+;
+
+r2_case_expression_plsql:
+      [parent) case_expr
+    & (
+          [node) case_expr_alt
+        | [node) ELSE_expr_opt
+        | [node) pls_expr & ([node-1) 'THEN' | [node-1) 'ELSE')
+      )
+    & parent << node -- "<" returns wrong result. Arbori query result changed between 20.4.1 and 21.2.0.
+;
+
+r2_view:
+      [node) create_view#[114,130)
+    | [node) subquery & [node^) create_view#
+;
+
+r2_materialized_view:
+      [node) create_materialized_view[33,79)
+    | [node) subquery & [node^) create_materialized_view
+    | [node) create_materialized_view[91,136)
+    | [node) create_materialized_view[136,174)
+    | [node) create_mv_refresh
+    | [node) 'DISABLE' & [node^) create_materialized_view
+    | [node) create_materialized_view[200,210)
+    | [node) query_rewrite_clause
+;
+
+r2_object_type:
+      [node) adt_field
+    | [node) ',' & [node+1) adt_field
+    | [node) body_adt_field
+;
+
+r2_body:
+      [node) subprg_body
+    & ([parent) pkg_body | [parent) DECLARE_decls_opt)
+    & parent << node -- "<" returns wrong result. Arbori query result changed between 20.4.1 and 21.2.0.
+;
+
+r2_single_table_insert:
+      [node) insert_into_clause[13,25)
+    | [node) par_expr_list
+;
+
+r2_multi_table_insert:
+      [parent) conditional_insert_clause
+    & (
+          [node) conditional_insert_clause
+        | [node) condition & [node-1) 'WHEN' & [node+2) insert_into_clause
+        | [node) insert_into_clause
+        | [node) values_clause
+        | [node) error_logging_clause
+      )
+    & parent <= node
+;
+
+r2_merge_insert_clause:
+      [parent) merge_insert_clause
+    & (
+          [node) merge_insert_clause[23,35) & [node-1) 'INSERT'
+        | [node) merge_insert_clause[43,50) & [node-1) 'VALUES'
+    )
+    & parent < node
+;
+
+r2_subprg:
+    [node) subprg_property
+;
+
+r2_increment_left_margin:
+      r2_common
+    | r2_flowcontrol_condition
+    | r2_case_expression
+    | r2_case_expression_plsql
+    | r2_view
+    | r2_materialized_view
+    | r2_object_type
+    | r2_body
+    | r2_single_table_insert
+    | r2_multi_table_insert
+    | r2_merge_insert_clause
+    | r2_subprg
+-> {
+    addMargin(tuple.get("node"), indentSpaces, "r2_increment_left_margin");
+}
+
+r2_decrement_left_margin:
+      ([node) '(' | [node) ')')
+          & (
+                  [node^) paren_expr_list
+                | [node^) fml_part
+                | [node^) xmltable
+                | [node^) json_table
+                | [node^) JSON_columns_clause
+                | [node^) create_view#[114,130)
+                | [node^) create_materialized_view[33,79)
+                | [node^) insert_into_clause[13,25)
+                | [node^) par_expr_list
+                | [node^) merge_insert_clause[23,35)
+                | [node^) merge_insert_clause[43,50)
+                | [node^) function
+                | [node^) function_expression
+                | [node^) "(x,y,z)"
+                | [node^) XML_attributes_clause
+                | [node^^) analytic_function
+                | [node^) external_parameter_list
+            )
+    | [node) 'XMLTABLE' & [node^) xmltable
+    | [node) 'JSON_TABLE' & [node^) json_table
+    | [node) 'COLUMNS' & [node^) JSON_columns_clause
+    | [node+1) '(' & [node^) XML_attributes_clause
+-> {
+    addMargin(tuple.get("node"), -1 * indentSpaces, "r2_decrement_left_margin");
+}
+
+-- not defining [node) makes this query slow (see #137)
+-- I do not see an alternative way to fetch all kind of functions
+r2_decrement_left_margin_for_function_name:
+        ([node^) function | [node^) function_expression | [node^) count | [node^) over_clause)
+      & [lparen) '('
+      & [lparen = node)
+-> {
+    addMargin(tuple.get("node"), -1 * indentSpaces, "r2_decrement_left_margin_for_function_name");
+}
+
+-- separated due to performance issues in SQLDev 21.2.1 - see #137
+r2_increment_left_margin_by_keyword_outside_select:
+    -- select statement
+      [node) select_list & [keyword) 'SELECT' & (keyword = node-1 | keyword = node-2)
+    | [node) condition & [keyword) 'CONNECT' & [keyword+1) 'BY' & keyword = node-2
+    | [node) condition & [keyword) 'START' & [keyword+1) 'WITH' & keyword = node-2
+-> {
+    addMarginByName(tuple.get("node"), 6, target.src.get(tuple.get("keyword").from).content,
+        "r2_increment_left_margin_by_keyword_outside_select");
+}
+
+r2_increment_left_margin_by_keyword_outside_update_delete_merge:
+    -- update statement
+      [node) aliased_dml_table_expression_clause & keyword = node^
+    -- delete statement
+    | [node) 'FROM' & [keyword) 'DELETE' & [node^) delete & keyword+1 = node
+    -- merge statement
+    | [node) merge_update_clause[36,56) & [keyword) 'SET' & [node^) merge_update_clause & keyword^ = node^
+-> {
+    addMarginByName(tuple.get("node"), 6, target.src.get(tuple.get("keyword").from).content,
+        "r2_increment_left_margin_by_keyword_outside_update_delete_merge");
+}
+
+-- use merge keyword for right alignment (5 chars)
+r2_increment_left_margin_by_keyword_outside_node_for_merge:
+      [node) subquery & [keyword) 'USING' & [node^) merge & keyword+1 = node
+    | [node) condition & [keyword) 'ON' & [node^) merge & keyword+2 = node
+    | [node) ')' & [keyword) 'ON' & [node^) merge & keyword+3 = node
+-> {
+    addMarginByName(tuple.get("node"), 5, target.src.get(tuple.get("keyword").from).content,
+        "r2_increment_left_margin_by_keyword_outside_node_for_merge");
+}
+
+r2_increment_left_margin_by_keyword_inside_node:
+    -- select statement
+      [node) into_list & [keyword) 'INTO' & keyword^ = node
+    | [node) from_clause & [keyword) 'FROM' & keyword^ = node
+    | [node) where_clause & [keyword) 'WHERE' & keyword^ = node
+    | [node) group_by_clause & [keyword) 'GROUP' & keyword^ = node
+    | [node) having_clause & [keyword) 'HAVING' & keyword^ = node
+    | [node) order_by_clause & [keyword) 'ORDER' & keyword^ = node
+    -- insert statement
+    | [node) returning_clause & ([keyword) 'RETURNING' | [keyword) 'RETURN') & keyword^ = node
+    | [node) error_logging_clause & [keyword) 'LOG' & keyword^ = node
+    -- update statement
+    | [node) update_set_clause & [keyword) 'SET' & keyword^ = node
+-> {
+    var spaces = addMarginByFirstKeyword(tuple.get("node"), 6,
+        "r2_increment_left_margin_by_keyword_inside_node (node)");
+    addMargin(tuple.get("keyword"), -1 * spaces,
+        "r2_increment_left_margin_by_keyword_inside_node (keyword)");
+}
+
+-- use merge keyword for right alignment (5 chars)
+r2_increment_left_margin_by_keyword_inside_node_for_merge:
+      [node) merge_update_clause & [keyword) 'WHEN' & keyword^ = node
+    | [node) merge_insert_clause & [keyword) 'WHEN' & keyword^ = node
+-> {
+    var spaces = addMarginByFirstKeyword(tuple.get("node"), 5,
+        "r2_increment_left_margin_by_keyword_inside_node_for_merge (node)");
+    addMargin(tuple.get("keyword"), -1 * spaces,
+        "r2_increment_left_margin_by_keyword_inside_node_for_merge (keyword)");
+}
+
+r2_indent_single_line_clauses:
+      [node) insert_into_clause[13,25)
+    | [node) values_clause[12,20)
+    | [node) merge_insert_clause[23,35) & [node-1) 'INSERT'
+    | [node) merge_insert_clause[43,50) & [node-1) 'VALUES'
+-> {
+    var node = tuple.get("node");
+    if (getIndent(node.from).indexOf("\n") != -1) {
+        if (!hasNewline(node.to-1, node.from+1)) {
+            addMargin(node, indentSpaces, "r2_indent_single_line_clauses");
+        }
+    }
+}
+
+r2_indent_name_list_after_fetch_into:
+     [node) name_list
+   & [node-1) 'INTO'
+   & [node^) fetch_statement
+-> {
+    var fetch = tuple.get("node^");
+    var into = tuple.get("node-1");
+    var col = getColumnWithoutFirstIndent(into.from) + 5;
+    if (!containsLineBreakBetweenPos(fetch.from+1, into.to)) {
+        col -= indentSpaces;
+    }
+    var node = tuple.get("node");
+    addMargin(node, col, "r2_indent_name_list_after_fetch_into");
+}
+
+r2_subquery_all:
+      [node) subquery
+    & [from) from_clause
+    & node < from
+;
+
+r2_subquery_set:
+      [node) subquery
+    & [from) from_clause
+    & node < from
+    & [from^-1) SET_OPER -- must not negate this predicate in SQLDev 21.2.1, see issue #133
+;
+
+r2_subquery:
+    r2_subquery_all - r2_subquery_set
+;
+
+r2_increment_left_margin_for_subquery_in_paren:
+    r2_subquery
+-> {
+    var node = tuple.get("node");
+    var from = tuple.get("from")
+    if (isInParen(node)) {
+        if (!hasNewLineAfterParen(node) && getIndent(from.from).indexOf("\n") != -1) {
+            // Left margin needs to be calculated based on the position of the left parenthesis.
+            // This cannot be done here because we cannot calculate the position for nested
+            // subqueries. We do that in r2_fix_indent_for_subquery_in_paren once the indentation per node
+            // is available.
+        } else {
+            var targetNode = node;
+            if (target.src.get(node.from).content == '(') {
+                targetNode = node.descendants().get(2);
+            }
+            addMargin(targetNode, indentSpaces, "r2_increment_left_margin_for_subquery_in_paren");
+        }
+    }
+}
+
+r2_increment_left_margin_for_assoc_arg_value:
+      [name) sim_expr
+    & [name+1) '='
+    & [name+2) '>'
+    & [value) expr
+    & [value^) assoc_arg
+    & value = name+3
+-> {
+    var name = tuple.get("name");
+    var value = tuple.get("value");
+    var nameContent = getLastLine(getContent(name.from, value.from));
+    var increment = nameContent.length;
+    addMargin(value, increment, "r2_increment_left_margin_for_assoc_arg_value");
+}
+
+r2_increment_left_margin_for_assignment:
+     [parent) assignment_stmt
+   & [node-2) ':'
+   & [node-1) '='
+   & [node) pls_expr
+   & node^ = parent
+-> {
+    var node = tuple.get("node");
+    var parent = tuple.get("parent");
+    var parentCol = getColumnWithoutFirstIndent(parent.from);
+    var nodeCol = getColumnWithoutFirstIndent(node.from);
+    if (getIndent(node.from).indexOf("\n") == -1) {
+        addMargin(node, nodeCol-parentCol, "r2_increment_left_margin_for_assignment");
+    } else {
+        addMargin(node, indentSpaces, "r2_increment_left_margin_for_assignment");
+    }
+}
+
+r2_indent_nodes:
+    runOnce
+-> {
+    var it = leftMargin.keySet().iterator();
+    while (it.hasNext()) {
+        var key = it.next();
+        var margin = leftMargin.get(key);
+        var value = newlinePositions.get(key);
+        var spaces = value.length()-value.lastIndexOf("\n")-1; // 0 = first column
+        var comma = 0;
+        if (key < target.src.size()) {
+            if (target.src.get(key).content == ",") {
+                comma = 1;
+                if (spaceAfterCommas) {
+                   comma += 1;
+                }
+            }
+        }
+        if (overrideIndents(key)) {
+            struct.putNewline(key, value.substring(0, value.lastIndexOf("\n")+1) + getSpaces(margin-comma));
+            logger.fine(struct.getClass(), "r2_indent_nodes: set calculated margin of "
+                + (margin-comma) + " spaces at " + key + ".");
+        } else {
+            if (margin-spaces-comma > 0) {
+                for (var i=0; i<margin-spaces-comma; i++) {
+                    value+=" ";
+                }
+                struct.putNewline(key, value);
+                logger.fine(struct.getClass(), "r2_indent_nodes: add " + (margin-spaces-comma)
+                    + " spaces at " + key + ".");
+            }
+        }
+    }
+}
+
+r2_fix_indent_for_subquery_in_paren:
+   r2_subquery
+-> {
+    var node = tuple.get("node");
+    var from = tuple.get("from")
+    if (isInParen(node) && !hasNewLineAfterParen(node) && getIndent(from.from).indexOf("\n") != -1)
+    {
+        // The r2_subquery results are ordered.
+        // This means the outermost subquery is processed first and the innermost subquery last.
+        // As a result getColumn() returns correct results; even for nested subqueries.
+        var spaces = getColumn(node.from) - getColumn(from.from);
+        var targetNode = node;
+        if (target.src.get(node.from).content == '(') {
+            spaces = spaces + 1;
+            targetNode = node.descendants().get(2);
+        }
+        addIndent(targetNode, spaces);
+        logger.fine(struct.getClass(), "r2_fix_indent_for_subquery_in_paren: at " + targetNode.from + ".");
+    }
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- R7: SQL keywords are right aligned within a SQL command.
+-- --------------------------------------------------------------------------------------------------------------------
+
+-- Right align keywords with primary keyword of a SQL command.
+-- For the select statement the primary keyword is "select", even if it starts with the "with" keyword.
+-- Only one keyword is right aligned. E.g. "group" without the "by".
+-- The right margin is reduced if the keyword is longer than the primary keyword (e.g. "distinct" in for select statement).
+-- This behavior is consistent with the reduction of the right margin for leading commas.
+-- Right alignment for longer keywords requires a the left margin that is large enough.
+
+r7_declaration:
+    runOnce
+-> {
+    var rightAlign = function(tuple, logText) {
+        if (!breaksAfterSelect) {
+            var keyword = tuple.get("keyword");
+            var parent = tuple.get("parent");
+            var parentLength = target.src.get(parent.from).content.length();
+            if (target.src.get(parent.from).content.toLowerCase() == "with") {
+                parentLength = 6;
+            }
+            if (getIndent(keyword.from).indexOf("\n") != -1) {
+                if (alignRight) {
+                    var content = target.src.get(keyword.from).content;
+                    var missingSpaces = parentLength - target.src.get(keyword.from).content.length();
+                    var keywordIndent = System.lineSeparator()
+                        + getSpaces(getColumn(parent.from) + missingSpaces)
+                    struct.putNewline(keyword.from, keywordIndent);
+                    logger.fine(struct.getClass(), logText + ": align <" + content + "> at " + keyword.from + ".");
+                }
+            }
+        }
+    }
+}
+
+r7_select:
+      ([parent) select | [parent) subquery | [parent) query_block)
+    & (
+          [keyword) 'DISTINCT'
+        | [keyword) 'UNIQUE'
+        | [keyword) 'ALL'
+        | [keyword) 'BULK'
+        | [keyword) 'COLLECT'
+        | [keyword) 'INTO'
+        | [keyword) 'FROM'
+        | [keyword) 'INNER'
+        | [keyword) 'CROSS'
+        | [keyword) 'NATURAL'
+        | [keyword) 'FULL'
+        | [keyword) 'LEFT'
+        | [keyword) 'RIGHT'
+        | [keyword) 'JOIN'
+        | [keyword) 'PARTITION'
+        | [keyword) 'BY'
+        | [keyword) 'ON'
+        | [keyword) 'USING'
+        | [keyword) 'OUTER'
+        | [keyword) 'APPLY'
+        | [keyword) 'WHERE'
+        | [keyword) 'CONNECT'
+        | [keyword) 'START'
+        | [keyword) 'GROUP'
+        | [keyword) 'HAVING'
+        | [keyword) 'ORDER'
+      )
+    & parent < keyword
+    & ![keyword^^^) analytic_clause
+    & ![keyword^^) analytic_clause
+    & ![keyword^) analytic_clause
+    & ![keyword^^) function
+    & ![keyword^) function
+    & ![keyword^) collect[33,52) -- order by clause in collect function
+;
+
+r7_single_table_insert:
+      [parent) insert
+    & [insert) single_table_insert
+    & (
+          [keyword) 'INTO'
+        | [keyword) 'VALUES'
+        | [keyword) 'RETURN'
+        | [keyword) 'RETURNING'
+        | [keyword) 'LOG'
+        | [keyword) 'REJECT'
+        | [keyword) 'SELECT' & ![keyword^^-1) '('
+      )
+    & insert < keyword
+    & parent < insert
+;
+
+r7_multi_table_insert_uncond:
+      [parent) insert
+    & [insert) multi_table_insert
+    & [uncond) multi_table_insert[12,24)
+    & (
+          [keyword) 'ALL'
+        | [keyword) 'FIRST'
+        | [keyword) 'INTO'
+        | [keyword) 'VALUES'
+        | [keyword) 'LOG'
+        | [keyword) 'REJECT'
+        | [keyword) 'SELECT' & ![keyword^^-1) '('
+      )
+    & (uncond < keyword | insert < keyword)
+    & insert < uncond
+    & parent < insert
+;
+
+r7_multi_table_insert_cond:
+      [parent) insert
+    & [insert) multi_table_insert
+    & [cond) conditional_insert_clause
+    & (
+          [keyword) 'ALL'
+        | [keyword) 'FIRST'
+        | [keyword) 'SELECT' & ![keyword^^-1) '('
+      )
+    & cond < keyword
+    & insert < cond
+    & parent < insert
+;
+
+r7_update:
+      [parent) update
+    & (
+          [keyword) 'SET'
+        | [keyword) 'WHERE'
+        | [keyword) 'RETURN'
+        | [keyword) 'RETURNING'
+        | [keyword) 'INTO'
+        | [keyword) 'LOG'
+        | [keyword) 'REJECT'
+      )
+    & parent < keyword
+;
+
+r7_delete:
+      [parent) delete
+    & (
+          [keyword) 'FROM'
+        | [keyword) 'WHERE'
+        | [keyword) 'RETURN'
+        | [keyword) 'RETURNING'
+        | [keyword) 'INTO'
+        | [keyword) 'LOG'
+        | [keyword) 'REJECT'
+      )
+    & parent < keyword
+;
+
+r7_merge:
+      [parent) merge
+    & (
+          [keyword) 'USING'
+        | [keyword) 'ON'
+        | [keyword) 'WHEN'
+        | [keyword) 'LOG'
+        | [keyword) 'REJECT'
+      )
+    & parent < keyword
+;
+
+r7_merge_update_clause:
+      [grandparent) merge_update_clause
+    & ([parent) 'UPDATE' | [parent) 'DELETE')
+    & (
+          [keyword) 'SET'
+        | [keyword) 'WHERE'
+      )
+    & grandparent < keyword
+    & parent^ = grandparent
+;
+
+r7_merge_insert_clause:
+      [grandparent) merge_insert_clause
+    & [parent) 'INSERT'
+    & (
+          [keyword) 'VALUES'
+        | [keyword) 'WHERE'
+      )
+    & grandparent < keyword
+    & parent^ = grandparent
+;
+
+r7_right_align_keywords:
+      r7_select
+    | r7_single_table_insert
+    | r7_multi_table_insert_uncond
+    | r7_multi_table_insert_cond
+    | r7_update
+    | r7_delete
+    | r7_merge
+    | r7_merge_update_clause
+    | r7_merge_insert_clause
+-> {
+    rightAlign(tuple, "r7_right_align_keywords");
+}
+
+r7_and_or_exceptions:
+      (
+          [parent) select
+        | [parent) subquery
+        | [parent) query_block
+        | [parent) update
+        | [parent) delete
+      )
+    & [keyword) AND_OR
+    & parent < keyword
+    & (
+          [exception) case_expression
+        | [exception) compound_condition & [exception-1) '('
+      )
+    & exception < keyword
+;
+
+r7_and_or:
+      (
+          [parent) select
+        | [parent) subquery
+        | [parent) query_block
+        | [parent) update
+        | [parent) delete
+      )
+    & [keyword) AND_OR
+    & parent < keyword
+;
+
+r7_and_or_merge_exceptions:
+      ([grandparent) merge_update_clause | [grandparent) merge_insert_clause)
+    & ([parent) 'UPDATE' | [parent) 'DELETE' | [parent) 'INSERT')
+    & [keyword) AND_OR
+    & grandparent < keyword
+    & parent^ = grandparent
+    & (
+          [exception) case_expression
+        | [exception) compound_condition & [exception-1) '('
+      )
+    & exception < keyword
+;
+
+
+r7_and_or_merge:
+      ([grandparent) merge_update_clause | [grandparent) merge_insert_clause)
+    & ([parent) 'UPDATE' | [parent) 'DELETE' | [parent) 'INSERT')
+    & [keyword) AND_OR
+    & grandparent < keyword
+    & parent^ = grandparent
+;
+
+r7_right_align_and_or:
+      (r7_and_or - r7_and_or_exceptions)
+    | (r7_and_or_merge - r7_and_or_merge_exceptions)
+-> {
+    rightAlign(tuple, "r7_right_align_and_or");
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- A11: Align parameter names.
+-- --------------------------------------------------------------------------------------------------------------------
+
+a11_declarations:
+    runOnce
+-> {
+    var paramNames = new HashMap();
+}
+
+a11_find_param_names:
+      [scope) fml_part
+    & ([parenOrComma) '(' | [parenOrComma) ',')
+    & [node) decl_id
+    & scope < node
+    & parenOrComma = node^-1
+-> {
+    var node = tuple.get("node");
+    var scope = tuple.get("scope");
+    if (firstParameterOnLine(node.from, scope.from)) {
+        if (struct.breaksBeforeComma()) {
+            var parenOrComma = tuple.get("parenOrComma");
+            var parenOrCommaContent = target.src.get(parenOrComma.from).content;
+            if (parenOrCommaContent == ',') {
+                tuple.put("aligner", parenOrComma);
+            } else {
+                tuple.put("aligner", node);
+            }
+        } else {
+            tuple.put("aligner", node);
+        }
+        addTupleToMap(tuple, "scope", paramNames);
+    }
+}
+
+o11_align_param_names:
+    runOnce
+-> {
+    align(paramNames, "aligner", null, "a11_find_param_names");
+    fixIndentOfLeadingCommas(paramNames, "aligner", "a11_find_param_names");
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- A10: Align parameter modes.
+-- --------------------------------------------------------------------------------------------------------------------
+
+a10_declarations:
+    runOnce
+-> {
+    var paramModes = new HashMap();
+}
+
+a10_find_param_modes:
+      [scope) fml_part
+    & [name) decl_id
+    & ([node) mode | [node) 'IN' | [node) 'OUT' ) -- support modes with to NOCOPY
+    & scope < node
+    & name = node-1
+-> {
+    if (alignTypeDecl) {
+        var name = tuple.get("name");
+        var scope = tuple.get("scope");
+        if (firstParameterOnLine(name.from, scope.from)) {
+            var node = tuple.get("node");
+            addTupleToMap(tuple, "scope", paramModes);
+        }
+    }
+}
+
+a10_align_param_modes:
+    runOnce
+-> {
+    align(paramModes, "node", null, "a10_align_param_modes");
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- O8: Alignment: Type Declarations. Options: true; false. (alignTypeDecl).
+-- --------------------------------------------------------------------------------------------------------------------
+
+o8_declarations:
+    runOnce
+-> {
+    var datatypes = new HashMap();
+}
+
+o8_variables:
+      [scope) decl_list
+    & [name) decl_id
+    & [parent) basic_d
+    & name = node-1
+    & scope < name^
+    & parent = name^
+    & [parent = [name
+;
+
+o8_records:
+      [scope) ty_def
+    & [node-1) identifier
+    & [node^) field
+    & scope < node^
+;
+
+o8_attributes:
+      [scope) adt_field_list
+    & ![scope^) adt_field_list
+    & [node^) adt_field
+    & [node-1) decl_id
+    & scope < node
+;
+
+o8_external_params:
+     [scope) external_parm_list_entry_opt
+   & ![scope^) external_parm_list_entry_opt
+   & [node-1) identifier
+   & scope < node
+;
+
+o8_find_type_declarations:
+      o8_variables
+    | o8_records
+    | o8_attributes
+    | o8_external_params
+-> {
+    if (alignTypeDecl) {
+        addTupleToMap(tuple, "scope", datatypes);
+    }
+}
+
+o8_find_parameter_declarations:
+      [scope) fml_part
+    & [name) decl_id
+    & [node) prm_spec_unconstrained_type
+    & scope < node
+    & (name = node-1 | name = node-2 | name = node-3 | name = node-4)
+-> {
+    if (alignTypeDecl) {
+        var name = tuple.get("name");
+        var scope = tuple.get("scope");
+        if (firstParameterOnLine(name.from, scope.from)) {
+            var node = tuple.get("node");
+            addTupleToMap(tuple, "scope", datatypes);
+        }
+    }
+}
+
+o8_align_type_declarations:
+    runOnce
+-> {
+    align(datatypes, "node", null, "o8_align_type_declarations");
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- O4: Alignment: Assignment Operator :=. Options: true; false. (alignAssignments).
+-- --------------------------------------------------------------------------------------------------------------------
+
+o4_declarations:
+    runOnce
+-> {
+    var assignments = new HashMap();
+    var assignmentsWithValue = new HashMap();
+}
+
+o4_declare_section:
+      [scope) decl_list
+    & [node) default_expr_opt
+    & scope < node
+;
+
+o4_function_in_declare_section:
+      [scope) decl_list
+    & [func) fml_part
+    & [node) default_expr_opt
+    & func < node
+    & scope < func
+;
+
+o4_function:
+      [scope) fml_part
+    & [node) default_expr_opt
+    & scope < node
+;
+
+o4_find_assignments:
+      (o4_declare_section - o4_function_in_declare_section)
+    | o4_function
+-> {
+    if (alignAssignments) {
+        var scope = tuple.get("scope");
+        var node = tuple.get("node");
+        if (containsLineBreak(scope) & getIndent(node.from+2).indexOf("\n") == -1) {
+            addTupleToMap(tuple, "scope", assignments);
+        }
+    }
+}
+
+o4_find_body_assignments:
+      ([scope) if_stmt | [scope) case_stmt | [scope) seq_of_stmts)
+    & [node) ':'
+    & [node+1) '='
+    & [value) pls_expr
+    & scope < node
+    & value = node+2
+-> {
+    if (alignAssignments) {
+        var scope = tuple.get("scope");
+        var value = tuple.get("value")
+        if (getIndent(value.from).indexOf("\n") == -1) {
+            addTupleToMap(tuple, "scope", assignmentsWithValue);
+        }
+    }
+}
+
+o4_align_assignments:
+    runOnce
+-> {
+    align(assignments, "node", null, "o4_align_assignments");
+    align(assignmentsWithValue, "node", "value", "o4_align_assignments");
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- O7: Alignment: Equality Predicate =. Options: true; false. (alignEquality).
+-- --------------------------------------------------------------------------------------------------------------------
+
+o7_declarations:
+    runOnce
+-> {
+    // Returns true if there is no other equality sign on the line.
+    var firstEqualitySignOnLine = function(nodeFrom) {
+        for (var i=nodeFrom-1; i>=0 && getIndent(i).indexOf("\n") == -1; i=i-1) {
+            var content = target.src.get(i).content;
+            if (content == "=") {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    var equalitySigns = new HashMap();
+}
+
+o7_find_equality_predicates:
+      [scope) condition
+    & ![scope^) condition
+    & [node) '='
+    & [value) expr
+    & scope < node
+    & value = node+1
+-> {
+    if (alignEquality) {
+        var node = tuple.get("node");
+        if (firstEqualitySignOnLine(node.from)) {
+            addTupleToMap(tuple, "scope", equalitySigns);
+        }
+    }
+}
+
+o7_align_equality_predicates:
+    runOnce
+-> {
+    align(equalitySigns, "node", "value", "o7_align_equality_predicates");
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- R6: Call parameters aligned, operators aligned, values aligned.
+-- --------------------------------------------------------------------------------------------------------------------
+
+r6_declarations:
+    runOnce
+-> {
+    var assocNames = new HashMap();
+    var assocValues = new HashMap();
+}
+
+r6_find_names:
+      [scope) paren_expr_list
+    & [node+1) arg
+    & scope < node
+-> {
+    var scope = tuple.get("scope");
+    if (containsLineBreak(scope)) {
+        var parenOrComma = tuple.get("node");
+        var arg = tuple.get("node+1")
+        var parenOrCommaContent = target.src.get(parenOrComma.from).content;
+        if (parenOrCommaContent == '('
+                || getIndent(parenOrComma.from).indexOf("\n") != -1
+                || getIndent(arg.from).indexOf("\n") != -1)
+        {
+            if (struct.breaksBeforeComma()) {
+                if (parenOrCommaContent == ',') {
+                    tuple.put("aligner", parenOrComma);
+                } else {
+                    tuple.put("aligner", arg);
+                }
+            } else {
+                tuple.put("aligner", arg);
+            }
+            addTupleToMap(tuple, "scope", assocNames);
+        }
+    }
+}
+
+r6_align_names:
+    runOnce
+-> {
+    align(assocNames, "aligner", null, "r6_align_names (align)");
+    fixIndentOfLeadingCommas(assocNames, "aligner", "r6_align_names (fix)");
+}
+
+r6_find_values:
+      [scope) paren_expr_list
+    & [arg) assoc_arg
+    & [node) '='
+    & [greater) '>'
+    & [value) expr
+    & arg = node^
+    & scope < node
+    & value = greater+1
+    & node = greater-1
+-> {
+    if (alignNamedArgs) {
+        var scope = tuple.get("scope");
+        addTupleToMap(tuple, "scope", assocValues);
+    }
+}
+
+r6_ensure_all_assoc_args_are_on_same_line:
+    runOnce
+-> {
+    var toRemove = new ArrayList();
+    var it = assocValues.keySet().iterator();
+    while (it.hasNext()) {
+        var scope = it.next();
+        var list = assocValues.get(scope);
+        if (list.size() > 0) {
+            // we start with the second AssocArg
+            // because the first assocArg can be defined on the same line as the open parenthesis of the scope
+            var lastPos = list.get(0).get("arg").from;
+            for (var i=1; i < list.size(); i++) {
+                var pos = list.get(i).get("arg").to;
+                if (!containsLineBreakBetweenPos(lastPos, pos)) {
+                    toRemove.add(scope);
+                    break;
+                }
+                lastPos = pos;
+            }
+        }
+    }
+    for (var i=0; i < toRemove.size(); i++) {
+        assocValues.remove(toRemove.get(i));
+    }
+}
+
+r6_align_values:
+    runOnce
+-> {
+    align(assocValues, "node", "value", "r6_align_values");
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- A9: Align xmltable columns.
+-- --------------------------------------------------------------------------------------------------------------------
+
+a9_declarations:
+    runOnce
+-> {
+    var xmlTableColumns = new HashMap();
+    var xmlTableDatatypes = new HashMap();
+}
+
+a9_find_columns:
+      [scope) XMLTABLE_options[19,37)
+    & [node) XML_table_column
+    & [comma) ','
+    & scope < node
+    & node = comma+1
+-> {
+    var scope = tuple.get("scope");
+    if (struct.breaksBeforeComma()) {
+        tuple.put("aligner", tuple.get("comma"));
+    } else {
+        tuple.put("aligner", tuple.get("node"));
+    }
+    var aligner = tuple.get("aligner");
+    if (getIndent(aligner.from).indexOf("\n") == -1) {
+        struct.putNewline(aligner.from, System.lineSeparator());
+        logger.fine(struct.getClass(), "a9_find_columns: add line break at " + aligner.from + ".");
+    }
+    addTupleToMap(tuple, "scope", xmlTableColumns);
+}
+
+a9_align_xmltable_columns:
+    runOnce
+-> {
+    var it = xmlTableColumns.keySet().iterator();
+    while (it.hasNext()) {
+        var scope = it.next();
+        var pos = getColumn(scope.from+1);
+        var list = xmlTableColumns.get(scope);
+        alignAtPos(pos, list, "aligner", null, "a9_align_xmltable_columns");
+    }
+    fixIndentOfLeadingCommas(xmlTableColumns, "aligner", "a9_align_xmltable_columns");
+}
+
+a9_find_datatypes:
+     [scope) XMLTABLE_options[19,37)
+   & [node) XML_table_column[5,72)
+   & [path) 'PATH'
+   & scope < node
+   & node < path
+-> {
+    var scope = tuple.get("scope");
+    addTupleToMap(tuple, "scope", xmlTableDatatypes);
+}
+
+a9_align_xmltable_datatypes:
+    runOnce
+-> {
+    align(xmlTableDatatypes, "node", null, "a9_align_xmltable_datatypes");
+    align(xmlTableDatatypes, "path", null, "a9_align_xmltable_datatypes");
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- A20: Align json_table columns.
+-- --------------------------------------------------------------------------------------------------------------------
+
+a20_declarations:
+    runOnce
+-> {
+    var jsonTableColumns = new HashMap();
+    var jsonTableDatatypes = new HashMap();
+}
+
+a20_find_columns:
+      [scope) JSON_columns_clause
+    & [node) JSON_column_definition
+    & [comma) ','
+    & scope < node
+    & node = comma+1
+-> {
+    var scope = tuple.get("scope");
+    if (struct.breaksBeforeComma()) {
+        tuple.put("aligner", tuple.get("comma"));
+    } else {
+        tuple.put("aligner", tuple.get("node"));
+    }
+    var aligner = tuple.get("aligner");
+    if (getIndent(aligner.from).indexOf("\n") == -1) {
+        struct.putNewline(aligner.from, System.lineSeparator());
+        logger.fine(struct.getClass(), "a20_find_columns: add line break at " + aligner.from + ".");
+    }
+    addTupleToMap(tuple, "scope", jsonTableColumns);
+}
+
+a20_align_json_table_columns:
+    runOnce
+-> {
+    var it = jsonTableColumns.keySet().iterator();
+    while (it.hasNext()) {
+        var scope = it.next();
+        var pos = getColumn(scope.from+2); // first column
+        var list = jsonTableColumns.get(scope);
+        alignAtPos(pos, list, "aligner", null, "a20_align_json_table_columns");
+        fixIndentOfLeadingCommas(jsonTableColumns, "aligner", "a20_align_json_table_columns");
+    }
+}
+
+a20_find_datatypes:
+     [scope) JSON_columns_clause
+   & [node) JSON_value_return_type
+   & [path) "JSON_value_column[5,10)"
+   & scope < node
+   & path = node+1
+-> {
+    var scope = tuple.get("scope");
+    addTupleToMap(tuple, "scope", jsonTableDatatypes);
+}
+
+a20_align_json_table_datatypes:
+    runOnce
+-> {
+    align(jsonTableDatatypes, "node", null, "a20_align_json_table_datatypes");
+    align(jsonTableDatatypes, "path", null, "a20_align_json_table_datatypes");
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- O5: Alignment: Column and Table aliases. Options: true; false. (alignTabColAliases).
+-- --------------------------------------------------------------------------------------------------------------------
+
+o5_declarations:
+    runOnce
+-> {
+    var selectTermEndsOnNewline = function(node) {
+        if (getIndent(node.to).indexOf("\n") != -1) {
+            return true;
+        } else {
+            var content = target.src.get(node.to).content;
+            if (content == ",") {
+                if (getIndent(node.to+1).indexOf("\n") != -1) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    var tableReferenceOnNewline = function(node) {
+        var n = target.root.leafAtPos(node.from - 1);
+        do {
+            n = target.root.leafAtPos(n.from - 1);
+            if (getIndent(n.from).indexOf("\n") != -1) {
+                return true;
+            }
+        } while (!n.contains("'FROM'") && !n.contains("query_table_expression"))
+        return false;
+    }
+
+    var aliases = new HashMap();
+}
+
+o5_column_alias:
+      [scope) select_clause
+    & [node) as_alias
+    & scope < node
+-> {
+    if (alignTabColAliases) {
+        var node = tuple.get("node");
+        if (selectTermEndsOnNewline(node)) {
+            addTupleToMap(tuple, "scope", aliases);
+        }
+    }
+}
+
+o5_table_alias:
+      [scope) from_clause
+    & [node) identifier
+    & [node-1) query_table_expression
+    & scope < node
+-> {
+    if (alignTabColAliases) {
+        var node = tuple.get("node");
+        if (tableReferenceOnNewline(node)) {
+            addTupleToMap(tuple, "scope", aliases);
+        }
+    }
+}
+
+o5_align_aliases:
+    runOnce
+-> {
+    align(aliases, "node", null, "o5_align_aliases");
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- A4: Split long lines.
+-- --------------------------------------------------------------------------------------------------------------------
+
+-- This must run at the very end to override SQLDev's default behavior.
+-- SQL Developer adds a line break after the token that exceeds max char line width.
+-- This behaviour is not wanted, since the indentation is not added.
+-- This piece of code addresses this issue. It adds a new line with the indentation of the current line.
+-- No additional indentation is added to make this work for long argument lists as well
+-- (indentation might not be reduced on subsequent formatter calls).
+-- It iss important to note that the lines may be a bit longer than the configured max char line width.
+-- That's expected and matches the SQLDev logic. It ensures also that corner cases can be handled by
+-- this code (e.g. string tokens > max char line width).
+-- Due to this simple algorithm, it is expected that a subsequent formatter call will produce a different result.
+
+a4_add_line_breaks_with_indent:
+    runOnce
+-> {
+    var pos = 0;
+    var indent = System.lineSeparator(); // handle first line
+    for (var key=0; key<target.src.size(); key++) {
+        if (pos > maxCharLineSize && target.src.get(key).content.length() > 1 && getIndent(key).indexOf("\n") == -1) {
+            struct.putNewline(key, indent);
+            pos = indent.length() + target.src.get(key).content.length();
+            logger.fine(struct.getClass(), "a4_add_line_breaks_with_indent: at " + key + ".");
+        } else {
+            var value = getIndent(key);
+            if (value.indexOf("\n") != -1) {
+                pos = getNumCharsAfterNewLine(value);
+                indent = System.lineSeparator() + getSpaces(pos);
+            } else {
+                pos += getNumCharsAfterNewLine(value);
+            }
+            var content = target.src.get(key).content;
+            var contentLength = content.length;
+            var nlpos = content.lastIndexOf("\n") + 1;
+            if (nlpos > 0) {
+                contentLength -= nlpos;
+            }
+            pos += contentLength;
+        }
+    }
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- - A18: Indent comment like the subsequent grammar element.
+-- --------------------------------------------------------------------------------------------------------------------
+
+-- This section changes the lexer token stream only, but leaves the parser token stream untouched.
+-- As a result no re-parse is necessary at the end. All indentations in struct.newlinePositions are applicable.
+-- However, this is only true because this is logically the last section in the Arbori program.
+-- All global variables based on the lexer token streams are nullified at the end of this section.
+
+a18_indent_comment:
+    runOnce
+-> {
+    var substitutions = new Substitutions(target.input);
+    var hiddenTokenCount = 0;
+
+    var getFirstWhitespaceTokenBefore = function(pos) {
+        var i = pos - 1;
+        while (i >= 0 && tokens[i].type == Token.WS) {
+            i = i - 1;
+        }
+        return i + 1;
+    }
+
+    var getContentBetween = function(start, end) {
+        var content = "";
+        for (var i = start; i < end; i++) {
+            content += tokens[i].content;
+        }
+        return content;
+    }
+
+    var hasMacroSkipBetween = function(start, end) {
+        for (var i = start; i < end; i++) {
+            if (tokens[i].type == Token.MACRO_SKIP) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Column position is based on the original formatter input.
+    // Hence the result might be unsatisfactory.
+    // A second formatter call helps only if the indent is not too large.
+    // Solving this issue would require to calculate the indent
+    // based on all involved struct.newlinePositions.
+    // It is considered feasible to manually fix indentations in such cases.
+    // These fixes will be honored in subsequent formatter calls.
+    var getCommentCol = function(pos) {
+        var nlpos = pos;
+        while (nlpos > 0 && (tokens[nlpos].type != Token.WS || tokens[nlpos].content.indexOf("\n") == -1)) {
+            nlpos = nlpos - 1;
+        }
+        return tokens[pos].begin - tokens[nlpos].end;
+    }
+
+    var getIndentBefore = function(pos) {
+        var indent = getIndent(pos);
+        var content = target.src.get(pos).content.toLowerCase();
+        if (content.startsWith("end")) {
+            indent += getSpaces(indentSpaces);
+            if (target.src.get(pos+1).content.toLowerCase() == "case") {
+                indent += getSpaces(indentSpaces);
+            }
+        } else if (content == "elsif" || content == "else" || content == "when") {
+            indent += getSpaces(indentSpaces);
+        }
+        return indent;
+    }
+
+    var indentComment = function(pos) {
+        var firstWS = getFirstWhitespaceTokenBefore(pos);
+        var oldIndent = getContentBetween(firstWS, pos);
+        var parserPos = pos - hiddenTokenCount + 1;
+        if (parserPos > target.src.length - 1) {
+            parserPos -= 1;
+        }
+        var lexerPos = mapParserPosToLexerPos.get(Integer.valueOf(parserPos));
+        var newIndent = getIndentBefore(parserPos);
+        if (oldIndent != newIndent
+            && oldIndent.indexOf("\n") != -1
+            && newIndent.indexOf("\n") != -1
+            && !hasMacroSkipBetween(pos, lexerPos))
+        {
+            var content = oldIndent.substring(0, oldIndent.lastIndexOf("\n") + 1)
+                + newIndent.substring(newIndent.lastIndexOf("\n") + 1);
+            substitutions.put(tokens[firstWS].begin, tokens[pos].begin, content);
+            logger.fine(struct.getClass(), "a18_indent_comment: at " + parserPos + ".");
+            if (tokens[pos].type == Token.COMMENT) {
+                var newComment = tokens[pos].content.replaceAll(
+                    oldIndent.substring(oldIndent.lastIndexOf("\n")),
+                    newIndent.substring(newIndent.lastIndexOf("\n")));
+                substitutions.put(tokens[pos].begin, tokens[pos].end, newComment);
+                logger.fine(struct.getClass(), "a18_indent_comment: all lines at " + parserPos + ".");
+            }
+        } else if (tokens[pos].type == Token.COMMENT && oldIndent.indexOf("\n") == -1 && !hasMacroSkipBetween(pos, lexerPos)) {
+            var col = getCommentCol(pos);
+            var p = Pattern.compile("(\\n)([ ]*)");
+            var content = tokens[pos].content;
+            var m = p.matcher(content);
+            var newComment = "";
+            var rpos = 0;
+            while (m.find()) {
+                newComment += content.substring(rpos, m.end(1));
+                if (m.group(2).length >= col) {
+                    newComment += content.substring(m.start(2), m.end(2));
+                } else {
+                    newComment += getSpaces(col);
+                }
+                rpos = m.end(2);
+            }
+            if (content.length > rpos) {
+                newComment += content.substring(rpos);
+            }
+            substitutions.put(tokens[pos].begin, tokens[pos].end, newComment);
+            logger.fine(struct.getClass(), "a18_indent_comment: subsequent lines at " + parserPos + ".");
+        }
+    }
+
+    var hasLineBreakBetween = function(from, to) {
+        for (var i=from; i<to; i++) {
+            var type = tokens[i].type;
+            if (type = Token.WS) {
+                if (tokens[i].content.indexOf("\n") != -1) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    // Fixes the issue in SQLDev 20.4.1 and SQLcl 21.1.0 where the indent after a multiline comment cannot be changed.
+    // See https(colon)//community.oracle.com/tech/developers/discussion/4482624/sqldev-20-4-1-formatter-issues-after-multi-line-comment-bug
+    // It is expected that this function can be removed when this bug is fixed.
+    // Still required in SQLDev 21.2.0 and SQLcl 21.2.0 (otherwise some R5 test cases fail).
+    var fixIndentAfterMultiLineComment = function(pos) {
+        var parserPos = pos - hiddenTokenCount + 1;
+        var indent = getIndent(parserPos);
+        // map expects Integers; therefore convert values to Integer
+        var lexerPos = mapParserPosToLexerPos.get(Integer.valueOf(parserPos));
+        var commentWithLineBreak = hasLineBreakBetween(pos + 1, lexerPos);
+        if (commentWithLineBreak && indent.indexOf("\n") == -1) {
+            substitutions.put(tokens[pos].end, tokens[lexerPos].begin, "");
+            logger.fine(struct.getClass(), "a18_indent_comment: "
+                + "remove line break at " + parserPos + ".");
+        } else if (!commentWithLineBreak && indent.indexOf("\n") != -1) {
+            // map expects Integers; therefore convert values to Integer
+            struct.putNewline(Integer.valueOf(parserPos), indent.substring(System.lineSeparator().length));
+            substitutions.put(tokens[pos].end, tokens[lexerPos].begin, System.lineSeparator());
+            logger.fine(struct.getClass(), "a18_indent_comment: "
+                + "add line break at " + parserPos + ".");
+        }
+    }
+
+    var processLexerTokens = function() {
+        for (var i in tokens) {
+            var type = tokens[i].type;
+            if (type == Token.LINE_COMMENT || type == Token.COMMENT || type == Token.WS ||
+                type == Token.MACRO_SKIP || type == Token.SQLPLUSLINECONTINUE_SKIP)
+            {
+                hiddenTokenCount++;
+                if (type == Token.LINE_COMMENT) {
+                    indentComment(i);
+                } else if (type == Token.COMMENT) {
+                    indentComment(i);
+                    fixIndentAfterMultiLineComment(i);
+                }
+            }
+        }
+        // Update source code based on substitutions. Will be used by the formatter which re-parses everything.
+        target.input = substitutions.transformInput();
+        // Nullify all global variables that are based on the previous lexer token stream.
+        tokens = null;
+        mapParserPosToLexerPos = null;
+    }
+
+    processLexerTokens();
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- A19: Restore original indent of nodes in first conditional branch.
+-- --------------------------------------------------------------------------------------------------------------------
+
+a19_restore_indent_in_conditional_branch:
+    runOnce
+-> {
+    var indent = getSpaces(indentSpaces);
+    var it = indentInConditionalBranch.keySet().iterator();
+    while (it.hasNext()) {
+        var key = it.next();
+        var originalIndent = indentInConditionalBranch.get(key);
+        var indent = getIndent(key);
+        if (indent != originalIndent) {
+            struct.putNewline(key, originalIndent);
+            logger.fine(struct.getClass(), "a19_restore_indent_in_conditional_branch: at " + key + ".");
+        }
+    }
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- A21: Remove non-whitespace indentations.
+-- --------------------------------------------------------------------------------------------------------------------
+
+-- This is a fail-safe.
+-- Introduced due to issue #123 where a user reported that some "undefined" string was inserted between tokens.
+-- A log containing an a21_remove_non_ws_indent entry indicates a bug that must be fixed.
+
+a21_remove_non_ws_indent:
+    runOnce
+-> {
+    var it = newlinePositions.keySet().iterator();
+    while (it.hasNext()) {
+        var pos = it.next();
+        var indent = getIndent(pos);
+        var newIndent = replaceAll(indent, "[^\\s]+", "");
+        if (indent != newIndent) {
+            struct.putNewline(pos, newIndent);
+            logger.fine(struct.getClass(), "a21_remove_non_ws_indent: at " + pos + ".");
+        }
+    }
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+--  D2: Log time spent in this program.
+-- --------------------------------------------------------------------------------------------------------------------
+
+d2_log_time:
+    runOnce
+-> {
+    var endTime = (new Date()).getTime();
+    logger.info(struct.getClass(), "d2_log_time: formatted " + target.input.length() + " chars and "
+        + target.root.to + " nodes in "
+        + ((endTime - startTime) / 1000) + " seconds.");
+}
