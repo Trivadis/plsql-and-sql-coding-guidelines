@@ -2169,7 +2169,7 @@ o11_break_on_subqueries:
 a16_select:
       [parent) subquery
     & (
-          [node) 'FROM'
+          [node) 'FROM' & ![node^) expr
         | [node) 'WHERE'
         | [node) 'CONNECT'
         | [node) 'START'
