@@ -253,8 +253,8 @@ function abort_on_empty_staging_area() {
     if [[ "$ROOT_PATH" = "" ]]; then
         STAGED_FILES_COUNT=`git diff --cached --name-only | wc -l`
         if [ "$STAGED_FILES_COUNT" -eq "0" ]; then
-            echo "Info: Aborting commit. No files found in staging area."
-            echo "      This may happen when all changes are eliminated by the formatter."
+            echo "Error: Aborting commit. No files found in staging area."
+            echo "       This may happen when all changes are eliminated by the formatter."
             exit 1
         fi
     fi
