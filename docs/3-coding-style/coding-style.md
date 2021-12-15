@@ -32,7 +32,7 @@ procedure set_salary(in_employee_id in employees.employee_id%type) is
    r_employee   c_employees%rowtype;
    l_new_salary employees.salary%type;
 begin
-   open  c_employees(p_employee_id => in_employee_id);
+   open c_employees(p_employee_id => in_employee_id);
    fetch c_employees into r_employee;
    close c_employees;
 
