@@ -103,9 +103,9 @@ include "std.arbori"
 
 -- ":indentCondtions" must be used,
 -- otherwise the Arbori program will be considered invalid and the default is used.
--- The Arbori query "dummy" never called, hence it does not matter what node is selected.
+-- The Arbori query "i2_dummy" is never called, hence it does not matter what node is selected.
 -- However, I chose to use "identifier" to avoid an Arbori warning.
-dummy:
+i2_dummy:
     :indentConditions & [node) identifier
 ;
 
@@ -124,8 +124,9 @@ skipWhiteSpaceBeforeNode:
 -- Sections:
 -- - D1: Initialize timer.
 -- - I3: Do not format nodes.
--- - I4: Identifiers.
--- - I5: Globals.
+-- - I4: Define identifiers.
+-- - I5: Define global variables and functions.
+-- - I10: Determine and normalize line separators.
 -- - I6: Remove duplicate empty lines.
 -- - I7: Keep existing whitespace.
 -- - I8: Save indentations of parser node positions in first selection directive.
@@ -135,7 +136,7 @@ skipWhiteSpaceBeforeNode:
 -- D1: Initialize timer.
 -- --------------------------------------------------------------------------------------------------------------------
 
-startCustomFormat:
+d1_initialize_timer:
     runOnce
 -> {
     var startTime = (new Date()).getTime();
@@ -151,39 +152,39 @@ startCustomFormat:
 -- Callback function to ensure numeric literals are formatted correctly (without whitespaces)
 dontFormatNode:
       [node) numeric_literal
-    | [node) path             -- expected in in SQL*Plus, SQLcl commands only
+    | [node) path             -- expected in SQL*Plus, SQLcl commands only
 ->
 ;
 
 -- --------------------------------------------------------------------------------------------------------------------
--- I4: Identifiers
+-- I4: Define identifiers
 -- --------------------------------------------------------------------------------------------------------------------
 
 -- analytic functions, to be treated as keywords
-"analytics":
+i4_analytics:
       [identifier) identifier
     & [call) analytic_function
     & [call = [identifier
 ;
 
 -- all identifiers
-"ids":
+i4_ids:
     [identifier) identifier
 ;
 
 -- Callback function to reduce the list of keywords by the identifiers provided here
 -- This is relevant for general options "Keyword case" and "Indentifier case".
 identifiers:
-    "ids" - "analytics"
+    i4_ids - i4_analytics
 ->
 ;
 
 -- --------------------------------------------------------------------------------------------------------------------
--- I5: Globals.
+-- I5: Define global variables and functions.
 -- --------------------------------------------------------------------------------------------------------------------
 
 -- Global variables, which are likely to be used in more than one Arbori query/action
-define_global_variables:
+i5_define_global_variables:
     runOnce
 -> {
     // Java classes
@@ -263,7 +264,7 @@ define_global_variables:
 }
 
 -- Global functions, which are likely to be used in more than one Arbory action
-define_global_functions:
+i5_define_global_functions:
     runOnce
 -> {
     // Return a string with the requested number of spaces.
@@ -583,13 +584,56 @@ define_global_functions:
 }
 
 -- --------------------------------------------------------------------------------------------------------------------
+-- I10: Determine and normalize line separators.
+-- --------------------------------------------------------------------------------------------------------------------
+
+-- Determine global variable theLineSeparator based on input as follows:
+--    - if a CRLF is found, then use CRLF
+--    - if a LF is found then use LF
+--    - if neither a CRLF nor a LF is used (single line) then use the default, OS specific System.lineSeparator()
+-- Ensure that only theLineSeparator is used in the input.
+-- This section might change the target.input and requires a reparse.
+-- However, the reparse is done in the next section I6, which can handle an amended target.input.
+-- This way the overhead of determining and normalizing line separators can be minimized.
+
+i10_determine_and_normalize_line_separators:
+    runOnce
+-> {
+    var getLineSeparator = function() {
+        var lineSep;
+        if (target.input.indexOf("\r\n") != -1) {
+            lineSep = "\r\n";
+            logger.fine(struct.getClass(), "i10_determine_and_normalize_line_separators: using CRLF.");
+        } else if (target.input.indexOf("\n") != -1) {
+            lineSep = "\n";
+            logger.fine(struct.getClass(), "i10_determine_and_normalize_line_separators: using LF.");
+        } else {
+            lineSep = System.lineSeparator();
+            logger.fine(struct.getClass(), "i10_determine_and_normalize_line_separators: using the OS default.");
+        }
+        return lineSep;
+    }
+
+    var normalizeLineSeparators = function() {
+        target.input = target.input.replaceAll("\r", "");
+        if (theLineSeparator == "\r\n") {
+            target.input = target.input.replaceAll("\n", "\r\n");
+        }
+        logger.fine(struct.getClass(), "i10_determine_and_normalize_line_separators: normalized.");
+    }
+
+    var theLineSeparator = getLineSeparator();
+    normalizeLineSeparators();
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
 -- I6: Remove duplicate empty lines.
 -- --------------------------------------------------------------------------------------------------------------------
 
 -- Replace multiple, consecutive empty lines with one empty line.
 -- This code changes the input (target.input) and the lexer tokens (target.src).
 -- Therefore this code must run at the beginning of the Arbori program.
-max_one_empty_line:
+i6_remove_duplicate_empty_lines:
     runOnce
 -> {
     var offOnRanges = [];
@@ -681,7 +725,7 @@ max_one_empty_line:
 -- --------------------------------------------------------------------------------------------------------------------
 
 -- add explicit whitespace before each leaf node, if the whitespace before is not a single space (default)
-keep_significant_whitespace_before_leaf_nodes:
+i7_keep_significant_whitespace:
     runOnce
 -> {
     tokens = LexerToken.parse(target.input, true);  // include hidden tokens not relevant to build a parse tree
@@ -707,12 +751,12 @@ keep_significant_whitespace_before_leaf_nodes:
             if (i-hiddenTokenCount == 0 && hiddenTokenCount == wsBefore.length) {
                 // first parser token with leading whitespace only (no other hidden tokens like comments)
                 struct.putNewline(0, "");
-                logger.fine(struct.getClass(), "keepSignificantWhitespaceBeforeLeafNodes: remove all whitespace at 0.");
+                logger.fine(struct.getClass(), "i7_keep_significant_whitespace: remove all whitespace at 0.");
             } else if (wsBefore != " ") {
                 // add collected whitespace before leaf node (actually at the position of the leaf node)
                 // add also empty strings to ensure that not a space is added between tokens
                 struct.putNewline(i-hiddenTokenCount, wsBefore);
-                logger.fine(struct.getClass(), "keepSignificantWhitespaceBeforeLeafNodes: add "
+                logger.fine(struct.getClass(), "i7_keep_significant_whitespace: add "
                     + wsBefore.length + " whitespace at " + (i-hiddenTokenCount) + ".");
             }
             wsBefore = "";
@@ -736,7 +780,7 @@ keep_significant_whitespace_before_leaf_nodes:
 -- of positions is ignored. However, depending on the configuration the case of keywords and
 -- identifiers is changed.
 
-saveIndentInConditionalBranch:
+i8_save_indent_in_conditional_branch:
     runOnce
 -> {
     var pos = 0;
@@ -758,7 +802,7 @@ saveIndentInConditionalBranch:
             if (withinFirstBranch) {
                 // enforce uniform datatype in map; therefore convert values to Integer
                 indentInConditionalBranch.put(Integer.valueOf(pos), getIndent(pos));
-                logger.fine(struct.getClass(), "saveIndentInConditionalBranch: at " + pos + ".");
+                logger.fine(struct.getClass(), "i8_save_indent_in_conditional_branch: at " + pos + ".");
             }
             pos++;
         }
@@ -772,7 +816,7 @@ saveIndentInConditionalBranch:
 -- In scope are statements for that are formatted fully (see overrideIndents).
 -- Only spaces after the last new line character are considered. So, all line breaks are kept.
 
-remove_duplicate_spaces_in_scope:
+i9_remove_duplicate_spaces_in_scope:
     runOnce
 -> {
     var it = newlinePositions.keySet().iterator();
@@ -784,13 +828,13 @@ remove_duplicate_spaces_in_scope:
             if (nlpos == -1) {
                 if (indent.length > 1) {
                     struct.putNewline(pos, " ");
-                    logger.fine(struct.getClass(), "remove_duplicate_spaces_in_scope: single space at " + pos + ".");
+                    logger.fine(struct.getClass(), "i9_remove_duplicate_spaces_in_scope: single space at " + pos + ".");
                 }
             } else {
                 var spaces = indent.length - nlpos - 1;
                 if (spaces > 0) {
                     struct.putNewline(pos, indent.substring(0, nlpos+1));
-                    logger.fine(struct.getClass(), "remove_duplicate_spaces_in_scope: keeping line breaks only at "
+                    logger.fine(struct.getClass(), "i9_remove_duplicate_spaces_in_scope: keeping line breaks only at "
                         + pos + ".");
                 }
             }
@@ -988,6 +1032,9 @@ a13_nodes:
     | [node) excptn_handler
     | [node) pragma
     | [node) iterator_control_list
+    | [node) null_condition
+    | [node) using_clause_opt
+    | [node) pipe_stmt
 ;
 
 a13_calls_with_assoc_args:
@@ -1172,7 +1219,7 @@ a5_no_space_before:
     var node = tuple.get("node");
     var content = target.src.get(node.from).content;
     if (content == '/') {
-        struct.putNewline(node.from, System.lineSeparator());
+        struct.putNewline(node.from, theLineSeparator);
         logger.fine(struct.getClass(), "a5_no_space_before: <" + content + ">, add line break at " + node.from + ".");
     } else if (content != '.' || getIndent(node.from).indexOf("\n") == -1 || target.src.get(node.from+1).content == '.') {
         // support fluent type methods across multiple lines
@@ -1335,6 +1382,11 @@ a7_in_out_mode:
     & [node^) mode
 ;
 
+a7_for:
+      [node) 'FOR'
+    & [node^) sql_stmt
+;
+
 a7_one_space_before:
       a7_param_list
     | a7_as_alias
@@ -1353,6 +1405,7 @@ a7_one_space_before:
     | a7_when_cond
     | a7_reverse_loop
     | a7_in_out_mode
+    | a7_for
 -> {
     var node = tuple.get("node");
     if (!hasCommentsBetweenPos(node.from, node.to)) {
@@ -1500,6 +1553,26 @@ a8_goto:
     & [node^) goto_stmt
 ;
 
+a8_open:
+      [node) 'OPEN'
+    & [node^) sql_stmt
+;
+
+a8_aggregate:
+      [node) 'AGGREGATE'
+    & [node^+1) 'USING'
+;
+
+a8_polymorphic:
+      [node) 'POLYMORPHIC'
+    & [node^^^+1) 'USING'
+;
+
+a8_using:
+      [node) 'USING'
+    & [node-1) subprg_spec
+;
+
 a8_one_space_after:
       a8_if
     | a8_end
@@ -1523,6 +1596,10 @@ a8_one_space_after:
     | a8_reverse_loop
     | a8_return
     | a8_goto
+    | a8_open
+    | a8_aggregate
+    | a8_polymorphic
+    | a8_using
 -> {
     var node = tuple.get("node");
     if (!hasCommentsBetweenPos(node.from, node.to)) {
@@ -1564,11 +1641,22 @@ a17_whitespace_around_node:
 a15_various:
       [node) insert_into_clause & [node^^) multi_table_insert
     | [node) subquery & [node^) multi_table_insert
-    | [node) prm_spec & [node-1) ','
     | [node) subprg_property
     | [node) ')' & [node^) create_view#[114,130)
     | [node) ')' & [node^) create_materialized_view[33,79)
 ;
+
+a15_subsequent_prm_spec_trailing_comma:
+     [node) prm_spec
+   & [node-1) ','
+   & :breaksAfterComma
+;
+a15_subsequent_prm_spec_leading_comma:
+     [node) ','
+   & [node+1) prm_spec
+   & :breaksBeforeComma
+;
+
 
 a15_is_or_as:
       [node) is_or_as
@@ -1591,13 +1679,15 @@ a15_materialized_view_column_alias:
 
 a15_line_break_before:
       a15_various
+    | a15_subsequent_prm_spec_trailing_comma
+    | a15_subsequent_prm_spec_leading_comma
     | a15_is_or_as
     | a15_view_column_alias
     | a15_materialized_view_column_alias
 -> {
     var node = tuple.get("node");
     if (getIndent(node.from).indexOf("\n") == -1) {
-        struct.putNewline(node.from, System.lineSeparator());
+        struct.putNewline(node.from, theLineSeparator);
         var content = target.src.get(node.from).content;
         logger.fine(struct.getClass(), "a15_line_break_before: <" + content + "> at " + node.from + ".");
     }
@@ -1613,7 +1703,7 @@ a14_line_break_after:
 -> {
     var node = tuple.get("node");
     if (getIndent(node.to).indexOf("\n") == -1) {
-        struct.putNewline(node.to, System.lineSeparator());
+        struct.putNewline(node.to, theLineSeparator);
         var content = target.src.get(node.from).content;
         logger.fine(struct.getClass(), "a14_line_break_after: <" + content + "> at " + node.to + ".");
     }
@@ -1749,7 +1839,7 @@ r3_commands:
     if (node.from > 0) {
         var indent = getIndent(node.from);
         if (indent.indexOf("\n") == -1) {
-            struct.putNewline(node.from, System.lineSeparator());
+            struct.putNewline(node.from, theLineSeparator);
             logger.fine(struct.getClass(), "r3_commands: add line break at " + node.from + ".");
         } else {
             // remove existing indentation; enforce conformity in these cases
@@ -1862,7 +1952,7 @@ o6_line_break_before:
         var node = tuple.get("node");
         var indent = getIndent(node.from);
         if (indent.indexOf("\n") == -1) {
-            struct.putNewline(node.from, System.lineSeparator());
+            struct.putNewline(node.from, theLineSeparator);
             logger.fine(struct.getClass(), "o6_line_break_before: at " + node.from + ".");
         }
     }
@@ -1877,7 +1967,7 @@ o6_line_break_after:
         var node = tuple.get("node");
         var indent = getIndent(node.to);
         if (indent.indexOf("\n") == -1) {
-            struct.putNewline(node.to, System.lineSeparator());
+            struct.putNewline(node.to, theLineSeparator);
             logger.fine(struct.getClass(), "o6_line_break_after: at " + node.to + ".");
         }
     }
@@ -1909,7 +1999,7 @@ o9_boolean_option:
             if (breaksAroundLogicalConjunctions != Format.Breaks.BeforeAndAfter) {
                struct.putNewline(node.to, " ");
             }
-            struct.putNewline(node.from, System.lineSeparator());
+            struct.putNewline(node.from, theLineSeparator);
             logger.fine(struct.getClass(), "o9_boolean_option: add line break before at " + node.from + ".");
         }
     }
@@ -1918,7 +2008,7 @@ o9_boolean_option:
             if (breaksAroundLogicalConjunctions != Format.Breaks.BeforeAndAfter) {
                struct.putNewline(node.from, " ");
             }
-            struct.putNewline(node.to, System.lineSeparator());
+            struct.putNewline(node.to, theLineSeparator);
             logger.fine(struct.getClass(), "o9_boolean_option: add line break after at " + node.from + ".");
         }
     }
@@ -1935,7 +2025,7 @@ a12_add_line_break_before_then:
     var then = tuple.get("node+1");
     if (containsLineBreak(node)) {
         if (getIndent(then.from).indexOf("\n") == -1) {
-            struct.putNewline(then.from, System.lineSeparator());
+            struct.putNewline(then.from, theLineSeparator);
             logger.fine(struct.getClass(), "a12_add_line_break_before_then: at " + then.from + ".");
         }
     } else {
@@ -1972,7 +2062,7 @@ o12_line_break_around_conditions:
     var node = tuple.get("node");
     if (struct.indentConditions()) {
         if (getIndent(node.from).indexOf("\n") == -1) {
-            struct.putNewline(node.from, System.lineSeparator());
+            struct.putNewline(node.from, theLineSeparator);
             logger.fine(struct.getClass(), "o12_line_break_around_conditions: before at " + node.from + ".");
         }
     } else {
@@ -1983,7 +2073,7 @@ o12_line_break_around_conditions:
     }
     if (struct.indentConditions() || struct.breakAfterConditions()) {
         if (getIndent(node.to).indexOf("\n") == -1) {
-            struct.putNewline(node.to, System.lineSeparator());
+            struct.putNewline(node.to, theLineSeparator);
             logger.fine(struct.getClass(), "o12_line_break_around_conditions: after at " + node.to + ".");
         }
     } else {
@@ -2009,7 +2099,7 @@ o12_line_break_before_actions:
     var node = tuple.get("node");
     if (struct.indentActions()) {
         if (getIndent(node.from).indexOf("\n") == -1) {
-            struct.putNewline(node.from, System.lineSeparator());
+            struct.putNewline(node.from, theLineSeparator);
             logger.fine(struct.getClass(), "o12_line_break_before_actions: at " + node.from + ".");
         }
     } else {
@@ -2045,13 +2135,13 @@ o1_concatenation_option:
         if (struct.breaksBeforeConcat()) {
             struct.putNewline(concat.to, " "); // Before and After is not an option
             if (getIndent(concat.from).indexOf("\n") == -1) {
-                struct.putNewline(concat.from, System.lineSeparator());
+                struct.putNewline(concat.from, theLineSeparator);
                 logger.fine(struct.getClass(), "o1_concatenation_option: add line break before at " + concat.from + ".");
             }
         } else if (struct.breaksAfterConcat()) {
             struct.putNewline(concat.from, " "); // Before and After is not an option
             if (getIndent(concat.to).indexOf("\n") == -1) {
-                struct.putNewline(concat.to, System.lineSeparator());
+                struct.putNewline(concat.to, theLineSeparator);
                 logger.fine(struct.getClass(), "o1_concatenation_option: add line break after at " + concat.to + ".");
             }
         }
@@ -2129,7 +2219,7 @@ o10_break_on_join_keywords:
     if (breakAnsiiJoin) {
         var keyword = tuple.get("keyword");
         if (getIndent(keyword.from).indexOf("\n") == -1) {
-            struct.putNewline(keyword.from, System.lineSeparator());
+            struct.putNewline(keyword.from, theLineSeparator);
             logger.fine(struct.getClass(), "o10_break_on_join_keywords: add line break at " + keyword.from + ".");
         }
     }
@@ -2151,11 +2241,11 @@ o11_break_on_subqueries:
         if (hasNewline(node.to-1, node.from+1)) {
             var rparen = tuple.get("rparen");
             if (getIndent(node.from).indexOf("\n") == -1) {
-                struct.putNewline(node.from, System.lineSeparator());
+                struct.putNewline(node.from, theLineSeparator);
                 logger.fine(struct.getClass(), "o11_break_on_subqueries: before subquery at " + node.from + ".");
             }
             if (getIndent(rparen.from).indexOf("\n") == -1) {
-                struct.putNewline(rparen.from, System.lineSeparator());
+                struct.putNewline(rparen.from, theLineSeparator);
                 logger.fine(struct.getClass(), "o11_break_on_subqueries: before ')' at " + rparen.from + ".");
             }
         }
@@ -2249,7 +2339,7 @@ a16_add_line_breaks_before_dml_clause:
     var node = tuple.get("node");
     if (hasNewline(parent.to-1, parent.from+1)) {
         if (getIndent(node.from).indexOf("\n") == -1) {
-            struct.putNewline(node.from, System.lineSeparator());
+            struct.putNewline(node.from, theLineSeparator);
             logger.fine(struct.getClass(), "a16_add_line_breaks_before_subquery_clause: at " + node.from + ".");
         }
     }
@@ -2301,10 +2391,10 @@ a16_add_line_breaks_before:
     if (hasNewline(parent.to-1, parent.from+1)) {
         if (getIndent(node.from).indexOf("\n") == -1 && getIndent(comma.from).indexOf("\n") == -1) {
             if (struct.breaksBeforeComma()) {
-                struct.putNewline(comma.from, System.lineSeparator());
+                struct.putNewline(comma.from, theLineSeparator);
                 logger.fine(struct.getClass(), "a16_add_line_breaks_before: comma at " + comma.from + ".");
             } else {
-                struct.putNewline(node.from, System.lineSeparator());
+                struct.putNewline(node.from, theLineSeparator);
                 logger.fine(struct.getClass(), "a16_add_line_breaks_before: node at " + node.from + ".");
             }
         }
@@ -2673,6 +2763,11 @@ r2_subprg:
     [node) subprg_property
 ;
 
+-- should behave like subprg_property
+r2_aggregate:
+    [node) 'AGGREGATE' & [node^) subprg_spec
+;
+
 r2_increment_left_margin:
       r2_common
     | r2_flowcontrol_condition
@@ -2686,6 +2781,7 @@ r2_increment_left_margin:
     | r2_multi_table_insert
     | r2_merge_insert_clause
     | r2_subprg
+    | r2_aggregate
 -> {
     addMargin(tuple.get("node"), indentSpaces, "r2_increment_left_margin");
 }
@@ -2715,6 +2811,7 @@ r2_decrement_left_margin:
     | [node) 'JSON_TABLE' & [node^) json_table
     | [node) 'COLUMNS' & [node^) JSON_columns_clause
     | [node+1) '(' & [node^) XML_attributes_clause
+    | [node) function_expression & [node+1) '.'
 -> {
     addMargin(tuple.get("node"), -1 * indentSpaces, "r2_decrement_left_margin");
 }
@@ -2956,7 +3053,7 @@ r2_fix_indent_for_subquery_in_paren:
 -- Right align keywords with primary keyword of a SQL command.
 -- For the select statement the primary keyword is "select", even if it starts with the "with" keyword.
 -- Only one keyword is right aligned. E.g. "group" without the "by".
--- The right margin is reduced if the keyword is longer than the primary keyword (e.g. "distinct" in for select statement).
+-- The right margin is reduced if the keyword is longer than the primary keyword (e.g. "distinct" in select statement).
 -- This behavior is consistent with the reduction of the right margin for leading commas.
 -- Right alignment for longer keywords requires a the left margin that is large enough.
 
@@ -2975,7 +3072,7 @@ r7_declaration:
                 if (alignRight) {
                     var content = target.src.get(keyword.from).content;
                     var missingSpaces = parentLength - target.src.get(keyword.from).content.length();
-                    var keywordIndent = System.lineSeparator()
+                    var keywordIndent = theLineSeparator
                         + getSpaces(getColumn(parent.from) + missingSpaces)
                     struct.putNewline(keyword.from, keywordIndent);
                     logger.fine(struct.getClass(), logText + ": align <" + content + "> at " + keyword.from + ".");
@@ -3590,7 +3687,7 @@ a9_find_columns:
     }
     var aligner = tuple.get("aligner");
     if (getIndent(aligner.from).indexOf("\n") == -1) {
-        struct.putNewline(aligner.from, System.lineSeparator());
+        struct.putNewline(aligner.from, theLineSeparator);
         logger.fine(struct.getClass(), "a9_find_columns: add line break at " + aligner.from + ".");
     }
     addTupleToMap(tuple, "scope", xmlTableColumns);
@@ -3653,7 +3750,7 @@ a20_find_columns:
     }
     var aligner = tuple.get("aligner");
     if (getIndent(aligner.from).indexOf("\n") == -1) {
-        struct.putNewline(aligner.from, System.lineSeparator());
+        struct.putNewline(aligner.from, theLineSeparator);
         logger.fine(struct.getClass(), "a20_find_columns: add line break at " + aligner.from + ".");
     }
     addTupleToMap(tuple, "scope", jsonTableColumns);
@@ -3768,7 +3865,7 @@ o5_align_aliases:
 -- This piece of code addresses this issue. It adds a new line with the indentation of the current line.
 -- No additional indentation is added to make this work for long argument lists as well
 -- (indentation might not be reduced on subsequent formatter calls).
--- It iss important to note that the lines may be a bit longer than the configured max char line width.
+-- It is important to note that the lines may be a bit longer than the configured max char line width.
 -- That's expected and matches the SQLDev logic. It ensures also that corner cases can be handled by
 -- this code (e.g. string tokens > max char line width).
 -- Due to this simple algorithm, it is expected that a subsequent formatter call will produce a different result.
@@ -3777,7 +3874,7 @@ a4_add_line_breaks_with_indent:
     runOnce
 -> {
     var pos = 0;
-    var indent = System.lineSeparator(); // handle first line
+    var indent = theLineSeparator; // handle first line
     for (var key=0; key<target.src.size(); key++) {
         if (pos > maxCharLineSize && target.src.get(key).content.length() > 1 && getIndent(key).indexOf("\n") == -1) {
             struct.putNewline(key, indent);
@@ -3787,7 +3884,7 @@ a4_add_line_breaks_with_indent:
             var value = getIndent(key);
             if (value.indexOf("\n") != -1) {
                 pos = getNumCharsAfterNewLine(value);
-                indent = System.lineSeparator() + getSpaces(pos);
+                indent = theLineSeparator + getSpaces(pos);
             } else {
                 pos += getNumCharsAfterNewLine(value);
             }
@@ -3932,10 +4029,10 @@ a18_indent_comment:
         return false;
     }
 
-    // Fixes the issue in SQLDev 20.4.1 and SQLcl 21.1.0 where the indent after a multiline comment cannot be changed.
-    // See https(colon)//community.oracle.com/tech/developers/discussion/4482624/sqldev-20-4-1-formatter-issues-after-multi-line-comment-bug
-    // It is expected that this function can be removed when this bug is fixed.
-    // Still required in SQLDev 21.2.0 and SQLcl 21.2.0 (otherwise some R5 test cases fail).
+    //-- Fixes the issue in SQLDev 20.4.1 and SQLcl 21.1.0 where the indent after a multiline comment cannot be changed.
+    //-- See https://community.oracle.com/tech/developers/discussion/4482624/sqldev-20-4-1-formatter-issues-after-multi-line-comment-bug
+    //-- It is expected that this function can be removed when this bug is fixed.
+    //-- Still required in SQLDev 21.2.1 and SQLcl 21.3.0 (otherwise two R5_commas test cases fail).
     var fixIndentAfterMultiLineComment = function(pos) {
         var parserPos = pos - hiddenTokenCount + 1;
         var indent = getIndent(parserPos);
@@ -3948,8 +4045,8 @@ a18_indent_comment:
                 + "remove line break at " + parserPos + ".");
         } else if (!commentWithLineBreak && indent.indexOf("\n") != -1) {
             // map expects Integers; therefore convert values to Integer
-            struct.putNewline(Integer.valueOf(parserPos), indent.substring(System.lineSeparator().length));
-            substitutions.put(tokens[pos].end, tokens[lexerPos].begin, System.lineSeparator());
+            struct.putNewline(Integer.valueOf(parserPos), indent.substring(theLineSeparator.length));
+            substitutions.put(tokens[pos].end, tokens[lexerPos].begin, theLineSeparator);
             logger.fine(struct.getClass(), "a18_indent_comment: "
                 + "add line break at " + parserPos + ".");
         }
