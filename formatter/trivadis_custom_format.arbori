@@ -187,18 +187,29 @@ identifiers:
 i5_define_global_variables:
     runOnce
 -> {
-    // Java classes
+    // java.lang classes
+    var Integer = Java.type('java.lang.Integer');
+    var System = Java.type('java.lang.System');
+
+    // java.util classes
     var ArrayList = Java.type('java.util.ArrayList');
-    var Format = Java.type('oracle.dbtools.app.Format');
     var HashMap = Java.type('java.util.HashMap');
     var HashSet = Java.type('java.util.HashSet');
-    var Integer = Java.type('java.lang.Integer');
-    var LexerToken = Java.type('oracle.dbtools.parser.LexerToken');
-    var logger = Java.type('oracle.dbtools.util.Logger');
     var Pattern = Java.type("java.util.regex.Pattern");
+    var Collectors = Java.type('java.util.stream.Collectors');
+
+    // oracle.dbtools.app classes
+    var Format = Java.type('oracle.dbtools.app.Format');
+    var Format$Breaks = Java.type("oracle.dbtools.app.Format$Breaks");
+    var Format$Space = Java.type("oracle.dbtools.app.Format$Space");
+
+    // oracle.dbtools.parser classes
+    var LexerToken = Java.type('oracle.dbtools.parser.LexerToken');
     var Substitutions = Java.type('oracle.dbtools.parser.Substitutions');
-    var System = Java.type('java.lang.System');
     var Token = Java.type('oracle.dbtools.parser.Token');
+
+    // oracle.dbtools.util classes
+    var logger = Java.type('oracle.dbtools.util.Logger');
 
     // use reflection to access hidden field newlinePositions
     var newlinePositionsField = Format.class.getDeclaredField("newlinePositions");
@@ -289,9 +300,9 @@ i5_define_global_functions:
     // Returns the indentation without leading new lines from a string.
     var getNumCharsAfterNewLine = function(indent) {
         if (indent.indexOf("\n") != -1) {
-            return indent.length() - indent.lastIndexOf("\n") - 1;
+            return indent.length - indent.lastIndexOf("\n") - 1;
         }
-        return indent.length();
+        return indent.length;
     }
 
     // Returns the leading new lines from a node position (without trailing spaces).
@@ -310,7 +321,7 @@ i5_define_global_functions:
         var col=getNumCharsAfterNewLine(getIndent(startPos));
         var indent = getIndent(startPos);
         for (var i=startPos-1; i>=0 && indent.indexOf("\n") == -1; i=i-1) {
-            col += target.src.get(i).content.length();
+            col += target.src.get(i).content.length;
             var indent = getIndent(i);
             col += getNumCharsAfterNewLine(indent);
         }
@@ -323,7 +334,7 @@ i5_define_global_functions:
         var col=getNumCharsAfterNewLine(getIndent(startPos));
         var indent = getIndent(startPos);
         for (var i=startPos-1; i>=0 && indent.indexOf("\n") == -1; i=i-1) {
-            col += target.src.get(i).content.length();
+            col += target.src.get(i).content.length;
             var indent = getIndent(i);
             if (indent.indexOf("\n") == -1) {
                 col += getNumCharsAfterNewLine(indent);
@@ -418,9 +429,9 @@ i5_define_global_functions:
 
     // Aligns all nodes per scope.
     var align = function(map, alignNodeName, indentNodeName, logText) {
-        var it = map.keySet().iterator();
-        while (it.hasNext()) {
-            var scope = it.next();
+        var keys = map.keySet().stream().collect(Collectors.toList()).toArray();
+        for (var i in keys) {
+            var scope = keys[i];
             var list = map.get(scope);
             var maxCol = getMaxColumn(list, alignNodeName);
             alignAtPos(maxCol, list, alignNodeName, indentNodeName, logText);
@@ -506,9 +517,9 @@ i5_define_global_functions:
             if (spaceAfterCommas) {
                 comma += 1;
             }
-            var it = map.keySet().iterator();
-            while (it.hasNext()) {
-                var scope = it.next();
+            var keys = map.keySet().stream().collect(Collectors.toList()).toArray();
+            for (var i in keys) {
+                var scope = keys[i];
                 var list = map.get(scope);
                 for (var i=0; i<list.length; i++) {
                     var node = list.get(i).get(nodeName);
@@ -615,9 +626,9 @@ i10_determine_and_normalize_line_separators:
     }
 
     var normalizeLineSeparators = function() {
-        target.input = target.input.replaceAll("\r", "");
+        target.input = replaceAll(target.input, "\r", "");
         if (theLineSeparator == "\r\n") {
-            target.input = target.input.replaceAll("\n", "\r\n");
+            target.input = replaceAll(target.input, "\n", "\r\n");
         }
         logger.fine(struct.getClass(), "i10_determine_and_normalize_line_separators: normalized.");
     }
@@ -788,11 +799,11 @@ i8_save_indent_in_conditional_branch:
     for (var i in tokens) {
         var type = tokens[i].type
         var content = tokens[i].content.toLowerCase()
-        if (type == Token.MACRO_SKIP && content.startsWith("$if ")) {
+        if (type == Token.MACRO_SKIP && content.indexOf("$if ") == 0) {
             withinFirstBranch = true;
             continue;
         }
-        if (withinFirstBranch && type == Token.MACRO_SKIP && content.startsWith("$")) {
+        if (withinFirstBranch && type == Token.MACRO_SKIP && content.indexOf("$") == 0) {
             withinFirstBranch = false;
             continue;
         }
@@ -819,9 +830,9 @@ i8_save_indent_in_conditional_branch:
 i9_remove_duplicate_spaces_in_scope:
     runOnce
 -> {
-    var it = newlinePositions.keySet().iterator();
-    while (it.hasNext()) {
-        var pos = it.next();
+    var keys = newlinePositions.keySet().stream().collect(Collectors.toList()).toArray();
+    for (var i in keys) {
+        var pos = keys[i];
         if (overrideIndents(pos)) {
             var indent = getIndent(pos);
             var nlpos = indent.lastIndexOf("\n");
@@ -899,12 +910,12 @@ a1_replace_tabs_with_spaces:
     runOnce
 -> {
     var indent = getSpaces(indentSpaces);
-    var it = newlinePositions.keySet().iterator();
-    while (it.hasNext()) {
-        var key = it.next();
+    var keys = newlinePositions.keySet().stream().collect(Collectors.toList()).toArray();
+    for (var i in keys) {
+        var key = keys[i];
         var value = newlinePositions.get(key);
         if (value.indexOf("\t") != -1) {
-            struct.putNewline(key, value.replaceAll("\t", indent));
+            struct.putNewline(key, replaceAll(value, "\t", indent));
             logger.fine(struct.getClass(), "a1_replace_tabs_with_spaces: at " + key + ".");
         }
     }
@@ -918,13 +929,13 @@ a2_remove_trailing_spaces:
     runOnce
 -> {
     var indent = getSpaces(indentSpaces);
-    var it = newlinePositions.keySet().iterator();
-    while (it.hasNext()) {
-        var key = it.next();
+    var keys = newlinePositions.keySet().stream().collect(Collectors.toList()).toArray();
+    for (var i in keys) {
+        var key = keys[i];
         var value = newlinePositions.get(key);
         // handle Linux and Windows line separators regardless of the OS
         var newValue = replaceAll(replaceAll(value, "[ ]+\\n", "\n"), "[ ]+\\r\\n", "\r\n");
-        if (!value.equals(newValue)) {
+        if (value !== newValue) {
             struct.putNewline(key, newValue);
             logger.fine(struct.getClass(), "a2_remove_trailing_spaces: at " + key + ".");
         }
@@ -1099,7 +1110,7 @@ a13_short_nodes:
     var maxLen = maxCharLineSize / 2;
     var node = tuple.get("node");
     if (getNodeLength(node) <= maxLen) {
-        if (breaksConcat == Format.Breaks.None || !containsConcat(node)) {
+        if (breaksConcat == Format$Breaks.None || !containsConcat(node)) {
             reduceNodeIndents(node);
         }
     }
@@ -1197,6 +1208,12 @@ a5_star_star:
    & [node-1) '*'
 ;
 
+a5_pragma_references_args:
+     [node) pragma_args
+   & [node^) pragma
+   & ?node-1 = 'restrict_references'
+;
+
 a5_no_space_before:
       a5_semicolon
     | a5_dot
@@ -1215,6 +1232,7 @@ a5_no_space_before:
     | a5_brackets
     | a5_indicator_variable
     | a5_star_star
+    | a5_pragma_references_args
 -> {
     var node = tuple.get("node");
     var content = target.src.get(node.from).content;
@@ -1387,6 +1405,22 @@ a7_for:
     & [node^) sql_stmt
 ;
 
+a7_collect:
+      [node) 'COLLECT'
+    & [node^) BULK_COLLECT_opt
+;
+
+a7_sharing:
+      [node) '=' & [node-1) 'SHARING' & ([node+1) 'METADATA' | [node+1) 'NONE')
+    | [node) 'METADATA' & [node-1) '=' & [node-2) 'SHARING'
+    | [node) 'NONE' & [node-1) '=' & [node-2) 'SHARING'
+;
+
+a7_update_set_clause_expr:
+      [node) '=' & [node-1) identifier & [node^) update_set_clause_expr
+    | [node-1) '=' & [node-2) identifier & [node^) update_set_clause_expr
+;
+
 a7_one_space_before:
       a7_param_list
     | a7_as_alias
@@ -1406,6 +1440,9 @@ a7_one_space_before:
     | a7_reverse_loop
     | a7_in_out_mode
     | a7_for
+    | a7_collect
+    | a7_sharing
+    | a7_update_set_clause_expr
 -> {
     var node = tuple.get("node");
     if (!hasCommentsBetweenPos(node.from, node.to)) {
@@ -1573,6 +1610,33 @@ a8_using:
     & [node-1) subprg_spec
 ;
 
+a8_raise:
+      [node) 'RAISE'
+    & [node^) raise_stmt
+    & [node+1) identifier
+;
+
+a8_return_stmt:
+      [node) 'RETURN'
+    & [node^) return_stmt
+    & [node+1) pls_expr
+;
+
+a8_returning:
+      [node) 'RETURNING'
+    & [node^) returning_clause
+;
+
+a8_update_set_clause:
+      [node) 'SET'
+    & [node^) update_set_clause
+;
+
+a8_while:
+      [node) 'WHILE'
+    & [node^) iteration_scheme
+;
+
 a8_one_space_after:
       a8_if
     | a8_end
@@ -1600,6 +1664,11 @@ a8_one_space_after:
     | a8_aggregate
     | a8_polymorphic
     | a8_using
+    | a8_raise
+    | a8_return_stmt
+    | a8_returning
+    | a8_update_set_clause
+    | a8_while
 -> {
     var node = tuple.get("node");
     if (!hasCommentsBetweenPos(node.from, node.to)) {
@@ -1621,7 +1690,6 @@ a17_whitespace_around_node:
     | [node) 'OR'
     | [node) 'RETURN' & [node-1) fml_part
     | [node) is_or_as
-
 -> {
     var node = tuple.get("node");
     if (getIndent(node.from).length == 0) {
@@ -1717,10 +1785,10 @@ o3_whitespace_around_open_paren:
      [node) '('
 -> {
     var node = tuple.get("node");
-    if (spaceAroundBrackets != Format.Space.Default) {
+    if (spaceAroundBrackets != Format$Space.Default) {
         if (getIndent(node.from).indexOf("\n") == -1) {
             var spaceBefore;
-            if (spaceAroundBrackets == Format.Space.Inside || spaceAroundBrackets == Format.Space.NoSpace) {
+            if (spaceAroundBrackets == Format$Space.Inside || spaceAroundBrackets == Format$Space.NoSpace) {
                 spaceBefore = "";
             } else {
                 spaceBefore = " ";
@@ -1731,7 +1799,7 @@ o3_whitespace_around_open_paren:
     }
     if (getIndent(node.to).indexOf("\n") == -1) {
         var spaceAfter;
-        if (spaceAroundBrackets ==  Format.Space.Outside || spaceAroundBrackets == Format.Space.NoSpace || spaceAroundBrackets == Format.Space.Default) {
+        if (spaceAroundBrackets ==  Format$Space.Outside || spaceAroundBrackets == Format$Space.NoSpace || spaceAroundBrackets == Format$Space.Default) {
             spaceAfter = "";
         } else {
             spaceAfter = " ";
@@ -1747,7 +1815,7 @@ o3_whitespace_around_close_paren:
     var node = tuple.get("node");
     if (getIndent(node.from).indexOf("\n") == -1) {
         var spaceBefore;
-        if (spaceAroundBrackets == Format.Space.Outside || spaceAroundBrackets == Format.Space.NoSpace || spaceAroundBrackets == Format.Space.Default) {
+        if (spaceAroundBrackets == Format$Space.Outside || spaceAroundBrackets == Format$Space.NoSpace || spaceAroundBrackets == Format$Space.Default) {
             spaceBefore = "";
         } else {
             spaceBefore = " ";
@@ -1755,10 +1823,10 @@ o3_whitespace_around_close_paren:
         struct.putNewline(node.from, spaceBefore);
         logger.fine(struct.getClass(), "o3_whitespace_around_close_paren: <" + spaceBefore + "> before at " + node.from + ".");
     }
-    if (spaceAroundBrackets != Format.Space.Default) {
+    if (spaceAroundBrackets != Format$Space.Default) {
         if (getIndent(node.to).indexOf("\n") == -1) {
             var spaceAfter;
-            if (spaceAroundBrackets ==  Format.Space.Inside || spaceAroundBrackets == Format.Space.NoSpace) {
+            if (spaceAroundBrackets ==  Format$Space.Inside || spaceAroundBrackets == Format$Space.NoSpace) {
                 spaceAfter = "";
             } else {
                 spaceAfter = " ";
@@ -1769,7 +1837,7 @@ o3_whitespace_around_close_paren:
     }
 }
 
--- based on issue #99, applied only with Format.Space.Default
+-- based on issue #99, applied only with Format$Space.Default
 o3_no_space_before_open_paren:
       [node) '('
     & (
@@ -1778,7 +1846,7 @@ o3_no_space_before_open_paren:
         | [node^) paren_expr_list & [node^^) function_call
       )
 -> {
-    if (spaceAroundBrackets == Format.Space.Default) {
+    if (spaceAroundBrackets == Format$Space.Default) {
         var node = tuple.get("node");
         struct.putNewline(node.from, "");
         logger.fine(struct.getClass(), "o3_no_space_before_open_paren: at " + node.from + ".");
@@ -1996,7 +2064,7 @@ o9_boolean_option:
     var node = tuple.get("node")
     if (struct.breaksBeforeLogicalConjunction()) {
         if (getIndent(node.from).indexOf("\n") == -1) {
-            if (breaksAroundLogicalConjunctions != Format.Breaks.BeforeAndAfter) {
+            if (breaksAroundLogicalConjunctions != Format$Breaks.BeforeAndAfter) {
                struct.putNewline(node.to, " ");
             }
             struct.putNewline(node.from, theLineSeparator);
@@ -2005,7 +2073,7 @@ o9_boolean_option:
     }
     if (struct.breaksAfterLogicalConjunction()) {
         if (getIndent(node.to).indexOf("\n") == -1) {
-            if (breaksAroundLogicalConjunctions != Format.Breaks.BeforeAndAfter) {
+            if (breaksAroundLogicalConjunctions != Format$Breaks.BeforeAndAfter) {
                struct.putNewline(node.from, " ");
             }
             struct.putNewline(node.to, theLineSeparator);
@@ -2426,7 +2494,7 @@ r5_commas:
     }
 
     var getIndentForComma = function(indent) {
-        var len = indent.length() - 1;
+        var len = indent.length - 1;
         if (spaceAfterCommas) {
            len = len - 1;
         }
@@ -2441,7 +2509,7 @@ r5_commas:
         var indent = getIndent(nodeFrom);
         if (indent.indexOf("\n") != -1) {
             var pos = 0;
-            for (var i=0; i<indent.length(); i++) {
+            for (var i=0; i<indent.length; i++) {
                 if (indent.substring(i, i+1) == " ") {
                     pos++;
                 } else {
@@ -2484,7 +2552,7 @@ r5_commas:
             struct.putNewline(commaNode.from, getIndentForComma(indentNextNode));
             logger.fine(struct.getClass(), "r5_commas: fix indent before comma at " + commaNode.from + ".");
             var comment = getLastCommentBetweenPos(commaNode.from-1, commaNode.to);
-            if (comment != null && comment.startsWith("--")) {
+            if (comment != null && comment.indexOf("--") == 0) {
                 // we must not remove the newline after a single-line comment (belongs to the single line comment)
             } else {
                 // remove all whitespace before node
@@ -2536,9 +2604,9 @@ r2_init_left_margin:
 -> {
     // Left margin is expressed in number of spaces.
     var leftMargin = new HashMap();
-    var it = newlinePositions.keySet().iterator();
-    while (it.hasNext()) {
-        var key = it.next();
+    var keys = newlinePositions.keySet().stream().collect(Collectors.toList()).toArray();
+    for (var i in keys) {
+        var key = keys[i];
         var value = newlinePositions.get(key);
         if (value.indexOf("\n") != -1) {
             // enforce uniform datatype in map; therefore convert values to Integer
@@ -2993,12 +3061,12 @@ r2_increment_left_margin_for_assignment:
 r2_indent_nodes:
     runOnce
 -> {
-    var it = leftMargin.keySet().iterator();
-    while (it.hasNext()) {
-        var key = it.next();
+    var keys = leftMargin.keySet().stream().collect(Collectors.toList()).toArray();
+    for (var i in keys) {
+        var key = keys[i];
         var margin = leftMargin.get(key);
         var value = newlinePositions.get(key);
-        var spaces = value.length()-value.lastIndexOf("\n")-1; // 0 = first column
+        var spaces = value.length-value.lastIndexOf("\n")-1; // 0 = first column
         var comma = 0;
         if (key < target.src.size()) {
             if (target.src.get(key).content == ",") {
@@ -3064,14 +3132,14 @@ r7_declaration:
         if (!breaksAfterSelect) {
             var keyword = tuple.get("keyword");
             var parent = tuple.get("parent");
-            var parentLength = target.src.get(parent.from).content.length();
+            var parentLength = target.src.get(parent.from).content.length;
             if (target.src.get(parent.from).content.toLowerCase() == "with") {
                 parentLength = 6;
             }
             if (getIndent(keyword.from).indexOf("\n") != -1) {
                 if (alignRight) {
                     var content = target.src.get(keyword.from).content;
-                    var missingSpaces = parentLength - target.src.get(keyword.from).content.length();
+                    var missingSpaces = parentLength - target.src.get(keyword.from).content.length;
                     var keywordIndent = theLineSeparator
                         + getSpaces(getColumn(parent.from) + missingSpaces)
                     struct.putNewline(keyword.from, keywordIndent);
@@ -3190,6 +3258,7 @@ r7_delete:
         | [keyword) 'WHERE'
         | [keyword) 'RETURN'
         | [keyword) 'RETURNING'
+        | [keyword) 'BULK'
         | [keyword) 'INTO'
         | [keyword) 'LOG'
         | [keyword) 'REJECT'
@@ -3632,9 +3701,9 @@ r6_ensure_all_assoc_args_are_on_same_line:
     runOnce
 -> {
     var toRemove = new ArrayList();
-    var it = assocValues.keySet().iterator();
-    while (it.hasNext()) {
-        var scope = it.next();
+    var keys = assocValues.keySet().stream().collect(Collectors.toList()).toArray();
+    for (var i in keys) {
+        var scope = keys[i];
         var list = assocValues.get(scope);
         if (list.size() > 0) {
             // we start with the second AssocArg
@@ -3696,9 +3765,9 @@ a9_find_columns:
 a9_align_xmltable_columns:
     runOnce
 -> {
-    var it = xmlTableColumns.keySet().iterator();
-    while (it.hasNext()) {
-        var scope = it.next();
+    var keys = xmlTableColumns.keySet().stream().collect(Collectors.toList()).toArray();
+    for (var i in keys) {
+        var scope = keys[i];
         var pos = getColumn(scope.from+1);
         var list = xmlTableColumns.get(scope);
         alignAtPos(pos, list, "aligner", null, "a9_align_xmltable_columns");
@@ -3759,9 +3828,9 @@ a20_find_columns:
 a20_align_json_table_columns:
     runOnce
 -> {
-    var it = jsonTableColumns.keySet().iterator();
-    while (it.hasNext()) {
-        var scope = it.next();
+    var keys = jsonTableColumns.keySet().stream().collect(Collectors.toList()).toArray();
+    for (var i in keys) {
+        var scope = keys[i];
         var pos = getColumn(scope.from+2); // first column
         var list = jsonTableColumns.get(scope);
         alignAtPos(pos, list, "aligner", null, "a20_align_json_table_columns");
@@ -3876,9 +3945,9 @@ a4_add_line_breaks_with_indent:
     var pos = 0;
     var indent = theLineSeparator; // handle first line
     for (var key=0; key<target.src.size(); key++) {
-        if (pos > maxCharLineSize && target.src.get(key).content.length() > 1 && getIndent(key).indexOf("\n") == -1) {
+        if (pos > maxCharLineSize && target.src.get(key).content.length > 1 && getIndent(key).indexOf("\n") == -1) {
             struct.putNewline(key, indent);
-            pos = indent.length() + target.src.get(key).content.length();
+            pos = indent.length + target.src.get(key).content.length;
             logger.fine(struct.getClass(), "a4_add_line_breaks_with_indent: at " + key + ".");
         } else {
             var value = getIndent(key);
@@ -3957,7 +4026,7 @@ a18_indent_comment:
     var getIndentBefore = function(pos) {
         var indent = getIndent(pos);
         var content = target.src.get(pos).content.toLowerCase();
-        if (content.startsWith("end")) {
+        if (content.indexOf("end") == 0) {
             indent += getSpaces(indentSpaces);
             if (target.src.get(pos+1).content.toLowerCase() == "case") {
                 indent += getSpaces(indentSpaces);
@@ -3987,7 +4056,7 @@ a18_indent_comment:
             substitutions.put(tokens[firstWS].begin, tokens[pos].begin, content);
             logger.fine(struct.getClass(), "a18_indent_comment: at " + parserPos + ".");
             if (tokens[pos].type == Token.COMMENT) {
-                var newComment = tokens[pos].content.replaceAll(
+                var newComment = replaceAll(tokens[pos].content,
                     oldIndent.substring(oldIndent.lastIndexOf("\n")),
                     newIndent.substring(newIndent.lastIndexOf("\n")));
                 substitutions.put(tokens[pos].begin, tokens[pos].end, newComment);
@@ -4085,9 +4154,9 @@ a19_restore_indent_in_conditional_branch:
     runOnce
 -> {
     var indent = getSpaces(indentSpaces);
-    var it = indentInConditionalBranch.keySet().iterator();
-    while (it.hasNext()) {
-        var key = it.next();
+    var keys = indentInConditionalBranch.keySet().stream().collect(Collectors.toList()).toArray();
+    for (var i in keys) {
+        var key = keys[i];
         var originalIndent = indentInConditionalBranch.get(key);
         var indent = getIndent(key);
         if (indent != originalIndent) {
@@ -4108,9 +4177,9 @@ a19_restore_indent_in_conditional_branch:
 a21_remove_non_ws_indent:
     runOnce
 -> {
-    var it = newlinePositions.keySet().iterator();
-    while (it.hasNext()) {
-        var pos = it.next();
+    var keys = newlinePositions.keySet().stream().collect(Collectors.toList()).toArray();
+    for (var i in keys) {
+        var pos = keys[i];
         var indent = getIndent(pos);
         var newIndent = replaceAll(indent, "[^\\s]+", "");
         if (indent != newIndent) {
@@ -4128,7 +4197,7 @@ d2_log_time:
     runOnce
 -> {
     var endTime = (new Date()).getTime();
-    logger.info(struct.getClass(), "d2_log_time: formatted " + target.input.length() + " chars and "
+    logger.info(struct.getClass(), "d2_log_time: formatted " + target.input.length + " chars and "
         + target.root.to + " nodes in "
         + ((endTime - startTime) / 1000) + " seconds.");
 }
