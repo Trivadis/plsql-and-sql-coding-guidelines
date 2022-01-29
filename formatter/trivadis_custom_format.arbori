@@ -17,7 +17,7 @@
 include "std.arbori"
 
 /**
- * Lightweight Formatter for SQL Developer and SQLcl
+ * Lightweight Formatter for SQL Developer and SQLcl, version 21.4.2
  * The idea is to keep the code formatted "as is" and apply chosen formatting rules only.
  *
  * The Arbori program is processed from top to bottom.
@@ -1637,6 +1637,11 @@ a8_while:
     & [node^) iteration_scheme
 ;
 
+a8_update:
+      [node) 'UPDATE'
+    & [node^) update
+;
+
 a8_one_space_after:
       a8_if
     | a8_end
@@ -1669,6 +1674,7 @@ a8_one_space_after:
     | a8_returning
     | a8_update_set_clause
     | a8_while
+    | a8_update
 -> {
     var node = tuple.get("node");
     if (!hasCommentsBetweenPos(node.from, node.to)) {
@@ -2738,6 +2744,7 @@ r2_common:
     | [node^) bulk_loop_stmt & ![node) 'FORALL'
     | [node) analytic_clause & ![node^) over_clause
     | [node) 'RETURN' & [node^) subprg_spec
+    | [node) plsql_declarations & ([node^) with_clause | [node^) with_clause[12,20))
 ;
 
 r2_flowcontrol_condition:
@@ -2797,7 +2804,7 @@ r2_object_type:
 
 r2_body:
       [node) subprg_body
-    & ([parent) pkg_body | [parent) DECLARE_decls_opt)
+    & ([parent) pkg_body | [parent) DECLARE_decls_opt | [parent) decl_list)
     & parent << node -- "<" returns wrong result. Arbori query result changed between 20.4.1 and 21.2.0.
 ;
 
