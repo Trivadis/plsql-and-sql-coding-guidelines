@@ -17,7 +17,7 @@
 include "std.arbori"
 
 /**
- * Lightweight Formatter for SQL Developer and SQLcl, version 21.4.3
+ * Lightweight Formatter for SQL Developer and SQLcl, version 22.1.0-SNAPSHOT
  * The idea is to keep the code formatted "as is" and apply chosen formatting rules only.
  *
  * The Arbori program is processed from top to bottom.
@@ -889,6 +889,7 @@ i9_remove_duplicate_spaces_in_scope:
 -- - A23: Enforce line break after single line comments.
 -- - R2: 3 space indention.
 -- - R7: SQL keywords are right aligned within a SQL command.
+-- - A24: Indent case expression.
 -- - A11: Align parameter names.
 -- - A10: Align parameter modes.
 -- - O8: Alignment: Type Declarations. Options: true; false. (alignTypeDecl).
@@ -1027,6 +1028,7 @@ a22_no_space_between_sign_and_digits:
      & ![node-1) digits
      & ![node-1) expr
 -> {
+    var node = tuple.get("node");
     struct.putNewline(node.to, "");
     logger.fine(struct.getClass(), "a22_no_space_between_sign_and_digits: at " + node.to + ".");
 }
@@ -3171,22 +3173,6 @@ r2_fix_indent_for_subquery_in_paren:
     }
 }
 
-r2_fix_indent_for_case_expr:
-     ([parent) case_expr | [parent) case_expression)
-   & [endcase) 'END'
-   & endcase^ = parent
--> {
-    var parent = tuple.get("parent");
-    if (getIndent(parent.from).indexOf("\n") == -1) {
-        var endcase = tuple.get("endcase");
-        var marginDiff = getColumn(parent.from) - getColumn(endcase.from);
-        if (marginDiff > 0) {
-            addIndent(parent, marginDiff);
-            logger.fine(struct.getClass(), "r2_fix_indent_for_case_expr: at " + parent.from + ".");
-        }
-    }
-}
-
 -- --------------------------------------------------------------------------------------------------------------------
 -- R7: SQL keywords are right aligned within a SQL command.
 -- --------------------------------------------------------------------------------------------------------------------
@@ -3443,6 +3429,28 @@ r7_right_align_and_or:
     | (r7_and_or_merge - r7_and_or_merge_exceptions)
 -> {
     rightAlign(tuple, "r7_right_align_and_or");
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- A24: Indent case expression.
+-- --------------------------------------------------------------------------------------------------------------------
+
+-- must run after right-alignment. See also #203.
+
+a24_indent_case_expression:
+     ([parent) case_expr | [parent) case_expression)
+   & [endcase) 'END'
+   & endcase^ = parent
+-> {
+    var parent = tuple.get("parent");
+    if (getIndent(parent.from).indexOf("\n") == -1) {
+        var endcase = tuple.get("endcase");
+        var marginDiff = getColumn(parent.from) - getColumn(endcase.from);
+        if (marginDiff > 0) {
+            addIndent(parent, marginDiff);
+            logger.fine(struct.getClass(), "a24_indent_case_expression: at " + parent.from + ".");
+        }
+    }
 }
 
 -- --------------------------------------------------------------------------------------------------------------------
