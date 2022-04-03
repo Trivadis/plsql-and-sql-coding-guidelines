@@ -17,7 +17,7 @@
 include "std.arbori"
 
 /**
- * Lightweight Formatter for SQL Developer and SQLcl, version 21.4.2
+ * Lightweight Formatter for SQL Developer and SQLcl, version 21.4.3
  * The idea is to keep the code formatted "as is" and apply chosen formatting rules only.
  *
  * The Arbori program is processed from top to bottom.
@@ -550,7 +550,8 @@ i5_define_global_functions:
            "merge",
            "block_stmt",
            "pkg_body",
-           "create_plsql"
+           "create_plsql",
+           "stmt"
         ]);
     }
 
@@ -862,6 +863,7 @@ i9_remove_duplicate_spaces_in_scope:
 -- - A2: Remove trailing spaces.
 -- - A3: Do not format code between @formatter:off and @formatter:on comments.
 -- - O2: White Space: Around operators. Options: true; false. (spaceAroundOperators).
+-- - A22: No space between sign and digits.
 -- - A13: Keep short nodes on the same line.
 -- - A5: No space before node.
 -- - A6: No space after node.
@@ -884,6 +886,7 @@ i9_remove_duplicate_spaces_in_scope:
 -- - O11: Line Breaks: On subqueries. Options: true; false. (breakOnSubqueries).
 -- - A16: Line break if the parent element uses multiple lines.
 -- - R5: Commas in front of separated elements.
+-- - A23: Enforce line break after single line comments.
 -- - R2: 3 space indention.
 -- - R7: SQL keywords are right aligned within a SQL command.
 -- - A11: Align parameter names.
@@ -1014,6 +1017,21 @@ o2_whitespace_around_operators:
 }
 
 -- --------------------------------------------------------------------------------------------------------------------
+-- A22: No space between sign and digits.
+-- --------------------------------------------------------------------------------------------------------------------
+
+a22_no_space_between_sign_and_digits:
+       ([node) '-' | [node) '+')
+     & ![node) binary_add_op
+     & [node+1) digits
+     & ![node-1) digits
+     & ![node-1) expr
+-> {
+    struct.putNewline(node.to, "");
+    logger.fine(struct.getClass(), "a22_no_space_between_sign_and_digits: at " + node.to + ".");
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
 -- A13: Keep short nodes on the same line.
 -- --------------------------------------------------------------------------------------------------------------------
 
@@ -1107,10 +1125,19 @@ a13_short_nodes:
         return false;
     }
 
+    var containsCase = function(node) {
+        for (var i=node.from+1; i < node.to; i++) {
+            if (target.src.get(i).content.toLowerCase() == 'case') {
+                return true;
+            }
+        }
+        return false;
+    }
+
     var maxLen = maxCharLineSize / 2;
     var node = tuple.get("node");
     if (getNodeLength(node) <= maxLen) {
-        if (breaksConcat == Format$Breaks.None || !containsConcat(node)) {
+        if ((breaksConcat == Format$Breaks.None || !containsConcat(node)) && !containsCase(node)) {
             reduceNodeIndents(node);
         }
     }
@@ -2578,6 +2605,28 @@ r5_commas:
 }
 
 -- --------------------------------------------------------------------------------------------------------------------
+-- A23: Enforce line break after single line comments.
+-- --------------------------------------------------------------------------------------------------------------------
+
+a23_enforce_line_break_after_single_line_comment:
+    runOnce
+-> {
+    var keys = newlinePositions.keySet().stream().collect(Collectors.toList()).toArray();
+    for (var i in keys) {
+        var key = keys[i];
+        if (key > 0) {
+            var comment = getLastCommentBetweenPos(key-1, key);
+            if (comment != null && comment.indexOf("--") == 0) {
+                if (value.indexOf("\n") == -1) {
+                    struct.putNewline(key, theLineSeparator);
+                    logger.fine(struct.getClass(), "a23_enforce_line_break_after_single_line_comment" + ": at " + key + ".");
+                }
+            }
+        }
+    }
+}
+
+-- --------------------------------------------------------------------------------------------------------------------
 -- R2: 3 space indention.
 -- --------------------------------------------------------------------------------------------------------------------
 
@@ -2744,6 +2793,7 @@ r2_common:
     | [node^) bulk_loop_stmt & ![node) 'FORALL'
     | [node) analytic_clause & ![node^) over_clause
     | [node) 'RETURN' & [node^) subprg_spec
+    | [node-1) 'RETURN' & [node^) stmt
     | [node) plsql_declarations & ([node^) with_clause | [node^) with_clause[12,20))
 ;
 
@@ -3118,6 +3168,22 @@ r2_fix_indent_for_subquery_in_paren:
         }
         addIndent(targetNode, spaces);
         logger.fine(struct.getClass(), "r2_fix_indent_for_subquery_in_paren: at " + targetNode.from + ".");
+    }
+}
+
+r2_fix_indent_for_case_expr:
+     ([parent) case_expr | [parent) case_expression)
+   & [endcase) 'END'
+   & endcase^ = parent
+-> {
+    var parent = tuple.get("parent");
+    if (getIndent(parent.from).indexOf("\n") == -1) {
+        var endcase = tuple.get("endcase");
+        var marginDiff = getColumn(parent.from) - getColumn(endcase.from);
+        if (marginDiff > 0) {
+            addIndent(parent, marginDiff);
+            logger.fine(struct.getClass(), "r2_fix_indent_for_case_expr: at " + parent.from + ".");
+        }
     }
 }
 
