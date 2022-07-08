@@ -17,7 +17,7 @@
 include "std.arbori"
 
 /**
- * Lightweight Formatter for SQL Developer and SQLcl, version 22.2.0
+ * Lightweight Formatter for SQL Developer and SQLcl, version 22.2.1-SNAPSHOT
  * The idea is to keep the code formatted "as is" and apply chosen formatting rules only.
  *
  * The Arbori program is processed from top to bottom.
@@ -999,7 +999,7 @@ o2_whitespace_around_operators:
     | [node) '*'
     | [node) '/' & ![node-1) block_stmt & ![node-1) create_plsql
     | [node) '|'
-    | [node) ':'
+    | [node) ':' & ![node^) bind_var
 -> {
     var node = tuple.get("node");
     var space;
@@ -1238,6 +1238,13 @@ a5_indicator_variable:
     & [node^) bind_var
 ;
 
+a5_indicator_variable_colon:
+      [node) ':'
+    & [node-1) identifier
+    & [node-2) ':'
+    & [node^) bind_var
+;
+
 a5_star_star:
      [node) '*'
    & [node-1) '*'
@@ -1266,6 +1273,7 @@ a5_no_space_before:
     | a5_open_paren_before_datatype
     | a5_brackets
     | a5_indicator_variable
+    | a5_indicator_variable_colon
     | a5_star_star
     | a5_pragma_references_args
 -> {
@@ -1303,7 +1311,8 @@ a6_brackets:
 ;
 
 a6_host_variable:
-    [node^) bind_var
+     [node) ':'
+   & [node^) bind_var
 ;
 
 a6_pragma_exception_init:
