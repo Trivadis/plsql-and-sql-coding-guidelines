@@ -17,7 +17,7 @@
 include "std.arbori"
 
 /**
- * Lightweight Formatter for SQL Developer and SQLcl, version 22.1.0-SNAPSHOT
+ * Lightweight Formatter for SQL Developer and SQLcl, version 22.2.0
  * The idea is to keep the code formatted "as is" and apply chosen formatting rules only.
  *
  * The Arbori program is processed from top to bottom.
@@ -116,6 +116,9 @@ skipWhiteSpaceBeforeNode:
 -> {
     var doNotCallCallbackFunction;
 }
+
+-- In SQLDev 22.2.0 the formatter introduced a check that looks for "order_by_clause___0" in the Arbori program.
+-- There is no need to define a query that uses it. Using it in the comment is good enough.
 
 -- ====================================================================================================================
 -- Phase 1 - Initialization and pre-processing.
@@ -1046,7 +1049,7 @@ a13_nodes:
     | [node) function_expression
     | [node) dotted_name
     | [node) dotted_expr
-    | [node) column[4,12)
+    | [node) column___0
     | [node) compound_expression & ![node^) compound_expression
     | [node) pls_expr & ![node^) pls_expr
     | [node) "expr_list" & ![node^) "expr_list"
@@ -1228,8 +1231,11 @@ a5_brackets:
 ;
 
 a5_indicator_variable:
-      [node) bind_var
-    & [node-1) bind_var
+      [node) identifier
+    & [node-1) ':'
+    & [node-2) identifier
+    & [node-3) ':'
+    & [node^) bind_var
 ;
 
 a5_star_star:
@@ -1293,12 +1299,11 @@ a6_percent:
 ;
 
 a6_brackets:
-      [node) '['
+    [node) '['
 ;
 
 a6_host_variable:
-      [node) ':'
-    & [node^) bind_var
+    [node^) bind_var
 ;
 
 a6_pragma_exception_init:
@@ -1745,8 +1750,8 @@ a15_various:
       [node) insert_into_clause & [node^^) multi_table_insert
     | [node) subquery & [node^) multi_table_insert
     | [node) subprg_property
-    | [node) ')' & [node^) create_view#[114,130)
-    | [node) ')' & [node^) create_materialized_view[33,79)
+    | [node) ')' & [node^) create_view#___0
+    | [node) ')' & [node^) create_materialized_view2___0
 ;
 
 a15_subsequent_prm_spec_trailing_comma:
@@ -1769,13 +1774,13 @@ a15_is_or_as:
 ;
 
 a15_view_column_alias:
-      [parent) create_view#[114,130)
+      [parent) create_view#___0
     & [node) alias_in_out_constraints
     & parent < node
 ;
 
 a15_materialized_view_column_alias:
-      [parent) create_materialized_view[33,79)
+      [parent) create_materialized_view2___0
     & [node) identifier
     & parent < node
 ;
@@ -2291,7 +2296,7 @@ o10_join_clause_break_keywords:
               & ![keyword-1) 'CROSS'
               & ![keyword-1) 'NATURAL'
               & ![keyword-1) outer_join_type
-              & ![keyword-1) "inner_cross_join_clause"[26,55)
+              & ![keyword-1) "inner_cross_join_clause"___0
           --| [keyword) 'PARTITION'
           | [keyword) 'ON'
           | [keyword) 'USING'
@@ -2360,7 +2365,7 @@ o11_break_on_subqueries:
 -- --------------------------------------------------------------------------------------------------------------------
 
 a16_select:
-      [parent) subquery
+      [parent) query_block
     & (
           [node) 'FROM' & ![node^) expr
         | [node) 'WHERE'
@@ -2772,7 +2777,7 @@ r2_common:
     | [node) field_list & ![node^) field_list
     | [node) fml_part
     | [node) paren_expr_list
-    | [node) "expr_list" & [node-1) '(' & [node^) in_condition[24,35)
+    | [node) "expr_list" & [node-1) '(' & [node^) in_condition___0
     | [node) xmltable
     | [node) json_table
     | [node) JSON_columns_clause
@@ -2796,7 +2801,7 @@ r2_common:
     | [node) analytic_clause & ![node^) over_clause
     | [node) 'RETURN' & [node^) subprg_spec
     | [node-1) 'RETURN' & [node^) stmt
-    | [node) plsql_declarations & ([node^) with_clause | [node^) with_clause[12,20))
+    | [node) plsql_declarations & ([node^) with_clause | [node^) with_clause___0)
 ;
 
 r2_flowcontrol_condition:
@@ -2813,9 +2818,9 @@ r2_flowcontrol_condition:
 ;
 
 r2_case_expression:
-      [node) simple_case_expression[4,27)#
+      [node) simple_case_expression___0#
     | [node) searched_case_expression#
-    | [node) expr & [node^) simple_case_expression[4,27)#
+    | [node) expr & [node^) simple_case_expression___0#
     | [node) else_clause & [node^) case_expression
     | [node) expr & [node^) else_clause & [node^^) case_expression
     | [node) expr & [node^) searched_case_expression#
@@ -2833,18 +2838,18 @@ r2_case_expression_plsql:
 ;
 
 r2_view:
-      [node) create_view#[114,130)
+      [node) create_view#___0
     | [node) subquery & [node^) create_view#
 ;
 
 r2_materialized_view:
-      [node) create_materialized_view[33,79)
+      [node) create_materialized_view2___0
     | [node) subquery & [node^) create_materialized_view
-    | [node) create_materialized_view[91,136)
-    | [node) create_materialized_view[136,174)
+    | [node) create_materialized_view3___2
+    | [node) create_materialized_view3___3
     | [node) create_mv_refresh
     | [node) 'DISABLE' & [node^) create_materialized_view
-    | [node) create_materialized_view[200,210)
+    | [node) create_materialized_view3___0
     | [node) query_rewrite_clause
 ;
 
@@ -2861,7 +2866,7 @@ r2_body:
 ;
 
 r2_single_table_insert:
-      [node) insert_into_clause[13,25)
+      [node) insert_into_clause___0
     | [node) par_expr_list
 ;
 
@@ -2880,8 +2885,8 @@ r2_multi_table_insert:
 r2_merge_insert_clause:
       [parent) merge_insert_clause
     & (
-          [node) merge_insert_clause[23,35) & [node-1) 'INSERT'
-        | [node) merge_insert_clause[43,50) & [node-1) 'VALUES'
+          [node) merge_insert_clause___0 & [node-1) 'INSERT'
+        | [node) merge_insert_clause___2 & [node-1) 'VALUES'
     )
     & parent < node
 ;
@@ -2921,12 +2926,12 @@ r2_decrement_left_margin:
                 | [node^) xmltable
                 | [node^) json_table
                 | [node^) JSON_columns_clause
-                | [node^) create_view#[114,130)
-                | [node^) create_materialized_view[33,79)
-                | [node^) insert_into_clause[13,25)
+                | [node^) create_view#___0
+                | [node^) create_materialized_view2___0
+                | [node^) insert_into_clause___0
                 | [node^) par_expr_list
-                | [node^) merge_insert_clause[23,35)
-                | [node^) merge_insert_clause[43,50)
+                | [node^) merge_insert_clause___0
+                | [node^) merge_insert_clause___2
                 | [node^) function
                 | [node^) function_expression
                 | [node^) "(x,y,z)"
@@ -2970,7 +2975,7 @@ r2_increment_left_margin_by_keyword_outside_update_delete_merge:
     -- delete statement
     | [node) 'FROM' & [keyword) 'DELETE' & [node^) delete & keyword+1 = node
     -- merge statement
-    | [node) merge_update_clause[36,56) & [keyword) 'SET' & [node^) merge_update_clause & keyword^ = node^
+    | [node) merge_update_clause___2 & [keyword) 'SET' & [node^) merge_update_clause & keyword^ = node^
 -> {
     addMarginByName(tuple.get("node"), 6, target.src.get(tuple.get("keyword").from).content,
         "r2_increment_left_margin_by_keyword_outside_update_delete_merge");
@@ -2978,7 +2983,7 @@ r2_increment_left_margin_by_keyword_outside_update_delete_merge:
 
 -- use merge keyword for right alignment (5 chars)
 r2_increment_left_margin_by_keyword_outside_node_for_merge:
-      [node) subquery & [keyword) 'USING' & [node^) merge & keyword+1 = node
+      [node) merge___2 & [keyword) 'USING' & [node^) merge & keyword+1 = node
     | [node) condition & [keyword) 'ON' & [node^) merge & keyword+2 = node
     | [node) ')' & [keyword) 'ON' & [node^) merge & keyword+3 = node
 -> {
@@ -3018,10 +3023,10 @@ r2_increment_left_margin_by_keyword_inside_node_for_merge:
 }
 
 r2_indent_single_line_clauses:
-      [node) insert_into_clause[13,25)
-    | [node) values_clause[12,20)
-    | [node) merge_insert_clause[23,35) & [node-1) 'INSERT'
-    | [node) merge_insert_clause[43,50) & [node-1) 'VALUES'
+      [node) insert_into_clause___0
+    | [node) values_clause___0
+    | [node) merge_insert_clause___0 & [node-1) 'INSERT'
+    | [node) merge_insert_clause___2 & [node-1) 'VALUES'
 -> {
     var node = tuple.get("node");
     if (getIndent(node.from).indexOf("\n") != -1) {
@@ -3047,13 +3052,13 @@ r2_indent_name_list_after_fetch_into:
 }
 
 r2_subquery_all:
-      [node) subquery
+      [node) query_block
     & [from) from_clause
     & node < from
 ;
 
 r2_subquery_set:
-      [node) subquery
+      [node) query_block
     & [from) from_clause
     & node < from
     & [from^-1) SET_OPER -- must not negate this predicate in SQLDev 21.2.1, see issue #133
@@ -3245,7 +3250,7 @@ r7_select:
     & ![keyword^) analytic_clause
     & ![keyword^^) function
     & ![keyword^) function
-    & ![keyword^) collect[33,52) -- order by clause in collect function
+    & ![keyword^) collect___1 -- order by clause in collect function
 ;
 
 r7_single_table_insert:
@@ -3258,7 +3263,7 @@ r7_single_table_insert:
         | [keyword) 'RETURNING'
         | [keyword) 'LOG'
         | [keyword) 'REJECT'
-        | [keyword) 'SELECT' & ![keyword^^-1) '('
+        | [keyword) 'SELECT' & ![keyword^^-1) '(' & ![keyword^^^-1) '('
       )
     & insert < keyword
     & parent < insert
@@ -3267,7 +3272,7 @@ r7_single_table_insert:
 r7_multi_table_insert_uncond:
       [parent) insert
     & [insert) multi_table_insert
-    & [uncond) multi_table_insert[12,24)
+    & [uncond) multi_table_insert___0
     & (
           [keyword) 'ALL'
         | [keyword) 'FIRST'
@@ -3550,9 +3555,12 @@ o8_variables:
 
 o8_records:
       [scope) ty_def
-    & [node-1) identifier
-    & [node^) field
+    & [first) identifier
+    & first = node-1
+    & [parent) field
+    & parent = node^
     & scope < node^
+    & [first = [parent
 ;
 
 o8_attributes:
@@ -3823,7 +3831,7 @@ a9_declarations:
 }
 
 a9_find_columns:
-      [scope) XMLTABLE_options[19,37)
+      [scope) XMLTABLE_options___0
     & [node) XML_table_column
     & [comma) ','
     & scope < node
@@ -3857,8 +3865,8 @@ a9_align_xmltable_columns:
 }
 
 a9_find_datatypes:
-     [scope) XMLTABLE_options[19,37)
-   & [node) XML_table_column[5,72)
+     [scope) XMLTABLE_options___0
+   & [node) XML_table_column___3
    & [path) 'PATH'
    & scope < node
    & node < path
@@ -3922,7 +3930,7 @@ a20_align_json_table_columns:
 a20_find_datatypes:
      [scope) JSON_columns_clause
    & [node) JSON_value_return_type
-   & [path) "JSON_value_column[5,10)"
+   & [path) "JSON_value_column___0"
    & scope < node
    & path = node+1
 -> {
