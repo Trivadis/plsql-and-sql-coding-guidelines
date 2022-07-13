@@ -1958,11 +1958,6 @@ r3_commands:
         if (indent.indexOf("\n") == -1) {
             struct.putNewline(node.from, theLineSeparator);
             logger.fine(struct.getClass(), "r3_commands: add line break at " + node.from + ".");
-        } else {
-            // remove existing indentation; enforce conformity in these cases
-            var newIndent = getLeadingNewLines(node.from);
-            struct.putNewline(node.from, newIndent);
-            logger.fine(struct.getClass(), "r3_commands: remove indentation at " + node.from + ".");
         }
     }
 }
@@ -2811,6 +2806,7 @@ r2_common:
     | [node) 'RETURN' & [node^) subprg_spec
     | [node-1) 'RETURN' & [node^) stmt
     | [node) plsql_declarations & ([node^) with_clause | [node^) with_clause___0)
+    | [node) colmapped_query_name___0
 ;
 
 r2_flowcontrol_condition:
@@ -2947,6 +2943,7 @@ r2_decrement_left_margin:
                 | [node^) XML_attributes_clause
                 | [node^^) analytic_function
                 | [node^) external_parameter_list
+                | [node^) colmapped_query_name___0
             )
     | [node) 'XMLTABLE' & [node^) xmltable
     | [node) 'JSON_TABLE' & [node^) json_table
@@ -4121,6 +4118,20 @@ a18_indent_comment:
         return tokens[pos].begin - tokens[nlpos].end;
     }
 
+    var isFirstWhen = function(pos) {
+        var i = pos;
+        while (i > 0) {
+            i--;
+            var content = target.src.get(i).content.toLowerCase();
+            if (content == "when") {
+                return false;
+            } else if (content == "case") {
+                return true;
+            }
+        }
+        return false;
+    }
+
     var getIndentBefore = function(pos) {
         var indent = getIndent(pos);
         var content = target.src.get(pos).content.toLowerCase();
@@ -4129,7 +4140,9 @@ a18_indent_comment:
             if (target.src.get(pos+1).content.toLowerCase() == "case") {
                 indent += getSpaces(indentSpaces);
             }
-        } else if (content == "elsif" || content == "else" || content == "when") {
+        } else if (content == "elsif" || content == "else") {
+            indent += getSpaces(indentSpaces);
+        } else if (content == "when" && !isFirstWhen(pos)) {
             indent += getSpaces(indentSpaces);
         }
         return indent;
