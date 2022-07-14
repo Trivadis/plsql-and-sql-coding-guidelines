@@ -118,7 +118,8 @@ n/a | 7460 | Try to define your packaged/standalone function deterministic if ap
 76 | 7510 | Always prefix ORACLE supplied packages with owner schema name. | Major |  |  |  |  |  |  | &#10008; | 
 77 | 7710 | Avoid cascading triggers. | Major |  |  | &#10008; |  |  |  |  | &#10008;
 n/a | 7720 | Never use multiple UPDATE OF in trigger event clause. | Blocker |  |  | &#10008; |  | &#10008; |  |  | &#10008;
-n/a | 7730 | Avoid multiple DML events per trigger if primary key is assigned in trigger. | Major |  | &#10008; |  |  | &#10008; |  |  | 
+n/a | 7730 | Avoid multiple DML events per trigger. | Minor |  |  | &#10008; |  |  |  |  | &#10008;
+n/a | 7740 | Never handle multiple DML events per trigger if primary key is assigned in trigger. | Major |  | &#10008; |  |  | &#10008; |  |  | 
 n/a | 7810 | Never use SQL inside PL/SQL to read sequence numbers (or SYSDATE). | Major |  | &#10008; | &#10008; |  |  |  |  | 
 78 | 8110 | Never use SELECT COUNT(*) if you are only interested in the existence of a row. | Major |  | &#10008; |  |  |  |  |  | 
 n/a | 8120 | Never check existence of a row to decide whether to create it or not. | Major |  | &#10008; |  |  | &#10008; |  |  | 
