@@ -1,0 +1,275 @@
+#!/bin/sh
+
+#
+# Copyright 2021 Philipp Salvisberg <philipp.salvisberg@trivadis.com>
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+# See https://github.com/Trivadis/plsql-formatter-settings/hook for usage instructions.
+
+# -----------------------------------------------------------------------------
+# Configuration section - Change values of variables to fit your needs.
+# -----------------------------------------------------------------------------
+
+# Git pre-commit formatter variant:
+#    1) tvdformat command via SQLcl (command must be registered via $SQLPATH/login.sql)
+#    2) format.js script via SQLcl (the default)
+#    3) tvdformat.jar standalone executable JAR (includes `format.js`, no SQLcl required)
+FORMATTER_VARIANT="3"
+
+# Location of the local clone of the plsql-formatter-settings Git repository.
+# Used as root directory of known subdirectories and files in the Git respository.
+FORMATTER_GITHUB_DIR="$HOME/github/trivadis/plsql-formatter-settings"
+
+# Location of the `format.js` JavaScript file. Required only for $FORMATTER_VARIANT 2.
+FORMATTER_JS="$FORMATTER_GITHUB_DIR/sqlcl/format.js"
+
+# Location of the `tvdformat.jar` JAR. Required only for $FORMATTER_VARIANT 3.
+FORMATTER_JAR="$(dirname $0)/tvdformat.jar"
+
+# Location of the SQL Developer's settings
+FORMATTER_SQLDEV_SETTINGS_DIR="formatter"
+
+# Formatter options beside $FORMATTER_SCOPE
+FORMATTER_EXT="sql,prc,fnc,pks,pkb,trg,vw,tps,tpb,tbp,plb,pls,rcv,spc,typ,aqt,aqp,ctx,dbl,tab,dim,snp,con,collt,seq,syn,grt,sp,spb,sps,pck"
+FORMATTER_MEXT="markdown,mdown,mkdn,md"
+FORMATTER_XML="$FORMATTER_SQLDEV_SETTINGS_DIR/trivadis_advanced_format.xml"
+FORMATTER_ARBORI="$FORMATTER_SQLDEV_SETTINGS_DIR/trivadis_custom_format.arbori"
+FORMATTER_OPTS="ext=$FORMATTER_EXT mext=$FORMATTER_MEXT xml=$FORMATTER_XML arbori=$FORMATTER_ARBORI"
+
+# SQLcl options. 
+# `-nolog` is mandatory and the use of `-` instead of `/` makes it compatible across all platforms. 
+SQLCL_OPTS="-nolog -noupdates -S"
+
+# Show formatter command before execution? true/false.
+FORMATTER_SHOW_COMMAND=true
+
+# -----------------------------------------------------------------------------
+# Subroutines code section - Changes should not be required.
+# -----------------------------------------------------------------------------
+
+function get_staged_files() {
+    # Only added (A) and modified (M) files need to be formatted.
+    # Only configured file extensions will be formatted, hence no need to apply additional filters.
+    STAGED_FILES=`git diff --cached --name-only --diff-filter=AM`
+}
+
+function exit_when_sqlcl_not_found() {
+    # Check only for existance of sql command. 
+    # SQLcl has various ways to find a suitable Java installation.
+    if ! type sql >/dev/null 2>&1; then
+        echo "Warning: Bypassing formatter. SQLcl not found in path."
+        exit 0
+    fi
+}
+
+function exit_when_login_sql_not_found() {
+    if [ -z ${SQLPATH} ]; then
+        echo "Warning: Bypassing formatter. SQLPATH environment variable not defined."
+        exit 0
+    fi
+    if ! test -f "${SQLPATH}/login.sql"; then
+        # If login.sql is missing then the tvdformat command cannot be registered.
+        echo "Warning: Bypassing formatter. $SQLPATH/login.sql not found."
+        exit 0
+    fi
+}
+
+function exit_when_java_not_found() {
+    if ! type java >/dev/null 2>&1; then
+        echo "Warning: Bypassing formatter. Java not found in path."
+        exit 0
+    fi
+}
+
+function exit_when_format_js_not_found() {
+    if ! test -f "$FORMATTER_JS"; then
+        echo "Warning: Bypassing formatter. $FORMATTER_JS not found."
+        exit 0
+    fi
+}
+
+function exit_when_tvdformat_jar_not_found() {
+    if ! test -f "$FORMATTER_JAR"; then
+        echo "Warning: Bypassing formatter. $FORMATTER_JAR not found."
+        exit 0
+    fi
+}
+
+function exit_when_formatter_prerequisites_are_missing() {
+    # Provide information why changes are committed without calling the formatter.
+    # Formatting code is optional from a technical point of view.
+    # As a result we do not want the pre-commit hook to abort.
+    case $FORMATTER_VARIANT in
+        "1") 
+            exit_when_sqlcl_not_found
+            exit_when_login_sql_not_found
+            ;;
+        "2")
+            exit_when_sqlcl_not_found
+            exit_when_format_js_not_found
+            ;;
+        "3")
+            exit_when_java_not_found
+            exit_when_tvdformat_jar_not_found
+            ;;
+    esac
+}
+
+function exit_when_using_non_default_staging_area() {
+    # Cannot check in EGit/JGit based environments because $GET_INDEX_FILE is not set.
+    if [[ "$GIT_INDEX_FILE" != ".git/index" && "$GIT_INDEX_FILE" != "" ]]; then
+        echo "Warning: Bypassing formatter due to non-default Git staging area usage."
+        echo "         This happens when using 'git commit --only' or similar."
+        exit 0
+    fi
+}
+
+function exit_when_partially_staged_files_exist() {
+    if [[ ! -z $(git diff -- $STAGED_FILES) ]]; then
+        echo "Warning: Bypassing formatter due to partial commit."
+        echo "         This happens when staging some hunks/lines instead of a complete file."
+        exit 0
+    fi
+}
+
+function exit_when_no_staged_files_found() {
+    STAGED_FILES_COUNT=`echo $STAGED_FILES | wc -w`
+    if [ "$STAGED_FILES_COUNT" -eq "0" ]; then
+        echo "Info: No added or modified files. Formatting not necessary."
+        exit 0
+    fi
+}
+
+function check_if_formatter_can_be_applied() {
+    if [[ "$ROOT_PATH" = "" ]]; then
+        # Provide information why changes are committed without calling the formatter.
+        # Formatting code is de facto optional. As a result we do not want the pre-commit hook to abort.
+        exit_when_formatter_prerequisites_are_missing
+        exit_when_using_non_default_staging_area
+        exit_when_partially_staged_files_exist
+        exit_when_no_staged_files_found
+    fi
+}
+
+function create_json_file() {
+    TEMPFILE=`mktemp`
+    rm $TEMPFILE
+    case $OSTYPE in
+        msys*)
+            # Git Bash, mount point /tmp is not visible in Java and leads to a file not found error.
+            # Original $TMP and $TEMP environment variables are overwritten by Git Bash.
+            TEMPDIR=`mount | grep 'on /tmp' | awk '{print $1}'`
+            JSONFILE=${TEMPDIR}/`basename $TEMPFILE`.json
+            ;;
+        *)
+            JSONFILE=${TEMPFILE}.json
+            ;;
+    esac
+
+    # Create JSON array with files to be formatted.
+    echo "$STAGED_FILES" \
+        | awk ' \
+            BEGIN { ORS = ""; print "[\n"; } \
+            { printf "%s", (NR>1 ? ",\n" : ""); print "  \""$1"\""; } \
+            END { print "\n]\n"; }' \
+        > $JSONFILE
+}
+
+function set_formatter_scope() {
+    if [[ "$ROOT_PATH" != "" ]]; then
+        # To format a file or a directory without calling "git commit". 
+        FORMATTER_SCOPE="$ROOT_PATH"
+    else
+        # Format staged files via "git commit".
+        FORMATTER_SCOPE=$JSONFILE
+    fi 
+}
+
+function format_via_tvdformat_command() {
+    if [ "$FORMATTER_SHOW_COMMAND" = true ]; then
+        echo "sql $SQLCL_OPTS"
+        echo "tvdformat $FORMATTER_SCOPE $FORMATTER_OPTS"
+    fi
+    sql $SQLCL_OPTS <<EOF
+tvdformat $FORMATTER_SCOPE $FORMATTER_OPTS
+exit
+EOF
+}
+
+function format_via_format_js() {
+    if [ "$FORMATTER_SHOW_COMMAND" = true ]; then
+        echo "sql $SQLCL_OPTS"
+        echo "script $FORMATTER_JS $FORMATTER_SCOPE $FORMATTER_OPTS"
+    fi
+    sql $SQLCL_OPTS <<EOF
+script $FORMATTER_JS $FORMATTER_SCOPE $FORMATTER_OPTS
+exit
+EOF
+}
+
+function format_via_tvdformat_jar() {
+    if [ "$FORMATTER_SHOW_COMMAND" = true ]; then
+        echo "java -jar $FORMATTER_JAR $FORMATTER_SCOPE $FORMATTER_OPTS"
+    fi
+    java -jar $FORMATTER_JAR $FORMATTER_SCOPE $FORMATTER_OPTS
+}
+
+function format_staged_files_in_workspace() {
+    # Ignoring files that cannot be formatted (for whatever reason).
+    case $FORMATTER_VARIANT in
+        "1") format_via_tvdformat_command;;
+        "2") format_via_format_js;;
+        "3") format_via_tvdformat_jar;;
+    esac
+}
+
+function update_staging_area() {
+    for f in $STAGED_FILES
+    do
+        if [[ -z $(git diff head -- $f) ]]; then
+            # No pending change after calling formatter, do not commit this file.
+            git reset $f
+            echo "Info: Removed $f from staging area (no changes left after formatting code)."
+        else
+            # Ensure formatter changes are considered in this commit
+            git add $f
+        fi
+    done
+}
+
+function abort_on_empty_staging_area() {
+    if [[ "$ROOT_PATH" = "" ]]; then
+        STAGED_FILES_COUNT=`git diff --cached --name-only | wc -l`
+        if [ "$STAGED_FILES_COUNT" -eq "0" ]; then
+            echo "Error: Aborting commit. No files found in staging area."
+            echo "       This may happen when all changes are eliminated by the formatter."
+            exit 1
+        fi
+    fi
+}
+
+# -----------------------------------------------------------------------------
+# Main code section - Changes should not be required.
+# -----------------------------------------------------------------------------
+
+ROOT_PATH=$1
+get_staged_files
+check_if_formatter_can_be_applied
+create_json_file
+set_formatter_scope
+format_staged_files_in_workspace
+update_staging_area
+abort_on_empty_staging_area
+exit 0

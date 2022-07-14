@@ -61,8 +61,7 @@ begin
       dbms_output.put_line('in loop');
    end loop;
    --
-   if 1 = 1
-   then
+   if 1 = 1 then
       dbms_output.put_line('yes');
    end if;
    --
