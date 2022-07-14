@@ -100,7 +100,7 @@ n/a | 7125 | Always use CREATE OR REPLACE instead of CREATE alone. | Minor |  | 
 62 | 7130 | Always use parameters or pull in definitions rather than referencing external variables in a local program unit. | Major |  |  | &#10008; |  | &#10008; |  |  | &#10008;
 63 | 7140 | Always ensure that locally defined procedures or functions are referenced. | Major |  |  | &#10008; |  | &#10008; |  |  | 
 64 | 7150 | Try to remove unused parameters. | Minor |  | &#10008; | &#10008; |  |  |  |  | 
-n/a | 7160 | Always explicitly state parameter mode. | Major |  |  | &#10008; |  |  |  |  | 
+68 | 7160 | Always explicitly state parameter mode. | Major |  |  | &#10008; |  |  |  |  | 
 n/a | 7170 | Avoid using an IN OUT parameter as IN or OUT only. | Major |  | &#10008; | &#10008; |  |  |  |  | 
 65 | 7210 | Try to keep your packages small. Include only few procedures and functions that are used in the same context. | Minor |  | &#10008; | &#10008; |  |  |  |  | 
 66 | 7220 | Always use forward declaration for private functions and procedures. | Minor | &#10008; |  |  |  |  |  |  | 
