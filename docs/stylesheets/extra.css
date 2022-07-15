@@ -227,7 +227,11 @@
     [id="validating-input-parameter-size"],
     [id="ensure-single-execution-at-a-time-of-a-program-unit"], 
     [id="use-dbms_application_info-package-to-follow-progress-of-a-process"], 
-    [id="function-usage"] {
+    [id="function-usage"],
+    [id="db-codecop-for-sonarqube"],
+    [id="db-codecop-command-line"],
+    [id="db-codecop-validators"],
+    [id="plscope-utils"] {
         page-break-before: always;
     }
 

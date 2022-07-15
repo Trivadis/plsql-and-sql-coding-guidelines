@@ -115,7 +115,7 @@ n/a | 7330 | Always assign values to OUT parameters. | Major |  |  | &#10008; | 
 74 | 7440 | Never use OUT parameters to return values from a function. | Major |  |  |  |  |  | &#10008; |  | 
 75 | 7450 | Never return a NULL value from a BOOLEAN function. | Major |  |  |  |  | &#10008; |  |  | &#10008;
 n/a | 7460 | Try to define your packaged/standalone function deterministic if appropriate. | Major |  | &#10008; |  |  |  |  |  | 
-76 | 7510 | Always prefix ORACLE supplied packages with owner schema name. | Major |  |  |  |  |  |  | &#10008; | 
+76 | 7510 | Always prefix Oracle supplied packages with owner schema name. | Major |  |  |  |  |  |  | &#10008; | 
 77 | 7710 | Avoid cascading triggers. | Major |  |  | &#10008; |  |  |  |  | &#10008;
 n/a | 7720 | Never use multiple UPDATE OF in trigger event clause. | Blocker |  |  | &#10008; |  | &#10008; |  |  | &#10008;
 n/a | 7730 | Avoid multiple DML events per trigger. | Minor |  |  | &#10008; |  |  |  |  | &#10008;
