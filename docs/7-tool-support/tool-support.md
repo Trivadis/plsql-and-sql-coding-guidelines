@@ -2,7 +2,7 @@
 
 ## Development
 
-Trivadis offers a cost-free extension to ORACLE SQL Developer to test compliance with this coding guideline. The extension may be parameterized to your preferred set of rules and allows checking this set against a program unit.
+Trivadis offers a cost-free extension to Oracle SQL Developer to test compliance with this coding guideline. The extension may be parameterized to your preferred set of rules and allows checking this set against a program unit.
 
 ### Setting the preferences
 

@@ -56,7 +56,7 @@ Inside a program unit only use the line commenting technique `--` unless you tem
 
 To comment the source code for later document generation, comments like `/** ... */` are used. Within these documentation comments, tags may be used to define the documentation structure.
 
-Tools like ORACLE SQL Developer or PL/SQL Developer include documentation functionality based on a javadoc-like tagging. 
+Tools like Oracle SQL Developer or PL/SQL Developer include documentation functionality based on a javadoc-like tagging. 
 
 ### Commenting Tags
 

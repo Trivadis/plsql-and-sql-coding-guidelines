@@ -4,7 +4,7 @@ This document describes rules and recommendations for developing applications us
 
 ## Scope
 
-This document applies to the PL/SQL and SQL language as used within ORACLE databases and tools, which access ORACLE databases.
+This document applies to the PL/SQL and SQL language as used within Oracle databases and tools, which access Oracle databases.
 
 ## Document Conventions
 
