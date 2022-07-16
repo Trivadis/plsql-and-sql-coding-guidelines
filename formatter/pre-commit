@@ -156,10 +156,10 @@ function check_if_formatter_can_be_applied() {
     if [[ "$ROOT_PATH" = "" ]]; then
         # Provide information why changes are committed without calling the formatter.
         # Formatting code is de facto optional. As a result we do not want the pre-commit hook to abort.
+        exit_when_no_staged_files_found
         exit_when_formatter_prerequisites_are_missing
         exit_when_using_non_default_staging_area
         exit_when_partially_staged_files_exist
-        exit_when_no_staged_files_found
     fi
 }
 
