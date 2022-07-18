@@ -78,6 +78,7 @@ n/a | 4325 | Never reuse labels in inner scopes. | Major |  |  | &#10008; |  | &
 42 | 4340 | Always use a NUMERIC FOR loop to process a dense array. | Minor |  |  | &#10008; |  |  |  |  | 
 43 | 4350 | Always use 1 as lower and COUNT() as upper bound when looping through a dense array.  | Major |  |  |  |  | &#10008; |  |  | 
 44 | 4360 | Always use a WHILE loop to process a loose array. | Minor |  | &#10008; |  |  |  |  |  | 
+n/a | 4365 | Never use unconditional CONTINUE or EXIT in a loop. | Major |  |  | &#10008; |  |  |  |  | &#10008;
 45 | 4370 | Avoid using EXIT to stop loop processing unless you are in a basic loop. | Major |  |  | &#10008; |  |  |  |  | 
 46 | 4375 | Always use EXIT WHEN instead of an IF statement to exit from a loop.  | Minor |  |  | &#10008; |  |  |  |  | 
 47 | 4380 | Try to label your EXIT WHEN statements. | Minor |  |  | &#10008; |  |  |  |  | 
