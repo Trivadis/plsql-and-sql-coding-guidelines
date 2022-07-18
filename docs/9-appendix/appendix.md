@@ -49,6 +49,7 @@ n/a | 3115 | Avoid self-assigning a column. | Minor |  |  | &#10008; |  |  |  | 
 27 | 3120 | Always use table aliases when your SQL statement involves more than one source. | Major |  |  | &#10008; |  |  |  |  | 
 28 | 3130 | Try to use ANSI SQL-92 join syntax. | Minor |  |  | &#10008; | &#10008; |  |  |  | 
 29 | 3140 | Try to use anchored records as targets for your cursors.  | Major |  |  | &#10008; |  | &#10008; |  |  | 
+n/a | 3145 | Avoid using SELECT \* directly from a table or view. | Major |  | &#10008; | &#10008; |  | &#10008; |  |  | &#10008;
 n/a | 3150 | Try to use identity columns for surrogate keys. | Minor |  |  | &#10008; |  | &#10008; |  |  | 
 n/a | 3160 | Avoid visible virtual columns. | Major |  |  | &#10008; |  | &#10008; |  |  | 
 n/a | 3170 | Always use DEFAULT ON NULL declarations to assign default values to table columns if you refuse to store NULL values. | Major |  |  |  |  | &#10008; |  |  | 
