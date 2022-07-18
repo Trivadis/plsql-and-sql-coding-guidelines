@@ -33,7 +33,7 @@ markdown_extensions:
   - footnotes
 
 extra:
-  guideline_version: 4.1
+  guideline_version: 4.2-SNAPSHOT
   social:
     - icon: fontawesome/brands/github-alt
       link: https://github.com/Trivadis
