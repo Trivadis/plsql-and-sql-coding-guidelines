@@ -124,6 +124,7 @@ n/a | 7720 | Never use multiple UPDATE OF in trigger event clause. | Blocker |  
 n/a | 7730 | Avoid multiple DML events per trigger. | Minor |  |  | &#10008; |  |  |  |  | &#10008;
 n/a | 7740 | Never handle multiple DML events per trigger if primary key is assigned in trigger. | Major |  | &#10008; |  |  | &#10008; |  |  | 
 n/a | 7810 | Never use SQL inside PL/SQL to read sequence numbers (or SYSDATE). | Major |  | &#10008; | &#10008; |  |  |  |  | 
+n/a | 7910 | Never use DML within a SQL macro. | Critical |  |  |  |  | &#10008; |  |  | &#10008;
 78 | 8110 | Never use SELECT COUNT(*) if you are only interested in the existence of a row. | Major |  | &#10008; |  |  |  |  |  | 
 n/a | 8120 | Never check existence of a row to decide whether to create it or not. | Major |  | &#10008; |  |  | &#10008; |  |  | 
 79 | 8210 | Always use synonyms when accessing objects of another application schema. | Major | &#10008; |  | &#10008; |  |  |  |  | 
