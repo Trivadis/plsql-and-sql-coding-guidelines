@@ -58,6 +58,7 @@ n/a | 3185 | Never use ROWNUM at the same query level as ORDER BY. | Major |  | 
 n/a | 3190 | Avoid using NATURAL JOIN. | Major | &#10008; |  |  |  | &#10008; |  |  | 
 n/a | 3195 | Always use wildcards in a LIKE clause. | Minor |  |  | &#10008; |  |  |  |  | 
 30 | 3210 | Always use BULK OPERATIONS (BULK COLLECT, FORALL) whenever you have to execute a DML statement for more than 4 times. | Major |  | &#10008; |  |  |  |  |  | 
+n/a | 3220 | Always process saved exceptions from a FORALL statement. | Major |  |  |  |  | &#10008; |  |  | &#10008;
 n/a | 3310 | Never commit within a cursor loop. | Critical |  | &#10008; |  |  | &#10008; |  |  | 
 n/a | 3320 | Try to move transactions within a non-cursor loop into procedures. | Major |  |  | &#10008; |  |  | &#10008; |  | &#10008;
 31 | 4110 | Always use %NOTFOUND instead of NOT %FOUND to check whether a cursor returned data. | Minor |  |  | &#10008; |  |  |  |  | 
