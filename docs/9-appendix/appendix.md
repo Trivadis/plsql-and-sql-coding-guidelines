@@ -130,3 +130,4 @@ n/a | 8510 | Always use dbms_application_info to track program process transient
 n/a | 9010 | Always use a format model in string to date/time conversion functions. | Major | &#10008; |  | &#10008; |  | &#10008; |  | &#10008; | &#10008;
 n/a | 9020 | Try to use a format model and NLS_NUMERIC_CHARACTERS in string to number conversion functions. | Major | &#10008; |  | &#10008; |  | &#10008; |  | &#10008; | &#10008;
 n/a | 9030 | Try to define a default value on conversion errors. | Minor |  |  | &#10008; |  | &#10008; |  |  | &#10008;
+n/a | 9040 | Try using FX in string to date/time conversion format model to avoid fuzzy conversion. | Minor |  |  |  |  | &#10008; |  |  | &#10008;
