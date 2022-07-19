@@ -1,4 +1,4 @@
-# db\* CODECOP Validators
+# db* CODECOP Validators
 
 db\* CODECOP supports custom validators. A validator must implement the `PLSQLCopValidator` Java interface and has to be a direct or indirect descendant of the `PLSQLValidator` class. Such a class can be used in the command line utility and the SQL Developer extension. 
 

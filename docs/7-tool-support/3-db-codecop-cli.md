@@ -1,4 +1,4 @@
-# db\* CODECOP Command Line
+# db* CODECOP Command Line
 
 ## Introduction
 

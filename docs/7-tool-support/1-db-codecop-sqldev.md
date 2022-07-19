@@ -1,4 +1,4 @@
-# db\* CODECOP for SQL Developer
+# db* CODECOP for SQL Developer
 
 ## Introduction
 

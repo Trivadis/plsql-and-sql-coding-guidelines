@@ -1,4 +1,4 @@
-# db\* CODECOP for SonarQube
+# db* CODECOP for SonarQube
 
 ## Introduction
 
