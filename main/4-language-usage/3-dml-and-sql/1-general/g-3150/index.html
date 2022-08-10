@@ -8,11 +8,10 @@
       
       
       
+        <link rel="canonical" href="https://trivadis.github.io/plsql-and-sql-coding-guidelines/main/4-language-usage/3-dml-and-sql/1-general/g-3150/">
       
-        <link rel="canonical" href="https://trivadis.github.io/plsql-and-sql-coding-guidelines/4-language-usage/3-dml-and-sql/1-general/g-3150/">
-      
-      <link rel="shortcut icon" href="../../../../images/favicon.ico">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.8">
+      <link rel="icon" href="../../../../images/favicon.ico">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.3.9">
     
     
       
@@ -20,34 +19,37 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.cb6bc1d0.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.1d29e8d0.min.css">
       
         
-        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.39b8e14a.min.css">
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.cbb835fc.min.css">
         
           
           
           <meta name="theme-color" content="#ffffff">
         
       
+      
     
     
     
       
         
+        
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
-        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
-    
     
     
       <link rel="stylesheet" href="../../../../stylesheets/extra.css">
     
       <link rel="stylesheet" href="../../../../css/version-select.css">
     
+    <script>__md_scope=new URL("../../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
+
     
     
   </head>
@@ -59,8 +61,8 @@
     
     
     <body dir="ltr" data-md-color-scheme="" data-md-color-primary="white" data-md-color-accent="red">
-      
   
+    
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -77,47 +79,57 @@
       
     </div>
     
-      <header class="md-header" data-md-component="header">
-  <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href="https://trivadis.github.io/plsql-and-sql-coding-guidelines/" title="PL/SQL & SQL Coding Guidelines Version 4.2-SNAPSHOT" class="md-header-nav__button md-logo" aria-label="PL/SQL & SQL Coding Guidelines">
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="PL/SQL &amp; SQL Coding Guidelines" class="md-header__button md-logo" aria-label="PL/SQL & SQL Coding Guidelines" data-md-component="logo">
       
   <img src="../../../../images/trivadis-logo.svg" alt="logo">
 
     </a>
-    <label class="md-header-nav__button md-icon" for="__drawer">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
     </label>
-    <div class="md-header-nav__title" data-md-component="header-title">
-      
-        <div class="md-header-nav__ellipsis">
-          <span class="md-header-nav__topic md-ellipsis">
-            PL/SQL & SQL Coding Guidelines Version 4.2-SNAPSHOT
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PL/SQL & SQL Coding Guidelines
           </span>
-          <span class="md-header-nav__topic md-ellipsis">
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
             
               G-3150: Try to use identity columns for surrogate keys.
             
           </span>
         </div>
-      
+      </div>
     </div>
     
-      <label class="md-header-nav__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
       </label>
-      
-<div class="md-search" data-md-component="search" role="dialog">
+      <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
       </label>
-      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
-      </button>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
@@ -133,12 +145,11 @@
 </div>
     
     
-      <div class="md-header-nav__source">
-        
-<a href="https://github.com/trivadis/plsql-and-sql-coding-guidelines" title="Go to repository" class="md-source">
+      <div class="md-header__source">
+        <a href="https://github.com/trivadis/plsql-and-sql-coding-guidelines" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
   </div>
   <div class="md-source__repository">
     trivadis/plsql-and-sql-coding-guidelines
@@ -147,11 +158,14 @@
       </div>
     
   </nav>
+  
 </header>
     
     <div class="md-container" data-md-component="container">
       
       
+        
+          
         
       
       <main class="md-main" data-md-component="main">
@@ -159,17 +173,15 @@
           
             
               
-              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
 
 
-
-
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="https://trivadis.github.io/plsql-and-sql-coding-guidelines/" title="PL/SQL &amp; SQL Coding Guidelines" class="md-nav__button md-logo" aria-label="PL/SQL & SQL Coding Guidelines">
+    <a href="../../../.." title="PL/SQL &amp; SQL Coding Guidelines" class="md-nav__button md-logo" aria-label="PL/SQL & SQL Coding Guidelines" data-md-component="logo">
       
   <img src="../../../../images/trivadis-logo.svg" alt="logo">
 
@@ -178,11 +190,10 @@
   </label>
   
     <div class="md-nav__source">
-      
-<a href="https://github.com/trivadis/plsql-and-sql-coding-guidelines" title="Go to repository" class="md-source">
+      <a href="https://github.com/trivadis/plsql-and-sql-coding-guidelines" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
   </div>
   <div class="md-source__repository">
     trivadis/plsql-and-sql-coding-guidelines
@@ -265,21 +276,25 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
       
-      <label class="md-nav__link" for="nav-5">
-        Language Usage
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Language Usage
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="Language Usage" data-md-level="1">
-        <label class="md-nav__title" for="nav-5">
+        <label class="md-nav__title" for="__nav_5">
           <span class="md-nav__icon md-icon"></span>
           Language Usage
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
-          
             
+              
   
   
   
@@ -287,21 +302,25 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-1" type="checkbox" id="nav-5-1" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_1" type="checkbox" id="__nav_5_1" >
       
-      <label class="md-nav__link" for="nav-5-1">
-        General
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_1">
+          General
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="General" data-md-level="2">
-        <label class="md-nav__title" for="nav-5-1">
+        <label class="md-nav__title" for="__nav_5_1">
           <span class="md-nav__icon md-icon"></span>
           General
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
-          
             
+              
   
   
   
@@ -312,8 +331,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -324,8 +345,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -336,8 +359,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -348,8 +373,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -360,8 +387,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -372,8 +401,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -384,8 +415,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -396,14 +429,17 @@
     </li>
   
 
+            
           
         </ul>
       </nav>
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -411,21 +447,25 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-2" type="checkbox" id="nav-5-2" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_2" type="checkbox" id="__nav_5_2" >
       
-      <label class="md-nav__link" for="nav-5-2">
-        Variables &amp; Types
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_2">
+          Variables &amp; Types
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="Variables &amp; Types" data-md-level="2">
-        <label class="md-nav__title" for="nav-5-2">
+        <label class="md-nav__title" for="__nav_5_2">
           <span class="md-nav__icon md-icon"></span>
           Variables &amp; Types
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
-          
             
+              
   
   
   
@@ -433,21 +473,25 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-2-1" type="checkbox" id="nav-5-2-1" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_2_1" type="checkbox" id="__nav_5_2_1" >
       
-      <label class="md-nav__link" for="nav-5-2-1">
-        General
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_2_1">
+          General
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="General" data-md-level="3">
-        <label class="md-nav__title" for="nav-5-2-1">
+        <label class="md-nav__title" for="__nav_5_2_1">
           <span class="md-nav__icon md-icon"></span>
           General
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
-          
             
+              
   
   
   
@@ -458,8 +502,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -470,8 +516,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -482,8 +530,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -494,8 +544,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -506,8 +558,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -518,8 +572,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -530,8 +586,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -542,8 +600,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -554,8 +614,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -566,8 +628,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -578,8 +642,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -590,14 +656,17 @@
     </li>
   
 
+            
           
         </ul>
       </nav>
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -605,21 +674,25 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-2-2" type="checkbox" id="nav-5-2-2" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_2_2" type="checkbox" id="__nav_5_2_2" >
       
-      <label class="md-nav__link" for="nav-5-2-2">
-        Numeric Data Types
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_2_2">
+          Numeric Data Types
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="Numeric Data Types" data-md-level="3">
-        <label class="md-nav__title" for="nav-5-2-2">
+        <label class="md-nav__title" for="__nav_5_2_2">
           <span class="md-nav__icon md-icon"></span>
           Numeric Data Types
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
-          
             
+              
   
   
   
@@ -630,8 +703,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -642,8 +717,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -654,14 +731,17 @@
     </li>
   
 
+            
           
         </ul>
       </nav>
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -669,21 +749,25 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-2-3" type="checkbox" id="nav-5-2-3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_2_3" type="checkbox" id="__nav_5_2_3" >
       
-      <label class="md-nav__link" for="nav-5-2-3">
-        Character Data Types
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_2_3">
+          Character Data Types
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="Character Data Types" data-md-level="3">
-        <label class="md-nav__title" for="nav-5-2-3">
+        <label class="md-nav__title" for="__nav_5_2_3">
           <span class="md-nav__icon md-icon"></span>
           Character Data Types
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
-          
             
+              
   
   
   
@@ -694,8 +778,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -706,8 +792,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -718,8 +806,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -730,14 +820,17 @@
     </li>
   
 
+            
           
         </ul>
       </nav>
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -745,21 +838,25 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-2-4" type="checkbox" id="nav-5-2-4" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_2_4" type="checkbox" id="__nav_5_2_4" >
       
-      <label class="md-nav__link" for="nav-5-2-4">
-        Boolean Data Types
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_2_4">
+          Boolean Data Types
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="Boolean Data Types" data-md-level="3">
-        <label class="md-nav__title" for="nav-5-2-4">
+        <label class="md-nav__title" for="__nav_5_2_4">
           <span class="md-nav__icon md-icon"></span>
           Boolean Data Types
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
-          
             
+              
   
   
   
@@ -770,14 +867,17 @@
     </li>
   
 
+            
           
         </ul>
       </nav>
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -785,21 +885,25 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-2-5" type="checkbox" id="nav-5-2-5" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_2_5" type="checkbox" id="__nav_5_2_5" >
       
-      <label class="md-nav__link" for="nav-5-2-5">
-        Large Objects
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_2_5">
+          Large Objects
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="Large Objects" data-md-level="3">
-        <label class="md-nav__title" for="nav-5-2-5">
+        <label class="md-nav__title" for="__nav_5_2_5">
           <span class="md-nav__icon md-icon"></span>
           Large Objects
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
-          
             
+              
   
   
   
@@ -810,14 +914,17 @@
     </li>
   
 
+            
           
         </ul>
       </nav>
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -825,21 +932,25 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-2-6" type="checkbox" id="nav-5-2-6" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_2_6" type="checkbox" id="__nav_5_2_6" >
       
-      <label class="md-nav__link" for="nav-5-2-6">
-        Cursor Variables
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_2_6">
+          Cursor Variables
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="Cursor Variables" data-md-level="3">
-        <label class="md-nav__title" for="nav-5-2-6">
+        <label class="md-nav__title" for="__nav_5_2_6">
           <span class="md-nav__icon md-icon"></span>
           Cursor Variables
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
-          
             
+              
   
   
   
@@ -850,20 +961,24 @@
     </li>
   
 
+            
           
         </ul>
       </nav>
     </li>
   
 
+            
           
         </ul>
       </nav>
     </li>
   
 
+            
           
             
+              
   
   
     
@@ -873,21 +988,25 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-3" type="checkbox" id="nav-5-3" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_3" type="checkbox" id="__nav_5_3" checked>
       
-      <label class="md-nav__link" for="nav-5-3">
-        DML &amp; SQL
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_3">
+          DML &amp; SQL
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="DML &amp; SQL" data-md-level="2">
-        <label class="md-nav__title" for="nav-5-3">
+        <label class="md-nav__title" for="__nav_5_3">
           <span class="md-nav__icon md-icon"></span>
           DML &amp; SQL
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
-          
             
+              
   
   
     
@@ -897,21 +1016,25 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-3-1" type="checkbox" id="nav-5-3-1" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_3_1" type="checkbox" id="__nav_5_3_1" checked>
       
-      <label class="md-nav__link" for="nav-5-3-1">
-        General
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_3_1">
+          General
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="General" data-md-level="3">
-        <label class="md-nav__title" for="nav-5-3-1">
+        <label class="md-nav__title" for="__nav_5_3_1">
           <span class="md-nav__icon md-icon"></span>
           General
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
-          
             
+              
   
   
   
@@ -922,8 +1045,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -934,8 +1059,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -946,8 +1073,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -958,8 +1087,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -970,8 +1101,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -982,8 +1115,10 @@
     </li>
   
 
+            
           
             
+              
   
   
     
@@ -992,6 +1127,7 @@
     <li class="md-nav__item md-nav__item--active">
       
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
       
         
       
@@ -1006,7 +1142,9 @@
       </a>
       
         
+
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
   
   
     
@@ -1016,7 +1154,7 @@
       <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
-    <ul class="md-nav__list" data-md-scrollfix>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
   <a href="#restriction" class="md-nav__link">
@@ -1053,8 +1191,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1065,8 +1205,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1077,8 +1219,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1089,8 +1233,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1101,8 +1247,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1113,8 +1261,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1125,14 +1275,17 @@
     </li>
   
 
+            
           
         </ul>
       </nav>
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1140,21 +1293,25 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-3-2" type="checkbox" id="nav-5-3-2" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_3_2" type="checkbox" id="__nav_5_3_2" >
       
-      <label class="md-nav__link" for="nav-5-3-2">
-        BULK Operations
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_3_2">
+          BULK Operations
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="BULK Operations" data-md-level="3">
-        <label class="md-nav__title" for="nav-5-3-2">
+        <label class="md-nav__title" for="__nav_5_3_2">
           <span class="md-nav__icon md-icon"></span>
           BULK Operations
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
-          
             
+              
   
   
   
@@ -1165,8 +1322,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1177,14 +1336,17 @@
     </li>
   
 
+            
           
         </ul>
       </nav>
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1192,21 +1354,25 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-3-3" type="checkbox" id="nav-5-3-3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_3_3" type="checkbox" id="__nav_5_3_3" >
       
-      <label class="md-nav__link" for="nav-5-3-3">
-        Transaction Control
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_3_3">
+          Transaction Control
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="Transaction Control" data-md-level="3">
-        <label class="md-nav__title" for="nav-5-3-3">
+        <label class="md-nav__title" for="__nav_5_3_3">
           <span class="md-nav__icon md-icon"></span>
           Transaction Control
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
-          
             
+              
   
   
   
@@ -1217,8 +1383,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1229,20 +1397,24 @@
     </li>
   
 
+            
           
         </ul>
       </nav>
     </li>
   
 
+            
           
         </ul>
       </nav>
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1250,21 +1422,25 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-4" type="checkbox" id="nav-5-4" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_4" type="checkbox" id="__nav_5_4" >
       
-      <label class="md-nav__link" for="nav-5-4">
-        Control Structures
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_4">
+          Control Structures
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="Control Structures" data-md-level="2">
-        <label class="md-nav__title" for="nav-5-4">
+        <label class="md-nav__title" for="__nav_5_4">
           <span class="md-nav__icon md-icon"></span>
           Control Structures
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
-          
             
+              
   
   
   
@@ -1272,21 +1448,25 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-4-1" type="checkbox" id="nav-5-4-1" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_4_1" type="checkbox" id="__nav_5_4_1" >
       
-      <label class="md-nav__link" for="nav-5-4-1">
-        CURSOR
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_4_1">
+          CURSOR
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="CURSOR" data-md-level="3">
-        <label class="md-nav__title" for="nav-5-4-1">
+        <label class="md-nav__title" for="__nav_5_4_1">
           <span class="md-nav__icon md-icon"></span>
           CURSOR
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
-          
             
+              
   
   
   
@@ -1297,8 +1477,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1309,8 +1491,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1321,8 +1505,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1333,14 +1519,17 @@
     </li>
   
 
+            
           
         </ul>
       </nav>
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1348,21 +1537,25 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-4-2" type="checkbox" id="nav-5-4-2" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_4_2" type="checkbox" id="__nav_5_4_2" >
       
-      <label class="md-nav__link" for="nav-5-4-2">
-        CASE / IF / DECODE / NVL / NVL2 / COALESCE
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_4_2">
+          CASE / IF / DECODE / NVL / NVL2 / COALESCE
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="CASE / IF / DECODE / NVL / NVL2 / COALESCE" data-md-level="3">
-        <label class="md-nav__title" for="nav-5-4-2">
+        <label class="md-nav__title" for="__nav_5_4_2">
           <span class="md-nav__icon md-icon"></span>
           CASE / IF / DECODE / NVL / NVL2 / COALESCE
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
-          
             
+              
   
   
   
@@ -1373,8 +1566,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1385,8 +1580,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1397,8 +1594,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1409,8 +1608,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1421,8 +1622,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1433,8 +1636,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1445,14 +1650,17 @@
     </li>
   
 
+            
           
         </ul>
       </nav>
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1460,21 +1668,25 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-4-3" type="checkbox" id="nav-5-4-3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_4_3" type="checkbox" id="__nav_5_4_3" >
       
-      <label class="md-nav__link" for="nav-5-4-3">
-        Flow Control
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_4_3">
+          Flow Control
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="Flow Control" data-md-level="3">
-        <label class="md-nav__title" for="nav-5-4-3">
+        <label class="md-nav__title" for="__nav_5_4_3">
           <span class="md-nav__icon md-icon"></span>
           Flow Control
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
-          
             
+              
   
   
   
@@ -1485,8 +1697,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1497,8 +1711,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1509,8 +1725,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1521,8 +1739,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1533,8 +1753,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1545,8 +1767,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1557,8 +1781,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1569,8 +1795,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1581,8 +1809,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1593,8 +1823,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1605,8 +1837,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1617,8 +1851,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1629,8 +1865,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1641,20 +1879,24 @@
     </li>
   
 
+            
           
         </ul>
       </nav>
     </li>
   
 
+            
           
         </ul>
       </nav>
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1662,21 +1904,25 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-5" type="checkbox" id="nav-5-5" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_5" type="checkbox" id="__nav_5_5" >
       
-      <label class="md-nav__link" for="nav-5-5">
-        Exception Handling
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_5">
+          Exception Handling
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="Exception Handling" data-md-level="2">
-        <label class="md-nav__title" for="nav-5-5">
+        <label class="md-nav__title" for="__nav_5_5">
           <span class="md-nav__icon md-icon"></span>
           Exception Handling
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
-          
             
+              
   
   
   
@@ -1687,8 +1933,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1699,8 +1947,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1711,8 +1961,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1723,8 +1975,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1735,8 +1989,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1747,8 +2003,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1759,8 +2017,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1771,14 +2031,17 @@
     </li>
   
 
+            
           
         </ul>
       </nav>
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1786,21 +2049,25 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-6" type="checkbox" id="nav-5-6" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_6" type="checkbox" id="__nav_5_6" >
       
-      <label class="md-nav__link" for="nav-5-6">
-        Dynamic SQL
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_6">
+          Dynamic SQL
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="Dynamic SQL" data-md-level="2">
-        <label class="md-nav__title" for="nav-5-6">
+        <label class="md-nav__title" for="__nav_5_6">
           <span class="md-nav__icon md-icon"></span>
           Dynamic SQL
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
-          
             
+              
   
   
   
@@ -1811,8 +2078,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1823,14 +2092,17 @@
     </li>
   
 
+            
           
         </ul>
       </nav>
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1838,21 +2110,25 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-7" type="checkbox" id="nav-5-7" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7" type="checkbox" id="__nav_5_7" >
       
-      <label class="md-nav__link" for="nav-5-7">
-        Stored Objects
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_7">
+          Stored Objects
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="Stored Objects" data-md-level="2">
-        <label class="md-nav__title" for="nav-5-7">
+        <label class="md-nav__title" for="__nav_5_7">
           <span class="md-nav__icon md-icon"></span>
           Stored Objects
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
-          
             
+              
   
   
   
@@ -1860,21 +2136,25 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-7-1" type="checkbox" id="nav-5-7-1" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7_1" type="checkbox" id="__nav_5_7_1" >
       
-      <label class="md-nav__link" for="nav-5-7-1">
-        General
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_7_1">
+          General
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="General" data-md-level="3">
-        <label class="md-nav__title" for="nav-5-7-1">
+        <label class="md-nav__title" for="__nav_5_7_1">
           <span class="md-nav__icon md-icon"></span>
           General
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
-          
             
+              
   
   
   
@@ -1885,8 +2165,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1897,8 +2179,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1909,8 +2193,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1921,8 +2207,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1933,8 +2221,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1945,8 +2235,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1957,8 +2249,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1969,14 +2263,17 @@
     </li>
   
 
+            
           
         </ul>
       </nav>
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -1984,21 +2281,25 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-7-2" type="checkbox" id="nav-5-7-2" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7_2" type="checkbox" id="__nav_5_7_2" >
       
-      <label class="md-nav__link" for="nav-5-7-2">
-        Packages
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_7_2">
+          Packages
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="Packages" data-md-level="3">
-        <label class="md-nav__title" for="nav-5-7-2">
+        <label class="md-nav__title" for="__nav_5_7_2">
           <span class="md-nav__icon md-icon"></span>
           Packages
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
-          
             
+              
   
   
   
@@ -2009,8 +2310,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -2021,8 +2324,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -2033,8 +2338,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -2045,14 +2352,17 @@
     </li>
   
 
+            
           
         </ul>
       </nav>
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -2060,21 +2370,25 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-7-3" type="checkbox" id="nav-5-7-3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7_3" type="checkbox" id="__nav_5_7_3" >
       
-      <label class="md-nav__link" for="nav-5-7-3">
-        Procedures
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_7_3">
+          Procedures
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="Procedures" data-md-level="3">
-        <label class="md-nav__title" for="nav-5-7-3">
+        <label class="md-nav__title" for="__nav_5_7_3">
           <span class="md-nav__icon md-icon"></span>
           Procedures
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
-          
             
+              
   
   
   
@@ -2085,8 +2399,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -2097,8 +2413,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -2109,14 +2427,17 @@
     </li>
   
 
+            
           
         </ul>
       </nav>
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -2124,21 +2445,25 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-7-4" type="checkbox" id="nav-5-7-4" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7_4" type="checkbox" id="__nav_5_7_4" >
       
-      <label class="md-nav__link" for="nav-5-7-4">
-        Functions
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_7_4">
+          Functions
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="Functions" data-md-level="3">
-        <label class="md-nav__title" for="nav-5-7-4">
+        <label class="md-nav__title" for="__nav_5_7_4">
           <span class="md-nav__icon md-icon"></span>
           Functions
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
-          
             
+              
   
   
   
@@ -2149,8 +2474,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -2161,8 +2488,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -2173,8 +2502,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -2185,8 +2516,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -2197,8 +2530,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -2209,14 +2544,17 @@
     </li>
   
 
+            
           
         </ul>
       </nav>
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -2224,21 +2562,25 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-7-5" type="checkbox" id="nav-5-7-5" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7_5" type="checkbox" id="__nav_5_7_5" >
       
-      <label class="md-nav__link" for="nav-5-7-5">
-        Oracle Supplied Packages
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_7_5">
+          Oracle Supplied Packages
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="Oracle Supplied Packages" data-md-level="3">
-        <label class="md-nav__title" for="nav-5-7-5">
+        <label class="md-nav__title" for="__nav_5_7_5">
           <span class="md-nav__icon md-icon"></span>
           Oracle Supplied Packages
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
-          
             
+              
   
   
   
@@ -2249,14 +2591,17 @@
     </li>
   
 
+            
           
         </ul>
       </nav>
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -2267,8 +2612,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -2276,21 +2623,25 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-7-7" type="checkbox" id="nav-5-7-7" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7_7" type="checkbox" id="__nav_5_7_7" >
       
-      <label class="md-nav__link" for="nav-5-7-7">
-        Triggers
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_7_7">
+          Triggers
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="Triggers" data-md-level="3">
-        <label class="md-nav__title" for="nav-5-7-7">
+        <label class="md-nav__title" for="__nav_5_7_7">
           <span class="md-nav__icon md-icon"></span>
           Triggers
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
-          
             
+              
   
   
   
@@ -2301,8 +2652,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -2313,8 +2666,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -2325,8 +2680,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -2337,14 +2694,17 @@
     </li>
   
 
+            
           
         </ul>
       </nav>
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -2352,21 +2712,25 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-7-8" type="checkbox" id="nav-5-7-8" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7_8" type="checkbox" id="__nav_5_7_8" >
       
-      <label class="md-nav__link" for="nav-5-7-8">
-        Sequences
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_7_8">
+          Sequences
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="Sequences" data-md-level="3">
-        <label class="md-nav__title" for="nav-5-7-8">
+        <label class="md-nav__title" for="__nav_5_7_8">
           <span class="md-nav__icon md-icon"></span>
           Sequences
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
-          
             
+              
   
   
   
@@ -2377,14 +2741,17 @@
     </li>
   
 
+            
           
         </ul>
       </nav>
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -2392,21 +2759,25 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-7-9" type="checkbox" id="nav-5-7-9" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7_9" type="checkbox" id="__nav_5_7_9" >
       
-      <label class="md-nav__link" for="nav-5-7-9">
-        SQL Macros
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_7_9">
+          SQL Macros
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="SQL Macros" data-md-level="3">
-        <label class="md-nav__title" for="nav-5-7-9">
+        <label class="md-nav__title" for="__nav_5_7_9">
           <span class="md-nav__icon md-icon"></span>
           SQL Macros
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
-          
             
+              
   
   
   
@@ -2417,20 +2788,24 @@
     </li>
   
 
+            
           
         </ul>
       </nav>
     </li>
   
 
+            
           
         </ul>
       </nav>
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -2438,21 +2813,25 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-8" type="checkbox" id="nav-5-8" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_8" type="checkbox" id="__nav_5_8" >
       
-      <label class="md-nav__link" for="nav-5-8">
-        Patterns
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_8">
+          Patterns
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="Patterns" data-md-level="2">
-        <label class="md-nav__title" for="nav-5-8">
+        <label class="md-nav__title" for="__nav_5_8">
           <span class="md-nav__icon md-icon"></span>
           Patterns
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
-          
             
+              
   
   
   
@@ -2460,21 +2839,25 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-8-1" type="checkbox" id="nav-5-8-1" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_8_1" type="checkbox" id="__nav_5_8_1" >
       
-      <label class="md-nav__link" for="nav-5-8-1">
-        Checking the Number of Rows
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_8_1">
+          Checking the Number of Rows
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="Checking the Number of Rows" data-md-level="3">
-        <label class="md-nav__title" for="nav-5-8-1">
+        <label class="md-nav__title" for="__nav_5_8_1">
           <span class="md-nav__icon md-icon"></span>
           Checking the Number of Rows
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
-          
             
+              
   
   
   
@@ -2485,8 +2868,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -2497,14 +2882,17 @@
     </li>
   
 
+            
           
         </ul>
       </nav>
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -2512,21 +2900,25 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-8-2" type="checkbox" id="nav-5-8-2" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_8_2" type="checkbox" id="__nav_5_8_2" >
       
-      <label class="md-nav__link" for="nav-5-8-2">
-        Access objects of foreign application schemas
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_8_2">
+          Access objects of foreign application schemas
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="Access objects of foreign application schemas" data-md-level="3">
-        <label class="md-nav__title" for="nav-5-8-2">
+        <label class="md-nav__title" for="__nav_5_8_2">
           <span class="md-nav__icon md-icon"></span>
           Access objects of foreign application schemas
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
-          
             
+              
   
   
   
@@ -2537,14 +2929,17 @@
     </li>
   
 
+            
           
         </ul>
       </nav>
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -2552,21 +2947,25 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-8-3" type="checkbox" id="nav-5-8-3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_8_3" type="checkbox" id="__nav_5_8_3" >
       
-      <label class="md-nav__link" for="nav-5-8-3">
-        Validating input parameter size
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_8_3">
+          Validating input parameter size
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="Validating input parameter size" data-md-level="3">
-        <label class="md-nav__title" for="nav-5-8-3">
+        <label class="md-nav__title" for="__nav_5_8_3">
           <span class="md-nav__icon md-icon"></span>
           Validating input parameter size
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
-          
             
+              
   
   
   
@@ -2577,14 +2976,17 @@
     </li>
   
 
+            
           
         </ul>
       </nav>
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -2592,21 +2994,25 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-8-4" type="checkbox" id="nav-5-8-4" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_8_4" type="checkbox" id="__nav_5_8_4" >
       
-      <label class="md-nav__link" for="nav-5-8-4">
-        Ensure single execution at a time of a program unit
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_8_4">
+          Ensure single execution at a time of a program unit
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="Ensure single execution at a time of a program unit" data-md-level="3">
-        <label class="md-nav__title" for="nav-5-8-4">
+        <label class="md-nav__title" for="__nav_5_8_4">
           <span class="md-nav__icon md-icon"></span>
           Ensure single execution at a time of a program unit
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
-          
             
+              
   
   
   
@@ -2617,14 +3023,17 @@
     </li>
   
 
+            
           
         </ul>
       </nav>
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -2632,21 +3041,25 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-8-5" type="checkbox" id="nav-5-8-5" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_8_5" type="checkbox" id="__nav_5_8_5" >
       
-      <label class="md-nav__link" for="nav-5-8-5">
-        Use dbms_application_info package to follow progress of a process
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_8_5">
+          Use dbms_application_info package to follow progress of a process
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="Use dbms_application_info package to follow progress of a process" data-md-level="3">
-        <label class="md-nav__title" for="nav-5-8-5">
+        <label class="md-nav__title" for="__nav_5_8_5">
           <span class="md-nav__icon md-icon"></span>
           Use dbms_application_info package to follow progress of a process
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
-          
             
+              
   
   
   
@@ -2657,20 +3070,24 @@
     </li>
   
 
+            
           
         </ul>
       </nav>
     </li>
   
 
+            
           
         </ul>
       </nav>
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -2678,21 +3095,25 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-9" type="checkbox" id="nav-5-9" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_9" type="checkbox" id="__nav_5_9" >
       
-      <label class="md-nav__link" for="nav-5-9">
-        Function Usage
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_9">
+          Function Usage
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="Function Usage" data-md-level="2">
-        <label class="md-nav__title" for="nav-5-9">
+        <label class="md-nav__title" for="__nav_5_9">
           <span class="md-nav__icon md-icon"></span>
           Function Usage
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
-          
             
+              
   
   
   
@@ -2703,8 +3124,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -2715,8 +3138,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -2727,8 +3152,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -2739,12 +3166,14 @@
     </li>
   
 
+            
           
         </ul>
       </nav>
     </li>
   
 
+            
           
         </ul>
       </nav>
@@ -2793,21 +3222,25 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
       
-      <label class="md-nav__link" for="nav-8">
-        Tool Support
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Tool Support
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="Tool Support" data-md-level="1">
-        <label class="md-nav__title" for="nav-8">
+        <label class="md-nav__title" for="__nav_8">
           <span class="md-nav__icon md-icon"></span>
           Tool Support
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
-          
             
+              
   
   
   
@@ -2818,8 +3251,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -2830,8 +3265,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -2842,8 +3279,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -2854,8 +3293,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -2866,6 +3307,7 @@
     </li>
   
 
+            
           
         </ul>
       </nav>
@@ -2896,11 +3338,13 @@
             
             
               
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
+
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
   
   
     
@@ -2910,7 +3354,7 @@
       <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
-    <ul class="md-nav__list" data-md-scrollfix>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
   <a href="#restriction" class="md-nav__link">
@@ -2948,12 +3392,13 @@
               </div>
             
           
-          <div class="md-content">
+          <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
               
                 
-                
-                <h1 id="g-3150-try-to-use-identity-columns-for-surrogate-keys">G-3150: Try to use identity columns for surrogate keys.</h1>
+
+
+<h1 id="g-3150-try-to-use-identity-columns-for-surrogate-keys">G-3150: Try to use identity columns for surrogate keys.</h1>
 <div class="admonition tip">
 <p class="admonition-title">Minor</p>
 <p>Maintainability, Reliability</p>
@@ -2963,159 +3408,150 @@
 <h2 id="reason">Reason</h2>
 <p>An identity column is a surrogate key by design – there is no reason why we should not take advantage of this natural implementation when the keys are generated on database level. Using identity column (and therefore assigning sequences as default values on columns) has a huge performance advantage over a trigger solution.</p>
 <h2 id="example-bad">Example (bad)</h2>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">create</span> <span class="k">table</span> <span class="n">locations</span> <span class="p">(</span>
-   <span class="n">location_id</span>        <span class="nb">number</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>        <span class="k">not</span> <span class="k">null</span>
-  <span class="p">,</span><span class="n">location_name</span>      <span class="n">varchar2</span><span class="p">(</span><span class="mi">60</span> <span class="nb">char</span><span class="p">)</span> <span class="k">not</span> <span class="k">null</span>
-  <span class="p">,</span><span class="n">city</span>               <span class="n">varchar2</span><span class="p">(</span><span class="mi">30</span> <span class="nb">char</span><span class="p">)</span> <span class="k">not</span> <span class="k">null</span>
-  <span class="p">,</span><span class="k">constraint</span> <span class="n">locations_pk</span> <span class="k">primary</span> <span class="k">key</span> <span class="p">(</span><span class="n">location_id</span><span class="p">)</span>
-  <span class="p">)</span>
-<span class="o">/</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">locations</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">   </span><span class="n">location_id</span><span class="w">        </span><span class="nb">number</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w">        </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"></span>
+<span class="w">  </span><span class="p">,</span><span class="n">location_name</span><span class="w">      </span><span class="n">varchar2</span><span class="p">(</span><span class="mi">60</span><span class="w"> </span><span class="nb">char</span><span class="p">)</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"></span>
+<span class="w">  </span><span class="p">,</span><span class="n">city</span><span class="w">               </span><span class="n">varchar2</span><span class="p">(</span><span class="mi">30</span><span class="w"> </span><span class="nb">char</span><span class="p">)</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"></span>
+<span class="w">  </span><span class="p">,</span><span class="k">constraint</span><span class="w"> </span><span class="n">locations_pk</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="p">(</span><span class="n">location_id</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="p">)</span><span class="w"></span>
+<span class="o">/</span><span class="w"></span>
 
-<span class="k">create</span> <span class="n">sequence</span> <span class="n">location_seq</span> <span class="k">start</span> <span class="k">with</span> <span class="mi">1</span> <span class="k">cache</span> <span class="mi">20</span>
-<span class="o">/</span>
+<span class="k">create</span><span class="w"> </span><span class="n">sequence</span><span class="w"> </span><span class="n">location_seq</span><span class="w"> </span><span class="k">start</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">cache</span><span class="w"> </span><span class="mi">20</span><span class="w"></span>
+<span class="o">/</span><span class="w"></span>
 
-<span class="k">create</span> <span class="k">or</span> <span class="k">replace</span> <span class="k">trigger</span> <span class="n">location_br_i</span>
-<span class="k">before</span> <span class="k">insert</span> <span class="k">on</span> <span class="n">locations</span>
-<span class="k">for</span> <span class="k">each</span> <span class="k">row</span>
-<span class="k">begin</span>
-   <span class="p">:</span><span class="k">new</span><span class="p">.</span><span class="n">location_id</span> <span class="p">:</span><span class="o">=</span> <span class="n">location_seq</span><span class="p">.</span><span class="n">nextval</span><span class="p">;</span>
-<span class="k">end</span><span class="p">;</span>
-<span class="o">/</span>
-</code></pre></div>
-</td></tr></table>
+<span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="k">trigger</span><span class="w"> </span><span class="n">location_br_i</span><span class="w"></span>
+<span class="k">before</span><span class="w"> </span><span class="k">insert</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">locations</span><span class="w"></span>
+<span class="k">for</span><span class="w"> </span><span class="k">each</span><span class="w"> </span><span class="k">row</span><span class="w"></span>
+<span class="k">begin</span><span class="w"></span>
+<span class="w">   </span><span class="p">:</span><span class="k">new</span><span class="p">.</span><span class="n">location_id</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">location_seq</span><span class="p">.</span><span class="n">nextval</span><span class="p">;</span><span class="w"></span>
+<span class="k">end</span><span class="p">;</span><span class="w"></span>
+<span class="o">/</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
 <h2 id="example-good">Example (good)</h2>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
-2
-3
-4
-5
-6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">create</span> <span class="k">table</span> <span class="n">locations</span> <span class="p">(</span>
-   <span class="n">location_id</span>        <span class="nb">number</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>  <span class="k">generated</span> <span class="n">always</span> <span class="k">as</span> <span class="k">identity</span>
-  <span class="p">,</span><span class="n">location_name</span>      <span class="n">varchar2</span><span class="p">(</span><span class="mi">60</span> <span class="nb">char</span><span class="p">)</span> <span class="k">not</span> <span class="k">null</span>
-  <span class="p">,</span><span class="n">city</span>               <span class="n">varchar2</span><span class="p">(</span><span class="mi">30</span> <span class="nb">char</span><span class="p">)</span> <span class="k">not</span> <span class="k">null</span>
-  <span class="p">,</span><span class="k">constraint</span> <span class="n">locations_pk</span> <span class="k">primary</span> <span class="k">key</span> <span class="p">(</span><span class="n">location_id</span><span class="p">))</span>
-<span class="o">/</span>
-</code></pre></div>
-</td></tr></table>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">locations</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">   </span><span class="n">location_id</span><span class="w">        </span><span class="nb">number</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w">  </span><span class="k">generated</span><span class="w"> </span><span class="n">always</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">identity</span><span class="w"></span>
+<span class="w">  </span><span class="p">,</span><span class="n">location_name</span><span class="w">      </span><span class="n">varchar2</span><span class="p">(</span><span class="mi">60</span><span class="w"> </span><span class="nb">char</span><span class="p">)</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"></span>
+<span class="w">  </span><span class="p">,</span><span class="n">city</span><span class="w">               </span><span class="n">varchar2</span><span class="p">(</span><span class="mi">30</span><span class="w"> </span><span class="nb">char</span><span class="p">)</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"></span>
+<span class="w">  </span><span class="p">,</span><span class="k">constraint</span><span class="w"> </span><span class="n">locations_pk</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="p">(</span><span class="n">location_id</span><span class="p">))</span><span class="w"></span>
+<span class="o">/</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
 <p><code>generated always as identity</code> ensures that the <code>location_id</code> is populated by a sequence. It is not possible to override the behavior in the application. </p>
 <p>However, if you use a framework that produces an <code>insert</code> statement including the surrogate key column, and you cannot change this behavior, then you have to use the <code>generated by default on null as identity</code> option. This has the downside that the application may pass a value, which might lead to an immediate or delayed <code>ORA-00001: unique constraint violated</code> error.</p>
-                
-              
-              
-                
-
 
               
             </article>
+            
           </div>
         </div>
+        
       </main>
       
-        
-<footer class="md-footer">
+        <footer class="md-footer">
   
-    <div class="md-footer-nav">
-      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
         
-          <a href="../g-3145/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
-            <div class="md-footer-nav__button md-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        <a href="../g-3145/" class="md-footer__link md-footer__link--prev" aria-label="Previous: G-3145: Avoid using SELECT \* directly from a table or view." rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              G-3145: Avoid using SELECT \* directly from a table or view.
             </div>
-            <div class="md-footer-nav__title">
-              <div class="md-ellipsis">
-                <span class="md-footer-nav__direction">
-                  Previous
-                </span>
-                G-3145: Avoid using SELECT \* directly from a table or view.
-              </div>
-            </div>
-          </a>
+          </div>
+        </a>
+      
+      
         
-        
-          <a href="../g-3160/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
-            <div class="md-footer-nav__title">
-              <div class="md-ellipsis">
-                <span class="md-footer-nav__direction">
-                  Next
-                </span>
-                G-3160: Avoid visible virtual columns.
-              </div>
+        <a href="../g-3160/" class="md-footer__link md-footer__link--next" aria-label="Next: G-3160: Avoid visible virtual columns." rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              G-3160: Avoid visible virtual columns.
             </div>
-            <div class="md-footer-nav__button md-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
-            </div>
-          </a>
-        
-      </nav>
-    </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
-      <div class="md-footer-copyright">
-        
-        Made with
-        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-          Material for MkDocs
-        </a>
-      </div>
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
       
-  <div class="md-footer-social">
+        <div class="md-social">
+  
+    
     
       
       
-        
-        
-      
-      <a href="https://github.com/Trivadis" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
-      </a>
+    
+    <a href="https://github.com/Trivadis" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+    </a>
+  
+    
     
       
       
-        
-        
-      
-      <a href="https://twitter.com/trivadis" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
-      </a>
     
-  </div>
-
+    <a href="https://twitter.com/trivadis" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+</div>
+      
     </div>
   </div>
 </footer>
       
     </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": [], "search": "../../../../assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
-      <script src="../../../../assets/javascripts/vendor.18f0862e.min.js"></script>
-      <script src="../../../../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
-      
-      <script>
-        app = initialize({
-          base: "../../../..",
-          features: [],
-          search: Object.assign({
-            worker: "../../../../assets/javascripts/worker/search.9c0e82ba.min.js"
-          }, typeof search !== "undefined" && search)
-        })
-      </script>
+    
+      <script src="../../../../assets/javascripts/bundle.6c7ad80a.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
