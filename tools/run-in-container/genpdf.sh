@@ -43,6 +43,19 @@ function fix_footnote_links() {
     sed -e 's/a class="footnote-ref"/a /g' index.ori.html > index.html
 }
 
+function fix_unsupported_css() {
+    mv index.html temp.html
+    sed -e 's|<style>:root.*</style>|<style>html,body,input{font-family:"Roboto"}code,kbd,pre{font-family:"Roboto Mono"}</style>|g' temp.html > index.html
+    rm temp.html
+
+    OPTIONS='{"stage":false,"features":{"color-functional-notation":{"preserver":false}}}'
+    cp assets/stylesheets/main.1d29e8d0.min.css assets/stylesheets/main.1d29e8d0.min.ori.css
+    csstools-cli postcss-preset-env assets/stylesheets/main.1d29e8d0.min.css --replace --plugin-options ${OPTIONS}
+
+    cp assets/stylesheets/palette.cbb835fc.min.css assets/stylesheets/palette.cbb835fc.min.ori.css
+    csstools-cli postcss-preset-env assets/stylesheets/palette.cbb835fc.min.css --replace --plugin-options ${OPTIONS}
+}
+
 function write_text(){
     TEXT=$1
     echo "" >> ${TARGET_DIR}/docs/index.md
@@ -58,7 +71,9 @@ function write_guidelines(){
         sed -e "s|# |${HEADER} |g" $f | \
         sed -e 's/..\/image/image/g' | \
         sed -e 's|../../../../4-language-usage/3-dml-and-sql/3-transaction-control/g-3310|#g-3310-never-commit-within-a-cursor-loop|g' | \
-        sed -e 's|../../../../4-language-usage/3-dml-and-sql/3-transaction-control/g-3320|#g-3320-try-to-move-transactions-within-a-non-cursor-loop-into-procedures|g' >> ${TARGET_DIR}/docs/index.md
+        sed -e 's|../../../../4-language-usage/3-dml-and-sql/3-transaction-control/g-3320|#g-3320-try-to-move-transactions-within-a-non-cursor-loop-into-procedures|g' | \
+        sed -e 's|../../../../4-language-usage/7-stored-objects/7-triggers/g-7740|#g-7740-never-handle-multiple-dml-events-per-trigger-if-primary-key-is-assigned-in-trigger|g' \
+        >> ${TARGET_DIR}/docs/index.md
     done
 }
 
@@ -72,6 +87,7 @@ function convert_to_pdf(){
     mkdocs build
     cd site
     fix_footnote_links
+    fix_unsupported_css
     wkhtmltopdf --enable-local-file-access \
                 --allow "." \
                 --disable-smart-shrinking \
@@ -93,6 +109,7 @@ function convert_to_pdf(){
                 toc \
                 --xsl-style-sheet stylesheets/toc.xsl \
                 index.html ${DATA_DIR}/docs/9-appendix/PLSQL-and-SQL-Coding-Guidelines.pdf
+    echo docs/9-appendix/PLSQL-and-SQL-Coding-Guidelines.pdf produced.
 }
 
 DATA_DIR="$(cd "$(dirname "${0}")/../.." && pwd)"
