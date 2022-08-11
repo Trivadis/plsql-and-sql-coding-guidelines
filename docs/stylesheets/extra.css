@@ -59,6 +59,11 @@
         zoom: 80%;
     }
 
+    /* fix image opacity for pictures in about page, where the default 1.0 results in a much lower opacity */
+    .md-typeset img[align=left] {
+        opacity: 0.99609375; /* 1 - 1/256 */
+    }
+
     /* disable menu */
     .md-md-header {
         display: none;
