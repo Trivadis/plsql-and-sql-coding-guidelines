@@ -48,7 +48,9 @@ function fix_unsupported_css() {
     sed -e 's|<style>:root.*</style>|<style>html,body,input{font-family:"Roboto"}code,kbd,pre{font-family:"Roboto Mono"}</style>|g' temp.html > index.html
     rm temp.html
 
-    OPTIONS='{"stage":false,"features":{"color-functional-notation":{"preserver":false}}}'
+    # see https://preset-env.cssdb.org/features/#stage-0
+    # all stages should work as long as custom-properties are converted
+    OPTIONS='{"stage":0,"features":{"custom-properties":true}}'
     cp assets/stylesheets/main.1d29e8d0.min.css assets/stylesheets/main.1d29e8d0.min.ori.css
     csstools-cli postcss-preset-env assets/stylesheets/main.1d29e8d0.min.css --replace --plugin-options ${OPTIONS}
 
