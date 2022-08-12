@@ -3481,10 +3481,14 @@
 <span class="normal"> 7</span>
 <span class="normal"> 8</span>
 <span class="normal"> 9</span>
-<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">begin</span><span class="w"></span>
-<span class="w">   </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">employees_log</span><span class="w"> </span><span class="p">(</span><span class="n">employee_id</span><span class="w"></span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">begin</span><span class="w"></span>
+<span class="w">   </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">employees_log</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="n">employee_id</span><span class="w"></span>
 <span class="w">     </span><span class="p">,</span><span class="n">last_name</span><span class="w"></span>
-<span class="w">     </span><span class="p">,</span><span class="n">first_name</span><span class="p">)</span><span class="w"></span>
+<span class="w">     </span><span class="p">,</span><span class="n">first_name</span><span class="w"></span>
+<span class="w">   </span><span class="p">)</span><span class="w"></span>
 <span class="w">   </span><span class="k">select</span><span class="w"> </span><span class="n">employee_id</span><span class="w"></span>
 <span class="w">         </span><span class="p">,</span><span class="n">last_name</span><span class="w"></span>
 <span class="w">         </span><span class="p">,</span><span class="n">first_name</span><span class="w"></span>
