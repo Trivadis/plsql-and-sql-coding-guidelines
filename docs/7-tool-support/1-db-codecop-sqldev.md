@@ -20,7 +20,7 @@ The results are presented in an additional tabbed panel. One tab shows all guide
 
 ## Examples
 
-Open an Oracle PL/SQL or SQL script in a SQL Developer editor and press Ctrl-Shift-C to check your code against the Trivadis PL/SQL & SQL guidelines.
+Open a PL/SQL or SQL script in a SQL Developer editor and press Ctrl-Shift-C to check your code against the Trivadis PL/SQL & SQL guidelines.
 
 ![Check](../images/tvdcc-sqldev-check.png)
 

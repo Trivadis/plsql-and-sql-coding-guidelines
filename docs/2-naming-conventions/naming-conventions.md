@@ -8,14 +8,14 @@
 4. Avoid long abbreviations. Abbreviations should be shorter than 5 characters.
 5. Any abbreviations must be widely known and accepted. 
 6. Create a glossary with all accepted abbreviations.
-7. Never use Oracle keywords as names. A list of Oracles keywords may be found in the dictionary view `v$reserved_words`.
+7. Never use keywords as names. A list of keywords may be found in the dictionary view `v$reserved_words`.
 8. Avoid adding redundant or meaningless prefixes and suffixes to identifiers.<br/>Example: `create table emp_table`.
 9. Always use one spoken language (e.g. English, German, French) for all objects in your application.
 10. Always use the same names for elements with the same meaning.
 
 ## Naming Conventions for PL/SQL
 
-In general, Oracle is not case sensitive with names. A variable named personname is equal to one named PersonName, as well as to one named PERSONNAME. Some products (e.g. TMDA by Trivadis, APEX, OWB) put each name within double quotes (&quot;) so Oracle will treat these names to be case sensitive. Using case sensitive variable names force developers to use double quotes for each reference to the variable. Our recommendation is to write all names in lowercase and to avoid double quoted identifiers.
+In general, the Oracle Database is not case sensitive with names. A variable named personname is equal to one named PersonName, as well as to one named PERSONNAME. Some products (e.g. TMDA by Trivadis, APEX, OWB) put each name within double quotes (&quot;) so the Oracle Database will treat these names to be case sensitive. Using case sensitive variable names force developers to use double quotes for each reference to the variable. Our recommendation is to write all names in lowercase and to avoid double quoted identifiers.
 
 A widely used convention is to follow a `{prefix}variablecontent{suffix}` pattern.
 
