@@ -254,6 +254,6 @@ Examples:
     We see a table and a view as a collection. A jar containing beans is labeled "beans". 
     In Java we call such a collection also "beans" (`List<Bean> beans`) and name an entry "bean" 
     (`for (Bean bean : beans) {...}`). An entry of a table is a row (singular) and a table can 
-    contain an unbounded number of rows (plural). This and the fact that the Oracle database uses 
+    contain an unbounded number of rows (plural). This and the fact that the Oracle Database uses 
     the same concept for their tables and views lead to the decision to use the plural 
     to name a table or a view.
