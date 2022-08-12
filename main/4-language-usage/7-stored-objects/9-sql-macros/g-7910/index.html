@@ -3472,33 +3472,41 @@
 <span class="normal"> 9</span>
 <span class="normal">10</span>
 <span class="normal">11</span>
-<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="n">row_generator</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">   </span><span class="n">num_rows_in</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nb">number</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="w"></span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="n">row_generator</span><span class="p">(</span><span class="w"></span>
+<span class="w">   </span><span class="n">in_num_rows</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nb">number</span><span class="w"></span>
 <span class="p">)</span><span class="w"></span>
 <span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="n">varchar2</span><span class="w"> </span><span class="n">sql_macro</span><span class="w"> </span><span class="k">as</span><span class="w"></span>
 <span class="k">begin</span><span class="w"></span>
-<span class="w">   </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">function_calls</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">called_at</span><span class="p">,</span><span class="w"> </span><span class="n">parameter_value</span><span class="p">)</span><span class="w"></span>
-<span class="w">      </span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="err">$$</span><span class="n">PLSQL_UNIT</span><span class="p">,</span><span class="w"> </span><span class="k">current_timestamp</span><span class="p">,</span><span class="w"> </span><span class="n">num_rows_in</span><span class="p">);</span><span class="w"></span>
+<span class="w">   </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">function_calls</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">called_at</span><span class="p">,</span><span class="n">parameter_value</span><span class="p">)</span><span class="w"></span>
+<span class="w">   </span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="err">$$</span><span class="n">plsql_unit</span><span class="p">,</span><span class="k">current_timestamp</span><span class="p">,</span><span class="n">in_num_rows</span><span class="p">);</span><span class="w"></span>
 <span class="w">   </span><span class="k">commit</span><span class="p">;</span><span class="w"></span>
 
-<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="s1">&#39;select level as row_sequence from dual connect by level &lt;= num_rows_in&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="s1">&#39;select level as row_sequence</span>
+<span class="s1">             from dual </span>
+<span class="s1">          connect by level &lt;= in_num_rows&#39;</span><span class="p">;</span><span class="w"></span>
 <span class="k">end</span><span class="w"> </span><span class="n">row_generator</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
 <h2 id="example-good">Example (good)</h2>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="n">row_generator</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">   </span><span class="n">num_rows_in</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nb">number</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="w"></span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="n">row_generator</span><span class="p">(</span><span class="w"></span>
+<span class="w">   </span><span class="n">in_num_rows</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nb">number</span><span class="w"></span>
 <span class="p">)</span><span class="w"></span>
 <span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="n">varchar2</span><span class="w"> </span><span class="n">sql_macro</span><span class="w"> </span><span class="k">as</span><span class="w"></span>
 <span class="k">begin</span><span class="w"></span>
-<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="s1">&#39;select level as row_sequence from dual connect by level &lt;= num_rows_in&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="s1">&#39;select level as row_sequence</span>
+<span class="s1">             from dual </span>
+<span class="s1">          connect by level &lt;= in_num_rows&#39;</span><span class="p">;</span><span class="w"></span>
 <span class="k">end</span><span class="w"> </span><span class="n">row_generator</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
