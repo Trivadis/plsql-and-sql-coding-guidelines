@@ -3442,7 +3442,7 @@
 <p>Efficiency, Reliability</p>
 </div>
 <h2 id="reason">Reason</h2>
-<p>Any cursors left open can consume additional memory space (i.e. SGA) within the database instance, potentially in both the shared and private SQL pools. Furthermore, failure to explicitly close cursors may also cause the owning session to exceed its maximum limit of open cursors (as specified by the <code>open_cursors</code> database initialization parameter), potentially resulting in the Oracle error of “ORA-01000: maximum open cursors exceeded”. </p>
+<p>Any cursors left open can consume additional memory space (i.e. SGA) within the database instance, potentially in both the shared and private SQL pools. Furthermore, failure to explicitly close cursors may also cause the owning session to exceed its maximum limit of open cursors (as specified by the <code>open_cursors</code> database initialization parameter), potentially resulting in the Oracle Database error of “ORA-01000: maximum open cursors exceeded”. </p>
 <h2 id="example-bad">Example (bad)</h2>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>

@@ -3442,7 +3442,7 @@
 <p>Reliability</p>
 </div>
 <h2 id="reason">Reason</h2>
-<p>Oracle provides a variety of cursor attributes (like <code>%found</code> and <code>%rowcount</code>) that can be used to obtain information about the status of a cursor, either implicit or explicit. </p>
+<p>The Oracle Database provides a variety of cursor attributes (like <code>%found</code> and <code>%rowcount</code>) that can be used to obtain information about the status of a cursor, either implicit or explicit. </p>
 <p>You should avoid inserting any statements between the cursor operation and the use of an attribute against that cursor. Interposing such a statement can affect the value returned by the attribute, thereby potentially corrupting the logic of your program. </p>
 <p>In the following example, a procedure call is inserted between the <code>delete</code> statement and a check for the value of <code>sql%rowcount</code>, which returns the number of rows modified by that last SQL statement executed in the session. If this procedure includes a <code>commit</code> / <code>rollback</code> or another implicit cursor the value of <code>sql%rowcount</code> is affected.</p>
 <h2 id="example-bad">Example (bad)</h2>

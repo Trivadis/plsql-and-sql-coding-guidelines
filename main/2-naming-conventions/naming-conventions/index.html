@@ -3703,13 +3703,13 @@
 <li>Avoid long abbreviations. Abbreviations should be shorter than 5 characters.</li>
 <li>Any abbreviations must be widely known and accepted. </li>
 <li>Create a glossary with all accepted abbreviations.</li>
-<li>Never use Oracle keywords as names. A list of Oracles keywords may be found in the dictionary view <code>v$reserved_words</code>.</li>
+<li>Never use keywords as names. A list of keywords may be found in the dictionary view <code>v$reserved_words</code>.</li>
 <li>Avoid adding redundant or meaningless prefixes and suffixes to identifiers.<br/>Example: <code>create table emp_table</code>.</li>
 <li>Always use one spoken language (e.g. English, German, French) for all objects in your application.</li>
 <li>Always use the same names for elements with the same meaning.</li>
 </ol>
 <h2 id="naming-conventions-for-plsql">Naming Conventions for PL/SQL</h2>
-<p>In general, Oracle is not case sensitive with names. A variable named personname is equal to one named PersonName, as well as to one named PERSONNAME. Some products (e.g. TMDA by Trivadis, APEX, OWB) put each name within double quotes (&quot;) so Oracle will treat these names to be case sensitive. Using case sensitive variable names force developers to use double quotes for each reference to the variable. Our recommendation is to write all names in lowercase and to avoid double quoted identifiers.</p>
+<p>In general, the Oracle Database is not case sensitive with names. A variable named personname is equal to one named PersonName, as well as to one named PERSONNAME. Some products (e.g. TMDA by Trivadis, APEX, OWB) put each name within double quotes (&quot;) so the Oracle Database will treat these names to be case sensitive. Using case sensitive variable names force developers to use double quotes for each reference to the variable. Our recommendation is to write all names in lowercase and to avoid double quoted identifiers.</p>
 <p>A widely used convention is to follow a <code>{prefix}variablecontent{suffix}</code> pattern.</p>
 <p>The following table shows a possible set of naming conventions. </p>
 <table>
@@ -3976,7 +3976,7 @@ Optionally suffixed by an indicator identifying the object as a view (mostly use
 <p>We see a table and a view as a collection. A jar containing beans is labeled "beans". 
 In Java we call such a collection also "beans" (<code>List&lt;Bean&gt; beans</code>) and name an entry "bean" 
 (<code>for (Bean bean : beans) {...}</code>). An entry of a table is a row (singular) and a table can 
-contain an unbounded number of rows (plural). This and the fact that the Oracle database uses 
+contain an unbounded number of rows (plural). This and the fact that the Oracle Database uses 
 the same concept for their tables and views lead to the decision to use the plural 
 to name a table or a view.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>

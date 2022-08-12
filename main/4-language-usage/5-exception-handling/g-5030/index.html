@@ -3440,7 +3440,7 @@
 <p>Reliability, Testability</p>
 </div>
 <h2 id="reason">Reason</h2>
-<p>This is error-prone because your local declaration overrides the global declaration. While it is technically possible to use the same names, it causes confusion for others needing to read and maintain this code. Additionally, you will need to be very careful to use the prefix <code>standard</code> in front of any reference that needs to use Oracle’s default exception behavior.</p>
+<p>This is error-prone because your local declaration overrides the global declaration. While it is technically possible to use the same names, it causes confusion for others needing to read and maintain this code. Additionally, you will need to be very careful to use the prefix <code>standard</code> in front of any reference that needs to use the default exception behavior of the Oracle Database.</p>
 <h2 id="example-bad">Example (bad)</h2>
 <p>Using the code below, we are not able to handle the <code>no_data_found</code> exception raised by the <code>select</code> statement as we have overwritten that exception handler. In addition, our exception handler doesn't have an exception number assigned, which should be raised when the <code>select</code> statement does not find any rows.</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>

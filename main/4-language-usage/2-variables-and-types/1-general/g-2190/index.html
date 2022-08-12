@@ -3442,7 +3442,7 @@
 <p>Portability, Reliability</p>
 </div>
 <h2 id="reason">Reason</h2>
-<p>Be careful about your use of Oracle-specific data types like <code>rowid</code> and <code>urowid</code>. They might offer a slight improvement in performance over other means of identifying a single row (primary key or unique index value), but that is by no means guaranteed. </p>
+<p>Be careful about your use of Oracle Database specific data types like <code>rowid</code> and <code>urowid</code>. They might offer a slight improvement in performance over other means of identifying a single row (primary key or unique index value), but that is by no means guaranteed. </p>
 <p>Use of <code>rowid</code> or <code>urowid</code> means that your SQL statement will not be portable to other SQL databases. Many developers are also not familiar with these data types, which can make the code harder to maintain. </p>
 <h2 id="example-bad">Example (bad)</h2>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
