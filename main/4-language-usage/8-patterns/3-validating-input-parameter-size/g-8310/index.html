@@ -3518,11 +3518,19 @@
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
-<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">...</span><span class="w"></span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">begin</span><span class="w"></span>
+<span class="w">   </span><span class="n">pre_processing</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="n">r_department</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">department_api</span><span class="p">.</span><span class="n">dept_by_name</span><span class="p">(</span><span class="s1">&#39;Far to long name of a department&#39;</span><span class="p">);</span><span class="w"></span>
-<span class="p">...</span><span class="w"></span>
+<span class="w">   </span><span class="n">post_processing</span><span class="p">;</span><span class="w"></span>
 <span class="k">exception</span><span class="w"></span>
-<span class="w">   </span><span class="k">when</span><span class="w"> </span><span class="n">value_error</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="p">...</span><span class="w"></span>
+<span class="w">   </span><span class="k">when</span><span class="w"> </span><span class="n">value_error</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
+<span class="w">      </span><span class="n">handle_error</span><span class="p">;</span><span class="w"></span>
+<span class="k">end</span><span class="p">;</span><span class="w"></span>
+<span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
 
               

@@ -3444,6 +3444,30 @@
 <h2 id="reason">Reason</h2>
 <p>A <code>natural join</code> joins tables on equally named columns. This may comfortably fit on first sight, but adding logging columns to a table (<code>changed_by</code>, <code>changed_date</code>) will result in inappropriate join conditions. </p>
 <h2 id="example-bad">Example (bad)</h2>
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">department_name</span><span class="w"></span>
+<span class="w">      </span><span class="p">,</span><span class="n">last_name</span><span class="w"></span>
+<span class="w">      </span><span class="p">,</span><span class="n">first_name</span><span class="w"></span>
+<span class="w">  </span><span class="k">from</span><span class="w"> </span><span class="n">employees</span><span class="w"></span>
+<span class="k">natural</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">departments</span><span class="w"></span>
+<span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">department_name</span><span class="w"></span>
+<span class="w">      </span><span class="p">,</span><span class="n">last_name</span><span class="p">;</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code>DEPARTMENT_NAME                LAST_NAME                 FIRST_NAME         
+------------------------------ ------------------------- --------------------
+Accounting                     Gietz                     William             
+Executive                      De Haan                   Lex                 
+...
+</code></pre></div></td></tr></table></div>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -3453,72 +3477,46 @@
 <span class="normal"> 7</span>
 <span class="normal"> 8</span>
 <span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">department_name</span><span class="w"> </span>
-<span class="w">      </span><span class="p">,</span><span class="n">last_name</span><span class="w"> </span>
-<span class="w">      </span><span class="p">,</span><span class="n">first_name</span><span class="w"> </span>
-<span class="w">  </span><span class="k">from</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="k">natural</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">departments</span><span class="w"></span>
-<span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">department_name</span><span class="w"> </span>
-<span class="w">         </span><span class="p">,</span><span class="n">last_name</span><span class="p">;</span><span class="w"></span>
-
-<span class="n">DEPARTMENT_NAME</span><span class="w">                </span><span class="n">LAST_NAME</span><span class="w">                 </span><span class="n">FIRST_NAME</span><span class="w">         </span>
-<span class="c1">------------------------------ ------------------------- --------------------</span>
-<span class="n">Accounting</span><span class="w">                     </span><span class="n">Gietz</span><span class="w">                     </span><span class="n">William</span><span class="w">             </span>
-<span class="n">Executive</span><span class="w">                      </span><span class="n">De</span><span class="w"> </span><span class="n">Haan</span><span class="w">                   </span><span class="n">Lex</span><span class="w">                 </span>
-<span class="p">...</span><span class="w"></span>
-
-<span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">departments</span><span class="w"> </span><span class="k">add</span><span class="w"> </span><span class="n">modified_at</span><span class="w"> </span><span class="nb">date</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="n">sysdate</span><span class="p">;</span><span class="w"></span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">departments</span><span class="w"> </span><span class="k">add</span><span class="w"> </span><span class="n">modified_at</span><span class="w"> </span><span class="nb">date</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="n">sysdate</span><span class="p">;</span><span class="w"></span>
 <span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="k">add</span><span class="w"> </span><span class="n">modified_at</span><span class="w"> </span><span class="nb">date</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="n">sysdate</span><span class="p">;</span><span class="w"></span>
 
-<span class="k">select</span><span class="w"> </span><span class="n">department_name</span><span class="w"> </span>
-<span class="w">      </span><span class="p">,</span><span class="n">last_name</span><span class="w"> </span>
-<span class="w">      </span><span class="p">,</span><span class="n">first_name</span><span class="w"> </span>
-<span class="w">  </span><span class="k">from</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="k">natural</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">departments</span><span class="w"></span>
-<span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">department_name</span><span class="w"> </span>
-<span class="w">         </span><span class="p">,</span><span class="n">last_name</span><span class="p">;</span><span class="w"></span>
-
-<span class="k">No</span><span class="w"> </span><span class="k">data</span><span class="w"> </span><span class="k">found</span><span class="w"></span>
+<span class="k">select</span><span class="w"> </span><span class="n">department_name</span><span class="w"></span>
+<span class="w">      </span><span class="p">,</span><span class="n">last_name</span><span class="w"></span>
+<span class="w">      </span><span class="p">,</span><span class="n">first_name</span><span class="w"></span>
+<span class="w">  </span><span class="k">from</span><span class="w"> </span><span class="n">employees</span><span class="w"></span>
+<span class="k">natural</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">departments</span><span class="w"></span>
+<span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">department_name</span><span class="w"></span>
+<span class="w">      </span><span class="p">,</span><span class="n">last_name</span><span class="p">;</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>No data found
+</code></pre></div></td></tr></table></div></p>
 <h2 id="example-good">Example (good)</h2>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">department_name</span><span class="w"> </span>
-<span class="w">      </span><span class="p">,</span><span class="n">e</span><span class="p">.</span><span class="n">last_name</span><span class="w"> </span>
-<span class="w">      </span><span class="p">,</span><span class="n">e</span><span class="p">.</span><span class="n">first_name</span><span class="w"> </span>
-<span class="w">  </span><span class="k">from</span><span class="w"> </span><span class="n">employees</span><span class="w">   </span><span class="n">e</span><span class="w"></span>
-<span class="w">  </span><span class="k">join</span><span class="w"> </span><span class="n">departments</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">department_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">department_id</span><span class="p">)</span><span class="w"></span>
-<span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">department_name</span><span class="w"> </span>
-<span class="w">         </span><span class="p">,</span><span class="n">e</span><span class="p">.</span><span class="n">last_name</span><span class="p">;</span><span class="w"></span>
-
-<span class="n">DEPARTMENT_NAME</span><span class="w">                </span><span class="n">LAST_NAME</span><span class="w">                 </span><span class="n">FIRST_NAME</span><span class="w">         </span>
-<span class="c1">------------------------------ ------------------------- --------------------</span>
-<span class="n">Accounting</span><span class="w">                     </span><span class="n">Gietz</span><span class="w">                     </span><span class="n">William</span><span class="w">             </span>
-<span class="n">Executive</span><span class="w">                      </span><span class="n">De</span><span class="w"> </span><span class="n">Haan</span><span class="w">                   </span><span class="n">Lex</span><span class="w">                 </span>
-<span class="p">...</span><span class="w"></span>
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">department_name</span><span class="w"></span>
+<span class="w">      </span><span class="p">,</span><span class="n">e</span><span class="p">.</span><span class="n">last_name</span><span class="w"></span>
+<span class="w">      </span><span class="p">,</span><span class="n">e</span><span class="p">.</span><span class="n">first_name</span><span class="w"></span>
+<span class="w">  </span><span class="k">from</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="n">e</span><span class="w"></span>
+<span class="w">  </span><span class="k">join</span><span class="w"> </span><span class="n">departments</span><span class="w"> </span><span class="n">d</span><span class="w"></span>
+<span class="w">    </span><span class="k">on</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">department_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">department_id</span><span class="p">)</span><span class="w"></span>
+<span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">department_name</span><span class="w"></span>
+<span class="w">      </span><span class="p">,</span><span class="n">e</span><span class="p">.</span><span class="n">last_name</span><span class="p">;</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code>DEPARTMENT_NAME                LAST_NAME                 FIRST_NAME         
+------------------------------ ------------------------- --------------------
+Accounting                     Gietz                     William             
+Executive                      De Haan                   Lex                 
+...
+</code></pre></div></td></tr></table></div></p>
 
               
             </article>
