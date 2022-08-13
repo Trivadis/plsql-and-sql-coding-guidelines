@@ -7,7 +7,6 @@ function create_target_dir(){
 
 function copy_resources() {
     cp ${DATA_DIR}/mkdocs.yml ${TARGET_DIR}/mkdocs.yml
-    cp -r ${DATA_DIR}/custom-theme ${TARGET_DIR}/custom-theme
     cp -r ${DATA_DIR}/docs/images ${TARGET_DIR}/docs
     cp -r ${DATA_DIR}/docs/stylesheets ${TARGET_DIR}/docs/stylesheets
 }
