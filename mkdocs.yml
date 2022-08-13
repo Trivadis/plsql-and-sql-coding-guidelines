@@ -10,7 +10,6 @@ theme:
   icon:
     repo: fontawesome/brands/github-alt
   name: 'material'
-  custom_dir: custom-theme
   features:
     - navigation.instant
   favicon: images/favicon.ico
