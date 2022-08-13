@@ -11,6 +11,8 @@ theme:
     repo: fontawesome/brands/github-alt
   name: 'material'
   custom_dir: custom-theme
+  features:
+    - navigation.instant
   favicon: images/favicon.ico
   palette:
     primary: 'white'
@@ -18,7 +20,6 @@ theme:
 
 extra_css:
   - 'stylesheets/extra.css'
-  - 'css/version-select.css'
 extra_javascript:
   - 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'
   - 'js/version-select.js'
@@ -39,6 +40,8 @@ extra:
       link: https://github.com/Trivadis
     - icon: fontawesome/brands/twitter
       link: https://twitter.com/trivadis
+  version:
+    provider: mike
 
 plugins:
   - search
