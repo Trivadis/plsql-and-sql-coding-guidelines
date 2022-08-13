@@ -17,7 +17,7 @@
 include "std.arbori"
 
 /**
- * Lightweight Formatter for SQL Developer and SQLcl, version 22.2.1-SNAPSHOT
+ * Lightweight Formatter for SQL Developer and SQLcl, version 22.2.1
  * The idea is to keep the code formatted "as is" and apply chosen formatting rules only.
  *
  * The Arbori program is processed from top to bottom.
