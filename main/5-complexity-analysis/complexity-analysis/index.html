@@ -3440,21 +3440,21 @@
 <h3 id="calculation">Calculation</h3>
 <p>First, we need to compute the following numbers, given the program:</p>
 <ul>
-<li><span class="arithmatex"><span class="MathJax_Preview">n_1</span><script type="math/tex">n_1</script></span> = the number of distinct operators</li>
-<li><span class="arithmatex"><span class="MathJax_Preview">n_2</span><script type="math/tex">n_2</script></span> = the number of distinct operands</li>
-<li><span class="arithmatex"><span class="MathJax_Preview">N_1</span><script type="math/tex">N_1</script></span> = the total number of operators</li>
-<li><span class="arithmatex"><span class="MathJax_Preview">N_2</span><script type="math/tex">N_2</script></span> = the total number of operands</li>
+<li><span class="arithmatex">\(n_1\)</span> = the number of distinct operators</li>
+<li><span class="arithmatex">\(n_2\)</span> = the number of distinct operands</li>
+<li><span class="arithmatex">\(N_1\)</span> = the total number of operators</li>
+<li><span class="arithmatex">\(N_2\)</span> = the total number of operands</li>
 </ul>
 <p>From these numbers, five measures can be calculated:</p>
 <ul>
-<li>Program length: <span class="arithmatex"><span class="MathJax_Preview">N = N_1 + N_2</span><script type="math/tex">N = N_1 + N_2</script></span></li>
-<li>Program vocabulary: <span class="arithmatex"><span class="MathJax_Preview">n = n_1 + n_2</span><script type="math/tex">n = n_1 + n_2</script></span></li>
-<li>Volume: <span class="arithmatex"><span class="MathJax_Preview">V = N \cdot log_2 n</span><script type="math/tex">V = N \cdot log_2 n</script></span></li>
-<li>Difficulty: <span class="arithmatex"><span class="MathJax_Preview">D = \frac{n_1}{2} \cdot \frac{N_2}{n_2}</span><script type="math/tex">D = \frac{n_1}{2} \cdot \frac{N_2}{n_2}</script></span></li>
-<li>Effort: <span class="arithmatex"><span class="MathJax_Preview">E = D \cdot V</span><script type="math/tex">E = D \cdot V</script></span></li>
+<li>Program length: <span class="arithmatex">\(N = N_1 + N_2\)</span></li>
+<li>Program vocabulary: <span class="arithmatex">\(n = n_1 + n_2\)</span></li>
+<li>Volume: <span class="arithmatex">\(V = N \cdot log_2 n\)</span></li>
+<li>Difficulty: <span class="arithmatex">\(D = \frac{n_1}{2} \cdot \frac{N_2}{n_2}\)</span></li>
+<li>Effort: <span class="arithmatex">\(E = D \cdot V\)</span></li>
 </ul>
-<p>The difficulty measure <span class="arithmatex"><span class="MathJax_Preview">D</span><script type="math/tex">D</script></span> is related to the difficulty of the program to write or understand, e.g. when doing code review.</p>
-<p>The volume measure <span class="arithmatex"><span class="MathJax_Preview">V</span><script type="math/tex">V</script></span> describes the size of the implementation of an algorithm.</p>
+<p>The difficulty measure <span class="arithmatex">\(D\)</span> is related to the difficulty of the program to write or understand, e.g. when doing code review.</p>
+<p>The volume measure <span class="arithmatex">\(V\)</span> describes the size of the implementation of an algorithm.</p>
 <h2 id="mccabes-cyclomatic-complexity">McCabe's Cyclomatic Complexity</h2>
 <h3 id="description">Description</h3>
 <p>Cyclomatic complexity (or conditional complexity) is a software metric used to measure the complexity of a program. It directly measures the number of linearly independent paths through a program's source code. </p>
@@ -3462,20 +3462,17 @@
 <p>The cyclomatic complexity of a section of source code is the count of the number of linearly independent paths through the source code. For instance, if the source code contains no decision points, such as <code>if</code> statements or <code>for</code> loops, the complexity would be 1, since there is only a single path through the code. If the code has a single <code>if</code> statement containing a single condition there would be two paths through the code, one path where the <code>if</code> statement is evaluated as <code>true</code> and one path where the <code>if</code> statement is evaluated as <code>false</code>.</p>
 <h3 id="calculation_1">Calculation</h3>
 <p>Mathematically, the cyclomatic complexity of a structured program is defined with reference to a directed graph containing the basic blocks of the program, with an edge between two basic blocks if control may pass from the first to the second (the control flow graph of the program). The complexity is then defined as: </p>
-<div class="arithmatex">
-<div class="MathJax_Preview">M = E - N + 2P</div>
-<script type="math/tex; mode=display">M = E - N + 2P</script>
-</div>
+<div class="arithmatex">\[M = E - N + 2P\]</div>
 <p>where</p>
 <ul>
-<li><span class="arithmatex"><span class="MathJax_Preview">M</span><script type="math/tex">M</script></span> = cyclomatic complexity</li>
-<li><span class="arithmatex"><span class="MathJax_Preview">E</span><script type="math/tex">E</script></span> = the number of edges of the graph</li>
-<li><span class="arithmatex"><span class="MathJax_Preview">N</span><script type="math/tex">N</script></span> = the number of nodes of the graph</li>
-<li><span class="arithmatex"><span class="MathJax_Preview">P</span><script type="math/tex">P</script></span> = the number of connected components.</li>
+<li><span class="arithmatex">\(M\)</span> = cyclomatic complexity</li>
+<li><span class="arithmatex">\(E\)</span> = the number of edges of the graph</li>
+<li><span class="arithmatex">\(N\)</span> = the number of nodes of the graph</li>
+<li><span class="arithmatex">\(P\)</span> = the number of connected components.</li>
 </ul>
 <p><br/></p>
 <p><img src="../images/control-flow-graph.png" style="padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px;" title="Control flow of a simple program" align="left" width="133px"/></p>
-<p>Take, for example, a control flow graph of a simple program. The program begins executing at the red node, then enters a loop (group of three nodes immediately below the red node). On exiting the loop, there is a conditional statement (group below the loop), and finally the program exits at the blue node. For this graph, <span class="arithmatex"><span class="MathJax_Preview">E = 9</span><script type="math/tex">E = 9</script></span>, <span class="arithmatex"><span class="MathJax_Preview">N = 8</span><script type="math/tex">N = 8</script></span> and <span class="arithmatex"><span class="MathJax_Preview">P = 1</span><script type="math/tex">P = 1</script></span>, so the cyclomatic complexity of the program is <span class="arithmatex"><span class="MathJax_Preview">3</span><script type="math/tex">3</script></span>.<br/><br/></p>
+<p>Take, for example, a control flow graph of a simple program. The program begins executing at the red node, then enters a loop (group of three nodes immediately below the red node). On exiting the loop, there is a conditional statement (group below the loop), and finally the program exits at the blue node. For this graph, <span class="arithmatex">\(E = 9\)</span>, <span class="arithmatex">\(N = 8\)</span> and <span class="arithmatex">\(P = 1\)</span>, so the cyclomatic complexity of the program is <span class="arithmatex">\(3\)</span>.<br/><br/></p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -3505,14 +3502,11 @@
 <p>For a single program (or subroutine or method), P is always equal to 1. Cyclomatic complexity may, however, be applied to several such programs or subprograms at the same time (e.g., to all of the methods in a class), and in these cases P will be equal to the number of programs in question, as each subprogram will appear as a disconnected subset of the graph.</p>
 <p>It can be shown that the cyclomatic complexity of any structured program with only one entrance point and one exit point is equal to the number of decision points (i.e., <code>if</code> statements or conditional loops) contained in that program plus one.</p>
 <p>Cyclomatic complexity may be extended to a program with multiple exit points; in this case it is equal to: </p>
-<div class="arithmatex">
-<div class="MathJax_Preview">\pi = s + 2</div>
-<script type="math/tex; mode=display">\pi = s + 2</script>
-</div>
+<div class="arithmatex">\[\pi = s + 2\]</div>
 <p>Where </p>
 <ul>
-<li><span class="arithmatex"><span class="MathJax_Preview">\pi</span><script type="math/tex">\pi</script></span> is the number of decision points in the program, and </li>
-<li><span class="arithmatex"><span class="MathJax_Preview">s</span><script type="math/tex">s</script></span> is the number of exit points.</li>
+<li><span class="arithmatex">\(\pi\)</span> is the number of decision points in the program, and </li>
+<li><span class="arithmatex">\(s\)</span> is the number of exit points.</li>
 </ul>
 
               
@@ -3608,9 +3602,11 @@
     
       <script src="../../assets/javascripts/bundle.6c7ad80a.min.js"></script>
       
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+        <script src="../../javascripts/mathjax.js"></script>
       
-        <script src="../../js/version-select.js"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>
