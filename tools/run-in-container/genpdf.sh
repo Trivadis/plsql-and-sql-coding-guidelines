@@ -8,6 +8,7 @@ function create_target_dir(){
 function copy_resources() {
     cp ${DATA_DIR}/mkdocs.yml ${TARGET_DIR}/mkdocs.yml
     cp -r ${DATA_DIR}/docs/images ${TARGET_DIR}/docs
+    cp -r ${DATA_DIR}/docs/javascripts ${TARGET_DIR}/docs/javascripts
     cp -r ${DATA_DIR}/docs/stylesheets ${TARGET_DIR}/docs/stylesheets
 }
 
@@ -19,7 +20,12 @@ function copy_resources() {
 # with some nice features for the HTML version.
 function fix_mkdocs_yml() {
     mv ${TARGET_DIR}/mkdocs.yml ${TARGET_DIR}/mkdocs.ori.yml
-    sed -e 's/linenums_style: table/linenums_style: pymdownx-inline/g' ${TARGET_DIR}/mkdocs.ori.yml > ${TARGET_DIR}/mkdocs.yml
+    sed -e 's/linenums_style: table/linenums_style: pymdownx-inline/g' ${TARGET_DIR}/mkdocs.ori.yml | \
+        sed -e 's|javascripts/mathjax.js|https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML|g' | \
+        sed -e 's|  - https://polyfill.io/v3/polyfill.min.js?features=es6||g' | \
+        sed -e 's|  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js||g' | \
+        sed -e 's/pymdownx.arithmatex:/pymdownx.arithmatex/g' | \
+        sed -e 's/      generic: true//g' > ${TARGET_DIR}/mkdocs.yml
 }
 
 function create_cover() {
