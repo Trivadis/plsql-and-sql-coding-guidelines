@@ -18,9 +18,12 @@ theme:
     accent: 'red'
 
 extra_css:
-  - 'stylesheets/extra.css'
+  - stylesheets/extra.css
 extra_javascript:
-  - 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'
+  - javascripts/mathjax.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
 markdown_extensions:
   - admonition
   - pymdownx.highlight:
@@ -28,7 +31,8 @@ markdown_extensions:
       linenums_style: table
   - pymdownx.superfences
   - pymdownx.inlinehilite
-  - pymdownx.arithmatex
+  - pymdownx.arithmatex:
+      generic: true
   - footnotes
 
 extra:
