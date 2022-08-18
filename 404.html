@@ -4,13 +4,8 @@
 <head>
   <title>Redirecting</title>
   <script>
-    if (location.href.indexOf("/v") == -1 && location.href.indexOf("/main/") == -1) {
-      // old link without version in URL
-      window.location.replace(window.location.href.replace("https://trivadis.github.io/plsql-and-sql-coding-guidelines", "https://trivadis.github.io/plsql-and-sql-coding-guidelines/v3.6"));
-    } else {
-      // redirect to index.html (there is the default version configured, leading to an additional redirect)
-      window.location.replace("index.html")
-    }
+    // redirect to 404 of current development version to avoid reload loop
+    window.location.replace("https://trivadis.github.io/plsql-and-sql-coding-guidelines/main/404.html")
   </script>
 </head>
 
