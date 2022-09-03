@@ -19,7 +19,7 @@ Rule | Description
 ### Example
 
 ``` sql
-procedure set_salary(in_employee_id in employees.employee_id%type) is
+create or replace procedure set_salary(in_employee_id in employees.employee_id%type) is
    cursor c_employees(p_employee_id in employees.employee_id%type) is
       select last_name
             ,first_name
