@@ -42,11 +42,6 @@
     word-break: keep-all;
 }
 
-.md-typeset a {
-    color:  #ff1744;
-    word-break: break-word;
-}
-
 .md-nav--primary .md-nav__item--active>.md-nav__link {
     color: #ff1744;
 }
