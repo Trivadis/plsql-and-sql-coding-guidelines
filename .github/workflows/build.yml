@@ -16,11 +16,11 @@ jobs:
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - name: download db* CODECOP
-          run: |
-            export COP_VERSION=4.3.0
-            wget https://github.com/Trivadis/plsql-cop-cli/releases/download/v$COP_VERSION/tvdcc-$COP_VERSION.zip
-            unzip tvdcc-$COP_VERSION.zip -d .
-            tvdcc-$COP_VERSION/tvdcc.sh path=doc skip=none
+        run: |
+          export COP_VERSION=4.3.0
+          wget https://github.com/Trivadis/plsql-cop-cli/releases/download/v$COP_VERSION/tvdcc-$COP_VERSION.zip
+          unzip tvdcc-$COP_VERSION.zip -d .
+          tvdcc-$COP_VERSION/tvdcc.sh path=doc skip=none
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
