@@ -3409,7 +3409,9 @@
 <span class="normal">11</span>
 <span class="normal">12</span>
 <span class="normal">13</span>
-<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">begin</span><span class="w"></span>
+<span class="normal">14</span>
+<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">begin</span><span class="w"></span>
+<span class="w">   </span><span class="o">&lt;&lt;</span><span class="n">create_headers</span><span class="o">&gt;&gt;</span><span class="w"></span>
 <span class="w">   </span><span class="k">for</span><span class="w"> </span><span class="n">l_counter</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">1</span><span class="p">..</span><span class="mi">5</span><span class="w"></span>
 <span class="w">   </span><span class="n">loop</span><span class="w"></span>
 <span class="w">      </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">headers</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="nb">text</span><span class="p">)</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="n">l_counter</span><span class="p">,</span><span class="s1">&#39;Number &#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">l_counter</span><span class="p">);</span><span class="w"></span>
@@ -3420,7 +3422,7 @@
 <span class="w">     </span><span class="k">connect</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="k">level</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"></span>
 
 <span class="w">      </span><span class="k">commit</span><span class="p">;</span><span class="w"></span>
-<span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">loop</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">loop</span><span class="w"> </span><span class="n">create_headers</span><span class="p">;</span><span class="w"></span>
 <span class="k">end</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
@@ -3445,25 +3447,27 @@
 <span class="normal">18</span>
 <span class="normal">19</span>
 <span class="normal">20</span>
-<span class="normal">21</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">declare</span><span class="w"></span>
+<span class="normal">21</span>
+<span class="normal">22</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">declare</span><span class="w"></span>
 <span class="w">   </span><span class="k">procedure</span><span class="w"> </span><span class="n">create_rows</span><span class="p">(</span><span class="w"></span>
-<span class="w">      </span><span class="n">p_header_id</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">headers</span><span class="p">.</span><span class="n">id</span><span class="o">%</span><span class="k">type</span><span class="w"></span>
+<span class="w">      </span><span class="n">in_header_id</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">headers</span><span class="p">.</span><span class="n">id</span><span class="o">%</span><span class="k">type</span><span class="w"></span>
 <span class="w">   </span><span class="p">)</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
 <span class="w">   </span><span class="k">begin</span><span class="w"></span>
-<span class="w">      </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">headers</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="nb">text</span><span class="p">)</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="n">p_header_id</span><span class="p">,</span><span class="s1">&#39;Number &#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">p_header_id</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">headers</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="nb">text</span><span class="p">)</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="n">in_header_id</span><span class="p">,</span><span class="s1">&#39;Number &#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">in_header_id</span><span class="p">);</span><span class="w"></span>
 
 <span class="w">      </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">lines</span><span class="w"> </span><span class="p">(</span><span class="n">header_id</span><span class="p">,</span><span class="n">line_no</span><span class="p">,</span><span class="nb">text</span><span class="p">)</span><span class="w"></span>
-<span class="w">      </span><span class="k">select</span><span class="w"> </span><span class="n">p_header_id</span><span class="p">,</span><span class="n">rownum</span><span class="p">,</span><span class="s1">&#39;Line &#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">rownum</span><span class="w"></span>
+<span class="w">      </span><span class="k">select</span><span class="w"> </span><span class="n">in_header_id</span><span class="p">,</span><span class="n">rownum</span><span class="p">,</span><span class="s1">&#39;Line &#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">rownum</span><span class="w"></span>
 <span class="w">        </span><span class="k">from</span><span class="w"> </span><span class="n">dual</span><span class="w"></span>
 <span class="w">     </span><span class="k">connect</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="k">level</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"></span>
 
 <span class="w">      </span><span class="k">commit</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">end</span><span class="p">;</span><span class="w"></span>
 <span class="k">begin</span><span class="w"></span>
+<span class="w">   </span><span class="o">&lt;&lt;</span><span class="n">create_headers</span><span class="o">&gt;&gt;</span><span class="w"></span>
 <span class="w">   </span><span class="k">for</span><span class="w"> </span><span class="n">l_counter</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">1</span><span class="p">..</span><span class="mi">5</span><span class="w"></span>
 <span class="w">   </span><span class="n">loop</span><span class="w"></span>
 <span class="w">      </span><span class="n">create_rows</span><span class="p">(</span><span class="n">l_counter</span><span class="p">);</span><span class="w"></span>
-<span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">loop</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">loop</span><span class="w"> </span><span class="n">create_headers</span><span class="p">;</span><span class="w"></span>
 <span class="k">end</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>

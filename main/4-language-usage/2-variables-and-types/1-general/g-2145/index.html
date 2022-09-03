@@ -3403,12 +3403,14 @@
 <span class="normal">5</span>
 <span class="normal">6</span>
 <span class="normal">7</span>
-<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">declare</span><span class="w"></span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">declare</span><span class="w"></span>
 <span class="w">   </span><span class="n">l_function_result</span><span class="w"> </span><span class="n">pls_integer</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="n">l_parallel_degree</span><span class="w"> </span><span class="n">pls_integer</span><span class="p">;</span><span class="w"></span>
 <span class="k">begin</span><span class="w"></span>
 <span class="w">   </span><span class="n">l_function_result</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">maintenance</span><span class="p">.</span><span class="n">get_config</span><span class="p">(</span><span class="s1">&#39;parallel_degree&#39;</span><span class="p">);</span><span class="w"></span>
 <span class="w">   </span><span class="n">l_parallel_degree</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">l_parallel_degree</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="n">do_something</span><span class="p">(</span><span class="n">l_parallel_degree</span><span class="p">);</span><span class="w"></span>
 <span class="k">end</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
@@ -3420,12 +3422,14 @@
 <span class="normal">5</span>
 <span class="normal">6</span>
 <span class="normal">7</span>
-<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">declare</span><span class="w"></span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">declare</span><span class="w"></span>
 <span class="w">   </span><span class="n">l_function_result</span><span class="w"> </span><span class="n">pls_integer</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="n">l_parallel_degree</span><span class="w"> </span><span class="n">pls_integer</span><span class="p">;</span><span class="w"></span>
 <span class="k">begin</span><span class="w"></span>
 <span class="w">   </span><span class="n">l_function_result</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">maintenance</span><span class="p">.</span><span class="n">get_config</span><span class="p">(</span><span class="s1">&#39;parallel_degree&#39;</span><span class="p">);</span><span class="w"></span>
 <span class="w">   </span><span class="n">l_parallel_degree</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">l_function_result</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="n">do_something</span><span class="p">(</span><span class="n">l_parallel_degree</span><span class="p">);</span><span class="w"></span>
 <span class="k">end</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>

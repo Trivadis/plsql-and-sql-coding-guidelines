@@ -3469,7 +3469,7 @@ ORA-06512: at line 5
 <span class="normal">21</span>
 <span class="normal">22</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">declare</span><span class="w"></span>
 <span class="w">   </span><span class="n">l_dummy</span><span class="w">          </span><span class="n">dual</span><span class="p">.</span><span class="n">dummy</span><span class="o">%</span><span class="k">type</span><span class="p">;</span><span class="w"></span>
-<span class="w">   </span><span class="n">empty_value</span><span class="w">      </span><span class="k">exception</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="n">e_empty_value</span><span class="w">    </span><span class="k">exception</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="n">co_rownum</span><span class="w">        </span><span class="n">constant</span><span class="w"> </span><span class="n">simple_integer</span><span class="w">           </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="n">co_empty_value</span><span class="w">   </span><span class="n">constant</span><span class="w"> </span><span class="n">types_up</span><span class="p">.</span><span class="n">short_text_type</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;empty_value&#39;</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="n">co_no_data_found</span><span class="w"> </span><span class="n">constant</span><span class="w"> </span><span class="n">types_up</span><span class="p">.</span><span class="n">short_text_type</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;no_data_found&#39;</span><span class="p">;</span><span class="w"></span>
@@ -3480,10 +3480,10 @@ ORA-06512: at line 5
 <span class="w">    </span><span class="k">where</span><span class="w"> </span><span class="n">rownum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">co_rownum</span><span class="p">;</span><span class="w"></span>
 
 <span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="n">l_dummy</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
-<span class="w">      </span><span class="n">raise</span><span class="w"> </span><span class="n">empty_value</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="n">raise</span><span class="w"> </span><span class="n">e_empty_value</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span><span class="w"></span>
 <span class="k">exception</span><span class="w"></span>
-<span class="w">   </span><span class="k">when</span><span class="w"> </span><span class="n">empty_value</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
+<span class="w">   </span><span class="k">when</span><span class="w"> </span><span class="n">e_empty_value</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
 <span class="w">      </span><span class="n">sys</span><span class="p">.</span><span class="n">dbms_output</span><span class="p">.</span><span class="n">put_line</span><span class="p">(</span><span class="n">co_empty_value</span><span class="p">);</span><span class="w"></span>
 <span class="w">   </span><span class="k">when</span><span class="w"> </span><span class="n">no_data_found</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
 <span class="w">      </span><span class="n">sys</span><span class="p">.</span><span class="n">dbms_output</span><span class="p">.</span><span class="n">put_line</span><span class="p">(</span><span class="n">co_no_data_found</span><span class="p">);</span><span class="w"></span>
