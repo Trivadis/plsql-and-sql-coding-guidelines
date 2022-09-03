@@ -58,14 +58,14 @@ Take, for example, a control flow graph of a simple program. The program begins 
 begin
    for i in 1..3
    loop
-      dbms_output.put_line('in loop');
+      sys.dbms_output.put_line('in loop');
    end loop;
    --
    if 1 = 1 then
-      dbms_output.put_line('yes');
+      sys.dbms_output.put_line('yes');
    end if;
    --
-   dbms_output.put_line('end');
+   sys.dbms_output.put_line('end');
 end;
 /
 ```
