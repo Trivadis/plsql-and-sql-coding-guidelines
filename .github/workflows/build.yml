@@ -9,6 +9,7 @@ on:
     types: [opened, synchronize, reopened]
 jobs:
   sonarcloud:
+    if: github.repository == 'Trivadis/plsql-and-sql-coding-guidelines'
     name: SonarCloud
     runs-on: ubuntu-latest
     steps:
