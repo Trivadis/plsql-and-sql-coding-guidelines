@@ -31,6 +31,10 @@ The PDF version is also accessible per version from [Releases](https://github.co
 
 You find all releases and release information [here](https://github.com/trivadis/plsql-and-sql-coding-guidelines/releases).
 
+## SonarCloud
+
+The SQL code blocks in the Markdown files of this repository are automatically checked with db* CODECOP. The result is stored in [SonarCloud](https://sonarcloud.io/summary/new_code?id=Trivadis-plsql-and-sql-coding-guidelines). The idea is to follow our own guidelines, at least in the good examples.
+
 ## Issues
 Please file your bug reports, enhancement requests, questions and other support requests within [Github's issue tracker](https://help.github.com/articles/about-issues/).
 
