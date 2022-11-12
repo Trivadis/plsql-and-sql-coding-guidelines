@@ -35,21 +35,6 @@ You find all releases and release information [here](https://github.com/trivadis
 
 The SQL code blocks in the Markdown files of this repository are automatically checked with db* CODECOP. The result is stored in [SonarCloud](https://sonarcloud.io/summary/new_code?id=Trivadis-plsql-and-sql-coding-guidelines). The idea is to follow our own guidelines, at least in the good examples.
 
-## Issues
-Please file your bug reports, enhancement requests, questions and other support requests within [Github's issue tracker](https://help.github.com/articles/about-issues/).
-
-* [Questions](https://github.com/trivadis/plsql-and-sql-coding-guidelines/issues?q=is%3Aissue+label%3Aquestion)
-* [Open enhancements](https://github.com/trivadis/plsql-and-sql-coding-guidelines/issues?q=is%3Aopen+is%3Aissue+label%3Aenhancement)
-* [Open bugs](https://github.com/trivadis/plsql-and-sql-coding-guidelines/issues?q=is%3Aopen+is%3Aissue+label%3Abug)
-* [Submit new issue](https://github.com/trivadis/plsql-and-sql-coding-guidelines/issues/new)
-
-## How to Contribute
-
-1. Describe your idea by [submitting an issue](https://github.com/trivadis/plsql-and-sql-coding-guidelines/issues/new)
-2. [Fork this respository](https://github.com/trivadis/plsql-and-sql-coding-guidelines/fork)
-3. [Create a branch](https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/), commit and publish your changes and enhancements
-4. [Create a pull request](https://help.github.com/articles/creating-a-pull-request/)
-
 ## How to Build the HTML Site
 
 1. Install Docker in your environment
