@@ -10,7 +10,7 @@ LABEL build.multiarch.command="docker buildx build --platform linux/amd64,linux/
 
 # To build a single-architecture image and load it into local docker images list (not possible for multi-architecture images)
 LABEL build.amd64.command="docker buildx build --platform linux/amd64 . --tag trivadis/mktools:latest --load"
-LABEL build.arm64.command="docker buildx build --platform linux/ard64 . --tag trivadis/mktools:latest --load"
+LABEL build.arm64.command="docker buildx build --platform linux/arm64 . --tag trivadis/mktools:latest --load"
 
 # install python
 RUN dnf -y update
