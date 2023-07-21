@@ -55,17 +55,23 @@ where
 Take, for example, a control flow graph of a simple program. The program begins executing at the red node, then enters a loop (group of three nodes immediately below the red node). On exiting the loop, there is a conditional statement (group below the loop), and finally the program exits at the blue node. For this graph, $E = 9$, $N = 8$ and $P = 1$, so the cyclomatic complexity of the program is $3$.<br/><br/>
 
 ``` sql
+declare
+   co_upper_bound constant integer                       := 3;
+   co_msg         constant user_objects.object_name%type := 'in loop ';
+   co_yes         constant user_objects.object_name%type := 'yes';
+   co_end         constant user_objects.object_name%type := 'end';
 begin
-   for i in 1..3
+   <<print_in_loop>>
+   for i in 1..co_upper_bound
    loop
-      sys.dbms_output.put_line('in loop');
-   end loop;
+      sys.dbms_output.put_line(co_msg || i);
+   end loop print_in_loop;
    --
    if 1 = 1 then
-      sys.dbms_output.put_line('yes');
+      sys.dbms_output.put_line(co_yes);
    end if;
    --
-   sys.dbms_output.put_line('end');
+   sys.dbms_output.put_line(co_end);
 end;
 /
 ```
