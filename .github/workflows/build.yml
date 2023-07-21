@@ -24,7 +24,7 @@ jobs:
           unzip tvdcc-$COP.zip -d .
           wget -P tvdcc-$COP/plugin/ https://github.com/Trivadis/plsql-cop-validators/releases/download/v$VALIDATOR/sonar-plsql-cop-custom-validators-plugin-$VALIDATOR.jar
           echo $TVDCC_LIC | base64 -d > tvdcc-$COP/tvdcc.lic
-          tvdcc-$COP/tvdcc.sh path=docs skip=none html=false excel=false validator=com.trivadis.tvdcc.validators.TrivadisGuidelines3Plus
+          tvdcc-$COP/tvdcc.sh path=docs skip=0 html=false excel=false validator=com.trivadis.tvdcc.validators.TrivadisGuidelines3Plus
         env:
           TVDCC_LIC: ${{ secrets.TVDCC_LIC }}
       - name: SonarCloud Scan
