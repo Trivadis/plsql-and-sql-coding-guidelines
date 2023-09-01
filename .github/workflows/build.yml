@@ -18,13 +18,13 @@ jobs:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - name: db* CODECOP Issues
         run: |
-          export COP=4.3.0
-          export VALIDATOR=4.3.0
+          export COP=4.3.1
+          export VALIDATOR=4.3.1
           wget https://github.com/Trivadis/plsql-cop-cli/releases/download/v$COP/tvdcc-$COP.zip
           unzip tvdcc-$COP.zip -d .
           wget -P tvdcc-$COP/plugin/ https://github.com/Trivadis/plsql-cop-validators/releases/download/v$VALIDATOR/sonar-plsql-cop-custom-validators-plugin-$VALIDATOR.jar
           echo $TVDCC_LIC | base64 -d > tvdcc-$COP/tvdcc.lic
-          tvdcc-$COP/tvdcc.sh path=docs skip=none html=false excel=false validator=com.trivadis.tvdcc.validators.TrivadisGuidelines3Plus
+          tvdcc-$COP/tvdcc.sh path=docs skip=0 html=false excel=false validator=com.trivadis.tvdcc.validators.TrivadisGuidelines3Plus
         env:
           TVDCC_LIC: ${{ secrets.TVDCC_LIC }}
       - name: SonarCloud Scan
