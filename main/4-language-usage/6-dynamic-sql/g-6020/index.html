@@ -1922,7 +1922,7 @@
   
     <li class="md-nav__item">
       <a href="../../5-exception-handling/g-5050/" class="md-nav__link">
-        G-5050: Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded  20nnn error number or hard-coded message.
+        G-5050: Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded 20nnn error number or hard-coded message.
       </a>
     </li>
   
@@ -3423,18 +3423,26 @@
 <span class="normal">12</span>
 <span class="normal">13</span>
 <span class="normal">14</span>
-<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="n">employee_api</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
-<span class="w">   </span><span class="k">procedure</span><span class="w"> </span><span class="n">upd_salary</span><span class="p">(</span><span class="n">in_employee_id</span><span class="w">  </span><span class="k">in</span><span class="w">  </span><span class="n">employees</span><span class="p">.</span><span class="n">employee_id</span><span class="o">%</span><span class="k">type</span><span class="w"></span>
-<span class="w">                       </span><span class="p">,</span><span class="n">in_increase_pct</span><span class="w"> </span><span class="k">in</span><span class="w">  </span><span class="n">types_up</span><span class="p">.</span><span class="n">percentage</span><span class="w"></span>
-<span class="w">                       </span><span class="p">,</span><span class="n">out_new_salary</span><span class="w">  </span><span class="k">out</span><span class="w"> </span><span class="n">employees</span><span class="p">.</span><span class="n">salary</span><span class="o">%</span><span class="k">type</span><span class="p">)</span><span class="w"></span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="n">employee_api</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
+<span class="w">   </span><span class="k">procedure</span><span class="w"> </span><span class="n">upd_salary</span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="n">in_employee_id</span><span class="w">  </span><span class="k">in</span><span class="w">  </span><span class="n">employees</span><span class="p">.</span><span class="n">employee_id</span><span class="o">%</span><span class="k">type</span><span class="w"></span>
+<span class="w">     </span><span class="p">,</span><span class="n">in_increase_pct</span><span class="w"> </span><span class="k">in</span><span class="w">  </span><span class="n">types_up</span><span class="p">.</span><span class="n">percentage</span><span class="w"></span>
+<span class="w">     </span><span class="p">,</span><span class="n">out_new_salary</span><span class="w">  </span><span class="k">out</span><span class="w"> </span><span class="n">employees</span><span class="p">.</span><span class="n">salary</span><span class="o">%</span><span class="k">type</span><span class="w"></span>
+<span class="w">   </span><span class="p">)</span><span class="w"></span>
 <span class="w">   </span><span class="k">is</span><span class="w"></span>
-<span class="w">      </span><span class="n">co_sql_stmt</span><span class="w"> </span><span class="n">constant</span><span class="w"> </span><span class="n">types_up</span><span class="p">.</span><span class="n">big_string_type</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;</span>
+<span class="w">      </span><span class="n">co_employee_id</span><span class="w">  </span><span class="n">constant</span><span class="w"> </span><span class="n">employees</span><span class="p">.</span><span class="n">employee_id</span><span class="o">%</span><span class="k">type</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">in_employee_id</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="n">co_increase_pct</span><span class="w"> </span><span class="n">constant</span><span class="w"> </span><span class="n">types_up</span><span class="p">.</span><span class="n">percentage</span><span class="w">        </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">in_increase_pct</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="n">co_sql_stmt</span><span class="w">     </span><span class="n">constant</span><span class="w"> </span><span class="n">types_up</span><span class="p">.</span><span class="n">big_string_type</span><span class="w">   </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;</span>
 <span class="s1">           update employees set salary = salary + (salary / 100 * :1) </span>
 <span class="s1">            where employee_id = :2</span>
 <span class="s1">        returning salary into :3&#39;</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">begin</span><span class="w"></span>
 <span class="w">      </span><span class="k">execute</span><span class="w"> </span><span class="k">immediate</span><span class="w"> </span><span class="n">co_sql_stmt</span><span class="w"></span>
-<span class="w">         </span><span class="k">using</span><span class="w"> </span><span class="n">in_increase_pct</span><span class="p">,</span><span class="n">in_employee_id</span><span class="p">,</span><span class="k">out</span><span class="w"> </span><span class="n">out_new_salary</span><span class="p">;</span><span class="w"></span>
+<span class="w">         </span><span class="k">using</span><span class="w"> </span><span class="n">co_increase_pct</span><span class="p">,</span><span class="n">co_employee_id</span><span class="p">,</span><span class="k">out</span><span class="w"> </span><span class="n">out_new_salary</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">upd_salary</span><span class="p">;</span><span class="w"></span>
 <span class="k">end</span><span class="w"> </span><span class="n">employee_api</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
@@ -3455,18 +3463,26 @@
 <span class="normal">13</span>
 <span class="normal">14</span>
 <span class="normal">15</span>
-<span class="normal">16</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="n">employee_api</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
-<span class="w">   </span><span class="k">procedure</span><span class="w"> </span><span class="n">upd_salary</span><span class="p">(</span><span class="n">in_employee_id</span><span class="w">  </span><span class="k">in</span><span class="w">  </span><span class="n">employees</span><span class="p">.</span><span class="n">employee_id</span><span class="o">%</span><span class="k">type</span><span class="w"></span>
-<span class="w">                       </span><span class="p">,</span><span class="n">in_increase_pct</span><span class="w"> </span><span class="k">in</span><span class="w">  </span><span class="n">types_up</span><span class="p">.</span><span class="n">percentage</span><span class="w"></span>
-<span class="w">                       </span><span class="p">,</span><span class="n">out_new_salary</span><span class="w">  </span><span class="k">out</span><span class="w"> </span><span class="n">employees</span><span class="p">.</span><span class="n">salary</span><span class="o">%</span><span class="k">type</span><span class="p">)</span><span class="w"></span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="n">employee_api</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
+<span class="w">   </span><span class="k">procedure</span><span class="w"> </span><span class="n">upd_salary</span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="n">in_employee_id</span><span class="w">  </span><span class="k">in</span><span class="w">  </span><span class="n">employees</span><span class="p">.</span><span class="n">employee_id</span><span class="o">%</span><span class="k">type</span><span class="w"></span>
+<span class="w">     </span><span class="p">,</span><span class="n">in_increase_pct</span><span class="w"> </span><span class="k">in</span><span class="w">  </span><span class="n">types_up</span><span class="p">.</span><span class="n">percentage</span><span class="w"></span>
+<span class="w">     </span><span class="p">,</span><span class="n">out_new_salary</span><span class="w">  </span><span class="k">out</span><span class="w"> </span><span class="n">employees</span><span class="p">.</span><span class="n">salary</span><span class="o">%</span><span class="k">type</span><span class="w"></span>
+<span class="w">   </span><span class="p">)</span><span class="w"></span>
 <span class="w">   </span><span class="k">is</span><span class="w"></span>
-<span class="w">      </span><span class="n">co_sql_stmt</span><span class="w"> </span><span class="n">constant</span><span class="w"> </span><span class="n">types_up</span><span class="p">.</span><span class="n">big_string_type</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"></span>
-<span class="w">         </span><span class="s1">&#39;update employees set salary = salary + (salary / 100 * :1) </span>
+<span class="w">      </span><span class="n">co_employee_id</span><span class="w">  </span><span class="n">constant</span><span class="w"> </span><span class="n">employees</span><span class="p">.</span><span class="n">employee_id</span><span class="o">%</span><span class="k">type</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">in_employee_id</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="n">co_increase_pct</span><span class="w"> </span><span class="n">constant</span><span class="w"> </span><span class="n">types_up</span><span class="p">.</span><span class="n">percentage</span><span class="w">        </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">in_increase_pct</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="n">co_sql_stmt</span><span class="w">     </span><span class="n">constant</span><span class="w"> </span><span class="n">types_up</span><span class="p">.</span><span class="n">big_string_type</span><span class="w">   </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;</span>
+<span class="s1">           update employees set salary = salary + (salary / 100 * :1) </span>
 <span class="s1">            where employee_id = :2</span>
 <span class="s1">        returning salary into :3&#39;</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">begin</span><span class="w"></span>
 <span class="w">      </span><span class="k">execute</span><span class="w"> </span><span class="k">immediate</span><span class="w"> </span><span class="n">co_sql_stmt</span><span class="w"></span>
-<span class="w">         </span><span class="k">using</span><span class="w"> </span><span class="n">in_increase_pct</span><span class="p">,</span><span class="n">in_employee_id</span><span class="w"></span>
+<span class="w">         </span><span class="k">using</span><span class="w"> </span><span class="n">co_increase_pct</span><span class="p">,</span><span class="n">co_employee_id</span><span class="w"></span>
 <span class="w">         </span><span class="n">returning</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">out_new_salary</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">upd_salary</span><span class="p">;</span><span class="w"></span>
 <span class="k">end</span><span class="w"> </span><span class="n">employee_api</span><span class="p">;</span><span class="w"></span>

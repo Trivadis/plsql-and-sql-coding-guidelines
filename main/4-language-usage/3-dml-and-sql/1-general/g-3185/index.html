@@ -1981,7 +1981,7 @@
   
     <li class="md-nav__item">
       <a href="../../../5-exception-handling/g-5050/" class="md-nav__link">
-        G-5050: Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded  20nnn error number or hard-coded message.
+        G-5050: Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded 20nnn error number or hard-coded message.
       </a>
     </li>
   
@@ -3403,8 +3403,8 @@
 
 
 <h1 id="g-3185-never-use-rownum-at-the-same-query-level-as-order-by">G-3185: Never use ROWNUM at the same query level as ORDER BY.</h1>
-<div class="admonition warning">
-<p class="admonition-title">Major</p>
+<div class="admonition bug">
+<p class="admonition-title">Blocker</p>
 <p>Reliability, Testability</p>
 </div>
 <h2 id="reason">Reason</h2>
@@ -3423,7 +3423,7 @@
 <span class="w">      </span><span class="p">,</span><span class="n">hire_date</span><span class="w"></span>
 <span class="w">      </span><span class="p">,</span><span class="n">rownum</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">salary_rank</span><span class="w"></span>
 <span class="w">  </span><span class="k">from</span><span class="w"> </span><span class="n">employees</span><span class="w"></span>
-<span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">rownum</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
+<span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">rownum</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="c1">-- violates also G-1050 literal is ok for a standalone query</span>
 <span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">salary</span><span class="w"> </span><span class="k">desc</span><span class="p">;</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
 <h2 id="example-good">Example (good)</h2>
@@ -3453,7 +3453,7 @@
 <span class="w">            </span><span class="k">from</span><span class="w"> </span><span class="n">employees</span><span class="w"></span>
 <span class="w">           </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">salary</span><span class="w"> </span><span class="k">desc</span><span class="w"></span>
 <span class="w">       </span><span class="p">)</span><span class="w"></span>
-<span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">rownum</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w"></span>
+<span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">rownum</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w"> </span><span class="c1">-- NOSONAR: G-1050 literal is ok for a standalone query</span>
 </code></pre></div></td></tr></table></div>
 
               

@@ -1981,7 +1981,7 @@
   
     <li class="md-nav__item">
       <a href="../../../5-exception-handling/g-5050/" class="md-nav__link">
-        G-5050: Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded  20nnn error number or hard-coded message.
+        G-5050: Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded 20nnn error number or hard-coded message.
       </a>
     </li>
   
@@ -3403,25 +3403,29 @@
 
 
 <h1 id="g-2330-never-use-zero-length-strings-to-substitute-null">G-2330: Never use zero-length strings to substitute NULL.</h1>
-<div class="admonition warning">
-<p class="admonition-title">Major</p>
-<p>Portability</p>
+<div class="admonition bug">
+<p class="admonition-title">Blocker</p>
+<p>Portability, Reliability</p>
 </div>
 <h2 id="reason">Reason</h2>
 <p>Today zero-length strings and <code>null</code> are currently handled identical by the Oracle Database. There is no guarantee that this will still be the case in future releases, therefore if you mean <code>null</code> use <code>null</code>.</p>
 <h2 id="example-bad">Example (bad)</h2>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span>
-<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="n">constants_up</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
-<span class="w">   </span><span class="n">co_null_string</span><span class="w"> </span><span class="n">constant</span><span class="w"> </span><span class="n">varchar2</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="nb">char</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="n">constants_up</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
+<span class="w">   </span><span class="n">co_null_string</span><span class="w"> </span><span class="n">constant</span><span class="w"> </span><span class="n">types_up</span><span class="p">.</span><span class="nb">text</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">;</span><span class="w"></span>
 
-<span class="w">   </span><span class="k">function</span><span class="w"> </span><span class="n">null_string</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">varchar2</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
+<span class="w">   </span><span class="k">function</span><span class="w"> </span><span class="n">null_string</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">varchar2</span><span class="w"></span>
+<span class="w">      </span><span class="k">deterministic</span><span class="w"></span>
+<span class="w">   </span><span class="k">is</span><span class="w"></span>
 <span class="w">   </span><span class="k">begin</span><span class="w"></span>
 <span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">co_null_string</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">null_string</span><span class="p">;</span><span class="w"></span>
@@ -3436,9 +3440,11 @@
 <span class="normal">5</span>
 <span class="normal">6</span>
 <span class="normal">7</span>
-<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="n">constants_up</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
-
-<span class="w">   </span><span class="k">function</span><span class="w"> </span><span class="n">empty_string</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">varchar2</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="n">constants_up</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
+<span class="w">   </span><span class="k">function</span><span class="w"> </span><span class="n">empty_string</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">varchar2</span><span class="w"></span>
+<span class="w">      </span><span class="k">deterministic</span><span class="w"></span>
+<span class="w">   </span><span class="k">is</span><span class="w"></span>
 <span class="w">   </span><span class="k">begin</span><span class="w"></span>
 <span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="k">null</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">empty_string</span><span class="p">;</span><span class="w"></span>

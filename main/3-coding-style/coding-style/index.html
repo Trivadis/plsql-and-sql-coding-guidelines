@@ -2015,7 +2015,7 @@
   
     <li class="md-nav__item">
       <a href="../../4-language-usage/5-exception-handling/g-5050/" class="md-nav__link">
-        G-5050: Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded  20nnn error number or hard-coded message.
+        G-5050: Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded 20nnn error number or hard-coded message.
       </a>
     </li>
   
@@ -3552,33 +3552,41 @@
 <span class="normal">24</span>
 <span class="normal">25</span>
 <span class="normal">26</span>
-<span class="normal">27</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="k">procedure</span><span class="w"> </span><span class="n">set_salary</span><span class="p">(</span><span class="n">in_employee_id</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">employees</span><span class="p">.</span><span class="n">employee_id</span><span class="o">%</span><span class="k">type</span><span class="p">)</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
-<span class="w">   </span><span class="k">cursor</span><span class="w"> </span><span class="n">c_employees</span><span class="p">(</span><span class="n">p_employee_id</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">employees</span><span class="p">.</span><span class="n">employee_id</span><span class="o">%</span><span class="k">type</span><span class="p">)</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
-<span class="w">      </span><span class="k">select</span><span class="w"> </span><span class="n">last_name</span><span class="w"></span>
-<span class="w">            </span><span class="p">,</span><span class="n">first_name</span><span class="w"></span>
-<span class="w">            </span><span class="p">,</span><span class="n">salary</span><span class="w"></span>
-<span class="w">        </span><span class="k">from</span><span class="w"> </span><span class="n">employees</span><span class="w"></span>
-<span class="w">       </span><span class="k">where</span><span class="w"> </span><span class="n">employee_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p_employee_id</span><span class="w"></span>
-<span class="w">       </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">last_name</span><span class="w"></span>
-<span class="w">            </span><span class="p">,</span><span class="n">first_name</span><span class="p">;</span><span class="w"></span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="n">employee_api</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
+<span class="w">   </span><span class="k">procedure</span><span class="w"> </span><span class="n">set_salary</span><span class="p">(</span><span class="n">in_employee_id</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nb">integer</span><span class="p">)</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
+<span class="w">      </span><span class="n">co_employee_id</span><span class="w"> </span><span class="n">constant</span><span class="w"> </span><span class="n">employees</span><span class="p">.</span><span class="n">employee_id</span><span class="o">%</span><span class="k">type</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">in_employee_id</span><span class="p">;</span><span class="w"></span>
 
-<span class="w">   </span><span class="n">r_employee</span><span class="w">   </span><span class="n">c_employees</span><span class="o">%</span><span class="n">rowtype</span><span class="p">;</span><span class="w"></span>
-<span class="w">   </span><span class="n">l_new_salary</span><span class="w"> </span><span class="n">employees</span><span class="p">.</span><span class="n">salary</span><span class="o">%</span><span class="k">type</span><span class="p">;</span><span class="w"></span>
-<span class="k">begin</span><span class="w"></span>
-<span class="w">   </span><span class="k">open</span><span class="w"> </span><span class="n">c_employees</span><span class="p">(</span><span class="n">p_employee_id</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">in_employee_id</span><span class="p">);</span><span class="w"></span>
-<span class="w">   </span><span class="k">fetch</span><span class="w"> </span><span class="n">c_employees</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">r_employee</span><span class="p">;</span><span class="w"></span>
-<span class="w">   </span><span class="k">close</span><span class="w"> </span><span class="n">c_employees</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="k">cursor</span><span class="w"> </span><span class="n">c_employees</span><span class="p">(</span><span class="n">p_employee_id</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">employees</span><span class="p">.</span><span class="n">employee_id</span><span class="o">%</span><span class="k">type</span><span class="p">)</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
+<span class="w">         </span><span class="k">select</span><span class="w"> </span><span class="n">last_name</span><span class="w"></span>
+<span class="w">               </span><span class="p">,</span><span class="n">first_name</span><span class="w"></span>
+<span class="w">               </span><span class="p">,</span><span class="n">salary</span><span class="w"></span>
+<span class="w">           </span><span class="k">from</span><span class="w"> </span><span class="n">employees</span><span class="w"></span>
+<span class="w">          </span><span class="k">where</span><span class="w"> </span><span class="n">employee_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p_employee_id</span><span class="w"></span>
+<span class="w">          </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">last_name</span><span class="w"></span>
+<span class="w">               </span><span class="p">,</span><span class="n">first_name</span><span class="p">;</span><span class="w"></span>
 
-<span class="w">   </span><span class="n">new_salary</span><span class="p">(</span><span class="n">in_employee_id</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">in_employee_id</span><span class="w"></span>
-<span class="w">             </span><span class="p">,</span><span class="n">out_salary</span><span class="w">     </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">l_new_salary</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="n">r_employee</span><span class="w">     </span><span class="n">c_employees</span><span class="o">%</span><span class="n">rowtype</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="n">l_new_salary</span><span class="w">   </span><span class="n">employees</span><span class="p">.</span><span class="n">salary</span><span class="o">%</span><span class="k">type</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="k">begin</span><span class="w"></span>
+<span class="w">      </span><span class="k">open</span><span class="w"> </span><span class="n">c_employees</span><span class="p">(</span><span class="n">p_employee_id</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">co_employee_id</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="k">fetch</span><span class="w"> </span><span class="n">c_employees</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">r_employee</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="k">close</span><span class="w"> </span><span class="n">c_employees</span><span class="p">;</span><span class="w"></span>
 
-<span class="w">   </span><span class="c1">-- Check whether salary has changed</span>
-<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="n">r_employee</span><span class="p">.</span><span class="n">salary</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">l_new_salary</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
-<span class="w">      </span><span class="k">update</span><span class="w"> </span><span class="n">employees</span><span class="w"></span>
-<span class="w">         </span><span class="k">set</span><span class="w"> </span><span class="n">salary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">l_new_salary</span><span class="w"></span>
-<span class="w">       </span><span class="k">where</span><span class="w"> </span><span class="n">employee_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in_employee_id</span><span class="p">;</span><span class="w"></span>
-<span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span><span class="w"></span>
-<span class="k">end</span><span class="w"> </span><span class="n">set_salary</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="n">new_salary</span><span class="p">(</span><span class="n">in_employee_id</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">in_employee_id</span><span class="w"></span>
+<span class="w">                </span><span class="p">,</span><span class="n">out_salary</span><span class="w">     </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">l_new_salary</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">      </span><span class="c1">-- Check whether salary has changed</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="n">r_employee</span><span class="p">.</span><span class="n">salary</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">l_new_salary</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
+<span class="w">         </span><span class="k">update</span><span class="w"> </span><span class="n">employees</span><span class="w"></span>
+<span class="w">            </span><span class="k">set</span><span class="w"> </span><span class="n">salary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">l_new_salary</span><span class="w"></span>
+<span class="w">          </span><span class="k">where</span><span class="w"> </span><span class="n">employee_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in_employee_id</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">set_salary</span><span class="p">;</span><span class="w"></span>
+<span class="k">end</span><span class="w"> </span><span class="n">employee_api</span><span class="p">;</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
 <h2 id="code-commenting">Code Commenting</h2>
 <h3 id="conventions">Conventions</h3>

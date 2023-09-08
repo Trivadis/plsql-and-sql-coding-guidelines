@@ -1979,7 +1979,7 @@
   
     <li class="md-nav__item">
       <a href="../g-5050/" class="md-nav__link">
-        G-5050: Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded  20nnn error number or hard-coded message.
+        G-5050: Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded 20nnn error number or hard-coded message.
       </a>
     </li>
   
@@ -3425,29 +3425,39 @@
 <span class="normal">3</span>
 <span class="normal">4</span>
 <span class="normal">5</span>
-<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">begin</span><span class="w"></span>
-<span class="w">   </span><span class="n">sys</span><span class="p">.</span><span class="n">dbms_output</span><span class="p">.</span><span class="n">put_line</span><span class="p">(</span><span class="s1">&#39;START&#39;</span><span class="p">);</span><span class="w"></span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">declare</span><span class="w"></span>
+<span class="w">   </span><span class="n">co_start</span><span class="w"> </span><span class="n">constant</span><span class="w"> </span><span class="n">logger_logs</span><span class="p">.</span><span class="nb">text</span><span class="o">%</span><span class="k">type</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;start&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="n">co_end</span><span class="w">   </span><span class="n">constant</span><span class="w"> </span><span class="n">logger_logs</span><span class="p">.</span><span class="nb">text</span><span class="o">%</span><span class="k">type</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;end&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="k">begin</span><span class="w"></span>
+<span class="w">   </span><span class="n">sys</span><span class="p">.</span><span class="n">dbms_output</span><span class="p">.</span><span class="n">put_line</span><span class="p">(</span><span class="n">co_start</span><span class="p">);</span><span class="w"></span>
 <span class="w">   </span><span class="c1">-- some processing</span>
-<span class="w">   </span><span class="n">sys</span><span class="p">.</span><span class="n">dbms_output</span><span class="p">.</span><span class="n">put_line</span><span class="p">(</span><span class="s1">&#39;END&#39;</span><span class="p">);</span><span class="w"></span>
+<span class="w">   </span><span class="n">sys</span><span class="p">.</span><span class="n">dbms_output</span><span class="p">.</span><span class="n">put_line</span><span class="p">(</span><span class="n">co_end</span><span class="p">);</span><span class="w"></span>
 <span class="k">end</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
 <h2 id="example-good">Example (good)</h2>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span>
-<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">declare</span><span class="w"> </span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">declare</span><span class="w"> </span>
 <span class="w">   </span><span class="c1">-- see https://github.com/OraOpenSource/Logger</span>
-<span class="w">   </span><span class="n">l_scope</span><span class="w"> </span><span class="n">logger_logs</span><span class="p">.</span><span class="k">scope</span><span class="o">%</span><span class="k">type</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;DEMO&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="n">co_start</span><span class="w"> </span><span class="n">constant</span><span class="w"> </span><span class="n">logger_logs</span><span class="p">.</span><span class="nb">text</span><span class="o">%</span><span class="k">type</span><span class="w">  </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;start&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="n">co_end</span><span class="w">   </span><span class="n">constant</span><span class="w"> </span><span class="n">logger_logs</span><span class="p">.</span><span class="nb">text</span><span class="o">%</span><span class="k">type</span><span class="w">  </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;end&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="n">co_scope</span><span class="w"> </span><span class="n">constant</span><span class="w"> </span><span class="n">logger_logs</span><span class="p">.</span><span class="k">scope</span><span class="o">%</span><span class="k">type</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;demo&#39;</span><span class="p">;</span><span class="w"></span>
 <span class="k">begin</span><span class="w"></span>
-<span class="w">   </span><span class="n">logger</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;START&#39;</span><span class="p">,</span><span class="n">l_scope</span><span class="p">);</span><span class="w"></span>
+<span class="w">   </span><span class="n">logger</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="n">co_start</span><span class="p">,</span><span class="n">co_scope</span><span class="p">);</span><span class="w"></span>
 <span class="w">   </span><span class="c1">-- some processing</span>
-<span class="w">   </span><span class="n">logger</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;END&#39;</span><span class="p">,</span><span class="n">l_scope</span><span class="p">);</span><span class="w"></span>
+<span class="w">   </span><span class="n">logger</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="n">co_end</span><span class="p">,</span><span class="n">co_scope</span><span class="p">);</span><span class="w"></span>
 <span class="k">end</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>

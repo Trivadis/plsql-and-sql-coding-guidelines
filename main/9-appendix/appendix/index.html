@@ -1920,7 +1920,7 @@
   
     <li class="md-nav__item">
       <a href="../../4-language-usage/5-exception-handling/g-5050/" class="md-nav__link">
-        G-5050: Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded  20nnn error number or hard-coded message.
+        G-5050: Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded 20nnn error number or hard-coded message.
       </a>
     </li>
   
@@ -3439,7 +3439,7 @@
 <td align="center">3</td>
 <td align="center">1030</td>
 <td align="left">Avoid defining variables that are not used.</td>
-<td align="center">Minor</td>
+<td align="center">Major</td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
 <td align="center">&#10008;</td>
@@ -3453,7 +3453,7 @@
 <td align="center">4</td>
 <td align="center">1040</td>
 <td align="left">Avoid dead code.</td>
-<td align="center">Minor</td>
+<td align="center">Major</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
@@ -3481,7 +3481,7 @@
 <td align="center">6</td>
 <td align="center">1060</td>
 <td align="left">Avoid storing ROWIDs or UROWIDs in database tables.</td>
-<td align="center">Major</td>
+<td align="center">Critical</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
@@ -3509,7 +3509,7 @@
 <td align="center">n/a</td>
 <td align="center">1080</td>
 <td align="left">Avoid using the same expression on both sides of a relational comparison operator or a logical operator.</td>
-<td align="center">Minor</td>
+<td align="center">Blocker</td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
 <td align="center">&#10008;</td>
@@ -3593,7 +3593,7 @@
 <td align="center">n/a</td>
 <td align="center">2145</td>
 <td align="left">Never self-assign a variable.</td>
-<td align="center">Minor</td>
+<td align="center">Blocker</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
@@ -3663,7 +3663,7 @@
 <td align="center">16</td>
 <td align="center">2185</td>
 <td align="left">Avoid using overly short names for explicitly or implicitly declared identifiers.</td>
-<td align="center">Minor</td>
+<td align="center">Major</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
@@ -3677,7 +3677,7 @@
 <td align="center">17</td>
 <td align="center">2190</td>
 <td align="left">Avoid using ROWID or UROWID.</td>
-<td align="center">Major</td>
+<td align="center">Blocker</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
@@ -3691,7 +3691,7 @@
 <td align="center">18</td>
 <td align="center">2210</td>
 <td align="left">Avoid declaring NUMBER variables, constants or subtypes with no precision.</td>
-<td align="center">Minor</td>
+<td align="center">Major</td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
 <td align="center"></td>
@@ -3705,7 +3705,7 @@
 <td align="center">19</td>
 <td align="center">2220</td>
 <td align="left">Try to use PLS_INTEGER instead of NUMBER for arithmetic operations with integer values.</td>
-<td align="center">Minor</td>
+<td align="center">Critical</td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
 <td align="center"></td>
@@ -3719,7 +3719,7 @@
 <td align="center">n/a</td>
 <td align="center">2230</td>
 <td align="left">Try to use SIMPLE_INTEGER datatype when appropriate.</td>
-<td align="center">Minor</td>
+<td align="center">Critical</td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
 <td align="center"></td>
@@ -3747,12 +3747,12 @@
 <td align="center">21</td>
 <td align="center">2320</td>
 <td align="left">Never use VARCHAR data type.</td>
-<td align="center">Major</td>
+<td align="center">Blocker</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
-<td align="center"></td>
+<td align="center">&#10008;</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
@@ -3761,12 +3761,12 @@
 <td align="center">22</td>
 <td align="center">2330</td>
 <td align="left">Never use zero-length strings to substitute NULL.</td>
-<td align="center">Major</td>
+<td align="center">Blocker</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
-<td align="center"></td>
+<td align="center">&#10008;</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
@@ -3775,7 +3775,7 @@
 <td align="center">23</td>
 <td align="center">2340</td>
 <td align="left">Always define your VARCHAR2 variables using CHAR SEMANTIC (if not defined anchored).</td>
-<td align="center">Minor</td>
+<td align="center">Blocker</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
@@ -3831,7 +3831,7 @@
 <td align="center">26</td>
 <td align="center">3110</td>
 <td align="left">Always specify the target columns when coding an insert statement.</td>
-<td align="center">Major</td>
+<td align="center">Blocker</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
@@ -3845,7 +3845,7 @@
 <td align="center">n/a</td>
 <td align="center">3115</td>
 <td align="left">Avoid self-assigning a column.</td>
-<td align="center">Minor</td>
+<td align="center">Blocker</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
@@ -3873,7 +3873,7 @@
 <td align="center">28</td>
 <td align="center">3130</td>
 <td align="left">Try to use ANSI SQL-92 join syntax.</td>
-<td align="center">Minor</td>
+<td align="center">Major</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
@@ -3901,7 +3901,7 @@
 <td align="center">n/a</td>
 <td align="center">3145</td>
 <td align="left">Avoid using SELECT * directly from a table or view.</td>
-<td align="center">Major</td>
+<td align="center">Critical</td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
 <td align="center">&#10008;</td>
@@ -3915,7 +3915,7 @@
 <td align="center">n/a</td>
 <td align="center">3150</td>
 <td align="left">Try to use identity columns for surrogate keys.</td>
-<td align="center">Minor</td>
+<td align="center">Critical</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
@@ -3971,7 +3971,7 @@
 <td align="center">n/a</td>
 <td align="center">3185</td>
 <td align="left">Never use ROWNUM at the same query level as ORDER BY.</td>
-<td align="center">Major</td>
+<td align="center">Blocker</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
@@ -3985,7 +3985,7 @@
 <td align="center">n/a</td>
 <td align="center">3190</td>
 <td align="left">Avoid using NATURAL JOIN.</td>
-<td align="center">Major</td>
+<td align="center">Blocker</td>
 <td align="center">&#10008;</td>
 <td align="center"></td>
 <td align="center"></td>
@@ -3999,7 +3999,7 @@
 <td align="center">n/a</td>
 <td align="center">3195</td>
 <td align="left">Always use wildcards in a LIKE clause.</td>
-<td align="center">Minor</td>
+<td align="center">Blocker</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
@@ -4013,7 +4013,7 @@
 <td align="center">30</td>
 <td align="center">3210</td>
 <td align="left">Always use BULK OPERATIONS (BULK COLLECT, FORALL) whenever you have to execute a DML statement for more than 4 times.</td>
-<td align="center">Major</td>
+<td align="center">Critical</td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
 <td align="center"></td>
@@ -4027,7 +4027,7 @@
 <td align="center">n/a</td>
 <td align="center">3220</td>
 <td align="left">Always process saved exceptions from a FORALL statement.</td>
-<td align="center">Major</td>
+<td align="center">Critical</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
@@ -4041,7 +4041,7 @@
 <td align="center">n/a</td>
 <td align="center">3310</td>
 <td align="left">Never commit within a cursor loop.</td>
-<td align="center">Critical</td>
+<td align="center">Blocker</td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
 <td align="center"></td>
@@ -4083,7 +4083,7 @@
 <td align="center">32</td>
 <td align="center">4120</td>
 <td align="left">Avoid using %NOTFOUND directly after the FETCH when working with BULK OPERATIONS and LIMIT clause.</td>
-<td align="center">Critical</td>
+<td align="center">Blocker</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
@@ -4097,7 +4097,7 @@
 <td align="center">33</td>
 <td align="center">4130</td>
 <td align="left">Always close locally opened cursors.</td>
-<td align="center">Major</td>
+<td align="center">Blocker</td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
 <td align="center"></td>
@@ -4111,7 +4111,7 @@
 <td align="center">34</td>
 <td align="center">4140</td>
 <td align="left">Avoid executing any statements between a SQL operation and the usage of an implicit cursor attribute.</td>
-<td align="center">Major</td>
+<td align="center">Blocker</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
@@ -4125,7 +4125,7 @@
 <td align="center">35</td>
 <td align="center">4210</td>
 <td align="left">Try to use CASE rather than an IF statement with multiple ELSIF paths.</td>
-<td align="center">Major</td>
+<td align="center">Minor</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
@@ -4139,7 +4139,7 @@
 <td align="center">36</td>
 <td align="center">4220</td>
 <td align="left">Try to use CASE rather than DECODE.</td>
-<td align="center">Minor</td>
+<td align="center">Major</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
@@ -4181,7 +4181,7 @@
 <td align="center">n/a</td>
 <td align="center">4250</td>
 <td align="left">Avoid using identical conditions in different branches of the same IF or CASE statement.</td>
-<td align="center">Major</td>
+<td align="center">Blocker</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
@@ -4265,7 +4265,7 @@
 <td align="center">41</td>
 <td align="center">4330</td>
 <td align="left">Always use a CURSOR FOR loop to process the complete cursor results unless you are using bulk operations.</td>
-<td align="center">Minor</td>
+<td align="center">Major</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
@@ -4279,7 +4279,7 @@
 <td align="center">42</td>
 <td align="center">4340</td>
 <td align="left">Always use a NUMERIC FOR loop to process a dense array.</td>
-<td align="center">Minor</td>
+<td align="center">Major</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
@@ -4293,7 +4293,7 @@
 <td align="center">43</td>
 <td align="center">4350</td>
 <td align="left">Always use 1 as lower and COUNT() as upper bound when looping through a dense array.</td>
-<td align="center">Major</td>
+<td align="center">Blocker</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
@@ -4307,7 +4307,7 @@
 <td align="center">44</td>
 <td align="center">4360</td>
 <td align="left">Always use a WHILE loop to process a loose array.</td>
-<td align="center">Minor</td>
+<td align="center">Critical</td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
 <td align="center"></td>
@@ -4377,7 +4377,7 @@
 <td align="center">48</td>
 <td align="center">4385</td>
 <td align="left">Never use a cursor for loop to check whether a cursor returns data.</td>
-<td align="center">Major</td>
+<td align="center">Critical</td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
 <td align="center"></td>
@@ -4461,7 +4461,7 @@
 <td align="center">53</td>
 <td align="center">5040</td>
 <td align="left">Avoid use of WHEN OTHERS clause in an exception section without any other specific handlers.</td>
-<td align="center">Major</td>
+<td align="center">Critical</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
@@ -4488,7 +4488,7 @@
 <tr>
 <td align="center">55</td>
 <td align="center">5050</td>
-<td align="left">Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded  20nnn error number or hard-coded message.</td>
+<td align="left">Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded 20nnn error number or hard-coded message.</td>
 <td align="center">Major</td>
 <td align="center">&#10008;</td>
 <td align="center"></td>
@@ -4517,7 +4517,7 @@
 <td align="center">57</td>
 <td align="center">5070</td>
 <td align="left">Avoid using Oracle predefined exceptions.</td>
-<td align="center">Critical</td>
+<td align="center">Blocker</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
@@ -4531,7 +4531,7 @@
 <td align="center">n/a</td>
 <td align="center">5080</td>
 <td align="left">Always use FORMAT_ERROR_BACKTRACE when using FORMAT_ERROR_STACK or SQLERRM.</td>
-<td align="center">Minor</td>
+<td align="center">Critical</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
@@ -4601,7 +4601,7 @@
 <td align="center">n/a</td>
 <td align="center">7125</td>
 <td align="left">Always use CREATE OR REPLACE instead of CREATE alone.</td>
-<td align="center">Minor</td>
+<td align="center">Major</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
@@ -4643,7 +4643,7 @@
 <td align="center">64</td>
 <td align="center">7150</td>
 <td align="left">Try to remove unused parameters.</td>
-<td align="center">Minor</td>
+<td align="center">Major</td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
 <td align="center">&#10008;</td>
@@ -4685,7 +4685,7 @@
 <td align="center">65</td>
 <td align="center">7210</td>
 <td align="left">Try to keep your packages small. Include only few procedures and functions that are used in the same context.</td>
-<td align="center">Minor</td>
+<td align="center">Major</td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
 <td align="center">&#10008;</td>
@@ -4727,7 +4727,7 @@
 <td align="center">n/a</td>
 <td align="center">7250</td>
 <td align="left">Never use RETURN in package initialization block.</td>
-<td align="center">Minor</td>
+<td align="center">Major</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
@@ -4769,7 +4769,7 @@
 <td align="center">n/a</td>
 <td align="center">7330</td>
 <td align="left">Always assign values to OUT parameters.</td>
-<td align="center">Major</td>
+<td align="center">Blocker</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
@@ -4839,7 +4839,7 @@
 <td align="center">75</td>
 <td align="center">7450</td>
 <td align="left">Never return a NULL value from a BOOLEAN function.</td>
-<td align="center">Major</td>
+<td align="center">Blocker</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
@@ -4923,7 +4923,7 @@
 <td align="center">n/a</td>
 <td align="center">7740</td>
 <td align="left">Never handle multiple DML events per trigger if primary key is assigned in trigger.</td>
-<td align="center">Major</td>
+<td align="center">Critical</td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
 <td align="center"></td>
@@ -4937,7 +4937,7 @@
 <td align="center">n/a</td>
 <td align="center">7810</td>
 <td align="left">Never use SQL inside PL/SQL to read sequence numbers (or SYSDATE).</td>
-<td align="center">Major</td>
+<td align="center">Critical</td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
 <td align="center">&#10008;</td>
@@ -4951,7 +4951,7 @@
 <td align="center">n/a</td>
 <td align="center">7910</td>
 <td align="left">Never use DML within a SQL macro.</td>
-<td align="center">Critical</td>
+<td align="center">Blocker</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
@@ -4965,7 +4965,7 @@
 <td align="center">78</td>
 <td align="center">8110</td>
 <td align="left">Never use SELECT COUNT(*) if you are only interested in the existence of a row.</td>
-<td align="center">Major</td>
+<td align="center">Critical</td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
 <td align="center"></td>
@@ -4979,7 +4979,7 @@
 <td align="center">n/a</td>
 <td align="center">8120</td>
 <td align="left">Never check existence of a row to decide whether to create it or not.</td>
-<td align="center">Major</td>
+<td align="center">Critical</td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
 <td align="center"></td>
@@ -4993,7 +4993,7 @@
 <td align="center">79</td>
 <td align="center">8210</td>
 <td align="left">Always use synonyms when accessing objects of another application schema.</td>
-<td align="center">Major</td>
+<td align="center">Minor</td>
 <td align="center">&#10008;</td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
@@ -5007,7 +5007,7 @@
 <td align="center">n/a</td>
 <td align="center">8310</td>
 <td align="left">Always validate input parameter size by assigning the parameter to a size limited variable in the declaration section of program unit.</td>
-<td align="center">Minor</td>
+<td align="center">Major</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
@@ -5021,7 +5021,7 @@
 <td align="center">n/a</td>
 <td align="center">8410</td>
 <td align="left">Always use application locks to ensure a program unit is only running once at a given time.</td>
-<td align="center">Minor</td>
+<td align="center">Blocker</td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
 <td align="center"></td>
@@ -5035,7 +5035,7 @@
 <td align="center">n/a</td>
 <td align="center">8510</td>
 <td align="left">Always use dbms_application_info to track program process transiently.</td>
-<td align="center">Minor</td>
+<td align="center">Critical</td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
 <td align="center"></td>
@@ -5049,7 +5049,7 @@
 <td align="center">n/a</td>
 <td align="center">9010</td>
 <td align="left">Always use a format model in string to date/time conversion functions.</td>
-<td align="center">Major</td>
+<td align="center">Blocker</td>
 <td align="center">&#10008;</td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
@@ -5077,7 +5077,7 @@
 <td align="center">n/a</td>
 <td align="center">9030</td>
 <td align="left">Try to define a default value on conversion errors.</td>
-<td align="center">Minor</td>
+<td align="center">Major</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center">&#10008;</td>
@@ -5091,7 +5091,7 @@
 <td align="center">n/a</td>
 <td align="center">9040</td>
 <td align="left">Try using FX in string to date/time conversion format model to avoid fuzzy conversion.</td>
-<td align="center">Minor</td>
+<td align="center">Major</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>

@@ -1981,7 +1981,7 @@
   
     <li class="md-nav__item">
       <a href="../../../5-exception-handling/g-5050/" class="md-nav__link">
-        G-5050: Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded  20nnn error number or hard-coded message.
+        G-5050: Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded 20nnn error number or hard-coded message.
       </a>
     </li>
   
@@ -3403,8 +3403,8 @@
 
 
 <h1 id="g-4385-never-use-a-cursor-for-loop-to-check-whether-a-cursor-returns-data">G-4385: Never use a cursor for loop to check whether a cursor returns data.</h1>
-<div class="admonition warning">
-<p class="admonition-title">Major</p>
+<div class="admonition danger">
+<p class="admonition-title">Critical</p>
 <p>Efficiency</p>
 </div>
 <h2 id="reason">Reason</h2>
@@ -3422,7 +3422,10 @@
 <span class="normal">10</span>
 <span class="normal">11</span>
 <span class="normal">12</span>
-<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">declare</span><span class="w"></span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">declare</span><span class="w"></span>
 <span class="w">   </span><span class="n">l_employee_found</span><span class="w"> </span><span class="nb">boolean</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="k">false</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">cursor</span><span class="w"> </span><span class="n">c_employees</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
 <span class="w">      </span><span class="k">select</span><span class="w"> </span><span class="n">employee_id</span><span class="p">,</span><span class="n">last_name</span><span class="w"></span>
@@ -3433,6 +3436,9 @@
 <span class="w">   </span><span class="n">loop</span><span class="w"></span>
 <span class="w">      </span><span class="n">l_employee_found</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">loop</span><span class="w"> </span><span class="n">check_employees</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="n">l_employee_found</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
+<span class="w">      </span><span class="k">null</span><span class="p">;</span><span class="w"> </span><span class="c1">-- some processing;</span>
+<span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span><span class="w"></span>
 <span class="k">end</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
@@ -3449,7 +3455,10 @@
 <span class="normal">10</span>
 <span class="normal">11</span>
 <span class="normal">12</span>
-<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">declare</span><span class="w"></span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">declare</span><span class="w"></span>
 <span class="w">   </span><span class="n">l_employee_found</span><span class="w"> </span><span class="nb">boolean</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="k">false</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">cursor</span><span class="w"> </span><span class="n">c_employees</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
 <span class="w">      </span><span class="k">select</span><span class="w"> </span><span class="n">employee_id</span><span class="p">,</span><span class="n">last_name</span><span class="w"></span>
@@ -3460,6 +3469,9 @@
 <span class="w">   </span><span class="k">fetch</span><span class="w"> </span><span class="n">c_employees</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">r_employee</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="n">l_employee_found</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">c_employees</span><span class="o">%</span><span class="k">found</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">close</span><span class="w"> </span><span class="n">c_employees</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="n">l_employee_found</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
+<span class="w">      </span><span class="k">null</span><span class="p">;</span><span class="w"> </span><span class="c1">-- some processing;</span>
+<span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span><span class="w"></span>
 <span class="k">end</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>

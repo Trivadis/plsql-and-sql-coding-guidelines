@@ -1981,7 +1981,7 @@
   
     <li class="md-nav__item">
       <a href="../../../5-exception-handling/g-5050/" class="md-nav__link">
-        G-5050: Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded  20nnn error number or hard-coded message.
+        G-5050: Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded 20nnn error number or hard-coded message.
       </a>
     </li>
   
@@ -3411,65 +3411,37 @@
 <p><code>long</code> and <code>long raw</code> data types have been deprecated by the Oracle Database since version 8i - support might be discontinued in future Oracle Database releases.</p>
 <p>There are many constraints to <code>long</code> datatypes in comparison to the <code>lob</code> types.</p>
 <h2 id="example-bad">Example (bad)</h2>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">example_package</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
-<span class="w">   </span><span class="n">g_long</span><span class="w"> </span><span class="n">long</span><span class="p">;</span><span class="w"></span>
-<span class="w">   </span><span class="n">g_raw</span><span class="w"> </span><span class="n">long</span><span class="w"> </span><span class="n">raw</span><span class="p">;</span><span class="w"></span>
-
-<span class="w">   </span><span class="k">procedure</span><span class="w"> </span><span class="n">do_something</span><span class="p">;</span><span class="w"></span>
-<span class="k">end</span><span class="w"> </span><span class="n">example_package</span><span class="p">;</span><span class="w"></span>
-<span class="o">/</span><span class="w"></span>
-
-<span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="n">example_package</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
-<span class="w">   </span><span class="k">procedure</span><span class="w"> </span><span class="n">do_something</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
-<span class="w">   </span><span class="k">begin</span><span class="w"></span>
-<span class="w">      </span><span class="k">null</span><span class="p">;</span><span class="w"></span>
-<span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">do_something</span><span class="p">;</span><span class="w"></span>
-<span class="k">end</span><span class="w"> </span><span class="n">example_package</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">declare</span><span class="w"></span>
+<span class="w">   </span><span class="n">l_long</span><span class="w"> </span><span class="n">long</span><span class="p">;</span><span class="w">     </span><span class="c1">-- violates also G-2130</span>
+<span class="w">   </span><span class="n">l_raw</span><span class="w">  </span><span class="n">long</span><span class="w"> </span><span class="n">raw</span><span class="p">;</span><span class="w"> </span><span class="c1">-- violates also G-2130</span>
+<span class="k">begin</span><span class="w"></span>
+<span class="w">   </span><span class="n">do_something</span><span class="p">(</span><span class="n">l_long</span><span class="p">);</span><span class="w"></span>
+<span class="w">   </span><span class="n">do_something</span><span class="p">(</span><span class="n">l_raw</span><span class="p">);</span><span class="w"></span>
+<span class="k">end</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
 <h2 id="example-good">Example (good)</h2>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">example_package</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
-<span class="w">   </span><span class="k">procedure</span><span class="w"> </span><span class="n">do_something</span><span class="p">;</span><span class="w"></span>
-<span class="k">end</span><span class="w"> </span><span class="n">example_package</span><span class="p">;</span><span class="w"></span>
-<span class="o">/</span><span class="w"></span>
-
-<span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="n">example_package</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
-<span class="w">   </span><span class="n">g_long</span><span class="w"> </span><span class="k">clob</span><span class="p">;</span><span class="w"></span>
-<span class="w">   </span><span class="n">g_raw</span><span class="w">  </span><span class="nb">blob</span><span class="p">;</span><span class="w"></span>
-
-<span class="w">   </span><span class="k">procedure</span><span class="w"> </span><span class="n">do_something</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
-<span class="w">   </span><span class="k">begin</span><span class="w"></span>
-<span class="w">      </span><span class="k">null</span><span class="p">;</span><span class="w"></span>
-<span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">do_something</span><span class="p">;</span><span class="w"></span>
-<span class="k">end</span><span class="w"> </span><span class="n">example_package</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">declare</span><span class="w"></span>
+<span class="w">   </span><span class="n">l_long</span><span class="w"> </span><span class="k">clob</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="n">l_raw</span><span class="w">  </span><span class="nb">blob</span><span class="p">;</span><span class="w"></span>
+<span class="k">begin</span><span class="w"></span>
+<span class="w">   </span><span class="n">do_something</span><span class="p">(</span><span class="n">l_long</span><span class="p">);</span><span class="w"></span>
+<span class="w">   </span><span class="n">do_something</span><span class="p">(</span><span class="n">l_raw</span><span class="p">);</span><span class="w"></span>
+<span class="k">end</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
 

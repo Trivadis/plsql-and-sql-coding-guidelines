@@ -1988,7 +1988,7 @@
   
     <li class="md-nav__item">
       <a href="../../../5-exception-handling/g-5050/" class="md-nav__link">
-        G-5050: Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded  20nnn error number or hard-coded message.
+        G-5050: Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded 20nnn error number or hard-coded message.
       </a>
     </li>
   
@@ -3453,7 +3453,7 @@
 <span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">employee_id</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
 <span class="w">          </span><span class="k">select</span><span class="w"> </span><span class="n">employee_id</span><span class="w"></span>
 <span class="w">            </span><span class="k">from</span><span class="w"> </span><span class="n">jobs</span><span class="w"></span>
-<span class="w">           </span><span class="k">where</span><span class="w"> </span><span class="n">job_title</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;%Manager%&#39;</span><span class="w"></span>
+<span class="w">           </span><span class="k">where</span><span class="w"> </span><span class="n">job_title</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;%Manager%&#39;</span><span class="w"> </span><span class="c1">-- NOSONAR: G-1050 literal is ok for a standalone query</span>
 <span class="w">       </span><span class="p">);</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
 <h2 id="example-better">Example (better)</h2>
@@ -3501,7 +3501,7 @@
 <span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">emp</span><span class="p">.</span><span class="n">employee_id</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
 <span class="w">          </span><span class="k">select</span><span class="w"> </span><span class="n">j</span><span class="p">.</span><span class="n">employee_id</span><span class="w"></span>
 <span class="w">            </span><span class="k">from</span><span class="w"> </span><span class="n">jobs</span><span class="w"> </span><span class="n">j</span><span class="w"></span>
-<span class="w">           </span><span class="k">where</span><span class="w"> </span><span class="n">j</span><span class="p">.</span><span class="n">job_title</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;%Manager%&#39;</span><span class="w"></span>
+<span class="w">           </span><span class="k">where</span><span class="w"> </span><span class="n">j</span><span class="p">.</span><span class="n">job_title</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;%Manager%&#39;</span><span class="w"> </span><span class="c1">-- NOSONAR: G-1050 literal is ok for a standalone query</span>
 <span class="w">       </span><span class="p">);</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
 

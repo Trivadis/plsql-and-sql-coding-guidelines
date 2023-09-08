@@ -106,7 +106,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              G-5050: Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded  20nnn error number or hard-coded message.
+              G-5050: Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded 20nnn error number or hard-coded message.
             
           </span>
         </div>
@@ -1933,12 +1933,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          G-5050: Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded  20nnn error number or hard-coded message.
+          G-5050: Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded 20nnn error number or hard-coded message.
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        G-5050: Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded  20nnn error number or hard-coded message.
+        G-5050: Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded 20nnn error number or hard-coded message.
       </a>
       
         
@@ -3400,7 +3400,7 @@
                 
 
 
-<h1 id="g-5050-avoid-use-of-the-raise_application_error-built-in-procedure-with-a-hard-coded-20nnn-error-number-or-hard-coded-message">G-5050: Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded  20nnn error number or hard-coded message.</h1>
+<h1 id="g-5050-avoid-use-of-the-raise_application_error-built-in-procedure-with-a-hard-coded-20nnn-error-number-or-hard-coded-message">G-5050: Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded 20nnn error number or hard-coded message.</h1>
 <div class="admonition warning">
 <p class="admonition-title">Major</p>
 <p>Changeability, Maintainability</p>
@@ -3411,8 +3411,12 @@
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
-<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">begin</span><span class="w"></span>
-<span class="w">   </span><span class="n">raise_application_error</span><span class="p">(</span><span class="o">-</span><span class="mi">20501</span><span class="p">,</span><span class="s1">&#39;Invalid employee_id&#39;</span><span class="p">);</span><span class="w"></span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">declare</span><span class="w"></span>
+<span class="w">   </span><span class="n">co_invalid_emp_text</span><span class="w"> </span><span class="n">constant</span><span class="w"> </span><span class="n">types_up</span><span class="p">.</span><span class="nb">text</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Invalid employee_id&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="k">begin</span><span class="w"></span>
+<span class="w">   </span><span class="n">raise_application_error</span><span class="p">(</span><span class="o">-</span><span class="mi">20501</span><span class="w"> </span><span class="cm">/* violates also G-1010 */</span><span class="p">,</span><span class="n">co_invalid_emp_text</span><span class="p">);</span><span class="w"></span>
 <span class="k">end</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>

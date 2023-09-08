@@ -1922,7 +1922,7 @@
   
     <li class="md-nav__item">
       <a href="../../../5-exception-handling/g-5050/" class="md-nav__link">
-        G-5050: Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded  20nnn error number or hard-coded message.
+        G-5050: Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded 20nnn error number or hard-coded message.
       </a>
     </li>
   
@@ -3403,8 +3403,8 @@
 
 
 <h1 id="g-8310-always-validate-input-parameter-size-by-assigning-the-parameter-to-a-size-limited-variable-in-the-declaration-section-of-program-unit">G-8310: Always validate input parameter size by assigning the parameter to a size limited variable in the declaration section of program unit.</h1>
-<div class="admonition tip">
-<p class="admonition-title">Minor</p>
+<div class="admonition warning">
+<p class="admonition-title">Major</p>
 <p>Maintainability, Reliability, Reusability, Testability</p>
 </div>
 <h2 id="reason">Reason</h2>
@@ -3427,21 +3427,41 @@
 <span class="normal">15</span>
 <span class="normal">16</span>
 <span class="normal">17</span>
-<span class="normal">18</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="n">department_api</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
-<span class="w">   </span><span class="k">function</span><span class="w"> </span><span class="n">dept_by_name</span><span class="p">(</span><span class="n">in_dept_name</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">departments</span><span class="p">.</span><span class="n">department_name</span><span class="o">%</span><span class="k">type</span><span class="p">)</span><span class="w"></span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="n">department_api</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
+<span class="w">   </span><span class="k">function</span><span class="w"> </span><span class="n">dept_by_name</span><span class="p">(</span><span class="w"> </span><span class="c1">-- NOSONAR: non-deterministic</span>
+<span class="w">      </span><span class="n">in_dept_name</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">departments</span><span class="p">.</span><span class="n">department_name</span><span class="o">%</span><span class="k">type</span><span class="w"></span>
+<span class="w">   </span><span class="p">)</span><span class="w"></span>
 <span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">departments</span><span class="o">%</span><span class="n">rowtype</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
-<span class="w">      </span><span class="n">r_return</span><span class="w"> </span><span class="n">departments</span><span class="o">%</span><span class="n">rowtype</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="n">r_return</span><span class="w">                </span><span class="n">departments</span><span class="o">%</span><span class="n">rowtype</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="n">co_max_dept_name_length</span><span class="w"> </span><span class="n">constant</span><span class="w"> </span><span class="nb">integer</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">20</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">begin</span><span class="w"></span>
-<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="n">in_dept_name</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">length</span><span class="p">(</span><span class="n">in_dept_name</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">20</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="n">in_dept_name</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">length</span><span class="p">(</span><span class="n">in_dept_name</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">co_max_dept_name_length</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
 <span class="w">         </span><span class="n">raise</span><span class="w"> </span><span class="n">err</span><span class="p">.</span><span class="n">e_param_to_large</span><span class="p">;</span><span class="w"></span>
 <span class="w">      </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span><span class="w"></span>
 <span class="w">      </span><span class="c1">-- get the department by name</span>
-<span class="w">      </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"></span>
-<span class="w">        </span><span class="k">into</span><span class="w"> </span><span class="n">r_return</span><span class="w"></span>
-<span class="w">        </span><span class="k">from</span><span class="w"> </span><span class="n">departments</span><span class="w"></span>
-<span class="w">       </span><span class="k">where</span><span class="w"> </span><span class="n">department_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in_dept_name</span><span class="p">;</span><span class="w"></span>
-
-<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">r_return</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="o">&lt;&lt;</span><span class="n">trap</span><span class="o">&gt;&gt;</span><span class="w"></span>
+<span class="w">      </span><span class="k">begin</span><span class="w"></span>
+<span class="w">         </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"></span>
+<span class="w">           </span><span class="k">into</span><span class="w"> </span><span class="n">r_return</span><span class="w"></span>
+<span class="w">           </span><span class="k">from</span><span class="w"> </span><span class="n">departments</span><span class="w"></span>
+<span class="w">          </span><span class="k">where</span><span class="w"> </span><span class="n">department_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in_dept_name</span><span class="p">;</span><span class="w"></span>
+<span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="n">r_return</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="k">exception</span><span class="w"></span>
+<span class="w">         </span><span class="k">when</span><span class="w"> </span><span class="n">no_data_found</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="k">null</span><span class="p">;</span><span class="w"></span>
+<span class="w">         </span><span class="k">when</span><span class="w"> </span><span class="n">too_many_rows</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
+<span class="w">            </span><span class="n">raise</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="k">end</span><span class="w"> </span><span class="n">trap</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">dept_by_name</span><span class="p">;</span><span class="w"></span>
 <span class="k">end</span><span class="w"> </span><span class="n">department_api</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
@@ -3462,35 +3482,57 @@
 <span class="normal">13</span>
 <span class="normal">14</span>
 <span class="normal">15</span>
-<span class="normal">16</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="n">department_api</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
-<span class="w">   </span><span class="k">function</span><span class="w"> </span><span class="n">dept_by_name</span><span class="p">(</span><span class="n">in_dept_name</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">departments</span><span class="p">.</span><span class="n">department_name</span><span class="o">%</span><span class="k">type</span><span class="p">)</span><span class="w"></span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="n">department_api</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
+<span class="w">   </span><span class="k">function</span><span class="w"> </span><span class="n">dept_by_name</span><span class="p">(</span><span class="w"> </span><span class="c1">-- NOSONAR: non-deterministic</span>
+<span class="w">      </span><span class="n">in_dept_name</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">departments</span><span class="p">.</span><span class="n">department_name</span><span class="o">%</span><span class="k">type</span><span class="w"></span>
+<span class="w">   </span><span class="p">)</span><span class="w"></span>
 <span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">departments</span><span class="o">%</span><span class="n">rowtype</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
-<span class="w">      </span><span class="n">l_dept_name</span><span class="w"> </span><span class="n">departments</span><span class="p">.</span><span class="n">department_name</span><span class="o">%</span><span class="k">type</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">in_dept_name</span><span class="p">;</span><span class="w"></span>
-<span class="w">      </span><span class="n">r_return</span><span class="w">    </span><span class="n">departments</span><span class="o">%</span><span class="n">rowtype</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="n">co_dept_name</span><span class="w"> </span><span class="n">constant</span><span class="w"> </span><span class="n">departments</span><span class="p">.</span><span class="n">department_name</span><span class="o">%</span><span class="k">type</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">in_dept_name</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="n">r_return</span><span class="w">     </span><span class="n">departments</span><span class="o">%</span><span class="n">rowtype</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">begin</span><span class="w"></span>
 <span class="w">      </span><span class="c1">-- get the department by name</span>
-<span class="w">      </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"></span>
-<span class="w">        </span><span class="k">into</span><span class="w"> </span><span class="n">r_return</span><span class="w"></span>
-<span class="w">        </span><span class="k">from</span><span class="w"> </span><span class="n">departments</span><span class="w"></span>
-<span class="w">       </span><span class="k">where</span><span class="w"> </span><span class="n">department_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">l_dept_name</span><span class="p">;</span><span class="w"></span>
-
-<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">r_return</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="o">&lt;&lt;</span><span class="n">trap</span><span class="o">&gt;&gt;</span><span class="w"></span>
+<span class="w">      </span><span class="k">begin</span><span class="w"></span>
+<span class="w">         </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"></span>
+<span class="w">           </span><span class="k">into</span><span class="w"> </span><span class="n">r_return</span><span class="w"></span>
+<span class="w">           </span><span class="k">from</span><span class="w"> </span><span class="n">departments</span><span class="w"></span>
+<span class="w">          </span><span class="k">where</span><span class="w"> </span><span class="n">department_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">co_dept_name</span><span class="p">;</span><span class="w"></span>
+<span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="n">r_return</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="k">exception</span><span class="w"></span>
+<span class="w">         </span><span class="k">when</span><span class="w"> </span><span class="n">no_data_found</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="k">null</span><span class="p">;</span><span class="w"></span>
+<span class="w">         </span><span class="k">when</span><span class="w"> </span><span class="n">too_many_rows</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
+<span class="w">            </span><span class="n">raise</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="k">end</span><span class="w"> </span><span class="n">trap</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">dept_by_name</span><span class="p">;</span><span class="w"></span>
 <span class="k">end</span><span class="w"> </span><span class="n">department_api</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
 <p>The exception should be handled where the function is called, like this:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span>
-<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">begin</span><span class="w"></span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">declare</span><span class="w"></span>
+<span class="w">   </span><span class="n">co_dept_name</span><span class="w"> </span><span class="n">constant</span><span class="w"> </span><span class="n">type_up</span><span class="p">.</span><span class="nb">text</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Far to long name of a department&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="k">begin</span><span class="w"></span>
 <span class="w">   </span><span class="n">pre_processing</span><span class="p">;</span><span class="w"></span>
-<span class="w">   </span><span class="n">r_department</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">department_api</span><span class="p">.</span><span class="n">dept_by_name</span><span class="p">(</span><span class="s1">&#39;Far to long name of a department&#39;</span><span class="p">);</span><span class="w"></span>
+<span class="w">   </span><span class="n">r_department</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">department_api</span><span class="p">.</span><span class="n">dept_by_name</span><span class="p">(</span><span class="n">co_dept_name</span><span class="p">);</span><span class="w"></span>
 <span class="w">   </span><span class="n">post_processing</span><span class="p">;</span><span class="w"></span>
 <span class="k">exception</span><span class="w"></span>
 <span class="w">   </span><span class="k">when</span><span class="w"> </span><span class="n">value_error</span><span class="w"> </span><span class="k">then</span><span class="w"></span>

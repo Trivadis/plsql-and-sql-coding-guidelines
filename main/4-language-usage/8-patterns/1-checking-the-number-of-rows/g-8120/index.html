@@ -1922,7 +1922,7 @@
   
     <li class="md-nav__item">
       <a href="../../../5-exception-handling/g-5050/" class="md-nav__link">
-        G-5050: Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded  20nnn error number or hard-coded message.
+        G-5050: Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded 20nnn error number or hard-coded message.
       </a>
     </li>
   
@@ -3403,8 +3403,8 @@
 
 
 <h1 id="g-8120-never-check-existence-of-a-row-to-decide-whether-to-create-it-or-not">G-8120: Never check existence of a row to decide whether to create it or not.</h1>
-<div class="admonition warning">
-<p class="admonition-title">Major</p>
+<div class="admonition danger">
+<p class="admonition-title">Critical</p>
 <p>Efficiency, Reliability</p>
 </div>
 <h2 id="reason">Reason</h2>
@@ -3429,7 +3429,7 @@
 <span class="w">   </span><span class="k">procedure</span><span class="w"> </span><span class="n">ins</span><span class="p">(</span><span class="n">in_r_department</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">departments</span><span class="o">%</span><span class="n">rowtype</span><span class="p">)</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
 <span class="w">      </span><span class="n">l_count</span><span class="w"> </span><span class="n">pls_integer</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">begin</span><span class="w"></span>
-<span class="w">      </span><span class="k">select</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">select</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="c1">-- NOSONAR: a violation of G-8110 is a prerequisite for G-8120</span>
 <span class="w">        </span><span class="k">into</span><span class="w"> </span><span class="n">l_count</span><span class="w"></span>
 <span class="w">        </span><span class="k">from</span><span class="w"> </span><span class="n">departments</span><span class="w"></span>
 <span class="w">       </span><span class="k">where</span><span class="w"> </span><span class="n">department_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in_r_department</span><span class="p">.</span><span class="n">department_id</span><span class="p">;</span><span class="w"></span>

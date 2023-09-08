@@ -1922,7 +1922,7 @@
   
     <li class="md-nav__item">
       <a href="../../../5-exception-handling/g-5050/" class="md-nav__link">
-        G-5050: Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded  20nnn error number or hard-coded message.
+        G-5050: Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded 20nnn error number or hard-coded message.
       </a>
     </li>
   
@@ -3403,8 +3403,8 @@
 
 
 <h1 id="g-8510-always-use-dbms_application_info-to-track-program-process-transiently">G-8510: Always use dbms_application_info to track program process transiently.</h1>
-<div class="admonition tip">
-<p class="admonition-title">Minor</p>
+<div class="admonition danger">
+<p class="admonition-title">Critical</p>
 <p>Efficiency, Reliability</p>
 </div>
 <div class="admonition missing">
@@ -3428,7 +3428,8 @@
 <span class="normal">12</span>
 <span class="normal">13</span>
 <span class="normal">14</span>
-<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="n">employee_api</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
+<span class="normal">15</span>
+<span class="normal">16</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="n">employee_api</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
 <span class="w">   </span><span class="k">procedure</span><span class="w"> </span><span class="n">process_emps</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
 <span class="w">   </span><span class="k">begin</span><span class="w"></span>
 <span class="w">      </span><span class="o">&lt;&lt;</span><span class="n">employees</span><span class="o">&gt;&gt;</span><span class="w"></span>
@@ -3438,7 +3439,8 @@
 <span class="w">          </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">employee_id</span><span class="w"></span>
 <span class="w">      </span><span class="p">)</span><span class="w"></span>
 <span class="w">      </span><span class="n">loop</span><span class="w"></span>
-<span class="w">         </span><span class="k">null</span><span class="p">;</span><span class="w"> </span><span class="c1">-- some processing</span>
+<span class="w">         </span><span class="c1">-- some processing</span>
+<span class="w">         </span><span class="n">sys</span><span class="p">.</span><span class="n">dbms_output</span><span class="p">.</span><span class="n">put_line</span><span class="p">(</span><span class="n">emp_rec</span><span class="p">.</span><span class="n">employee_id</span><span class="p">);</span><span class="w"></span>
 <span class="w">      </span><span class="k">end</span><span class="w"> </span><span class="n">loop</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">process_emps</span><span class="p">;</span><span class="w"></span>
 <span class="k">end</span><span class="w"> </span><span class="n">employee_api</span><span class="p">;</span><span class="w"></span>
@@ -3461,11 +3463,20 @@
 <span class="normal">14</span>
 <span class="normal">15</span>
 <span class="normal">16</span>
-<span class="normal">17</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="n">employee_api</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="n">employee_api</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
 <span class="w">   </span><span class="k">procedure</span><span class="w"> </span><span class="n">process_emps</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
+<span class="w">      </span><span class="n">co_action_name</span><span class="w"> </span><span class="n">constant</span><span class="w"> </span><span class="n">v$session</span><span class="p">.</span><span class="n">action</span><span class="o">%</span><span class="k">type</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;init&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="n">co_label</span><span class="w">       </span><span class="n">constant</span><span class="w"> </span><span class="n">v$session</span><span class="p">.</span><span class="n">action</span><span class="o">%</span><span class="k">type</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Processing &#39;</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">begin</span><span class="w"></span>
-<span class="w">      </span><span class="n">sys</span><span class="p">.</span><span class="n">dbms_application_info</span><span class="p">.</span><span class="n">set_module</span><span class="p">(</span><span class="n">module_name</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="err">$$</span><span class="n">plsql_unit</span><span class="w"></span>
-<span class="w">                                          </span><span class="p">,</span><span class="n">action_name</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s1">&#39;Init&#39;</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="n">sys</span><span class="p">.</span><span class="n">dbms_application_info</span><span class="p">.</span><span class="n">set_module</span><span class="p">(</span><span class="w"></span>
+<span class="w">         </span><span class="n">module_name</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="err">$$</span><span class="n">plsql_unit</span><span class="w"></span>
+<span class="w">        </span><span class="p">,</span><span class="n">action_name</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">co_action_name</span><span class="w"></span>
+<span class="w">      </span><span class="p">);</span><span class="w"></span>
 <span class="w">      </span><span class="o">&lt;&lt;</span><span class="n">employees</span><span class="o">&gt;&gt;</span><span class="w"></span>
 <span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="n">emp_rec</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
 <span class="w">         </span><span class="k">select</span><span class="w"> </span><span class="n">employee_id</span><span class="w"></span>
@@ -3473,7 +3484,8 @@
 <span class="w">          </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">employee_id</span><span class="w"></span>
 <span class="w">      </span><span class="p">)</span><span class="w"></span>
 <span class="w">      </span><span class="n">loop</span><span class="w"></span>
-<span class="w">         </span><span class="n">sys</span><span class="p">.</span><span class="n">dbms_application_info</span><span class="p">.</span><span class="n">set_action</span><span class="p">(</span><span class="s1">&#39;Processing &#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">emp_rec</span><span class="p">.</span><span class="n">employee_id</span><span class="p">);</span><span class="w"></span>
+<span class="w">         </span><span class="c1">-- some processing</span>
+<span class="w">         </span><span class="n">sys</span><span class="p">.</span><span class="n">dbms_application_info</span><span class="p">.</span><span class="n">set_action</span><span class="p">(</span><span class="n">co_label</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">emp_rec</span><span class="p">.</span><span class="n">employee_id</span><span class="p">);</span><span class="w"></span>
 <span class="w">      </span><span class="k">end</span><span class="w"> </span><span class="n">loop</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">process_emps</span><span class="p">;</span><span class="w"></span>
 <span class="k">end</span><span class="w"> </span><span class="n">employee_api</span><span class="p">;</span><span class="w"></span>

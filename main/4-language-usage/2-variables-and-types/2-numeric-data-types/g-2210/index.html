@@ -1981,7 +1981,7 @@
   
     <li class="md-nav__item">
       <a href="../../../5-exception-handling/g-5050/" class="md-nav__link">
-        G-5050: Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded  20nnn error number or hard-coded message.
+        G-5050: Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded 20nnn error number or hard-coded message.
       </a>
     </li>
   
@@ -3403,48 +3403,28 @@
 
 
 <h1 id="g-2210-avoid-declaring-number-variables-constants-or-subtypes-with-no-precision">G-2210: Avoid declaring NUMBER variables, constants or subtypes with no precision.</h1>
-<div class="admonition tip">
-<p class="admonition-title">Minor</p>
+<div class="admonition warning">
+<p class="admonition-title">Major</p>
 <p>Efficiency</p>
 </div>
 <h2 id="reason">Reason</h2>
-<p>If you do not specify precision <code>number</code> is defaulted to 38 or the maximum supported by your system, whichever is less. You may well need all this precision, but if you know you do not, you should specify whatever matches your needs.</p>
+<p>If you do not specify precision <code>number</code> is defaulted to 38 or the maximum supported by your system, whichever is less. You may well need all this precision, but if you know you do not, you should specify whatever matches your needs. Also, consider using a simpler data type that uses fewer resources, such as <code>pls_integer</code>.</p>
 <h2 id="example-bad">Example (bad)</h2>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span>
-<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="n">constants_up</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
-<span class="w">   </span><span class="n">co_small_increase</span><span class="w"> </span><span class="n">constant</span><span class="w"> </span><span class="nb">number</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
-
-<span class="w">   </span><span class="k">function</span><span class="w"> </span><span class="n">small_increase</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nb">number</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
-<span class="w">   </span><span class="k">begin</span><span class="w"></span>
-<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">co_small_increase</span><span class="p">;</span><span class="w"></span>
-<span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">small_increase</span><span class="p">;</span><span class="w"></span>
-<span class="k">end</span><span class="w"> </span><span class="n">constants_up</span><span class="p">;</span><span class="w"></span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">types_up</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
+<span class="w">   </span><span class="n">subtype</span><span class="w"> </span><span class="n">salary_type</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="nb">number</span><span class="p">;</span><span class="w"></span>
+<span class="k">end</span><span class="w"> </span><span class="n">types_up</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
 <h2 id="example-good">Example (good)</h2>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span>
-<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="n">constants_up</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
-<span class="w">   </span><span class="n">co_small_increase</span><span class="w"> </span><span class="n">constant</span><span class="w"> </span><span class="nb">number</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
-
-<span class="w">   </span><span class="k">function</span><span class="w"> </span><span class="n">small_increase</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nb">number</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
-<span class="w">   </span><span class="k">begin</span><span class="w"></span>
-<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">co_small_increase</span><span class="p">;</span><span class="w"></span>
-<span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">small_increase</span><span class="p">;</span><span class="w"></span>
-<span class="k">end</span><span class="w"> </span><span class="n">constants_up</span><span class="p">;</span><span class="w"></span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">types_up</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
+<span class="w">   </span><span class="n">subtype</span><span class="w"> </span><span class="n">salary_type</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="nb">number</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+<span class="k">end</span><span class="w"> </span><span class="n">types_up</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
 

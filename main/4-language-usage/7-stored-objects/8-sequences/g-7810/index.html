@@ -1922,7 +1922,7 @@
   
     <li class="md-nav__item">
       <a href="../../../5-exception-handling/g-5050/" class="md-nav__link">
-        G-5050: Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded  20nnn error number or hard-coded message.
+        G-5050: Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded 20nnn error number or hard-coded message.
       </a>
     </li>
   
@@ -3403,8 +3403,8 @@
 
 
 <h1 id="g-7810-never-use-sql-inside-plsql-to-read-sequence-numbers-or-sysdate">G-7810: Never use SQL inside PL/SQL to read sequence numbers (or SYSDATE).</h1>
-<div class="admonition warning">
-<p class="admonition-title">Major</p>
+<div class="admonition danger">
+<p class="admonition-title">Critical</p>
 <p>Efficiency, Maintainability</p>
 </div>
 <h2 id="reason">Reason</h2>
@@ -3417,12 +3417,14 @@
 <span class="normal">5</span>
 <span class="normal">6</span>
 <span class="normal">7</span>
-<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">declare</span><span class="w"></span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">declare</span><span class="w"></span>
 <span class="w">   </span><span class="n">l_sequence_number</span><span class="w"> </span><span class="n">employees</span><span class="p">.</span><span class="n">employee_id</span><span class="o">%</span><span class="k">type</span><span class="p">;</span><span class="w"></span>
 <span class="k">begin</span><span class="w"></span>
 <span class="w">   </span><span class="k">select</span><span class="w"> </span><span class="n">employees_seq</span><span class="p">.</span><span class="n">nextval</span><span class="w"></span>
 <span class="w">     </span><span class="k">into</span><span class="w"> </span><span class="n">l_sequence_number</span><span class="w"></span>
 <span class="w">     </span><span class="k">from</span><span class="w"> </span><span class="n">dual</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="n">my_package</span><span class="p">.</span><span class="n">do_something</span><span class="p">(</span><span class="n">l_sequence_number</span><span class="p">);</span><span class="w"></span>
 <span class="k">end</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
@@ -3432,10 +3434,12 @@
 <span class="normal">3</span>
 <span class="normal">4</span>
 <span class="normal">5</span>
-<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">declare</span><span class="w"></span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">declare</span><span class="w"></span>
 <span class="w">   </span><span class="n">l_sequence_number</span><span class="w"> </span><span class="n">employees</span><span class="p">.</span><span class="n">employee_id</span><span class="o">%</span><span class="k">type</span><span class="p">;</span><span class="w"></span>
 <span class="k">begin</span><span class="w"></span>
 <span class="w">   </span><span class="n">l_sequence_number</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">employees_seq</span><span class="p">.</span><span class="n">nextval</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="n">my_package</span><span class="p">.</span><span class="n">do_something</span><span class="p">(</span><span class="n">l_sequence_number</span><span class="p">);</span><span class="w"></span>
 <span class="k">end</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>

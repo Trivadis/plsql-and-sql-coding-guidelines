@@ -1981,7 +1981,7 @@
   
     <li class="md-nav__item">
       <a href="../../../5-exception-handling/g-5050/" class="md-nav__link">
-        G-5050: Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded  20nnn error number or hard-coded message.
+        G-5050: Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded 20nnn error number or hard-coded message.
       </a>
     </li>
   
@@ -3449,7 +3449,7 @@
 <span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">loop</span><span class="p">;</span><span class="w"></span>
 
 <span class="w">   </span><span class="n">loop</span><span class="w"></span>
-<span class="w">      </span><span class="n">exit</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="n">exit</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="k">true</span><span class="p">;</span><span class="w"> </span><span class="c1">-- NOSONAR: G-4380 cannot use labelled exit here</span>
 <span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">loop</span><span class="p">;</span><span class="w"></span>
 
 <span class="w">   </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">co_min_value</span><span class="p">..</span><span class="n">co_max_value</span><span class="w"></span>
@@ -3513,7 +3513,7 @@
 
 <span class="w">   </span><span class="o">&lt;&lt;</span><span class="n">basic_loop</span><span class="o">&gt;&gt;</span><span class="w"></span>
 <span class="w">   </span><span class="n">loop</span><span class="w"></span>
-<span class="w">      </span><span class="n">exit</span><span class="w"> </span><span class="n">basic_loop</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="n">exit</span><span class="w"> </span><span class="n">basic_loop</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="k">true</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">loop</span><span class="w"> </span><span class="n">basic_loop</span><span class="p">;</span><span class="w"></span>
 
 <span class="w">   </span><span class="o">&lt;&lt;</span><span class="n">for_loop</span><span class="o">&gt;&gt;</span><span class="w"></span>

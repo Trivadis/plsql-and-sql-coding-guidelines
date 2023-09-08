@@ -1981,7 +1981,7 @@
   
     <li class="md-nav__item">
       <a href="../../../5-exception-handling/g-5050/" class="md-nav__link">
-        G-5050: Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded  20nnn error number or hard-coded message.
+        G-5050: Avoid use of the RAISE_APPLICATION_ERROR built-in procedure with a hard-coded 20nnn error number or hard-coded message.
       </a>
     </li>
   
@@ -3420,12 +3420,14 @@
 <span class="normal"> 8</span>
 <span class="normal"> 9</span>
 <span class="normal">10</span>
-<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">declare</span><span class="w"></span>
-<span class="w">   </span><span class="ss">&quot;sal+comm&quot;</span><span class="w">     </span><span class="nb">integer</span><span class="p">;</span><span class="w"></span>
-<span class="w">   </span><span class="ss">&quot;my constant&quot;</span><span class="w">  </span><span class="n">constant</span><span class="w"> </span><span class="nb">integer</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
-<span class="w">   </span><span class="ss">&quot;my exception&quot;</span><span class="w"> </span><span class="k">exception</span><span class="p">;</span><span class="w"></span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">declare</span><span class="w"></span>
+<span class="w">   </span><span class="ss">&quot;sal+comm&quot;</span><span class="w">     </span><span class="nb">integer</span><span class="p">;</span><span class="w">               </span><span class="c1">-- violates also naming conventions (G-9102)</span>
+<span class="w">   </span><span class="ss">&quot;my constant&quot;</span><span class="w">  </span><span class="n">constant</span><span class="w"> </span><span class="nb">integer</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="c1">-- violates also naming conventions (G-9114)</span>
+<span class="w">   </span><span class="ss">&quot;my exception&quot;</span><span class="w"> </span><span class="k">exception</span><span class="p">;</span><span class="w">             </span><span class="c1">-- violates also naming conventsion (G-9113)</span>
 <span class="k">begin</span><span class="w"></span>
 <span class="w">   </span><span class="ss">&quot;sal+comm&quot;</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;my constant&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="n">do_something</span><span class="p">(</span><span class="ss">&quot;sal+comm&quot;</span><span class="p">);</span><span class="w"></span>
 <span class="k">exception</span><span class="w"></span>
 <span class="w">   </span><span class="k">when</span><span class="w"> </span><span class="ss">&quot;my exception&quot;</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
 <span class="w">      </span><span class="k">null</span><span class="p">;</span><span class="w"></span>
@@ -3443,12 +3445,14 @@
 <span class="normal"> 8</span>
 <span class="normal"> 9</span>
 <span class="normal">10</span>
-<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">declare</span><span class="w"></span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">declare</span><span class="w"></span>
 <span class="w">   </span><span class="n">l_sal_comm</span><span class="w">     </span><span class="nb">integer</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="n">co_my_constant</span><span class="w"> </span><span class="n">constant</span><span class="w"> </span><span class="nb">integer</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="n">e_my_exception</span><span class="w"> </span><span class="k">exception</span><span class="p">;</span><span class="w"></span>
 <span class="k">begin</span><span class="w"></span>
 <span class="w">   </span><span class="n">l_sal_comm</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">co_my_constant</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="n">do_something</span><span class="p">(</span><span class="n">l_sal_comm</span><span class="p">);</span><span class="w"></span>
 <span class="k">exception</span><span class="w"></span>
 <span class="w">   </span><span class="k">when</span><span class="w"> </span><span class="n">e_my_exception</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
 <span class="w">      </span><span class="k">null</span><span class="p">;</span><span class="w"></span>
