@@ -26,19 +26,19 @@ Testability | The capability of the software product to enable modified software
 ### Severity of the rule
 
 !!! bug "Blocker"
-    Will or may result in a bug.
+    Will or may result in a bug; for example, an incorrect result or a runtime exception.
 
 !!! danger "Critical"
-    Will have a high/direct impact on the maintenance cost.
+    Will have a high/direct impact on the maintenance cost. May have an impact on runtime behavior; for example, incomplete audit data or slower runtime performance.
 
 !!! warning "Major"
-    Will have a medium/potential impact on the maintenance cost.
+    Will have a medium/potential impact on the maintenance cost. May have an impact on runtime behavior; for example, higher memory consumption.
 
 !!! tip "Minor"
-    Will have a low impact on the maintenance cost.
+    Will have a low impact on the maintenance cost. No impact on the runtime behavior.
 
 !!! info "Info"
-    Very low impact; it is just a remediation cost report.
+    Very low impact; it is just a remediation cost report. No impact on runtime behavior. For example, a NOSONAR marker comment.
 
 ### Keywords used
 
