@@ -1236,6 +1236,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../3-dml-and-sql/1-general/g-3182/" class="md-nav__link">
+        G-3182: Always specify column names instead of positional references in GROUP BY clauses.
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-dml-and-sql/1-general/g-3183/" class="md-nav__link">
+        G-3183: Always specify column aliases instead of expressions in GROUP BY clauses.
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../3-dml-and-sql/1-general/g-3185/" class="md-nav__link">
         G-3185: Never use ROWNUM at the same query level as ORDER BY.
       </a>
@@ -3409,6 +3437,8 @@
 <p>Literals are often used more than once in your code. Having them defined as a constant reduces typos in your code and improves the maintainability.</p>
 <p>All constants should be collated in just one package used as a library. If these constants should be used in SQL too it is good practice to write a deterministic package function for every constant.</p>
 <p>In specific situations this rule could lead to an extreme plethora of constants, for example if you use Logger like <code>logger.append_param(p_params =&gt;l_params, p_name =&gt; 'p_param1_todo', p_val =&gt; p_param1_todo);</code>, where the value for <code>p_name</code> always should be the name of the variable that is passed to <code>p_val</code>. For such cases it would be overkill to add constants for every single variable name you are logging, so if you use Logger or similar, consider making that an exception to the rule, just document exactly which exceptions you will allow and stick to them.</p>
+<p>Another exception is literals in views. It is not possible to use constants there, and using functions to wrap constants can have a negative impact on performance when peeking at binding variables is essential for an optimal execution plan.</p>
+<p>To reduce the number of false positives, the number of occurrences of a literal should be less than 3.</p>
 <h2 id="example-bad">Example (bad)</h2>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>

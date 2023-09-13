@@ -1179,6 +1179,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../3-dml-and-sql/1-general/g-3182/" class="md-nav__link">
+        G-3182: Always specify column names instead of positional references in GROUP BY clauses.
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../3-dml-and-sql/1-general/g-3183/" class="md-nav__link">
+        G-3183: Always specify column aliases instead of expressions in GROUP BY clauses.
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../3-dml-and-sql/1-general/g-3185/" class="md-nav__link">
         G-3185: Never use ROWNUM at the same query level as ORDER BY.
       </a>
@@ -3409,6 +3437,18 @@
 </div>
 <h2 id="reason">Reason</h2>
 <p>This technique raises an error (<code>value_error</code>) which may not be handled in the called program unit. This is the right way to do it, as the error is not within this unit but when calling it, so the caller should handle the error.</p>
+<p>To limit the number of false positives, only the following data types used in parameters should be considered:</p>
+<ul>
+<li><code>nchar</code></li>
+<li><code>number</code></li>
+<li><code>nvarchar2</code></li>
+<li><code>interval year to month</code></li>
+<li><code>interval day to second</code></li>
+<li><code>numeric</code></li>
+<li><code>decimal</code></li>
+<li><code>dec</code></li>
+<li><code>%type</code></li>
+</ul>
 <h2 id="example-bad">Example (bad)</h2>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
