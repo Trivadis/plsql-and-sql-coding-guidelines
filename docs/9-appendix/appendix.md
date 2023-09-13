@@ -54,6 +54,8 @@ n/a | 3150 | Try to use identity columns for surrogate keys. | Critical |  |  | 
 n/a | 3160 | Avoid visible virtual columns. | Major |  |  | &#10008; |  | &#10008; |  |  | 
 n/a | 3170 | Always use DEFAULT ON NULL declarations to assign default values to table columns if you refuse to store NULL values. | Major |  |  |  |  | &#10008; |  |  | 
 n/a | 3180 | Always specify column names instead of positional references in ORDER BY clauses. | Major | &#10008; |  |  |  | &#10008; |  |  | 
+n/a | 3182 | Always specify column names instead of positional references in GROUP BY clauses. | Blocker |  |  |  |  | &#10008; |  |  | 
+n/a | 3183 | Always specify column aliases instead of expressions in GROUP BY clauses. | Minor |  |  | &#10008; |  |  |  |  | 
 n/a | 3185 | Never use ROWNUM at the same query level as ORDER BY. | Blocker |  |  |  |  | &#10008; |  |  | &#10008;
 n/a | 3190 | Avoid using NATURAL JOIN. | Blocker | &#10008; |  |  |  | &#10008; |  |  | 
 n/a | 3195 | Always use wildcards in a LIKE clause. | Blocker |  |  | &#10008; |  |  |  |  | 
