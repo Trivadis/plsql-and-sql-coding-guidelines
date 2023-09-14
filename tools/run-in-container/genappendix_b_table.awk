@@ -22,15 +22,15 @@ BEGIN {
       text=$0;
       # We just remove the # G-<id>: from the beginning of the text
       dummy=sub(/^# G-[[:digit:]]+: /,"",text);
-      
+
       # Get the second of the 4 lines and ignore it, it's empty
       getline;
-      
+
       # Get the third of the 4 lines
       getline;
       # Retrieve the severity field from the third line
       severity=substr($3,2,length($3)-2);
-      
+
       # Get the fourth and last of the 4 lines
       getline;
       # If the char array was filled from the last iteration, we need to empty it here
@@ -42,7 +42,7 @@ BEGIN {
       char[6]="";
       char[7]="";
       char[8]="";
-      
+
       # The fourth line is a comma-separated list of characteristics - split them into an array
       no_of_characteristics=split($0,characteristics,",");
       for (i in characteristics) {
@@ -55,7 +55,7 @@ BEGIN {
          if (characteristics[i] ~ /Reusability/     ) {char[6]="&#10008;"}
          if (characteristics[i] ~ /Security/        ) {char[7]="&#10008;"}
          if (characteristics[i] ~ /Testability/     ) {char[8]="&#10008;"}
-         
+
          # If the characteristics value is something other than these 8 values, we output an error in the text so it'll be noticed
          if (!(characteristics[i] ~ /Changeability/   || \
                characteristics[i] ~ /Efficiency/      || \
@@ -66,16 +66,15 @@ BEGIN {
                characteristics[i] ~ /Security/        || \
                characteristics[i] ~ /Testability/     )) {text="!!!CHARACTERISTIC ERROR!!!"}
       }
-      
+
       # Output the fields of the markdown table in appendix B
       print old_id, new_id, text, severity, char[1], char[2], char[3], char[4], char[5], char[6], char[7], char[8];
-      
+
       # Special handling - between rule G-5040 and G-5050 we output the old rule 54 that is not mapped to any new rule
       if (new_id == "5040") {
          print "54 | n/a | Avoid use of EXCEPTION_INIT pragma for a  20nnn error. | Major |  |  |  |  | &#10008; |  |  | ";
       }
-      
+
       # Done handling the 4 lines of one .md file. Next 4 lines will be from another .md file and be handled in the next iteration.
    }
 }
-
