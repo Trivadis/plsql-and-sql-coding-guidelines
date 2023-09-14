@@ -12,7 +12,7 @@ function copy_resources() {
     cp -r ${DATA_DIR}/docs/stylesheets ${TARGET_DIR}/docs/stylesheets
 }
 
-# Materials for MkDocs 5.5.14 uses CSS that leads to wkhtmltopdf 0.12.6 printing all line numbers before the code with 
+# Materials for MkDocs 5.5.14 uses CSS that leads to wkhtmltopdf 0.12.6 printing all line numbers before the code with
 #   - "codehilite" plugin and "linenums: true"
 #   - "pymdownx.highlight" plugin and "linenums_style: table" (default)
 # The workaround is to use "pymdownx.highlight" with "linenums_style: pymdownx-inline" and some CSS fixes
