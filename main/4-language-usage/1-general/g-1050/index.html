@@ -3440,39 +3440,15 @@
 <p>Another exception is literals in views. It is not possible to use constants there, and using functions to wrap constants can have a negative impact on performance when peeking at binding variables is essential for an optimal execution plan.</p>
 <p>To reduce the number of false positives, the number of occurrences of a literal should be less than 3.</p>
 <h2 id="example-bad">Example (bad)</h2>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">declare</span><span class="w"></span>
-<span class="w">   </span><span class="n">l_job</span><span class="w"> </span><span class="n">employees</span><span class="p">.</span><span class="n">job_id</span><span class="o">%</span><span class="k">type</span><span class="p">;</span><span class="w"></span>
-<span class="k">begin</span><span class="w"></span>
-<span class="w">   </span><span class="k">select</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">job_id</span><span class="w"></span>
-<span class="w">     </span><span class="k">into</span><span class="w"> </span><span class="n">l_job</span><span class="w"></span>
-<span class="w">     </span><span class="k">from</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="n">e</span><span class="w"></span>
-<span class="w">    </span><span class="k">where</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">manager_id</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">null</span><span class="p">;</span><span class="w"></span>
-
-<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="n">l_job</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;AD_PRES&#39;</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
-<span class="w">      </span><span class="k">null</span><span class="p">;</span><span class="w"></span>
-<span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span><span class="w"></span>
-<span class="k">exception</span><span class="w"></span>
-<span class="w">   </span><span class="k">when</span><span class="w"> </span><span class="n">no_data_found</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
-<span class="w">      </span><span class="k">null</span><span class="p">;</span><span class="w"> </span><span class="c1">-- handle_no_data_found;</span>
-<span class="w">   </span><span class="k">when</span><span class="w"> </span><span class="n">too_many_rows</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
-<span class="w">      </span><span class="k">null</span><span class="p">;</span><span class="w"> </span><span class="c1">-- handle_too_many_rows; </span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">begin</span><span class="w"></span>
+<span class="w">   </span><span class="n">some_api</span><span class="p">.</span><span class="n">setup</span><span class="p">(</span><span class="n">in_department_id</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span><span class="w"></span>
+<span class="w">   </span><span class="n">some_api</span><span class="p">.</span><span class="n">process</span><span class="p">(</span><span class="n">in_department_id</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span><span class="w"></span>
+<span class="w">   </span><span class="n">some_api</span><span class="p">.</span><span class="n">teardown</span><span class="p">(</span><span class="n">in_department_id</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span><span class="w"></span>
 <span class="k">end</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
@@ -3487,39 +3463,15 @@
 <span class="normal"> 8</span>
 <span class="normal"> 9</span>
 <span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">constants_up</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
-<span class="w">   </span><span class="n">co_president</span><span class="w"> </span><span class="n">constant</span><span class="w"> </span><span class="n">employees</span><span class="p">.</span><span class="n">job_id</span><span class="o">%</span><span class="k">type</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;AD_PRES&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">constants_up</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
+<span class="w">   </span><span class="n">co_dept_admin</span><span class="w"> </span><span class="n">constant</span><span class="w"> </span><span class="n">departments</span><span class="p">.</span><span class="n">department_id</span><span class="o">%</span><span class="k">type</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w"></span>
 <span class="k">end</span><span class="w"> </span><span class="n">constants_up</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 
-<span class="k">declare</span><span class="w"></span>
-<span class="w">   </span><span class="n">l_job</span><span class="w"> </span><span class="n">employees</span><span class="p">.</span><span class="n">job_id</span><span class="o">%</span><span class="k">type</span><span class="p">;</span><span class="w"></span>
 <span class="k">begin</span><span class="w"></span>
-<span class="w">   </span><span class="k">select</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">job_id</span><span class="w"></span>
-<span class="w">     </span><span class="k">into</span><span class="w"> </span><span class="n">l_job</span><span class="w"></span>
-<span class="w">     </span><span class="k">from</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="n">e</span><span class="w"></span>
-<span class="w">    </span><span class="k">where</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">manager_id</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">null</span><span class="p">;</span><span class="w"></span>
-
-<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="n">l_job</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">constants_up</span><span class="p">.</span><span class="n">co_president</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
-<span class="w">      </span><span class="k">null</span><span class="p">;</span><span class="w"></span>
-<span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span><span class="w"></span>
-<span class="k">exception</span><span class="w"></span>
-<span class="w">   </span><span class="k">when</span><span class="w"> </span><span class="n">no_data_found</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
-<span class="w">      </span><span class="k">null</span><span class="p">;</span><span class="w"> </span><span class="c1">-- handle_no_data_found;</span>
-<span class="w">   </span><span class="k">when</span><span class="w"> </span><span class="n">too_many_rows</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
-<span class="w">      </span><span class="k">null</span><span class="p">;</span><span class="w"> </span><span class="c1">-- handle_too_many_rows; </span>
+<span class="w">   </span><span class="n">some_api</span><span class="p">.</span><span class="n">setup</span><span class="p">(</span><span class="n">in_department_id</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">constants_up</span><span class="p">.</span><span class="n">co_dept_admin</span><span class="p">);</span><span class="w"></span>
+<span class="w">   </span><span class="n">some_api</span><span class="p">.</span><span class="n">process</span><span class="p">(</span><span class="n">in_department_id</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">constants_up</span><span class="p">.</span><span class="n">co_dept_admin</span><span class="p">);</span><span class="w"></span>
+<span class="w">   </span><span class="n">some_api</span><span class="p">.</span><span class="n">teardown</span><span class="p">(</span><span class="n">in_department_id</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">constants_up</span><span class="p">.</span><span class="n">co_dept_admin</span><span class="p">);</span><span class="w"></span>
 <span class="k">end</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
