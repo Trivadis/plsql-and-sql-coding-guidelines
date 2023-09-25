@@ -3451,6 +3451,12 @@
 </div>
 <h2 id="reason">Reason</h2>
 <p>Doing so will not raise a <code>value_error</code> if the array you are looping through is empty. If you want to use <code>first()..last()</code> you need to check the array for emptiness beforehand to avoid the raise of <code>value_error</code>.</p>
+<p>Please note that:</p>
+<ul>
+<li>Varrays are always dense</li>
+<li>Associative arrays (or index-by tables) are either dense or sparse</li>
+<li>Nested tables start dense and may become sparse</li>
+</ul>
 <h2 id="example-bad">Example (bad)</h2>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>

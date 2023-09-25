@@ -3437,6 +3437,12 @@
 </div>
 <h2 id="reason">Reason</h2>
 <p>When a loose (also called sparse) array is processed using a <em>numeric</em> <code>for loop</code> we have to check with all iterations whether the element exist to avoid a <code>no_data_found</code> exception. In addition, the number of iterations is not driven by the number of elements in the array but by the number of the lowest/highest element. The more gaps we have, the more superfluous iterations will be done.</p>
+<p>Please note that:</p>
+<ul>
+<li>Varrays are always dense</li>
+<li>Associative arrays (or index-by tables) are either dense or sparse</li>
+<li>Nested tables start dense and may become sparse</li>
+</ul>
 <h2 id="example-bad">Example (bad)</h2>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
