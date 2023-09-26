@@ -1265,6 +1265,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#example-best" class="md-nav__link">
+    Example (best)
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3416,6 +3423,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#example-best" class="md-nav__link">
+    Example (best)
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3482,6 +3496,24 @@
 <span class="w">           </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">salary</span><span class="w"> </span><span class="k">desc</span><span class="w"></span>
 <span class="w">       </span><span class="p">)</span><span class="w"></span>
 <span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">rownum</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w"> </span><span class="c1">-- NOSONAR: G-1050 literal is ok for a standalone query</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="example-best">Example (best)</h2>
+<p>(Assuming you are using Oracle Database 12c or later.)</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">first_name</span><span class="w"></span>
+<span class="w">      </span><span class="p">,</span><span class="n">last_name</span><span class="w"></span>
+<span class="w">      </span><span class="p">,</span><span class="n">salary</span><span class="w"></span>
+<span class="w">      </span><span class="p">,</span><span class="n">hire_date</span><span class="w"></span>
+<span class="w">      </span><span class="p">,</span><span class="n">rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">salary</span><span class="w"> </span><span class="k">desc</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">salary_rank</span><span class="w"></span>
+<span class="w">  </span><span class="k">from</span><span class="w"> </span><span class="n">employees</span><span class="w"></span>
+<span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">salary</span><span class="w"> </span><span class="k">desc</span><span class="w"></span>
+<span class="k">fetch</span><span class="w"> </span><span class="k">first</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="k">rows</span><span class="w"> </span><span class="k">only</span><span class="p">;</span><span class="w"> </span><span class="c1">-- NOSONAR: G-1050 literal is ok for a standalone query</span>
 </code></pre></div></td></tr></table></div>
 
               

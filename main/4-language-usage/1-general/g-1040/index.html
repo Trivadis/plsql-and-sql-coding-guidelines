@@ -3479,7 +3479,7 @@
 <span class="normal">41</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">declare</span><span class="w"></span>
 <span class="w">   </span><span class="n">co_dept_purchasing</span><span class="w"> </span><span class="n">constant</span><span class="w"> </span><span class="n">departments</span><span class="p">.</span><span class="n">department_id</span><span class="o">%</span><span class="k">type</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">30</span><span class="p">;</span><span class="w"></span>
 <span class="k">begin</span><span class="w"></span>
-<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="c1">-- G-1050 violated, dead code detection works with literals only</span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="c1">-- dead code detection works with literals only</span>
 <span class="w">      </span><span class="k">null</span><span class="p">;</span><span class="w"> </span><span class="c1">-- some dead code here</span>
 <span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span><span class="w"></span>
 
@@ -3494,7 +3494,7 @@
 <span class="w">   </span><span class="k">null</span><span class="p">;</span><span class="w"> </span><span class="c1">-- some other enabled code here</span>
 
 <span class="w">   </span><span class="k">case</span><span class="w"></span>
-<span class="w">      </span><span class="k">when</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="s1">&#39;x&#39;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;y&#39;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="c1">-- G-1050 violated, dead code detection works with literals only</span>
+<span class="w">      </span><span class="k">when</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="s1">&#39;x&#39;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;y&#39;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="c1">-- dead code detection works with literals only</span>
 <span class="w">         </span><span class="k">null</span><span class="p">;</span><span class="w"> </span><span class="c1">-- some dead code here</span>
 <span class="w">      </span><span class="k">else</span><span class="w"></span>
 <span class="w">         </span><span class="k">null</span><span class="p">;</span><span class="w"> </span><span class="c1">-- some further enabled code here</span>
@@ -3506,7 +3506,7 @@
 <span class="w">        </span><span class="k">from</span><span class="w"> </span><span class="n">employees</span><span class="w"></span>
 <span class="w">       </span><span class="k">where</span><span class="w"> </span><span class="n">department_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">co_dept_purchasing</span><span class="w"></span>
 <span class="w">          </span><span class="k">or</span><span class="w"> </span><span class="n">commission_pct</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"></span>
-<span class="w">         </span><span class="k">and</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="c1">-- G-1050 violated, dead code detection works with literals only</span>
+<span class="w">         </span><span class="k">and</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="c1">-- dead code detection works with literals only</span>
 <span class="w">   </span><span class="p">)</span><span class="w"> </span>
 <span class="w">   </span><span class="c1">-- &quot;or commission_pct is not null&quot; is dead code </span>
 <span class="w">   </span><span class="n">loop</span><span class="w"></span>
