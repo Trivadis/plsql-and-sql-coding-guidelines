@@ -3439,14 +3439,16 @@
 <p>This technique raises an error (<code>value_error</code>) which may not be handled in the called program unit. This is the right way to do it, as the error is not within this unit but when calling it, so the caller should handle the error.</p>
 <p>To limit the number of false positives, only the following data types used in parameters should be considered:</p>
 <ul>
+<li><code>char</code></li>
+<li><code>dec</code></li>
+<li><code>decimal</code></li>
+<li><code>interval day to second</code></li>
+<li><code>interval year to month</code></li>
 <li><code>nchar</code></li>
 <li><code>number</code></li>
-<li><code>nvarchar2</code></li>
-<li><code>interval year to month</code></li>
-<li><code>interval day to second</code></li>
 <li><code>numeric</code></li>
-<li><code>decimal</code></li>
-<li><code>dec</code></li>
+<li><code>nvarchar2</code></li>
+<li><code>varchar2</code></li>
 <li><code>%type</code></li>
 </ul>
 <h2 id="example-bad">Example (bad)</h2>
