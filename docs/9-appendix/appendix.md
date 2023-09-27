@@ -19,7 +19,7 @@ Old<br/>Id | New<br/>Id | Text | Severity | Change-<br/>ability | Effi-<br/>cien
 3 | 1030 | Avoid defining variables that are not used. | Major |  | &#10008; | &#10008; |  |  |  |  | 
 4 | 1040 | Avoid dead code. | Major |  |  | &#10008; |  |  |  |  | 
 5 | 1050 | Avoid using literals in your code. | Minor | &#10008; |  |  |  |  |  |  | 
-6 | 1060 | Avoid storing ROWIDs or UROWIDs in database tables. | Critical |  |  |  |  | &#10008; |  |  | 
+6 | 1060 | Avoid storing ROWIDs or UROWIDs in database tables. | Blocker |  |  |  |  | &#10008; |  |  | 
 7 | 1070 | Avoid nesting comment blocks. | Minor |  |  | &#10008; |  |  |  |  | 
 n/a | 1080 | Avoid using the same expression on both sides of a relational comparison operator or a logical operator. | Blocker |  | &#10008; | &#10008; |  |  |  |  | &#10008;
 8 | 2110 | Try to use anchored declarations for variables, constants and types. | Major |  |  | &#10008; |  | &#10008; |  |  | 
@@ -34,10 +34,10 @@ n/a | 2145 | Never self-assign a variable. | Blocker |  |  | &#10008; |  |  |  |
 15 | 2180 | Never use quoted identifiers. | Major |  |  | &#10008; |  |  |  |  | 
 16 | 2185 | Avoid using overly short names for explicitly or implicitly declared identifiers.  | Major |  |  | &#10008; |  |  |  |  | 
 17 | 2190 | Avoid using ROWID or UROWID.  | Blocker |  |  |  | &#10008; | &#10008; |  |  | 
-18 | 2210 | Avoid declaring NUMBER variables, constants or subtypes with no precision. | Major |  | &#10008; |  |  |  |  |  | 
+18 | 2210 | Avoid declaring NUMBER variables, constants or subtypes with no precision. | Critical |  | &#10008; |  |  |  |  |  | 
 19 | 2220 | Try to use PLS_INTEGER instead of NUMBER for arithmetic operations with integer values.  | Critical |  | &#10008; |  |  |  |  |  | 
 n/a | 2230 | Try to use SIMPLE_INTEGER datatype when appropriate.  | Critical |  | &#10008; |  |  |  |  |  | 
-20 | 2310 | Avoid using CHAR data type. | Major |  |  |  |  | &#10008; |  |  | 
+20 | 2310 | Avoid using CHAR data type. | Blocker |  |  |  |  | &#10008; |  |  | 
 21 | 2320 | Never use VARCHAR data type. | Blocker |  |  |  | &#10008; | &#10008; |  |  | 
 22 | 2330 | Never use zero-length strings to substitute NULL. | Blocker |  |  |  | &#10008; | &#10008; |  |  | 
 23 | 2340 | Always define your VARCHAR2 variables using CHAR SEMANTIC (if not defined anchored). | Blocker |  |  |  |  | &#10008; |  |  | 
@@ -46,13 +46,13 @@ n/a | 2230 | Try to use SIMPLE_INTEGER datatype when appropriate.  | Critical | 
 n/a | 2610 | Never use self-defined weak ref cursor types. | Minor | &#10008; |  | &#10008; | &#10008; |  | &#10008; |  | 
 26 | 3110 | Always specify the target columns when coding an insert statement. | Blocker |  |  | &#10008; |  | &#10008; |  |  | 
 n/a | 3115 | Avoid self-assigning a column. | Blocker |  |  | &#10008; |  |  |  |  | 
-27 | 3120 | Always use table aliases when your SQL statement involves more than one source. | Major |  |  | &#10008; |  |  |  |  | 
+27 | 3120 | Always use table aliases when your SQL statement involves more than one source. | Blocker |  |  | &#10008; |  |  |  |  | 
 28 | 3130 | Try to use ANSI SQL-92 join syntax. | Major |  |  | &#10008; | &#10008; |  |  |  | 
 29 | 3140 | Try to use anchored records as targets for your cursors.  | Major |  |  | &#10008; |  | &#10008; |  |  | 
-n/a | 3145 | Avoid using SELECT * directly from a table or view. | Critical |  | &#10008; | &#10008; |  | &#10008; |  |  | &#10008;
+n/a | 3145 | Avoid using SELECT * directly from a table or view. | Blocker |  | &#10008; | &#10008; |  | &#10008; |  |  | &#10008;
 n/a | 3150 | Try to use identity columns for surrogate keys. | Critical |  |  | &#10008; |  | &#10008; |  |  | 
-n/a | 3160 | Avoid visible virtual columns. | Major |  |  | &#10008; |  | &#10008; |  |  | 
-n/a | 3170 | Always use DEFAULT ON NULL declarations to assign default values to table columns if you refuse to store NULL values. | Major |  |  |  |  | &#10008; |  |  | 
+n/a | 3160 | Avoid visible virtual columns. | Blocker |  |  | &#10008; |  | &#10008; |  |  | 
+n/a | 3170 | Always use DEFAULT ON NULL declarations to assign default values to table columns if you refuse to store NULL values. | Blocker |  |  |  |  | &#10008; |  |  | 
 n/a | 3180 | Always specify column names instead of positional references in ORDER BY clauses. | Major | &#10008; |  |  |  | &#10008; |  |  | 
 n/a | 3182 | Always specify column names instead of positional references in GROUP BY clauses. | Blocker |  |  |  |  | &#10008; |  |  | 
 n/a | 3183 | Always specify column aliases instead of expressions in GROUP BY clauses. | Minor |  |  | &#10008; |  |  |  |  | 
@@ -134,6 +134,6 @@ n/a | 8310 | Always validate input parameter size by assigning the parameter to 
 n/a | 8410 | Always use application locks to ensure a program unit is only running once at a given time. | Blocker |  | &#10008; |  |  | &#10008; |  |  | 
 n/a | 8510 | Always use dbms_application_info to track program process transiently. | Critical |  | &#10008; |  |  | &#10008; |  |  | 
 n/a | 9010 | Always use a format model in string to date/time conversion functions. | Blocker | &#10008; |  | &#10008; |  | &#10008; |  | &#10008; | &#10008;
-n/a | 9020 | Try to use a format model and NLS_NUMERIC_CHARACTERS in string to number conversion functions. | Major | &#10008; |  | &#10008; |  | &#10008; |  | &#10008; | &#10008;
+n/a | 9020 | Try to use a format model and NLS_NUMERIC_CHARACTERS in string to number conversion functions. | Blocker | &#10008; |  | &#10008; |  | &#10008; |  | &#10008; | &#10008;
 n/a | 9030 | Try to define a default value on conversion errors. | Major |  |  | &#10008; |  | &#10008; |  |  | &#10008;
-n/a | 9040 | Try using FX in string to date/time conversion format model to avoid fuzzy conversion. | Major |  |  |  |  | &#10008; |  |  | &#10008;
+n/a | 9040 | Try using FX in string to date/time conversion format model to avoid fuzzy conversion. | Blocker |  |  |  |  | &#10008; |  |  | &#10008;
