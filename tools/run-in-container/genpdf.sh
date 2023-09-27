@@ -77,6 +77,7 @@ function write_guidelines(){
         echo "" >> ${TARGET_DIR}/docs/index.md
         sed -e "s|# |${HEADER} |g" $f | \
         sed -e 's/..\/image/image/g' | \
+        sed -e 's|../../4-language-usage/1-general/g-1050/|#g-1050-avoid-using-literals-in-your-code|g' | \
         sed -e 's|../../../../4-language-usage/3-dml-and-sql/3-transaction-control/g-3310|#g-3310-never-commit-within-a-cursor-loop|g' | \
         sed -e 's|../../../../4-language-usage/3-dml-and-sql/3-transaction-control/g-3320|#g-3320-try-to-move-transactions-within-a-non-cursor-loop-into-procedures|g' | \
         sed -e 's|../../../../4-language-usage/7-stored-objects/7-triggers/g-7740|#g-7740-never-handle-multiple-dml-events-per-trigger-if-primary-key-is-assigned-in-trigger|g' | \
