@@ -3431,8 +3431,8 @@
 
 
 <h1 id="g-2310-avoid-using-char-data-type">G-2310: Avoid using CHAR data type.</h1>
-<div class="admonition warning">
-<p class="admonition-title">Major</p>
+<div class="admonition bug">
+<p class="admonition-title">Blocker</p>
 <p>Reliability</p>
 </div>
 <h2 id="reason">Reason</h2>
@@ -3447,6 +3447,31 @@
 <span class="w">   </span><span class="n">subtype</span><span class="w"> </span><span class="n">description_type</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="nb">char</span><span class="p">(</span><span class="mi">200</span><span class="p">);</span><span class="w"></span>
 <span class="k">end</span><span class="w"> </span><span class="n">types_up</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+<p>Unexpected trailing spaces can lead to wrong results.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">with</span><span class="w"></span>
+<span class="w">   </span><span class="n">dept</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="k">select</span><span class="w"> </span><span class="k">cast</span><span class="p">(</span><span class="n">department_name</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">varchar2</span><span class="p">(</span><span class="mi">30</span><span class="w"> </span><span class="nb">char</span><span class="p">))</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">dname_vc2</span><span class="w"></span>
+<span class="w">            </span><span class="p">,</span><span class="k">cast</span><span class="p">(</span><span class="n">department_name</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nb">char</span><span class="p">(</span><span class="mi">30</span><span class="w"> </span><span class="nb">char</span><span class="p">))</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">dname_char</span><span class="w"></span>
+<span class="w">        </span><span class="k">from</span><span class="w"> </span><span class="n">departments</span><span class="w"></span>
+<span class="w">   </span><span class="p">)</span><span class="w"></span>
+<span class="k">select</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="k">from</span><span class="w"> </span><span class="n">dept</span><span class="w"></span>
+<span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">dname_vc2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dname_char</span><span class="p">;</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code>  COUNT(*)
+----------
+         0
 </code></pre></div></td></tr></table></div>
 <h2 id="example-good">Example (good)</h2>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
