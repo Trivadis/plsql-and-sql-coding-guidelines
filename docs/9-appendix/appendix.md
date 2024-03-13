@@ -54,7 +54,7 @@ n/a | 3150 | Try to use identity columns for surrogate keys. | Critical |  |  | 
 n/a | 3160 | Avoid visible virtual columns. | Blocker |  |  | &#10008; |  | &#10008; |  |  | 
 n/a | 3170 | Always use DEFAULT ON NULL declarations to assign default values to table columns if you refuse to store NULL values. | Blocker |  |  |  |  | &#10008; |  |  | 
 n/a | 3180 | Always specify column names instead of positional references in ORDER BY clauses. | Major | &#10008; |  |  |  | &#10008; |  |  | 
-n/a | 3182 | Always specify column names instead of positional references in GROUP BY clauses. | Blocker |  |  |  |  | &#10008; |  |  | 
+n/a | 3182 | Always specify column names/aliases instead of positional references in GROUP BY clauses. | Blocker |  |  |  |  | &#10008; |  |  | 
 n/a | 3183 | Always specify column aliases instead of expressions in GROUP BY clauses. | Minor |  |  | &#10008; |  |  |  |  | 
 n/a | 3185 | Never use ROWNUM at the same query level as ORDER BY. | Blocker |  |  |  |  | &#10008; |  |  | &#10008;
 n/a | 3190 | Avoid using NATURAL JOIN. | Blocker | &#10008; |  |  |  | &#10008; |  |  | 
@@ -63,6 +63,7 @@ n/a | 3195 | Always use wildcards in a LIKE clause. | Blocker |  |  | &#10008; |
 n/a | 3220 | Always process saved exceptions from a FORALL statement. | Critical |  |  |  |  | &#10008; |  |  | &#10008;
 n/a | 3310 | Never commit within a cursor loop. | Blocker |  | &#10008; |  |  | &#10008; |  |  | 
 n/a | 3320 | Try to move transactions within a non-cursor loop into procedures. | Major |  |  | &#10008; |  |  | &#10008; |  | &#10008;
+n/a | 3330 | Avoid autonomous transactions. | Blocker |  |  |  |  | &#10008; |  |  | &#10008;
 31 | 4110 | Always use %NOTFOUND instead of NOT %FOUND to check whether a cursor returned data. | Minor |  |  | &#10008; |  |  |  |  | 
 32 | 4120 | Avoid using %NOTFOUND directly after the FETCH when working with BULK OPERATIONS and LIMIT clause.  | Blocker |  |  |  |  | &#10008; |  |  | 
 33 | 4130 | Always close locally opened cursors. | Blocker |  | &#10008; |  |  | &#10008; |  |  | 
