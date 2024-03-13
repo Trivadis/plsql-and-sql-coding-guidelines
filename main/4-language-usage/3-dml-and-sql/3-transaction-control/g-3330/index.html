@@ -8,14 +8,14 @@
       
       
       
-        <link rel="canonical" href="https://trivadis.github.io/plsql-and-sql-coding-guidelines/main/4-language-usage/3-dml-and-sql/1-general/g-3130/">
+        <link rel="canonical" href="https://trivadis.github.io/plsql-and-sql-coding-guidelines/main/4-language-usage/3-dml-and-sql/3-transaction-control/g-3330/">
       
       <link rel="icon" href="../../../../images/favicon.ico">
       <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.3.9">
     
     
       
-        <title>G-3130: Try to use ANSI SQL-92 join syntax. - PL/SQL & SQL Coding Guidelines</title>
+        <title>G-3330: Avoid autonomous transactions. - PL/SQL & SQL Coding Guidelines</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#g-3130-try-to-use-ansi-sql-92-join-syntax" class="md-skip">
+        <a href="#g-3330-avoid-autonomous-transactions" class="md-skip">
           Skip to content
         </a>
       
@@ -106,7 +106,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              G-3130: Try to use ANSI SQL-92 join syntax.
+              G-3330: Avoid autonomous transactions.
             
           </span>
         </div>
@@ -1013,14 +1013,12 @@
               
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_3_1" type="checkbox" id="__nav_5_3_1" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_3_1" type="checkbox" id="__nav_5_3_1" >
       
       
       
@@ -1043,7 +1041,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../g-3110/" class="md-nav__link">
+      <a href="../../1-general/g-3110/" class="md-nav__link">
         G-3110: Always specify the target columns when coding an insert statement.
       </a>
     </li>
@@ -1057,7 +1055,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../g-3115/" class="md-nav__link">
+      <a href="../../1-general/g-3115/" class="md-nav__link">
         G-3115: Avoid self-assigning a column.
       </a>
     </li>
@@ -1071,7 +1069,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../g-3120/" class="md-nav__link">
+      <a href="../../1-general/g-3120/" class="md-nav__link">
         G-3120: Always use table aliases when your SQL statement involves more than one source.
       </a>
     </li>
@@ -1083,66 +1081,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          G-3130: Try to use ANSI SQL-92 join syntax.
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../1-general/g-3130/" class="md-nav__link">
         G-3130: Try to use ANSI SQL-92 join syntax.
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#reason" class="md-nav__link">
-    Reason
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#example-bad" class="md-nav__link">
-    Example (bad)
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#example-good" class="md-nav__link">
-    Example (good)
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1154,7 +1097,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../g-3140/" class="md-nav__link">
+      <a href="../../1-general/g-3140/" class="md-nav__link">
         G-3140: Try to use anchored records as targets for your cursors.
       </a>
     </li>
@@ -1168,7 +1111,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../g-3145/" class="md-nav__link">
+      <a href="../../1-general/g-3145/" class="md-nav__link">
         G-3145: Avoid using SELECT * directly from a table or view.
       </a>
     </li>
@@ -1182,7 +1125,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../g-3150/" class="md-nav__link">
+      <a href="../../1-general/g-3150/" class="md-nav__link">
         G-3150: Try to use identity columns for surrogate keys.
       </a>
     </li>
@@ -1196,7 +1139,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../g-3160/" class="md-nav__link">
+      <a href="../../1-general/g-3160/" class="md-nav__link">
         G-3160: Avoid visible virtual columns.
       </a>
     </li>
@@ -1210,7 +1153,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../g-3170/" class="md-nav__link">
+      <a href="../../1-general/g-3170/" class="md-nav__link">
         G-3170: Always use DEFAULT ON NULL declarations to assign default values to table columns if you refuse to store NULL values.
       </a>
     </li>
@@ -1224,7 +1167,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../g-3180/" class="md-nav__link">
+      <a href="../../1-general/g-3180/" class="md-nav__link">
         G-3180: Always specify column names instead of positional references in ORDER BY clauses.
       </a>
     </li>
@@ -1238,7 +1181,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../g-3182/" class="md-nav__link">
+      <a href="../../1-general/g-3182/" class="md-nav__link">
         G-3182: Always specify column names/aliases instead of positional references in GROUP BY clauses.
       </a>
     </li>
@@ -1252,7 +1195,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../g-3183/" class="md-nav__link">
+      <a href="../../1-general/g-3183/" class="md-nav__link">
         G-3183: Always specify column aliases instead of expressions in GROUP BY clauses.
       </a>
     </li>
@@ -1266,7 +1209,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../g-3185/" class="md-nav__link">
+      <a href="../../1-general/g-3185/" class="md-nav__link">
         G-3185: Never use ROWNUM at the same query level as ORDER BY.
       </a>
     </li>
@@ -1280,7 +1223,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../g-3190/" class="md-nav__link">
+      <a href="../../1-general/g-3190/" class="md-nav__link">
         G-3190: Avoid using NATURAL JOIN.
       </a>
     </li>
@@ -1294,7 +1237,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../g-3195/" class="md-nav__link">
+      <a href="../../1-general/g-3195/" class="md-nav__link">
         G-3195: Always use wildcards in a LIKE clause.
       </a>
     </li>
@@ -1374,12 +1317,14 @@
               
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_3_3" type="checkbox" id="__nav_5_3_3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_3_3" type="checkbox" id="__nav_5_3_3" checked>
       
       
       
@@ -1402,7 +1347,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../3-transaction-control/g-3310/" class="md-nav__link">
+      <a href="../g-3310/" class="md-nav__link">
         G-3310: Never commit within a cursor loop.
       </a>
     </li>
@@ -1416,7 +1361,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../3-transaction-control/g-3320/" class="md-nav__link">
+      <a href="../g-3320/" class="md-nav__link">
         G-3320: Try to move transactions within a non-cursor loop into procedures.
       </a>
     </li>
@@ -1428,11 +1373,66 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../../3-transaction-control/g-3330/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          G-3330: Avoid autonomous transactions.
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         G-3330: Avoid autonomous transactions.
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#reason" class="md-nav__link">
+    Reason
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-bad" class="md-nav__link">
+    Example (bad)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-good" class="md-nav__link">
+    Example (good)
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -3444,46 +3444,63 @@
                 
 
 
-<h1 id="g-3130-try-to-use-ansi-sql-92-join-syntax">G-3130: Try to use ANSI SQL-92 join syntax.</h1>
-<div class="admonition warning">
-<p class="admonition-title">Major</p>
-<p>Maintainability, Portability</p>
+<h1 id="g-3330-avoid-autonomous-transactions">G-3330: Avoid autonomous transactions.</h1>
+<div class="admonition bug">
+<p class="admonition-title">Blocker</p>
+<p>Reliability, Testability</p>
 </div>
 <h2 id="reason">Reason</h2>
-<p>ANSI SQL-92 join syntax supports the full outer join. A further advantage of the ANSI SQL-92 join syntax is the separation of the join condition from the query filters.</p>
+<blockquote>
+<p>Before we take a look at how autonomous transactions work, I’d like to emphasize that this type of transaction is
+a powerful and therefore dangerous tool when used improperly. The true need for an autonomous transaction is very
+rare indeed. I would be very suspicious of any code that makes use of them—that code would get extra examination.
+It is far too easy to accidentally introduce logical data integrity issues into a system using them. (page 300)</p>
+<p>In my experience, that is the only truly valid use of an autonomous transaction—to log errors or informational
+messages in a manner that can be committed independently of the parent transaction. (page 305)</p>
+<p>-- Kyte, Thomas (2013). <em>Expert Oracle Database Architecture. Third Edition</em>. Apress.</p>
+</blockquote>
+<p>It is most likely not possible to distinguish legitimate uses of autonomous transactions from illegitimate ones via static code analysis. However, since we expect exactly one autonomous transaction per application, the number of false positives is manageable.</p>
 <h2 id="example-bad">Example (bad)</h2>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">employee_id</span><span class="w"></span>
-<span class="w">      </span><span class="p">,</span><span class="n">e</span><span class="p">.</span><span class="n">last_name</span><span class="w"></span>
-<span class="w">      </span><span class="p">,</span><span class="n">e</span><span class="p">.</span><span class="n">first_name</span><span class="w"></span>
-<span class="w">      </span><span class="p">,</span><span class="n">d</span><span class="p">.</span><span class="n">department_name</span><span class="w"></span>
-<span class="w">  </span><span class="k">from</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="n">e</span><span class="w"></span>
-<span class="w">      </span><span class="p">,</span><span class="n">departments</span><span class="w"> </span><span class="n">d</span><span class="w"></span>
-<span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">department_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">department_id</span><span class="w"></span>
-<span class="w">   </span><span class="k">and</span><span class="w"> </span><span class="k">extract</span><span class="p">(</span><span class="k">month</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">hire_date</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">extract</span><span class="p">(</span><span class="k">month</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">sysdate</span><span class="p">);</span><span class="w"></span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="n">dept_api</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
+<span class="w">   </span><span class="k">procedure</span><span class="w"> </span><span class="n">ins_dept</span><span class="p">(</span><span class="n">in_dept_row</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">dept</span><span class="o">%</span><span class="n">rowtype</span><span class="p">)</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
+<span class="w">      </span><span class="n">pragma</span><span class="w"> </span><span class="n">autonomous_transaction</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="k">begin</span><span class="w"></span>
+<span class="w">      </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">dept</span><span class="w"></span>
+<span class="w">      </span><span class="k">values</span><span class="w"> </span><span class="n">in_dept_row</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="k">commit</span><span class="p">;</span><span class="w"> </span><span class="c1">-- required by autonomous transaction</span>
+<span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">ins_dept</span><span class="p">;</span><span class="w"></span>
+<span class="k">end</span><span class="w"> </span><span class="n">dept_api</span><span class="p">;</span><span class="w"></span>
+<span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
 <h2 id="example-good">Example (good)</h2>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">emp</span><span class="p">.</span><span class="n">employee_id</span><span class="w"></span>
-<span class="w">      </span><span class="p">,</span><span class="n">emp</span><span class="p">.</span><span class="n">last_name</span><span class="w"></span>
-<span class="w">      </span><span class="p">,</span><span class="n">emp</span><span class="p">.</span><span class="n">first_name</span><span class="w"></span>
-<span class="w">      </span><span class="p">,</span><span class="n">dept</span><span class="p">.</span><span class="n">department_name</span><span class="w"></span>
-<span class="w">  </span><span class="k">from</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="n">emp</span><span class="w"></span>
-<span class="w">  </span><span class="k">join</span><span class="w"> </span><span class="n">departments</span><span class="w"> </span><span class="n">dept</span><span class="w"></span>
-<span class="w">    </span><span class="k">on</span><span class="w"> </span><span class="n">dept</span><span class="p">.</span><span class="n">department_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">emp</span><span class="p">.</span><span class="n">department_id</span><span class="w"></span>
-<span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="k">extract</span><span class="p">(</span><span class="k">month</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">emp</span><span class="p">.</span><span class="n">hire_date</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">extract</span><span class="p">(</span><span class="k">month</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">sysdate</span><span class="p">);</span><span class="w"></span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="n">dept_api</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
+<span class="w">   </span><span class="k">procedure</span><span class="w"> </span><span class="n">ins_dept</span><span class="p">(</span><span class="n">in_dept_row</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">dept</span><span class="o">%</span><span class="n">rowtype</span><span class="p">)</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
+<span class="w">   </span><span class="k">begin</span><span class="w"></span>
+<span class="w">      </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">dept</span><span class="w"></span>
+<span class="w">      </span><span class="k">values</span><span class="w"> </span><span class="n">in_dept_row</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="c1">-- transaction is commited in calling module</span>
+<span class="w">      </span><span class="c1">-- after the completion of the unit of work</span>
+<span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">ins_dept</span><span class="p">;</span><span class="w"></span>
+<span class="k">end</span><span class="w"> </span><span class="n">dept_api</span><span class="p">;</span><span class="w"></span>
+<span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
 
               
@@ -3500,7 +3517,7 @@
     <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
-        <a href="../g-3120/" class="md-footer__link md-footer__link--prev" aria-label="Previous: G-3120: Always use table aliases when your SQL statement involves more than one source." rel="prev">
+        <a href="../g-3320/" class="md-footer__link md-footer__link--prev" aria-label="Previous: G-3320: Try to move transactions within a non-cursor loop into procedures." rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
@@ -3509,20 +3526,20 @@
               <span class="md-footer__direction">
                 Previous
               </span>
-              G-3120: Always use table aliases when your SQL statement involves more than one source.
+              G-3320: Try to move transactions within a non-cursor loop into procedures.
             </div>
           </div>
         </a>
       
       
         
-        <a href="../g-3140/" class="md-footer__link md-footer__link--next" aria-label="Next: G-3140: Try to use anchored records as targets for your cursors." rel="next">
+        <a href="../../../4-control-structures/1-cursor/g-4110/" class="md-footer__link md-footer__link--next" aria-label="Next: G-4110: Always use %NOTFOUND instead of NOT %FOUND to check whether a cursor returned data." rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              G-3140: Try to use anchored records as targets for your cursors.
+              G-4110: Always use %NOTFOUND instead of NOT %FOUND to check whether a cursor returned data.
             </div>
           </div>
           <div class="md-footer__button md-icon">

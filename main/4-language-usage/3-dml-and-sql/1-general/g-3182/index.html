@@ -15,7 +15,7 @@
     
     
       
-        <title>G-3182: Always specify column names instead of positional references in GROUP BY clauses. - PL/SQL & SQL Coding Guidelines</title>
+        <title>G-3182: Always specify column names/aliases instead of positional references in GROUP BY clauses. - PL/SQL & SQL Coding Guidelines</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#g-3182-always-specify-column-names-instead-of-positional-references-in-group-by-clauses" class="md-skip">
+        <a href="#g-3182-always-specify-column-namesaliases-instead-of-positional-references-in-group-by-clauses" class="md-skip">
           Skip to content
         </a>
       
@@ -106,7 +106,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              G-3182: Always specify column names instead of positional references in GROUP BY clauses.
+              G-3182: Always specify column names/aliases instead of positional references in GROUP BY clauses.
             
           </span>
         </div>
@@ -1193,12 +1193,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          G-3182: Always specify column names instead of positional references in GROUP BY clauses.
+          G-3182: Always specify column names/aliases instead of positional references in GROUP BY clauses.
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        G-3182: Always specify column names instead of positional references in GROUP BY clauses.
+        G-3182: Always specify column names/aliases instead of positional references in GROUP BY clauses.
       </a>
       
         
@@ -1425,6 +1425,20 @@
     <li class="md-nav__item">
       <a href="../../3-transaction-control/g-3320/" class="md-nav__link">
         G-3320: Try to move transactions within a non-cursor loop into procedures.
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-transaction-control/g-3330/" class="md-nav__link">
+        G-3330: Avoid autonomous transactions.
       </a>
     </li>
   
@@ -3444,7 +3458,7 @@
                 
 
 
-<h1 id="g-3182-always-specify-column-names-instead-of-positional-references-in-group-by-clauses">G-3182: Always specify column names instead of positional references in GROUP BY clauses.</h1>
+<h1 id="g-3182-always-specify-column-namesaliases-instead-of-positional-references-in-group-by-clauses">G-3182: Always specify column names/aliases instead of positional references in GROUP BY clauses.</h1>
 <div class="admonition bug">
 <p class="admonition-title">Blocker</p>
 <p>Reliability</p>
@@ -3453,7 +3467,7 @@
 <p>Oracle Database 23c</p>
 <h2 id="reason">Reason</h2>
 <p>If you use a numeric literal in the <code>group by</code> clause in an Oracle Database prior to version 23c, then this literal is not required. It is simply a constant.</p>
-<p>Starting with Oracle Database 23c, it is possible to use a literal in the <code>group by</code> clause to refer to a column name in the <code>select</code> list. However, this only works if the <code>group_by_position_enabled</code> parameter is set to <code>true</code>. In any case, it is not convenient for the readers of the code to have to count the columns in the <code>select</code> list to know how the result is grouped.</p>
+<p>Starting with Oracle Database 23c, it is possible to use a literal in the <code>group by</code> clause to refer to a column name or column alias in the <code>select</code> list. However, this only works if the <code>group_by_position_enabled</code> parameter is set to <code>true</code>. In any case, it is not convenient for the readers of the code to have to count the columns in the <code>select</code> list to know how the result is grouped.</p>
 <p>Since the meaning of a <code>literal</code> depends on the configuration and database version, the intention is unclear and might lead to an incorrect result.</p>
 <h2 id="example-bad">Example (bad)</h2>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
