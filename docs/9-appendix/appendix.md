@@ -87,6 +87,7 @@ n/a | 4365 | Never use unconditional CONTINUE or EXIT in a loop. | Major |  |  |
 46 | 4375 | Always use EXIT WHEN instead of an IF statement to exit from a loop.  | Minor |  |  | &#10008; |  |  |  |  | 
 47 | 4380 | Try to label your EXIT WHEN statements. | Minor |  |  | &#10008; |  |  |  |  | 
 48 | 4385 | Never use a cursor for loop to check whether a cursor returns data. | Critical |  | &#10008; |  |  |  |  |  | 
+n/a | 4387 | !!!CHARACTERISTIC ERROR!!! | Blocker |  | &#10008; |  |  | &#10008; |  |  | 
 49 | 4390 | Avoid use of unreferenced FOR loop indexes. | Major |  | &#10008; |  |  |  |  |  | 
 50 | 4395 | Avoid hard-coded upper or lower bound values with FOR loops. | Minor | &#10008; |  | &#10008; |  |  |  |  | 
 n/a | 5010 | Try to use a error/logging framework for your application. | Critical |  |  |  |  | &#10008; | &#10008; |  | &#10008;
