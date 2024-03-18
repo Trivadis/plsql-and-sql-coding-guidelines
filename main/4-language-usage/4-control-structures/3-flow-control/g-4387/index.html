@@ -8,14 +8,14 @@
       
       
       
-        <link rel="canonical" href="https://trivadis.github.io/plsql-and-sql-coding-guidelines/main/4-language-usage/7-stored-objects/1-general/g-7150/">
+        <link rel="canonical" href="https://trivadis.github.io/plsql-and-sql-coding-guidelines/main/4-language-usage/4-control-structures/3-flow-control/g-4387/">
       
       <link rel="icon" href="../../../../images/favicon.ico">
       <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.3.9">
     
     
       
-        <title>G-7150: Try to remove unused parameters. - PL/SQL & SQL Coding Guidelines</title>
+        <title>G-4387: Never use a FOR LOOP for a query that should return not more than one row. - PL/SQL & SQL Coding Guidelines</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#g-7150-try-to-remove-unused-parameters" class="md-skip">
+        <a href="#g-4387-never-use-a-for-loop-for-a-query-that-should-return-not-more-than-one-row" class="md-skip">
           Skip to content
         </a>
       
@@ -106,7 +106,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              G-7150: Try to remove unused parameters.
+              G-4387: Never use a FOR LOOP for a query that should return not more than one row.
             
           </span>
         </div>
@@ -1397,12 +1397,14 @@
               
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_4" type="checkbox" id="__nav_5_4" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_4" type="checkbox" id="__nav_5_4" checked>
       
       
       
@@ -1451,7 +1453,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4-control-structures/1-cursor/g-4110/" class="md-nav__link">
+      <a href="../../1-cursor/g-4110/" class="md-nav__link">
         G-4110: Always use %NOTFOUND instead of NOT %FOUND to check whether a cursor returned data.
       </a>
     </li>
@@ -1465,7 +1467,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4-control-structures/1-cursor/g-4120/" class="md-nav__link">
+      <a href="../../1-cursor/g-4120/" class="md-nav__link">
         G-4120: Avoid using %NOTFOUND directly after the FETCH when working with BULK OPERATIONS and LIMIT clause.
       </a>
     </li>
@@ -1479,7 +1481,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4-control-structures/1-cursor/g-4130/" class="md-nav__link">
+      <a href="../../1-cursor/g-4130/" class="md-nav__link">
         G-4130: Always close locally opened cursors.
       </a>
     </li>
@@ -1493,7 +1495,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4-control-structures/1-cursor/g-4140/" class="md-nav__link">
+      <a href="../../1-cursor/g-4140/" class="md-nav__link">
         G-4140: Avoid executing any statements between a SQL operation and the usage of an implicit cursor attribute.
       </a>
     </li>
@@ -1540,7 +1542,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4-control-structures/2-case-if-decode-nvl-nvl2-coalesce/g-4210/" class="md-nav__link">
+      <a href="../../2-case-if-decode-nvl-nvl2-coalesce/g-4210/" class="md-nav__link">
         G-4210: Try to use CASE rather than an IF statement with multiple ELSIF paths.
       </a>
     </li>
@@ -1554,7 +1556,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4-control-structures/2-case-if-decode-nvl-nvl2-coalesce/g-4220/" class="md-nav__link">
+      <a href="../../2-case-if-decode-nvl-nvl2-coalesce/g-4220/" class="md-nav__link">
         G-4220: Try to use CASE rather than DECODE.
       </a>
     </li>
@@ -1568,7 +1570,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4-control-structures/2-case-if-decode-nvl-nvl2-coalesce/g-4230/" class="md-nav__link">
+      <a href="../../2-case-if-decode-nvl-nvl2-coalesce/g-4230/" class="md-nav__link">
         G-4230: Always use a COALESCE instead of a NVL command, if parameter 2 of the NVL function is a function call or a SELECT statement.
       </a>
     </li>
@@ -1582,7 +1584,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4-control-structures/2-case-if-decode-nvl-nvl2-coalesce/g-4240/" class="md-nav__link">
+      <a href="../../2-case-if-decode-nvl-nvl2-coalesce/g-4240/" class="md-nav__link">
         G-4240: Always use a CASE instead of a NVL2 command if parameter 2 or 3 of NVL2 is either a function call or a SELECT statement.
       </a>
     </li>
@@ -1596,7 +1598,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4-control-structures/2-case-if-decode-nvl-nvl2-coalesce/g-4250/" class="md-nav__link">
+      <a href="../../2-case-if-decode-nvl-nvl2-coalesce/g-4250/" class="md-nav__link">
         G-4250: Avoid using identical conditions in different branches of the same IF or CASE statement.
       </a>
     </li>
@@ -1610,7 +1612,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4-control-structures/2-case-if-decode-nvl-nvl2-coalesce/g-4260/" class="md-nav__link">
+      <a href="../../2-case-if-decode-nvl-nvl2-coalesce/g-4260/" class="md-nav__link">
         G-4260: Avoid inverting boolean conditions with NOT.
       </a>
     </li>
@@ -1624,7 +1626,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4-control-structures/2-case-if-decode-nvl-nvl2-coalesce/g-4270/" class="md-nav__link">
+      <a href="../../2-case-if-decode-nvl-nvl2-coalesce/g-4270/" class="md-nav__link">
         G-4270: Avoid comparing boolean values to boolean literals.
       </a>
     </li>
@@ -1643,12 +1645,14 @@
               
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_4_3" type="checkbox" id="__nav_5_4_3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_4_3" type="checkbox" id="__nav_5_4_3" checked>
       
       
       
@@ -1671,7 +1675,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4-control-structures/3-flow-control/g-4310/" class="md-nav__link">
+      <a href="../g-4310/" class="md-nav__link">
         G-4310: Never use GOTO statements in your code.
       </a>
     </li>
@@ -1685,7 +1689,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4-control-structures/3-flow-control/g-4320/" class="md-nav__link">
+      <a href="../g-4320/" class="md-nav__link">
         G-4320: Always label your loops.
       </a>
     </li>
@@ -1699,7 +1703,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4-control-structures/3-flow-control/g-4325/" class="md-nav__link">
+      <a href="../g-4325/" class="md-nav__link">
         G-4325: Never reuse labels in inner scopes.
       </a>
     </li>
@@ -1713,7 +1717,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4-control-structures/3-flow-control/g-4330/" class="md-nav__link">
+      <a href="../g-4330/" class="md-nav__link">
         G-4330: Always use a CURSOR FOR loop to process the complete cursor results unless you are using bulk operations.
       </a>
     </li>
@@ -1727,7 +1731,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4-control-structures/3-flow-control/g-4340/" class="md-nav__link">
+      <a href="../g-4340/" class="md-nav__link">
         G-4340: Always use a NUMERIC FOR loop to process a dense array.
       </a>
     </li>
@@ -1741,7 +1745,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4-control-structures/3-flow-control/g-4350/" class="md-nav__link">
+      <a href="../g-4350/" class="md-nav__link">
         G-4350: Always use 1 as lower and COUNT() as upper bound when looping through a dense array.
       </a>
     </li>
@@ -1755,7 +1759,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4-control-structures/3-flow-control/g-4360/" class="md-nav__link">
+      <a href="../g-4360/" class="md-nav__link">
         G-4360: Always use a WHILE loop to process a loose array.
       </a>
     </li>
@@ -1769,7 +1773,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4-control-structures/3-flow-control/g-4365/" class="md-nav__link">
+      <a href="../g-4365/" class="md-nav__link">
         G-4365: Never use unconditional CONTINUE or EXIT in a loop.
       </a>
     </li>
@@ -1783,7 +1787,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4-control-structures/3-flow-control/g-4370/" class="md-nav__link">
+      <a href="../g-4370/" class="md-nav__link">
         G-4370: Avoid using EXIT to stop loop processing unless you are in a basic loop.
       </a>
     </li>
@@ -1797,7 +1801,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4-control-structures/3-flow-control/g-4375/" class="md-nav__link">
+      <a href="../g-4375/" class="md-nav__link">
         G-4375: Always use EXIT WHEN instead of an IF statement to exit from a loop.
       </a>
     </li>
@@ -1811,7 +1815,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4-control-structures/3-flow-control/g-4380/" class="md-nav__link">
+      <a href="../g-4380/" class="md-nav__link">
         G-4380: Try to label your EXIT WHEN statements.
       </a>
     </li>
@@ -1825,7 +1829,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4-control-structures/3-flow-control/g-4385/" class="md-nav__link">
+      <a href="../g-4385/" class="md-nav__link">
         G-4385: Never use a cursor for loop to check whether a cursor returns data.
       </a>
     </li>
@@ -1837,11 +1841,66 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../../../4-control-structures/3-flow-control/g-4387/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          G-4387: Never use a FOR LOOP for a query that should return not more than one row.
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         G-4387: Never use a FOR LOOP for a query that should return not more than one row.
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#reason" class="md-nav__link">
+    Reason
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-bad" class="md-nav__link">
+    Example (bad)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-good" class="md-nav__link">
+    Example (good)
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1853,7 +1912,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4-control-structures/3-flow-control/g-4390/" class="md-nav__link">
+      <a href="../g-4390/" class="md-nav__link">
         G-4390: Avoid use of unreferenced FOR loop indexes.
       </a>
     </li>
@@ -1867,7 +1926,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4-control-structures/3-flow-control/g-4395/" class="md-nav__link">
+      <a href="../g-4395/" class="md-nav__link">
         G-4395: Avoid hard-coded upper or lower bound values with FOR loops.
       </a>
     </li>
@@ -2099,14 +2158,12 @@
               
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7" type="checkbox" id="__nav_5_7" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7" type="checkbox" id="__nav_5_7" >
       
       
       
@@ -2127,14 +2184,12 @@
               
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7_1" type="checkbox" id="__nav_5_7_1" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7_1" type="checkbox" id="__nav_5_7_1" >
       
       
       
@@ -2157,7 +2212,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../g-7110/" class="md-nav__link">
+      <a href="../../../7-stored-objects/1-general/g-7110/" class="md-nav__link">
         G-7110: Try to use named notation when calling program units.
       </a>
     </li>
@@ -2171,7 +2226,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../g-7120/" class="md-nav__link">
+      <a href="../../../7-stored-objects/1-general/g-7120/" class="md-nav__link">
         G-7120: Always add the name of the program unit to its end keyword.
       </a>
     </li>
@@ -2185,7 +2240,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../g-7125/" class="md-nav__link">
+      <a href="../../../7-stored-objects/1-general/g-7125/" class="md-nav__link">
         G-7125: Always use CREATE OR REPLACE instead of CREATE alone.
       </a>
     </li>
@@ -2199,7 +2254,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../g-7130/" class="md-nav__link">
+      <a href="../../../7-stored-objects/1-general/g-7130/" class="md-nav__link">
         G-7130: Always use parameters or pull in definitions rather than referencing external variables in a local program unit.
       </a>
     </li>
@@ -2213,7 +2268,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../g-7140/" class="md-nav__link">
+      <a href="../../../7-stored-objects/1-general/g-7140/" class="md-nav__link">
         G-7140: Always ensure that locally defined procedures or functions are referenced.
       </a>
     </li>
@@ -2225,66 +2280,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          G-7150: Try to remove unused parameters.
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../../7-stored-objects/1-general/g-7150/" class="md-nav__link">
         G-7150: Try to remove unused parameters.
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#reason" class="md-nav__link">
-    Reason
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#example-bad" class="md-nav__link">
-    Example (bad)
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#example-good" class="md-nav__link">
-    Example (good)
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -2296,7 +2296,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../g-7160/" class="md-nav__link">
+      <a href="../../../7-stored-objects/1-general/g-7160/" class="md-nav__link">
         G-7160: Always explicitly state parameter mode.
       </a>
     </li>
@@ -2310,7 +2310,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../g-7170/" class="md-nav__link">
+      <a href="../../../7-stored-objects/1-general/g-7170/" class="md-nav__link">
         G-7170: Avoid using an IN OUT parameter as IN or OUT only.
       </a>
     </li>
@@ -2357,7 +2357,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../2-packages/g-7210/" class="md-nav__link">
+      <a href="../../../7-stored-objects/2-packages/g-7210/" class="md-nav__link">
         G-7210: Try to keep your packages small. Include only few procedures and functions that are used in the same context.
       </a>
     </li>
@@ -2371,7 +2371,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../2-packages/g-7220/" class="md-nav__link">
+      <a href="../../../7-stored-objects/2-packages/g-7220/" class="md-nav__link">
         G-7220: Always use forward declaration for private functions and procedures.
       </a>
     </li>
@@ -2385,7 +2385,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../2-packages/g-7230/" class="md-nav__link">
+      <a href="../../../7-stored-objects/2-packages/g-7230/" class="md-nav__link">
         G-7230: Avoid declaring global variables public.
       </a>
     </li>
@@ -2399,7 +2399,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../2-packages/g-7250/" class="md-nav__link">
+      <a href="../../../7-stored-objects/2-packages/g-7250/" class="md-nav__link">
         G-7250: Never use RETURN in package initialization block.
       </a>
     </li>
@@ -2446,7 +2446,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../3-procedures/g-7310/" class="md-nav__link">
+      <a href="../../../7-stored-objects/3-procedures/g-7310/" class="md-nav__link">
         G-7310: Avoid standalone procedures – put your procedures in packages.
       </a>
     </li>
@@ -2460,7 +2460,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../3-procedures/g-7320/" class="md-nav__link">
+      <a href="../../../7-stored-objects/3-procedures/g-7320/" class="md-nav__link">
         G-7320: Avoid using RETURN statements in a PROCEDURE.
       </a>
     </li>
@@ -2474,7 +2474,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../3-procedures/g-7330/" class="md-nav__link">
+      <a href="../../../7-stored-objects/3-procedures/g-7330/" class="md-nav__link">
         G-7330: Always assign values to OUT parameters.
       </a>
     </li>
@@ -2521,7 +2521,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../4-functions/g-7410/" class="md-nav__link">
+      <a href="../../../7-stored-objects/4-functions/g-7410/" class="md-nav__link">
         G-7410: Avoid standalone functions – put your functions in packages.
       </a>
     </li>
@@ -2535,7 +2535,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../4-functions/g-7420/" class="md-nav__link">
+      <a href="../../../7-stored-objects/4-functions/g-7420/" class="md-nav__link">
         G-7420: Always make the RETURN statement the last statement of your function.
       </a>
     </li>
@@ -2549,7 +2549,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../4-functions/g-7430/" class="md-nav__link">
+      <a href="../../../7-stored-objects/4-functions/g-7430/" class="md-nav__link">
         G-7430: Try to use no more than one RETURN statement within a function.
       </a>
     </li>
@@ -2563,7 +2563,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../4-functions/g-7440/" class="md-nav__link">
+      <a href="../../../7-stored-objects/4-functions/g-7440/" class="md-nav__link">
         G-7440: Never use OUT parameters to return values from a function.
       </a>
     </li>
@@ -2577,7 +2577,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../4-functions/g-7450/" class="md-nav__link">
+      <a href="../../../7-stored-objects/4-functions/g-7450/" class="md-nav__link">
         G-7450: Never return a NULL value from a BOOLEAN function.
       </a>
     </li>
@@ -2591,7 +2591,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../4-functions/g-7460/" class="md-nav__link">
+      <a href="../../../7-stored-objects/4-functions/g-7460/" class="md-nav__link">
         G-7460: Try to define your packaged/standalone function deterministic if appropriate.
       </a>
     </li>
@@ -2638,7 +2638,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../5-oracle-supplied-packages/g-7510/" class="md-nav__link">
+      <a href="../../../7-stored-objects/5-oracle-supplied-packages/g-7510/" class="md-nav__link">
         G-7510: Always prefix Oracle supplied packages with owner schema name.
       </a>
     </li>
@@ -2659,7 +2659,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../6-object-types/object-types/" class="md-nav__link">
+      <a href="../../../7-stored-objects/6-object-types/object-types/" class="md-nav__link">
         Object Types
       </a>
     </li>
@@ -2699,7 +2699,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../7-triggers/g-7710/" class="md-nav__link">
+      <a href="../../../7-stored-objects/7-triggers/g-7710/" class="md-nav__link">
         G-7710: Avoid cascading triggers.
       </a>
     </li>
@@ -2713,7 +2713,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../7-triggers/g-7720/" class="md-nav__link">
+      <a href="../../../7-stored-objects/7-triggers/g-7720/" class="md-nav__link">
         G-7720: Never use multiple UPDATE OF in trigger event clause.
       </a>
     </li>
@@ -2727,7 +2727,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../7-triggers/g-7730/" class="md-nav__link">
+      <a href="../../../7-stored-objects/7-triggers/g-7730/" class="md-nav__link">
         G-7730: Avoid multiple DML events per trigger.
       </a>
     </li>
@@ -2741,7 +2741,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../7-triggers/g-7740/" class="md-nav__link">
+      <a href="../../../7-stored-objects/7-triggers/g-7740/" class="md-nav__link">
         G-7740: Never handle multiple DML events per trigger if primary key is assigned in trigger.
       </a>
     </li>
@@ -2788,7 +2788,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../8-sequences/g-7810/" class="md-nav__link">
+      <a href="../../../7-stored-objects/8-sequences/g-7810/" class="md-nav__link">
         G-7810: Never use SQL inside PL/SQL to read sequence numbers (or SYSDATE).
       </a>
     </li>
@@ -2835,7 +2835,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../9-sql-macros/g-7910/" class="md-nav__link">
+      <a href="../../../7-stored-objects/9-sql-macros/g-7910/" class="md-nav__link">
         G-7910: Never use DML within a SQL macro.
       </a>
     </li>
@@ -3458,13 +3458,19 @@
                 
 
 
-<h1 id="g-7150-try-to-remove-unused-parameters">G-7150: Try to remove unused parameters.</h1>
-<div class="admonition warning">
-<p class="admonition-title">Major</p>
-<p>Efficiency, Maintainability</p>
+<h1 id="g-4387-never-use-a-for-loop-for-a-query-that-should-return-not-more-than-one-row">G-4387: Never use a FOR LOOP for a query that should return not more than one row.</h1>
+<div class="admonition bug">
+<p class="admonition-title">Blocker</p>
+<p>Reliability, Efficiency, Readability</p>
+</div>
+<div class="admonition missing">
+<p class="admonition-title">Unsupported in db* CODECOP Validators</p>
+<p>Without access to the Oracle Data Dictionary, we cannot determine the number of rows to be processed.</p>
 </div>
 <h2 id="reason">Reason</h2>
-<p>You should go through your programs and remove any parameter that is no longer used.</p>
+<p>A <code>for loop</code> can hide a <code>too_many_rows</code> exception. The more complex a query is, the higher is the risk that more than one row will be processed.
+This affects performance and can lead to a wrong result. </p>
+<p>A <code>for loop</code> can also hide a <code>no_data_found</code> exception and the reader cannot determine whether this is intentional or not.</p>
 <h2 id="example-bad">Example (bad)</h2>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
@@ -3482,36 +3488,22 @@
 <span class="normal">14</span>
 <span class="normal">15</span>
 <span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="n">department_api</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
-<span class="w">   </span><span class="k">function</span><span class="w"> </span><span class="n">name_by_id</span><span class="p">(</span><span class="w"> </span><span class="c1">-- NOSONAR: non-deterministic</span>
-<span class="w">      </span><span class="n">in_department_id</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nb">integer</span><span class="w"></span>
-<span class="w">     </span><span class="p">,</span><span class="n">in_manager</span><span class="w">       </span><span class="k">in</span><span class="w"> </span><span class="n">employees</span><span class="o">%</span><span class="n">rowtype</span><span class="w"></span>
-<span class="w">   </span><span class="p">)</span><span class="w"></span>
-<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">departments</span><span class="p">.</span><span class="n">department_name</span><span class="o">%</span><span class="k">type</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
-<span class="w">      </span><span class="n">co_department_id</span><span class="w">  </span><span class="n">constant</span><span class="w"> </span><span class="n">departments</span><span class="p">.</span><span class="n">department_id</span><span class="o">%</span><span class="k">type</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">in_department_id</span><span class="p">;</span><span class="w"></span>
-<span class="w">      </span><span class="n">l_department_name</span><span class="w"> </span><span class="n">departments</span><span class="p">.</span><span class="n">department_name</span><span class="o">%</span><span class="k">type</span><span class="p">;</span><span class="w"></span>
+<span class="normal">17</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="n">employee_api</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
+<span class="w">   </span><span class="k">function</span><span class="w"> </span><span class="n">emp_name</span><span class="p">(</span><span class="n">in_empno</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nb">integer</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">varchar2</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="c1">-- NOSONAR: non-deterministic</span>
+<span class="w">      </span><span class="n">l_ename</span><span class="w"> </span><span class="n">emp</span><span class="p">.</span><span class="n">ename</span><span class="o">%</span><span class="k">type</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">begin</span><span class="w"></span>
-<span class="w">      </span><span class="o">&lt;&lt;</span><span class="n">find_department</span><span class="o">&gt;&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="k">begin</span><span class="w"></span>
-<span class="w">         </span><span class="k">select</span><span class="w"> </span><span class="n">department_name</span><span class="w"></span>
-<span class="w">           </span><span class="k">into</span><span class="w"> </span><span class="n">l_department_name</span><span class="w"></span>
-<span class="w">           </span><span class="k">from</span><span class="w"> </span><span class="n">departments</span><span class="w"></span>
-<span class="w">          </span><span class="k">where</span><span class="w"> </span><span class="n">department_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">co_department_id</span><span class="p">;</span><span class="w"></span>
-<span class="w">      </span><span class="k">exception</span><span class="w"></span>
-<span class="w">         </span><span class="k">when</span><span class="w"> </span><span class="n">no_data_found</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">too_many_rows</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
-<span class="w">            </span><span class="n">l_department_name</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="k">null</span><span class="p">;</span><span class="w"></span>
-<span class="w">      </span><span class="k">end</span><span class="w"> </span><span class="n">find_department</span><span class="p">;</span><span class="w"></span>
-
-<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">l_department_name</span><span class="p">;</span><span class="w"></span>
-<span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">name_by_id</span><span class="p">;</span><span class="w"></span>
-<span class="k">end</span><span class="w"> </span><span class="n">department_api</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="o">&lt;&lt;</span><span class="n">fetch_name</span><span class="o">&gt;&gt;</span><span class="w"></span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">         </span><span class="k">select</span><span class="w"> </span><span class="n">ename</span><span class="w"></span>
+<span class="w">           </span><span class="k">from</span><span class="w"> </span><span class="n">emp</span><span class="w"></span>
+<span class="w">          </span><span class="k">where</span><span class="w"> </span><span class="n">empno</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in_empno</span><span class="w"></span>
+<span class="w">      </span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="n">loop</span><span class="w"></span>
+<span class="w">         </span><span class="n">l_ename</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">ename</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="k">end</span><span class="w"> </span><span class="n">loop</span><span class="w"> </span><span class="n">fetch_name</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">l_ename</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">emp_name</span><span class="p">;</span><span class="w"></span>
+<span class="k">end</span><span class="w"> </span><span class="n">employee_api</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
 <h2 id="example-good">Example (good)</h2>
@@ -3531,34 +3523,22 @@
 <span class="normal">14</span>
 <span class="normal">15</span>
 <span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="n">department_api</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
-<span class="w">   </span><span class="k">function</span><span class="w"> </span><span class="n">name_by_id</span><span class="p">(</span><span class="w"> </span><span class="c1">-- NOSONAR: non-deterministic</span>
-<span class="w">      </span><span class="n">in_department_id</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nb">integer</span><span class="w"></span>
-<span class="w">   </span><span class="p">)</span><span class="w"></span>
-<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">departments</span><span class="p">.</span><span class="n">department_name</span><span class="o">%</span><span class="k">type</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
-<span class="w">      </span><span class="n">co_department_id</span><span class="w">  </span><span class="n">constant</span><span class="w"> </span><span class="n">departments</span><span class="p">.</span><span class="n">department_id</span><span class="o">%</span><span class="k">type</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">in_department_id</span><span class="p">;</span><span class="w"></span>
-<span class="w">      </span><span class="n">l_department_name</span><span class="w"> </span><span class="n">departments</span><span class="p">.</span><span class="n">department_name</span><span class="o">%</span><span class="k">type</span><span class="p">;</span><span class="w"></span>
+<span class="normal">17</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="n">employee_api</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
+<span class="w">   </span><span class="k">function</span><span class="w"> </span><span class="n">emp_name</span><span class="p">(</span><span class="n">in_empno</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nb">integer</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">varchar2</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="c1">-- NOSONAR: non-deterministic</span>
+<span class="w">      </span><span class="n">l_ename</span><span class="w"> </span><span class="n">emp</span><span class="p">.</span><span class="n">ename</span><span class="o">%</span><span class="k">type</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">begin</span><span class="w"></span>
-<span class="w">      </span><span class="o">&lt;&lt;</span><span class="n">find_department</span><span class="o">&gt;&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="k">begin</span><span class="w"></span>
-<span class="w">         </span><span class="k">select</span><span class="w"> </span><span class="n">department_name</span><span class="w"></span>
-<span class="w">           </span><span class="k">into</span><span class="w"> </span><span class="n">l_department_name</span><span class="w"></span>
-<span class="w">           </span><span class="k">from</span><span class="w"> </span><span class="n">departments</span><span class="w"></span>
-<span class="w">          </span><span class="k">where</span><span class="w"> </span><span class="n">department_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">co_department_id</span><span class="p">;</span><span class="w"></span>
-<span class="w">      </span><span class="k">exception</span><span class="w"></span>
-<span class="w">         </span><span class="k">when</span><span class="w"> </span><span class="n">no_data_found</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">too_many_rows</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
-<span class="w">            </span><span class="n">l_department_name</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="k">null</span><span class="p">;</span><span class="w"></span>
-<span class="w">      </span><span class="k">end</span><span class="w"> </span><span class="n">find_department</span><span class="p">;</span><span class="w"></span>
-
-<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">l_department_name</span><span class="p">;</span><span class="w"></span>
-<span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">name_by_id</span><span class="p">;</span><span class="w"></span>
-<span class="k">end</span><span class="w"> </span><span class="n">department_api</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="k">select</span><span class="w"> </span><span class="n">ename</span><span class="w"></span>
+<span class="w">        </span><span class="k">into</span><span class="w"> </span><span class="n">l_ename</span><span class="w"></span>
+<span class="w">        </span><span class="k">from</span><span class="w"> </span><span class="n">emp</span><span class="w"></span>
+<span class="w">       </span><span class="k">where</span><span class="w"> </span><span class="n">empno</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">in_empno</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">l_ename</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="k">exception</span><span class="w"></span>
+<span class="w">      </span><span class="k">when</span><span class="w"> </span><span class="n">no_data_found</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
+<span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="k">null</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="k">when</span><span class="w"> </span><span class="n">too_many_rows</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
+<span class="w">         </span><span class="n">raise</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">emp_name</span><span class="p">;</span><span class="w"></span>
+<span class="k">end</span><span class="w"> </span><span class="n">employee_api</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
 
@@ -3576,7 +3556,7 @@
     <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
-        <a href="../g-7140/" class="md-footer__link md-footer__link--prev" aria-label="Previous: G-7140: Always ensure that locally defined procedures or functions are referenced." rel="prev">
+        <a href="../g-4385/" class="md-footer__link md-footer__link--prev" aria-label="Previous: G-4385: Never use a cursor for loop to check whether a cursor returns data." rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
@@ -3585,20 +3565,20 @@
               <span class="md-footer__direction">
                 Previous
               </span>
-              G-7140: Always ensure that locally defined procedures or functions are referenced.
+              G-4385: Never use a cursor for loop to check whether a cursor returns data.
             </div>
           </div>
         </a>
       
       
         
-        <a href="../g-7160/" class="md-footer__link md-footer__link--next" aria-label="Next: G-7160: Always explicitly state parameter mode." rel="next">
+        <a href="../g-4390/" class="md-footer__link md-footer__link--next" aria-label="Next: G-4390: Avoid use of unreferenced FOR loop indexes." rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              G-7160: Always explicitly state parameter mode.
+              G-4390: Avoid use of unreferenced FOR loop indexes.
             </div>
           </div>
           <div class="md-footer__button md-icon">
