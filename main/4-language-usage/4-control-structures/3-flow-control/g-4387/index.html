@@ -3530,7 +3530,7 @@ This affects performance and can lead to a wrong result. </p>
 <span class="w">      </span><span class="k">select</span><span class="w"> </span><span class="n">ename</span><span class="w"></span>
 <span class="w">        </span><span class="k">into</span><span class="w"> </span><span class="n">l_ename</span><span class="w"></span>
 <span class="w">        </span><span class="k">from</span><span class="w"> </span><span class="n">emp</span><span class="w"></span>
-<span class="w">       </span><span class="k">where</span><span class="w"> </span><span class="n">empno</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">in_empno</span><span class="p">;</span><span class="w"></span>
+<span class="w">       </span><span class="k">where</span><span class="w"> </span><span class="n">empno</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in_empno</span><span class="p">;</span><span class="w"></span>
 <span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">l_ename</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">exception</span><span class="w"></span>
 <span class="w">      </span><span class="k">when</span><span class="w"> </span><span class="n">no_data_found</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
