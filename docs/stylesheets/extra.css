@@ -46,6 +46,10 @@
     color: #ff1744;
 }
 
+.highlight .hll {
+    background-color: rgba(215, 215, 215, .5);
+}
+
 /* fixing colors because wkhtmltopdf does not understand colors such as "var(--md-typeset-a-color);" */
 @media print {
 
