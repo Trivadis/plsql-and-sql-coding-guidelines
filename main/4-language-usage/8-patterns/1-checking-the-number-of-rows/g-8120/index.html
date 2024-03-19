@@ -3490,9 +3490,9 @@
 <span class="w">        </span><span class="k">from</span><span class="w"> </span><span class="n">departments</span><span class="w"></span>
 <span class="w">       </span><span class="k">where</span><span class="w"> </span><span class="n">department_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in_r_department</span><span class="p">.</span><span class="n">department_id</span><span class="p">;</span><span class="w"></span>
 
-<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="n">l_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
-<span class="w">         </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">departments</span><span class="w"></span>
-<span class="w">         </span><span class="k">values</span><span class="w"> </span><span class="n">in_r_department</span><span class="p">;</span><span class="w"></span>
+<span class="hll"><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="n">l_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
+</span><span class="hll"><span class="w">         </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">departments</span><span class="w"></span>
+</span><span class="w">         </span><span class="k">values</span><span class="w"> </span><span class="n">in_r_department</span><span class="p">;</span><span class="w"></span>
 <span class="w">      </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">ins</span><span class="p">;</span><span class="w"></span>
 <span class="k">end</span><span class="w"> </span><span class="n">department_api</span><span class="p">;</span><span class="w"></span>
@@ -3512,11 +3512,11 @@
 <span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="n">department_api</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
 <span class="w">   </span><span class="k">procedure</span><span class="w"> </span><span class="n">ins</span><span class="p">(</span><span class="n">in_r_department</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">departments</span><span class="o">%</span><span class="n">rowtype</span><span class="p">)</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
 <span class="w">   </span><span class="k">begin</span><span class="w"></span>
-<span class="w">      </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">departments</span><span class="w"></span>
-<span class="w">      </span><span class="k">values</span><span class="w"> </span><span class="n">in_r_department</span><span class="p">;</span><span class="w"></span>
+<span class="hll"><span class="w">      </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">departments</span><span class="w"></span>
+</span><span class="w">      </span><span class="k">values</span><span class="w"> </span><span class="n">in_r_department</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">exception</span><span class="w"></span>
-<span class="w">      </span><span class="k">when</span><span class="w"> </span><span class="n">dup_val_on_index</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
-<span class="w">         </span><span class="k">null</span><span class="p">;</span><span class="w"> </span><span class="c1">-- handle exception</span>
+<span class="hll"><span class="w">      </span><span class="k">when</span><span class="w"> </span><span class="n">dup_val_on_index</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
+</span><span class="w">         </span><span class="k">null</span><span class="p">;</span><span class="w"> </span><span class="c1">-- handle exception</span>
 <span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">ins</span><span class="p">;</span><span class="w"></span>
 <span class="k">end</span><span class="w"> </span><span class="n">department_api</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>

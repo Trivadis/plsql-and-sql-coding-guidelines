@@ -3494,9 +3494,9 @@ it should be avoided, whenever possible.</p>
 <span class="w">   </span><span class="k">open</span><span class="w"> </span><span class="n">c_employees</span><span class="p">;</span><span class="w"></span>
 
 <span class="w">   </span><span class="o">&lt;&lt;</span><span class="n">read_employees</span><span class="o">&gt;&gt;</span><span class="w"></span>
-<span class="w">   </span><span class="n">loop</span><span class="w"></span>
-<span class="w">      </span><span class="k">fetch</span><span class="w"> </span><span class="n">c_employees</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">r_employee</span><span class="p">;</span><span class="w"></span>
-<span class="w">      </span><span class="n">exit</span><span class="w"> </span><span class="n">read_employees</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="n">c_employees</span><span class="o">%</span><span class="n">notfound</span><span class="p">;</span><span class="w"></span>
+<span class="hll"><span class="w">   </span><span class="n">loop</span><span class="w"></span>
+</span><span class="hll"><span class="w">      </span><span class="k">fetch</span><span class="w"> </span><span class="n">c_employees</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">r_employee</span><span class="p">;</span><span class="w"></span>
+</span><span class="w">      </span><span class="n">exit</span><span class="w"> </span><span class="n">read_employees</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="n">c_employees</span><span class="o">%</span><span class="n">notfound</span><span class="p">;</span><span class="w"></span>
 <span class="w">      </span><span class="n">sys</span><span class="p">.</span><span class="n">dbms_output</span><span class="p">.</span><span class="n">put_line</span><span class="p">(</span><span class="n">r_employee</span><span class="p">.</span><span class="n">last_name</span><span class="p">);</span><span class="w"></span>
 <span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">loop</span><span class="w"> </span><span class="n">read_employees</span><span class="p">;</span><span class="w"></span>
 
@@ -3522,9 +3522,9 @@ it should be avoided, whenever possible.</p>
 <span class="w">        </span><span class="k">from</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span><span class="w"></span>
 <span class="k">begin</span><span class="w"></span>
 <span class="w">   </span><span class="o">&lt;&lt;</span><span class="n">read_employees</span><span class="o">&gt;&gt;</span><span class="w"></span>
-<span class="w">   </span><span class="k">for</span><span class="w"> </span><span class="n">r_employee</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">c_employees</span><span class="w"></span>
-<span class="w">   </span><span class="n">loop</span><span class="w"></span>
-<span class="w">      </span><span class="n">sys</span><span class="p">.</span><span class="n">dbms_output</span><span class="p">.</span><span class="n">put_line</span><span class="p">(</span><span class="n">r_employee</span><span class="p">.</span><span class="n">last_name</span><span class="p">);</span><span class="w"></span>
+<span class="hll"><span class="w">   </span><span class="k">for</span><span class="w"> </span><span class="n">r_employee</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">c_employees</span><span class="w"></span>
+</span><span class="hll"><span class="w">   </span><span class="n">loop</span><span class="w"></span>
+</span><span class="w">      </span><span class="n">sys</span><span class="p">.</span><span class="n">dbms_output</span><span class="p">.</span><span class="n">put_line</span><span class="p">(</span><span class="n">r_employee</span><span class="p">.</span><span class="n">last_name</span><span class="p">);</span><span class="w"></span>
 <span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">loop</span><span class="w"> </span><span class="n">read_employees</span><span class="p">;</span><span class="w"></span>
 <span class="k">end</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>

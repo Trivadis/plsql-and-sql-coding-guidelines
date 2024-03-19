@@ -3476,8 +3476,8 @@
 <span class="normal"> 8</span>
 <span class="normal"> 9</span>
 <span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="n">my_package</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
-<span class="w">   </span><span class="k">function</span><span class="w"> </span><span class="n">my_function</span><span class="p">(</span><span class="n">out_date</span><span class="w"> </span><span class="k">out</span><span class="w"> </span><span class="nb">date</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nb">boolean</span><span class="w"></span>
-<span class="w">      </span><span class="k">deterministic</span><span class="w"></span>
+<span class="hll"><span class="w">   </span><span class="k">function</span><span class="w"> </span><span class="n">my_function</span><span class="p">(</span><span class="n">out_date</span><span class="w"> </span><span class="k">out</span><span class="w"> </span><span class="nb">date</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nb">boolean</span><span class="w"></span>
+</span><span class="w">      </span><span class="k">deterministic</span><span class="w"></span>
 <span class="w">   </span><span class="k">is</span><span class="w"></span>
 <span class="w">   </span><span class="k">begin</span><span class="w"></span>
 <span class="w">      </span><span class="n">out_date</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">sysdate</span><span class="p">;</span><span class="w"></span>
@@ -3496,8 +3496,8 @@
 <span class="normal">7</span>
 <span class="normal">8</span>
 <span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="n">my_package</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
-<span class="w">   </span><span class="k">function</span><span class="w"> </span><span class="n">my_function</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nb">date</span><span class="w"></span>
-<span class="w">      </span><span class="k">deterministic</span><span class="w"></span>
+<span class="hll"><span class="w">   </span><span class="k">function</span><span class="w"> </span><span class="n">my_function</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nb">date</span><span class="w"></span>
+</span><span class="w">      </span><span class="k">deterministic</span><span class="w"></span>
 <span class="w">   </span><span class="k">is</span><span class="w"></span>
 <span class="w">   </span><span class="k">begin</span><span class="w"></span>
 <span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">sysdate</span><span class="p">;</span><span class="w"></span>

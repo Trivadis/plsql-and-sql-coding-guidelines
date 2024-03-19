@@ -3488,9 +3488,9 @@
 <span class="w">         </span><span class="n">my_package</span><span class="p">.</span><span class="n">do_red</span><span class="p">();</span><span class="w"></span>
 <span class="w">      </span><span class="k">when</span><span class="w"> </span><span class="n">constants_up</span><span class="p">.</span><span class="n">co_blue</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
 <span class="w">         </span><span class="n">my_package</span><span class="p">.</span><span class="n">do_blue</span><span class="p">();</span><span class="w"></span>
-<span class="w">      </span><span class="k">when</span><span class="w"> </span><span class="n">constants_up</span><span class="p">.</span><span class="n">co_red</span><span class="w"> </span><span class="k">then</span><span class="w">  </span><span class="c1">-- never reached</span>
-<span class="w">         </span><span class="n">my_package</span><span class="p">.</span><span class="n">do_black</span><span class="p">();</span><span class="w">      </span><span class="c1">-- dead code</span>
-<span class="w">      </span><span class="k">else</span><span class="w"></span>
+<span class="hll"><span class="w">      </span><span class="k">when</span><span class="w"> </span><span class="n">constants_up</span><span class="p">.</span><span class="n">co_red</span><span class="w"> </span><span class="k">then</span><span class="w">  </span><span class="c1">-- never reached</span>
+</span><span class="hll"><span class="w">         </span><span class="n">my_package</span><span class="p">.</span><span class="n">do_black</span><span class="p">();</span><span class="w">      </span><span class="c1">-- dead code</span>
+</span><span class="w">      </span><span class="k">else</span><span class="w"></span>
 <span class="w">         </span><span class="k">null</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="k">case</span><span class="p">;</span><span class="w"></span>
 <span class="k">end</span><span class="p">;</span><span class="w"></span>
@@ -3519,9 +3519,9 @@
 <span class="w">         </span><span class="n">my_package</span><span class="p">.</span><span class="n">do_red</span><span class="p">();</span><span class="w"></span>
 <span class="w">      </span><span class="k">when</span><span class="w"> </span><span class="n">constants_up</span><span class="p">.</span><span class="n">co_blue</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
 <span class="w">         </span><span class="n">my_package</span><span class="p">.</span><span class="n">do_blue</span><span class="p">();</span><span class="w"></span>
-<span class="w">      </span><span class="k">when</span><span class="w"> </span><span class="n">constants_up</span><span class="p">.</span><span class="n">co_black</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
-<span class="w">         </span><span class="n">my_package</span><span class="p">.</span><span class="n">do_black</span><span class="p">();</span><span class="w"></span>
-<span class="w">      </span><span class="k">else</span><span class="w"></span>
+<span class="hll"><span class="w">      </span><span class="k">when</span><span class="w"> </span><span class="n">constants_up</span><span class="p">.</span><span class="n">co_black</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
+</span><span class="hll"><span class="w">         </span><span class="n">my_package</span><span class="p">.</span><span class="n">do_black</span><span class="p">();</span><span class="w"></span>
+</span><span class="w">      </span><span class="k">else</span><span class="w"></span>
 <span class="w">         </span><span class="k">null</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="k">case</span><span class="p">;</span><span class="w"></span>
 <span class="k">end</span><span class="p">;</span><span class="w"></span>

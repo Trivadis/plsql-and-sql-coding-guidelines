@@ -3481,9 +3481,9 @@
 <span class="normal">13</span>
 <span class="normal">14</span>
 <span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">declare</span><span class="w"></span>
-<span class="w">   </span><span class="k">type</span><span class="w"> </span><span class="n">local_weak_cursor_type</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">ref</span><span class="w"> </span><span class="k">cursor</span><span class="p">;</span><span class="w"></span>
-<span class="w">   </span><span class="n">c_data</span><span class="w"> </span><span class="n">local_weak_cursor_type</span><span class="p">;</span><span class="w"></span>
-<span class="k">begin</span><span class="w"></span>
+<span class="hll"><span class="w">   </span><span class="k">type</span><span class="w"> </span><span class="n">local_weak_cursor_type</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">ref</span><span class="w"> </span><span class="k">cursor</span><span class="p">;</span><span class="w"></span>
+</span><span class="hll"><span class="w">   </span><span class="n">c_data</span><span class="w"> </span><span class="n">local_weak_cursor_type</span><span class="p">;</span><span class="w"></span>
+</span><span class="k">begin</span><span class="w"></span>
 <span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="n">configuration</span><span class="p">.</span><span class="n">use_employee</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
 <span class="w">      </span><span class="k">open</span><span class="w"> </span><span class="n">c_data</span><span class="w"> </span><span class="k">for</span><span class="w"></span>
 <span class="w">         </span><span class="k">select</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">employee_id</span><span class="p">,</span><span class="n">e</span><span class="p">.</span><span class="n">first_name</span><span class="p">,</span><span class="n">e</span><span class="p">.</span><span class="n">last_name</span><span class="w"></span>
@@ -3511,8 +3511,8 @@
 <span class="normal">12</span>
 <span class="normal">13</span>
 <span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">declare</span><span class="w"></span>
-<span class="w">   </span><span class="n">c_data</span><span class="w"> </span><span class="n">sys_refcursor</span><span class="p">;</span><span class="w"></span>
-<span class="k">begin</span><span class="w"></span>
+<span class="hll"><span class="w">   </span><span class="n">c_data</span><span class="w"> </span><span class="n">sys_refcursor</span><span class="p">;</span><span class="w"></span>
+</span><span class="k">begin</span><span class="w"></span>
 <span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="n">configuration</span><span class="p">.</span><span class="n">use_employee</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
 <span class="w">      </span><span class="k">open</span><span class="w"> </span><span class="n">c_data</span><span class="w"> </span><span class="k">for</span><span class="w"></span>
 <span class="w">         </span><span class="k">select</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">employee_id</span><span class="p">,</span><span class="n">e</span><span class="p">.</span><span class="n">first_name</span><span class="p">,</span><span class="n">e</span><span class="p">.</span><span class="n">last_name</span><span class="w"></span>

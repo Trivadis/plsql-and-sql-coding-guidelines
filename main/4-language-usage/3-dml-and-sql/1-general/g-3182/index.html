@@ -3491,8 +3491,8 @@
 <span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">job_id</span><span class="w"></span>
 <span class="w">      </span><span class="p">,</span><span class="k">sum</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">sum_salary</span><span class="w"></span>
 <span class="w">  </span><span class="k">from</span><span class="w"> </span><span class="n">employees</span><span class="w"></span>
-<span class="w"> </span><span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">job_id</span><span class="p">,</span><span class="mi">2</span><span class="w"></span>
-<span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">job_id</span><span class="p">;</span><span class="w"></span>
+<span class="hll"><span class="w"> </span><span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">job_id</span><span class="p">,</span><span class="mi">2</span><span class="w"></span>
+</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">job_id</span><span class="p">;</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
 <h2 id="example-good">Example (good)</h2>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
@@ -3502,8 +3502,8 @@
 <span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">job_id</span><span class="w"></span>
 <span class="w">      </span><span class="p">,</span><span class="k">sum</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">sum_salary</span><span class="w"></span>
 <span class="w">  </span><span class="k">from</span><span class="w"> </span><span class="n">employees</span><span class="w"></span>
-<span class="w"> </span><span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">job_id</span><span class="w"></span>
-<span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">job_id</span><span class="p">;</span><span class="w"></span>
+<span class="hll"><span class="w"> </span><span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">job_id</span><span class="w"></span>
+</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">job_id</span><span class="p">;</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
 
               

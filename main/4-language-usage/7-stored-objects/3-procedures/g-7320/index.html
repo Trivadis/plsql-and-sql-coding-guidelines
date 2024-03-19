@@ -3490,8 +3490,8 @@
 <span class="w">      </span><span class="o">&lt;&lt;</span><span class="n">mod7_loop</span><span class="o">&gt;&gt;</span><span class="w"></span>
 <span class="w">      </span><span class="n">loop</span><span class="w"></span>
 <span class="w">         </span><span class="k">if</span><span class="w"> </span><span class="k">mod</span><span class="p">(</span><span class="n">l_idx</span><span class="p">,</span><span class="n">co_modulo</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
-<span class="w">            </span><span class="k">return</span><span class="p">;</span><span class="w"></span>
-<span class="w">         </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span><span class="w"></span>
+<span class="hll"><span class="w">            </span><span class="k">return</span><span class="p">;</span><span class="w"></span>
+</span><span class="w">         </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span><span class="w"></span>
 
 <span class="w">         </span><span class="n">l_idx</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">l_idx</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
 <span class="w">      </span><span class="k">end</span><span class="w"> </span><span class="n">loop</span><span class="w"> </span><span class="n">mod7_loop</span><span class="p">;</span><span class="w"></span>
@@ -3520,8 +3520,8 @@
 <span class="w">   </span><span class="k">begin</span><span class="w"></span>
 <span class="w">      </span><span class="o">&lt;&lt;</span><span class="n">mod7_loop</span><span class="o">&gt;&gt;</span><span class="w"></span>
 <span class="w">      </span><span class="n">loop</span><span class="w"></span>
-<span class="w">         </span><span class="n">exit</span><span class="w"> </span><span class="n">mod7_loop</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="k">mod</span><span class="p">(</span><span class="n">l_idx</span><span class="p">,</span><span class="n">co_modulo</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-
+<span class="hll"><span class="w">         </span><span class="n">exit</span><span class="w"> </span><span class="n">mod7_loop</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="k">mod</span><span class="p">(</span><span class="n">l_idx</span><span class="p">,</span><span class="n">co_modulo</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+</span>
 <span class="w">         </span><span class="n">l_idx</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">l_idx</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
 <span class="w">      </span><span class="k">end</span><span class="w"> </span><span class="n">loop</span><span class="w"> </span><span class="n">mod7_loop</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">my_procedure</span><span class="p">;</span><span class="w"></span>

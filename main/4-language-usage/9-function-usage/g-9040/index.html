@@ -3493,8 +3493,8 @@
 <span class="w">      </span><span class="k">update</span><span class="w"> </span><span class="n">employees</span><span class="w"></span>
 <span class="w">         </span><span class="k">set</span><span class="w"> </span><span class="n">date_of_birth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">to_date</span><span class="p">(</span><span class="w"></span>
 <span class="w">                </span><span class="n">co_dob_str</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="k">conversion</span><span class="w"> </span><span class="n">error</span><span class="w"></span>
-<span class="w">               </span><span class="p">,</span><span class="s1">&#39;YYYY-MM-DD&#39;</span><span class="w"></span>
-<span class="w">             </span><span class="p">)</span><span class="w"></span>
+<span class="hll"><span class="w">               </span><span class="p">,</span><span class="s1">&#39;YYYY-MM-DD&#39;</span><span class="w"></span>
+</span><span class="w">             </span><span class="p">)</span><span class="w"></span>
 <span class="w">       </span><span class="k">where</span><span class="w"> </span><span class="n">employee_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">co_employee_id</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">set_dob</span><span class="p">;</span><span class="w"></span>
 <span class="k">end</span><span class="w"> </span><span class="n">employee_api</span><span class="p">;</span><span class="w"></span>
@@ -3528,8 +3528,8 @@
 <span class="w">      </span><span class="k">update</span><span class="w"> </span><span class="n">employees</span><span class="w"></span>
 <span class="w">         </span><span class="k">set</span><span class="w"> </span><span class="n">date_of_birth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">to_date</span><span class="p">(</span><span class="w"></span>
 <span class="w">                </span><span class="n">co_dob_str</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="k">conversion</span><span class="w"> </span><span class="n">error</span><span class="w"></span>
-<span class="w">               </span><span class="p">,</span><span class="s1">&#39;FXYYYY-MM-DD&#39;</span><span class="w"></span>
-<span class="w">             </span><span class="p">)</span><span class="w"></span>
+<span class="hll"><span class="w">               </span><span class="p">,</span><span class="s1">&#39;FXYYYY-MM-DD&#39;</span><span class="w"></span>
+</span><span class="w">             </span><span class="p">)</span><span class="w"></span>
 <span class="w">       </span><span class="k">where</span><span class="w"> </span><span class="n">employee_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">co_employee_id</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">set_dob</span><span class="p">;</span><span class="w"></span>
 <span class="k">end</span><span class="w"> </span><span class="n">employee_api</span><span class="p">;</span><span class="w"></span>

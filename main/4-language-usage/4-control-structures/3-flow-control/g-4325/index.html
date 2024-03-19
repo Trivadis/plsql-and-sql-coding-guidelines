@@ -3477,13 +3477,13 @@
 <span class="normal"> 9</span>
 <span class="normal">10</span>
 <span class="normal">11</span>
-<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="o">&lt;&lt;</span><span class="n">my_label</span><span class="o">&gt;&gt;</span><span class="w"></span>
-<span class="k">declare</span><span class="w"></span>
+<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="hll"><span class="o">&lt;&lt;</span><span class="n">my_label</span><span class="o">&gt;&gt;</span><span class="w"></span>
+</span><span class="k">declare</span><span class="w"></span>
 <span class="w">   </span><span class="n">co_min_value</span><span class="w"> </span><span class="n">constant</span><span class="w"> </span><span class="n">simple_integer</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="n">co_max_value</span><span class="w"> </span><span class="n">constant</span><span class="w"> </span><span class="n">simple_integer</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span><span class="w"></span>
 <span class="k">begin</span><span class="w"></span>
-<span class="w">   </span><span class="o">&lt;&lt;</span><span class="n">my_label</span><span class="o">&gt;&gt;</span><span class="w"></span>
-<span class="w">   </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">co_min_value</span><span class="p">..</span><span class="n">co_max_value</span><span class="w"></span>
+<span class="hll"><span class="w">   </span><span class="o">&lt;&lt;</span><span class="n">my_label</span><span class="o">&gt;&gt;</span><span class="w"></span>
+</span><span class="w">   </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">co_min_value</span><span class="p">..</span><span class="n">co_max_value</span><span class="w"></span>
 <span class="w">   </span><span class="n">loop</span><span class="w"></span>
 <span class="w">      </span><span class="n">sys</span><span class="p">.</span><span class="n">dbms_output</span><span class="p">.</span><span class="n">put_line</span><span class="p">(</span><span class="n">i</span><span class="p">);</span><span class="w"></span>
 <span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">loop</span><span class="w"> </span><span class="n">my_label</span><span class="p">;</span><span class="w"></span>
@@ -3502,13 +3502,13 @@
 <span class="normal"> 9</span>
 <span class="normal">10</span>
 <span class="normal">11</span>
-<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="o">&lt;&lt;</span><span class="n">output_values</span><span class="o">&gt;&gt;</span><span class="w"></span>
-<span class="k">declare</span><span class="w"></span>
+<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="hll"><span class="o">&lt;&lt;</span><span class="n">output_values</span><span class="o">&gt;&gt;</span><span class="w"></span>
+</span><span class="k">declare</span><span class="w"></span>
 <span class="w">   </span><span class="n">co_min_value</span><span class="w"> </span><span class="n">constant</span><span class="w"> </span><span class="n">simple_integer</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="n">co_max_value</span><span class="w"> </span><span class="n">constant</span><span class="w"> </span><span class="n">simple_integer</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span><span class="w"></span>
 <span class="k">begin</span><span class="w"></span>
-<span class="w">   </span><span class="o">&lt;&lt;</span><span class="n">process_values</span><span class="o">&gt;&gt;</span><span class="w"></span>
-<span class="w">   </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">co_min_value</span><span class="p">..</span><span class="n">co_max_value</span><span class="w"></span>
+<span class="hll"><span class="w">   </span><span class="o">&lt;&lt;</span><span class="n">process_values</span><span class="o">&gt;&gt;</span><span class="w"></span>
+</span><span class="w">   </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">co_min_value</span><span class="p">..</span><span class="n">co_max_value</span><span class="w"></span>
 <span class="w">   </span><span class="n">loop</span><span class="w"></span>
 <span class="w">      </span><span class="n">sys</span><span class="p">.</span><span class="n">dbms_output</span><span class="p">.</span><span class="n">put_line</span><span class="p">(</span><span class="n">i</span><span class="p">);</span><span class="w"></span>
 <span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">loop</span><span class="w"> </span><span class="n">process_values</span><span class="p">;</span><span class="w"></span>

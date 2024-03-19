@@ -3504,10 +3504,10 @@
 <span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">salary_increase</span><span class="p">;</span><span class="w"></span>
 
 <span class="k">begin</span><span class="w"></span>
-<span class="w">   </span><span class="n">g_salary_increase</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">constants_up</span><span class="p">.</span><span class="n">min_salary_increase</span><span class="p">();</span><span class="w"></span>
-
-<span class="w">   </span><span class="k">return</span><span class="p">;</span><span class="w"> </span><span class="c1">-- violates also G-1040</span>
-
+<span class="hll"><span class="w">   </span><span class="n">g_salary_increase</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">constants_up</span><span class="p">.</span><span class="n">min_salary_increase</span><span class="p">();</span><span class="w"></span>
+</span><span class="hll">
+</span><span class="hll"><span class="w">   </span><span class="k">return</span><span class="p">;</span><span class="w"> </span><span class="c1">-- violates also G-1040</span>
+</span>
 <span class="w">   </span><span class="n">set_salary_increase</span><span class="p">(</span><span class="n">constants_up</span><span class="p">.</span><span class="n">min_salary_increase</span><span class="p">());</span><span class="w"> </span><span class="c1">-- dead code</span>
 <span class="k">end</span><span class="w"> </span><span class="n">employee_api</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
@@ -3547,8 +3547,8 @@
 <span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">salary_increase</span><span class="p">;</span><span class="w"></span>
 
 <span class="k">begin</span><span class="w"></span>
-<span class="w">   </span><span class="n">g_salary_increase</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">constants_up</span><span class="p">.</span><span class="n">min_salary_increase</span><span class="p">();</span><span class="w"></span>
-<span class="k">end</span><span class="w"> </span><span class="n">employee_api</span><span class="p">;</span><span class="w"></span>
+<span class="hll"><span class="w">   </span><span class="n">g_salary_increase</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">constants_up</span><span class="p">.</span><span class="n">min_salary_increase</span><span class="p">();</span><span class="w"></span>
+</span><span class="k">end</span><span class="w"> </span><span class="n">employee_api</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
 

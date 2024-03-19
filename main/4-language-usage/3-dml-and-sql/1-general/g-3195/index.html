@@ -3472,8 +3472,8 @@
 <span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">employee_id</span><span class="w"></span>
 <span class="w">      </span><span class="p">,</span><span class="n">e</span><span class="p">.</span><span class="n">last_name</span><span class="w"></span>
 <span class="w">  </span><span class="k">from</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="n">e</span><span class="w"></span>
-<span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">last_name</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;Smith&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">-- violates also G-1050 literal is ok for a standalone query</span>
-</code></pre></div></td></tr></table></div>
+<span class="hll"><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">last_name</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;Smith&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">-- violates also G-1050 literal is ok for a standalone query</span>
+</span></code></pre></div></td></tr></table></div>
 <h2 id="example-good">Example (good)</h2>
 <p>Using a wildcard:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
@@ -3482,8 +3482,8 @@
 <span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">employee_id</span><span class="w"></span>
 <span class="w">      </span><span class="p">,</span><span class="n">e</span><span class="p">.</span><span class="n">last_name</span><span class="w"></span>
 <span class="w">  </span><span class="k">from</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="n">e</span><span class="w"></span>
-<span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">last_name</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;Smith%&#39;</span><span class="p">;</span><span class="w"></span>
-</code></pre></div></td></tr></table></div>
+<span class="hll"><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">last_name</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;Smith%&#39;</span><span class="p">;</span><span class="w"></span>
+</span></code></pre></div></td></tr></table></div>
 <p>Change to equality operator instead:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
@@ -3491,8 +3491,8 @@
 <span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">employee_id</span><span class="w"></span>
 <span class="w">      </span><span class="p">,</span><span class="n">e</span><span class="p">.</span><span class="n">last_name</span><span class="w"></span>
 <span class="w">  </span><span class="k">from</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="n">e</span><span class="w"></span>
-<span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">last_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Smith&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">-- NOSONAR: G-1050 literal is ok for a standalone query</span>
-</code></pre></div></td></tr></table></div>
+<span class="hll"><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">last_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Smith&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">-- NOSONAR: G-1050 literal is ok for a standalone query</span>
+</span></code></pre></div></td></tr></table></div>
 
               
             </article>

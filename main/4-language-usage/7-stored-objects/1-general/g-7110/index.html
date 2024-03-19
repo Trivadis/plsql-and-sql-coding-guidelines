@@ -3477,8 +3477,8 @@
 <span class="w">   </span><span class="n">r_employee</span><span class="w"> </span><span class="n">employees</span><span class="o">%</span><span class="n">rowtype</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="n">co_id</span><span class="w">      </span><span class="n">constant</span><span class="w"> </span><span class="n">employees</span><span class="p">.</span><span class="n">employee_id</span><span class="o">%</span><span class="k">type</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">107</span><span class="p">;</span><span class="w"></span>
 <span class="k">begin</span><span class="w"></span>
-<span class="w">   </span><span class="n">employee_api</span><span class="p">.</span><span class="n">employee_by_id</span><span class="p">(</span><span class="n">r_employee</span><span class="p">,</span><span class="n">co_id</span><span class="p">);</span><span class="w"></span>
-<span class="k">end</span><span class="p">;</span><span class="w"></span>
+<span class="hll"><span class="w">   </span><span class="n">employee_api</span><span class="p">.</span><span class="n">employee_by_id</span><span class="p">(</span><span class="n">r_employee</span><span class="p">,</span><span class="n">co_id</span><span class="p">);</span><span class="w"></span>
+</span><span class="k">end</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
 <h2 id="example-good">Example (good)</h2>
@@ -3496,9 +3496,9 @@
 <span class="w">   </span><span class="n">co_id</span><span class="w">      </span><span class="n">constant</span><span class="w"> </span><span class="n">employees</span><span class="p">.</span><span class="n">employee_id</span><span class="o">%</span><span class="k">type</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">107</span><span class="p">;</span><span class="w"></span>
 <span class="k">begin</span><span class="w"></span>
 <span class="w">   </span><span class="n">employee_api</span><span class="p">.</span><span class="n">employee_by_id</span><span class="p">(</span><span class="w"></span>
-<span class="w">      </span><span class="n">out_row</span><span class="w">        </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">r_employee</span><span class="w"></span>
-<span class="w">     </span><span class="p">,</span><span class="n">in_employee_id</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">co_id</span><span class="w"></span>
-<span class="w">   </span><span class="p">);</span><span class="w"></span>
+<span class="hll"><span class="w">      </span><span class="n">out_row</span><span class="w">        </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">r_employee</span><span class="w"></span>
+</span><span class="hll"><span class="w">     </span><span class="p">,</span><span class="n">in_employee_id</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">co_id</span><span class="w"></span>
+</span><span class="w">   </span><span class="p">);</span><span class="w"></span>
 <span class="k">end</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>

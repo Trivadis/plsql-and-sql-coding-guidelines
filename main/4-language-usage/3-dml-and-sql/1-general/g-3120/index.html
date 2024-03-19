@@ -3487,10 +3487,10 @@
 <span class="normal">4</span>
 <span class="normal">5</span>
 <span class="normal">6</span>
-<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">last_name</span><span class="w"></span>
-<span class="w">      </span><span class="p">,</span><span class="n">first_name</span><span class="w"></span>
-<span class="w">      </span><span class="p">,</span><span class="n">department_name</span><span class="w"></span>
-<span class="w">  </span><span class="k">from</span><span class="w"> </span><span class="n">employees</span><span class="w"></span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="hll"><span class="k">select</span><span class="w"> </span><span class="n">last_name</span><span class="w"></span>
+</span><span class="hll"><span class="w">      </span><span class="p">,</span><span class="n">first_name</span><span class="w"></span>
+</span><span class="hll"><span class="w">      </span><span class="p">,</span><span class="n">department_name</span><span class="w"></span>
+</span><span class="w">  </span><span class="k">from</span><span class="w"> </span><span class="n">employees</span><span class="w"></span>
 <span class="w">  </span><span class="k">join</span><span class="w"> </span><span class="n">departments</span><span class="w"></span>
 <span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="p">(</span><span class="n">department_id</span><span class="p">)</span><span class="w"></span>
 <span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="k">extract</span><span class="p">(</span><span class="k">month</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">hire_date</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">extract</span><span class="p">(</span><span class="k">month</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">sysdate</span><span class="p">);</span><span class="w"></span>
@@ -3507,8 +3507,8 @@
 <span class="w">      </span><span class="p">,</span><span class="n">first_name</span><span class="w"></span>
 <span class="w">  </span><span class="k">from</span><span class="w"> </span><span class="n">employees</span><span class="w"></span>
 <span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">employee_id</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">          </span><span class="k">select</span><span class="w"> </span><span class="n">employee_id</span><span class="w"></span>
-<span class="w">            </span><span class="k">from</span><span class="w"> </span><span class="n">jobs</span><span class="w"></span>
+<span class="hll"><span class="w">          </span><span class="k">select</span><span class="w"> </span><span class="n">employee_id</span><span class="w"></span>
+</span><span class="w">            </span><span class="k">from</span><span class="w"> </span><span class="n">jobs</span><span class="w"></span>
 <span class="w">           </span><span class="k">where</span><span class="w"> </span><span class="n">job_title</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;%Manager%&#39;</span><span class="w"> </span><span class="c1">-- NOSONAR: G-1050 literal is ok for a standalone query</span>
 <span class="w">       </span><span class="p">);</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
@@ -3519,10 +3519,10 @@
 <span class="normal">4</span>
 <span class="normal">5</span>
 <span class="normal">6</span>
-<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">last_name</span><span class="w"></span>
-<span class="w">      </span><span class="p">,</span><span class="n">e</span><span class="p">.</span><span class="n">first_name</span><span class="w"></span>
-<span class="w">      </span><span class="p">,</span><span class="n">d</span><span class="p">.</span><span class="n">department_name</span><span class="w"></span>
-<span class="w">  </span><span class="k">from</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="n">e</span><span class="w"></span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="hll"><span class="k">select</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">last_name</span><span class="w"></span>
+</span><span class="hll"><span class="w">      </span><span class="p">,</span><span class="n">e</span><span class="p">.</span><span class="n">first_name</span><span class="w"></span>
+</span><span class="hll"><span class="w">      </span><span class="p">,</span><span class="n">d</span><span class="p">.</span><span class="n">department_name</span><span class="w"></span>
+</span><span class="w">  </span><span class="k">from</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="n">e</span><span class="w"></span>
 <span class="w">  </span><span class="k">join</span><span class="w"> </span><span class="n">departments</span><span class="w"> </span><span class="n">d</span><span class="w"></span>
 <span class="w">    </span><span class="k">on</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">department_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">department_id</span><span class="p">)</span><span class="w"></span>
 <span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="k">extract</span><span class="p">(</span><span class="k">month</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">hire_date</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">extract</span><span class="p">(</span><span class="k">month</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">sysdate</span><span class="p">);</span><span class="w"></span>
@@ -3535,10 +3535,10 @@
 <span class="normal">4</span>
 <span class="normal">5</span>
 <span class="normal">6</span>
-<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">emp</span><span class="p">.</span><span class="n">last_name</span><span class="w"></span>
-<span class="w">      </span><span class="p">,</span><span class="n">emp</span><span class="p">.</span><span class="n">first_name</span><span class="w"></span>
-<span class="w">      </span><span class="p">,</span><span class="n">dept</span><span class="p">.</span><span class="n">department_name</span><span class="w"></span>
-<span class="w">  </span><span class="k">from</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="n">emp</span><span class="w"></span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="hll"><span class="k">select</span><span class="w"> </span><span class="n">emp</span><span class="p">.</span><span class="n">last_name</span><span class="w"></span>
+</span><span class="hll"><span class="w">      </span><span class="p">,</span><span class="n">emp</span><span class="p">.</span><span class="n">first_name</span><span class="w"></span>
+</span><span class="hll"><span class="w">      </span><span class="p">,</span><span class="n">dept</span><span class="p">.</span><span class="n">department_name</span><span class="w"></span>
+</span><span class="w">  </span><span class="k">from</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="n">emp</span><span class="w"></span>
 <span class="w">  </span><span class="k">join</span><span class="w"> </span><span class="n">departments</span><span class="w"> </span><span class="n">dept</span><span class="w"></span>
 <span class="w">    </span><span class="k">on</span><span class="w"> </span><span class="p">(</span><span class="n">emp</span><span class="p">.</span><span class="n">department_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dept</span><span class="p">.</span><span class="n">department_id</span><span class="p">)</span><span class="w"></span>
 <span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="k">extract</span><span class="p">(</span><span class="k">month</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">emp</span><span class="p">.</span><span class="n">hire_date</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">extract</span><span class="p">(</span><span class="k">month</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">sysdate</span><span class="p">);</span><span class="w"></span>
@@ -3555,9 +3555,9 @@
 <span class="w">      </span><span class="p">,</span><span class="n">emp</span><span class="p">.</span><span class="n">first_name</span><span class="w"></span>
 <span class="w">  </span><span class="k">from</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="n">emp</span><span class="w"></span>
 <span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">emp</span><span class="p">.</span><span class="n">employee_id</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">          </span><span class="k">select</span><span class="w"> </span><span class="n">j</span><span class="p">.</span><span class="n">employee_id</span><span class="w"></span>
-<span class="w">            </span><span class="k">from</span><span class="w"> </span><span class="n">jobs</span><span class="w"> </span><span class="n">j</span><span class="w"></span>
-<span class="w">           </span><span class="k">where</span><span class="w"> </span><span class="n">j</span><span class="p">.</span><span class="n">job_title</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;%Manager%&#39;</span><span class="w"> </span><span class="c1">-- NOSONAR: G-1050 literal is ok for a standalone query</span>
+<span class="hll"><span class="w">          </span><span class="k">select</span><span class="w"> </span><span class="n">job</span><span class="p">.</span><span class="n">employee_id</span><span class="w"></span>
+</span><span class="w">            </span><span class="k">from</span><span class="w"> </span><span class="n">jobs</span><span class="w"> </span><span class="n">job</span><span class="w"></span>
+<span class="w">           </span><span class="k">where</span><span class="w"> </span><span class="n">job</span><span class="p">.</span><span class="n">job_title</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;%Manager%&#39;</span><span class="w"> </span><span class="c1">-- NOSONAR: G-1050 literal is ok for a standalone query</span>
 <span class="w">       </span><span class="p">);</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
 

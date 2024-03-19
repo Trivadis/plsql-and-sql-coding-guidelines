@@ -3485,10 +3485,8 @@
 <span class="normal">17</span>
 <span class="normal">18</span>
 <span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="n">employee_api</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
-<span class="w">   </span><span class="k">function</span><span class="w"> </span><span class="c1">-- NOSONAR: non-deterministic</span>
-<span class="w">   </span><span class="n">employee_by_id</span><span class="p">(</span><span class="n">in_employee_id</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nb">integer</span><span class="p">)</span><span class="w"></span>
+<span class="normal">20</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="n">employee_api</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
+<span class="w">   </span><span class="k">function</span><span class="w"> </span><span class="n">employee_by_id</span><span class="p">(</span><span class="n">in_employee_id</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nb">integer</span><span class="p">)</span><span class="w"> </span><span class="c1">-- NOSONAR: non-deterministic</span>
 <span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">employees</span><span class="o">%</span><span class="n">rowtype</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
 <span class="w">      </span><span class="n">co_employee_id</span><span class="w"> </span><span class="n">constant</span><span class="w"> </span><span class="n">employees</span><span class="p">.</span><span class="n">employee_id</span><span class="o">%</span><span class="k">type</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">in_employee_id</span><span class="p">;</span><span class="w"></span>
 <span class="w">      </span><span class="n">r_employee</span><span class="w">     </span><span class="n">employees</span><span class="o">%</span><span class="n">rowtype</span><span class="p">;</span><span class="w"></span>
@@ -3504,9 +3502,9 @@
 <span class="w">         </span><span class="k">null</span><span class="p">;</span><span class="w"></span>
 <span class="w">      </span><span class="k">when</span><span class="w"> </span><span class="n">too_many_rows</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
 <span class="w">         </span><span class="n">raise</span><span class="p">;</span><span class="w"></span>
-<span class="w">   </span><span class="k">end</span><span class="p">;</span><span class="w"></span>
-<span class="k">end</span><span class="p">;</span><span class="w"></span>
-<span class="o">/</span><span class="w"></span>
+<span class="hll"><span class="w">   </span><span class="k">end</span><span class="p">;</span><span class="w"></span>
+</span><span class="hll"><span class="k">end</span><span class="p">;</span><span class="w"></span>
+</span><span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
 <h2 id="example-good">Example (good)</h2>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -3545,9 +3543,9 @@
 <span class="w">         </span><span class="k">null</span><span class="p">;</span><span class="w"></span>
 <span class="w">      </span><span class="k">when</span><span class="w"> </span><span class="n">too_many_rows</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
 <span class="w">         </span><span class="n">raise</span><span class="p">;</span><span class="w"></span>
-<span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">employee_by_id</span><span class="p">;</span><span class="w"></span>
-<span class="k">end</span><span class="w"> </span><span class="n">employee_api</span><span class="p">;</span><span class="w"></span>
-<span class="o">/</span><span class="w"></span>
+<span class="hll"><span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">employee_by_id</span><span class="p">;</span><span class="w"></span>
+</span><span class="hll"><span class="k">end</span><span class="w"> </span><span class="n">employee_api</span><span class="p">;</span><span class="w"></span>
+</span><span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
 
               

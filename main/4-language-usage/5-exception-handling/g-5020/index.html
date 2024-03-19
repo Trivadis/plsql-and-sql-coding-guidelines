@@ -3485,8 +3485,8 @@ but it is better to use named exceptions instead, because it ensures a certain l
 <span class="w">   </span><span class="k">when</span><span class="w"> </span><span class="n">too_many_rows</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
 <span class="w">      </span><span class="n">my_package</span><span class="p">.</span><span class="n">some_further_processing</span><span class="p">();</span><span class="w"></span>
 <span class="w">   </span><span class="k">when</span><span class="w"> </span><span class="n">others</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
-<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="k">sqlcode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">co_no_data_found</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
-<span class="w">         </span><span class="k">null</span><span class="p">;</span><span class="w"></span>
+<span class="hll"><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="k">sqlcode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">co_no_data_found</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
+</span><span class="w">         </span><span class="k">null</span><span class="p">;</span><span class="w"></span>
 <span class="w">      </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span><span class="w"></span>
 <span class="k">end</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
@@ -3505,8 +3505,8 @@ but it is better to use named exceptions instead, because it ensures a certain l
 <span class="k">exception</span><span class="w"></span>
 <span class="w">   </span><span class="k">when</span><span class="w"> </span><span class="n">too_many_rows</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
 <span class="w">      </span><span class="n">my_package</span><span class="p">.</span><span class="n">some_further_processing</span><span class="p">();</span><span class="w"></span>
-<span class="w">   </span><span class="k">when</span><span class="w"> </span><span class="n">no_data_found</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
-<span class="w">      </span><span class="k">null</span><span class="p">;</span><span class="w"> </span><span class="c1">-- handle no_data_found</span>
+<span class="hll"><span class="w">   </span><span class="k">when</span><span class="w"> </span><span class="n">no_data_found</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
+</span><span class="w">      </span><span class="k">null</span><span class="p">;</span><span class="w"> </span><span class="c1">-- handle no_data_found</span>
 <span class="k">end</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>

@@ -3484,8 +3484,8 @@
 <span class="k">begin</span><span class="w"></span>
 <span class="w">   </span><span class="n">l_function_result</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">maintenance</span><span class="p">.</span><span class="n">get_config</span><span class="p">(</span><span class="n">co_parallel_degree</span><span class="p">);</span><span class="w"></span>
 <span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="n">l_function_result</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
-<span class="w">      </span><span class="n">l_parallel_degree</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">l_parallel_degree</span><span class="p">;</span><span class="w"></span>
-<span class="w">      </span><span class="n">do_something</span><span class="p">(</span><span class="n">l_parallel_degree</span><span class="p">);</span><span class="w"></span>
+<span class="hll"><span class="w">      </span><span class="n">l_parallel_degree</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">l_parallel_degree</span><span class="p">;</span><span class="w"></span>
+</span><span class="w">      </span><span class="n">do_something</span><span class="p">(</span><span class="n">l_parallel_degree</span><span class="p">);</span><span class="w"></span>
 <span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span><span class="w"></span>
 <span class="k">end</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
@@ -3509,8 +3509,8 @@
 <span class="k">begin</span><span class="w"></span>
 <span class="w">   </span><span class="n">l_function_result</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">maintenance</span><span class="p">.</span><span class="n">get_config</span><span class="p">(</span><span class="n">co_parallel_degree</span><span class="p">);</span><span class="w"></span>
 <span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="n">l_function_result</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
-<span class="w">      </span><span class="n">l_parallel_degree</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">l_function_result</span><span class="p">;</span><span class="w"></span>
-<span class="w">      </span><span class="n">do_something</span><span class="p">(</span><span class="n">l_parallel_degree</span><span class="p">);</span><span class="w"></span>
+<span class="hll"><span class="w">      </span><span class="n">l_parallel_degree</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">l_function_result</span><span class="p">;</span><span class="w"></span>
+</span><span class="w">      </span><span class="n">do_something</span><span class="p">(</span><span class="n">l_parallel_degree</span><span class="p">);</span><span class="w"></span>
 <span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span><span class="w"></span>
 <span class="k">end</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>

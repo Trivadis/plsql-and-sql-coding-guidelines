@@ -3541,16 +3541,16 @@
 <span class="w">         </span><span class="n">loop</span><span class="w"></span>
 <span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="n">substr</span><span class="p">(</span><span class="n">co_password</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">substr</span><span class="p">(</span><span class="n">co_digitarray</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
 <span class="w">               </span><span class="n">l_isdigit</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="p">;</span><span class="w"></span>
-<span class="w">               </span><span class="k">goto</span><span class="w"> </span><span class="n">check_other_things</span><span class="p">;</span><span class="w"></span>
-<span class="w">            </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span><span class="w"></span>
+<span class="hll"><span class="w">               </span><span class="k">goto</span><span class="w"> </span><span class="n">check_other_things</span><span class="p">;</span><span class="w"></span>
+</span><span class="w">            </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span><span class="w"></span>
 <span class="w">         </span><span class="k">end</span><span class="w"> </span><span class="n">loop</span><span class="w"> </span><span class="n">check_pw_char</span><span class="p">;</span><span class="w"></span>
 <span class="w">      </span><span class="k">end</span><span class="w"> </span><span class="n">loop</span><span class="w"> </span><span class="n">check_digit</span><span class="p">;</span><span class="w"></span>
 
-<span class="w">      </span><span class="o">&lt;&lt;</span><span class="n">check_other_things</span><span class="o">&gt;&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="k">null</span><span class="p">;</span><span class="w"></span>
+<span class="hll"><span class="w">      </span><span class="o">&lt;&lt;</span><span class="n">check_other_things</span><span class="o">&gt;&gt;</span><span class="w"></span>
+</span><span class="w">      </span><span class="k">null</span><span class="p">;</span><span class="w"></span>
 
-<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="n">l_isdigit</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
-<span class="w">         </span><span class="n">raise_application_error</span><span class="p">(</span><span class="n">co_errno</span><span class="p">,</span><span class="n">co_errmsg</span><span class="p">);</span><span class="w"></span>
+<span class="hll"><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="n">l_isdigit</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
+</span><span class="w">         </span><span class="n">raise_application_error</span><span class="p">(</span><span class="n">co_errno</span><span class="p">,</span><span class="n">co_errmsg</span><span class="p">);</span><span class="w"></span>
 <span class="w">      </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">password_check</span><span class="p">;</span><span class="w"></span>
 <span class="k">end</span><span class="w"> </span><span class="n">my_package</span><span class="p">;</span><span class="w"></span>
@@ -3617,11 +3617,11 @@
 <span class="w">         </span><span class="k">end</span><span class="w"> </span><span class="n">loop</span><span class="w"> </span><span class="n">check_pw_char</span><span class="p">;</span><span class="w"></span>
 <span class="w">      </span><span class="k">end</span><span class="w"> </span><span class="n">loop</span><span class="w"> </span><span class="n">check_digit</span><span class="p">;</span><span class="w"></span>
 
-<span class="w">      </span><span class="o">&lt;&lt;</span><span class="n">check_other_things</span><span class="o">&gt;&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="k">null</span><span class="p">;</span><span class="w"></span>
+<span class="hll"><span class="w">      </span><span class="o">&lt;&lt;</span><span class="n">check_other_things</span><span class="o">&gt;&gt;</span><span class="w"></span>
+</span><span class="w">      </span><span class="k">null</span><span class="p">;</span><span class="w"></span>
 
-<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="n">l_isdigit</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
-<span class="w">         </span><span class="n">raise_application_error</span><span class="p">(</span><span class="n">co_errno</span><span class="p">,</span><span class="n">co_errmsg</span><span class="p">);</span><span class="w"></span>
+<span class="hll"><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="n">l_isdigit</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
+</span><span class="w">         </span><span class="n">raise_application_error</span><span class="p">(</span><span class="n">co_errno</span><span class="p">,</span><span class="n">co_errmsg</span><span class="p">);</span><span class="w"></span>
 <span class="w">      </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">password_check</span><span class="p">;</span><span class="w"></span>
 <span class="k">end</span><span class="w"> </span><span class="n">my_package</span><span class="p">;</span><span class="w"></span>
@@ -3647,8 +3647,8 @@
 <span class="w">      </span><span class="n">co_errno</span><span class="w">        </span><span class="n">constant</span><span class="w"> </span><span class="n">simple_integer</span><span class="w">          </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="mi">20501</span><span class="p">;</span><span class="w"></span>
 <span class="w">      </span><span class="n">co_errmsg</span><span class="w">       </span><span class="n">constant</span><span class="w"> </span><span class="n">string</span><span class="p">(</span><span class="mi">100</span><span class="w"> </span><span class="nb">char</span><span class="p">)</span><span class="w">        </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Password must contain a digit.&#39;</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">begin</span><span class="w"></span>
-<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="n">regexp_like</span><span class="p">(</span><span class="n">co_password</span><span class="p">,</span><span class="n">co_digitpattern</span><span class="p">)</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
-<span class="w">         </span><span class="n">raise_application_error</span><span class="p">(</span><span class="n">co_errno</span><span class="p">,</span><span class="n">co_errmsg</span><span class="p">);</span><span class="w"></span>
+<span class="hll"><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="n">regexp_like</span><span class="p">(</span><span class="n">co_password</span><span class="p">,</span><span class="n">co_digitpattern</span><span class="p">)</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
+</span><span class="w">         </span><span class="n">raise_application_error</span><span class="p">(</span><span class="n">co_errno</span><span class="p">,</span><span class="n">co_errmsg</span><span class="p">);</span><span class="w"></span>
 <span class="w">      </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">password_check</span><span class="p">;</span><span class="w"></span>
 <span class="k">end</span><span class="w"> </span><span class="n">my_package</span><span class="p">;</span><span class="w"></span>

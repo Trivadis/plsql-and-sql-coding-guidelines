@@ -3505,8 +3505,8 @@
 <span class="w">      </span><span class="k">when</span><span class="w"> </span><span class="n">zero_divide</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
 <span class="w">         </span><span class="k">null</span><span class="p">;</span><span class="w"> </span><span class="c1">-- ignore</span>
 <span class="w">      </span><span class="k">when</span><span class="w"> </span><span class="n">others</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
-<span class="w">         </span><span class="n">logging_package</span><span class="p">.</span><span class="n">log_error</span><span class="p">(</span><span class="n">co_error_label</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">sqlerrm</span><span class="p">);</span><span class="w"></span>
-<span class="w">         </span><span class="n">raise</span><span class="p">;</span><span class="w"></span>
+<span class="hll"><span class="w">         </span><span class="n">logging_package</span><span class="p">.</span><span class="n">log_error</span><span class="p">(</span><span class="n">co_error_label</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">sqlerrm</span><span class="p">);</span><span class="w"></span>
+</span><span class="w">         </span><span class="n">raise</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">discount_and_recalculate</span><span class="p">;</span><span class="w"></span>
 <span class="k">end</span><span class="w"> </span><span class="n">order_api</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
@@ -3561,10 +3561,10 @@
 <span class="w">      </span><span class="k">when</span><span class="w"> </span><span class="n">others</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
 <span class="w">         </span><span class="n">logging_package</span><span class="p">.</span><span class="n">log_error</span><span class="p">(</span><span class="w"></span>
 <span class="w">            </span><span class="n">co_error_label</span><span class="w"></span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">sqlerrm</span><span class="w"></span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">co_backtrace_label</span><span class="w"></span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">dbms_utility</span><span class="p">.</span><span class="n">format_error_backtrace</span><span class="w"></span>
-<span class="w">         </span><span class="p">);</span><span class="w"></span>
+<span class="hll"><span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">sqlerrm</span><span class="w"></span>
+</span><span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">co_backtrace_label</span><span class="w"></span>
+<span class="hll"><span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">dbms_utility</span><span class="p">.</span><span class="n">format_error_backtrace</span><span class="w"></span>
+</span><span class="w">         </span><span class="p">);</span><span class="w"></span>
 <span class="w">         </span><span class="n">raise</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">discount_and_recalculate</span><span class="p">;</span><span class="w"></span>
 <span class="k">end</span><span class="w"> </span><span class="n">order_api</span><span class="p">;</span><span class="w"></span>

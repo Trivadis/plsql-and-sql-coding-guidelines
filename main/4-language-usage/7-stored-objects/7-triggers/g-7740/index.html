@@ -3498,12 +3498,12 @@
 <span class="normal">11</span>
 <span class="normal">12</span>
 <span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="k">trigger</span><span class="w"> </span><span class="n">dept_br_iu</span><span class="w"></span>
-<span class="k">before</span><span class="w"> </span><span class="k">insert</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">update</span><span class="w"> </span><span class="c1">-- NOSONAR: G-7730</span>
-<span class="k">on</span><span class="w"> </span><span class="n">departments</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">each</span><span class="w"> </span><span class="k">row</span><span class="w"></span>
+<span class="hll"><span class="k">before</span><span class="w"> </span><span class="k">insert</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">update</span><span class="w"> </span><span class="c1">-- NOSONAR: G-7730</span>
+</span><span class="k">on</span><span class="w"> </span><span class="n">departments</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">each</span><span class="w"> </span><span class="k">row</span><span class="w"></span>
 <span class="k">begin</span><span class="w"></span>
 <span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="n">inserting</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
-<span class="w">      </span><span class="p">:</span><span class="k">new</span><span class="p">.</span><span class="n">department_id</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">department_seq</span><span class="p">.</span><span class="n">nextval</span><span class="p">;</span><span class="w"> </span><span class="c1">-- NOSONAR: G-3150</span>
-<span class="w">      </span><span class="p">:</span><span class="k">new</span><span class="p">.</span><span class="n">created_date</span><span class="w">  </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">sysdate</span><span class="p">;</span><span class="w"></span>
+<span class="hll"><span class="w">      </span><span class="p">:</span><span class="k">new</span><span class="p">.</span><span class="n">department_id</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">department_seq</span><span class="p">.</span><span class="n">nextval</span><span class="p">;</span><span class="w"> </span><span class="c1">-- NOSONAR: G-3150</span>
+</span><span class="w">      </span><span class="p">:</span><span class="k">new</span><span class="p">.</span><span class="n">created_date</span><span class="w">  </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">sysdate</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="n">updating</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
 <span class="w">      </span><span class="p">:</span><span class="k">new</span><span class="p">.</span><span class="n">changed_date</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">sysdate</span><span class="p">;</span><span class="w"></span>
@@ -3528,17 +3528,17 @@
 <span class="normal">14</span>
 <span class="normal">15</span>
 <span class="normal">16</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="k">trigger</span><span class="w"> </span><span class="n">dept_br_i</span><span class="w"></span>
-<span class="k">before</span><span class="w"> </span><span class="k">insert</span><span class="w"></span>
-<span class="k">on</span><span class="w"> </span><span class="n">departments</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">each</span><span class="w"> </span><span class="k">row</span><span class="w"></span>
+<span class="hll"><span class="k">before</span><span class="w"> </span><span class="k">insert</span><span class="w"></span>
+</span><span class="k">on</span><span class="w"> </span><span class="n">departments</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">each</span><span class="w"> </span><span class="k">row</span><span class="w"></span>
 <span class="k">begin</span><span class="w"></span>
-<span class="w">   </span><span class="p">:</span><span class="k">new</span><span class="p">.</span><span class="n">department_id</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">department_seq</span><span class="p">.</span><span class="n">nextval</span><span class="p">;</span><span class="w"> </span><span class="c1">-- NOSONAR: G-3150</span>
-<span class="w">   </span><span class="p">:</span><span class="k">new</span><span class="p">.</span><span class="n">created_date</span><span class="w">  </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">sysdate</span><span class="p">;</span><span class="w"></span>
+<span class="hll"><span class="w">   </span><span class="p">:</span><span class="k">new</span><span class="p">.</span><span class="n">department_id</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">department_seq</span><span class="p">.</span><span class="n">nextval</span><span class="p">;</span><span class="w"> </span><span class="c1">-- NOSONAR: G-3150</span>
+</span><span class="w">   </span><span class="p">:</span><span class="k">new</span><span class="p">.</span><span class="n">created_date</span><span class="w">  </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">sysdate</span><span class="p">;</span><span class="w"></span>
 <span class="k">end</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 
 <span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="k">trigger</span><span class="w"> </span><span class="n">dept_br_u</span><span class="w"></span>
-<span class="k">before</span><span class="w"> </span><span class="k">update</span><span class="w"></span>
-<span class="k">on</span><span class="w"> </span><span class="n">departments</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">each</span><span class="w"> </span><span class="k">row</span><span class="w"></span>
+<span class="hll"><span class="k">before</span><span class="w"> </span><span class="k">update</span><span class="w"></span>
+</span><span class="k">on</span><span class="w"> </span><span class="n">departments</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">each</span><span class="w"> </span><span class="k">row</span><span class="w"></span>
 <span class="k">begin</span><span class="w"></span>
 <span class="w">   </span><span class="p">:</span><span class="k">new</span><span class="p">.</span><span class="n">changed_date</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">sysdate</span><span class="p">;</span><span class="w"></span>
 <span class="k">end</span><span class="p">;</span><span class="w"></span>

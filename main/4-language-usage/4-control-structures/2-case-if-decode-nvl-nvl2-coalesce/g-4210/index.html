@@ -3480,14 +3480,14 @@
 <span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">declare</span><span class="w"></span>
 <span class="w">   </span><span class="n">l_color</span><span class="w"> </span><span class="n">types_up</span><span class="p">.</span><span class="n">color_code_type</span><span class="p">;</span><span class="w"></span>
 <span class="k">begin</span><span class="w"></span>
-<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="n">l_color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">constants_up</span><span class="p">.</span><span class="n">co_red</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
-<span class="w">      </span><span class="n">my_package</span><span class="p">.</span><span class="n">do_red</span><span class="p">();</span><span class="w"></span>
-<span class="w">   </span><span class="k">elsif</span><span class="w"> </span><span class="n">l_color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">constants_up</span><span class="p">.</span><span class="n">co_blue</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
-<span class="w">      </span><span class="n">my_package</span><span class="p">.</span><span class="n">do_blue</span><span class="p">();</span><span class="w"></span>
-<span class="w">   </span><span class="k">elsif</span><span class="w"> </span><span class="n">l_color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">constants_up</span><span class="p">.</span><span class="n">co_black</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
-<span class="w">      </span><span class="n">my_package</span><span class="p">.</span><span class="n">do_black</span><span class="p">();</span><span class="w"></span>
-<span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span><span class="w"></span>
-<span class="k">end</span><span class="p">;</span><span class="w"></span>
+<span class="hll"><span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="n">l_color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">constants_up</span><span class="p">.</span><span class="n">co_red</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
+</span><span class="hll"><span class="w">      </span><span class="n">my_package</span><span class="p">.</span><span class="n">do_red</span><span class="p">();</span><span class="w"></span>
+</span><span class="hll"><span class="w">   </span><span class="k">elsif</span><span class="w"> </span><span class="n">l_color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">constants_up</span><span class="p">.</span><span class="n">co_blue</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
+</span><span class="hll"><span class="w">      </span><span class="n">my_package</span><span class="p">.</span><span class="n">do_blue</span><span class="p">();</span><span class="w"></span>
+</span><span class="hll"><span class="w">   </span><span class="k">elsif</span><span class="w"> </span><span class="n">l_color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">constants_up</span><span class="p">.</span><span class="n">co_black</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
+</span><span class="hll"><span class="w">      </span><span class="n">my_package</span><span class="p">.</span><span class="n">do_black</span><span class="p">();</span><span class="w"></span>
+</span><span class="hll"><span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span><span class="w"></span>
+</span><span class="k">end</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
 <h2 id="example-good">Example (good)</h2>
@@ -3503,22 +3503,18 @@
 <span class="normal">10</span>
 <span class="normal">11</span>
 <span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">declare</span><span class="w"></span>
+<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">declare</span><span class="w"></span>
 <span class="w">   </span><span class="n">l_color</span><span class="w"> </span><span class="n">types_up</span><span class="p">.</span><span class="n">color_code_type</span><span class="p">;</span><span class="w"></span>
 <span class="k">begin</span><span class="w"></span>
-<span class="w">   </span><span class="k">case</span><span class="w"> </span><span class="n">l_color</span><span class="w"></span>
-<span class="w">      </span><span class="k">when</span><span class="w"> </span><span class="n">constants_up</span><span class="p">.</span><span class="n">co_red</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
-<span class="w">         </span><span class="n">my_package</span><span class="p">.</span><span class="n">do_red</span><span class="p">();</span><span class="w"></span>
-<span class="w">      </span><span class="k">when</span><span class="w"> </span><span class="n">constants_up</span><span class="p">.</span><span class="n">co_blue</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
-<span class="w">         </span><span class="n">my_package</span><span class="p">.</span><span class="n">do_blue</span><span class="p">();</span><span class="w"></span>
-<span class="w">      </span><span class="k">when</span><span class="w"> </span><span class="n">constants_up</span><span class="p">.</span><span class="n">co_black</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
-<span class="w">         </span><span class="n">my_package</span><span class="p">.</span><span class="n">do_black</span><span class="p">();</span><span class="w"></span>
-<span class="w">      </span><span class="k">else</span><span class="w"></span>
-<span class="w">         </span><span class="k">null</span><span class="p">;</span><span class="w"></span>
-<span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="k">case</span><span class="p">;</span><span class="w"></span>
-<span class="k">end</span><span class="p">;</span><span class="w"></span>
+<span class="hll"><span class="w">   </span><span class="k">case</span><span class="w"> </span><span class="n">l_color</span><span class="w"></span>
+</span><span class="hll"><span class="w">      </span><span class="k">when</span><span class="w"> </span><span class="n">constants_up</span><span class="p">.</span><span class="n">co_red</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
+</span><span class="hll"><span class="w">         </span><span class="n">my_package</span><span class="p">.</span><span class="n">do_red</span><span class="p">();</span><span class="w"></span>
+</span><span class="hll"><span class="w">      </span><span class="k">when</span><span class="w"> </span><span class="n">constants_up</span><span class="p">.</span><span class="n">co_blue</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
+</span><span class="hll"><span class="w">         </span><span class="n">my_package</span><span class="p">.</span><span class="n">do_blue</span><span class="p">();</span><span class="w"></span>
+</span><span class="hll"><span class="w">      </span><span class="k">when</span><span class="w"> </span><span class="n">constants_up</span><span class="p">.</span><span class="n">co_black</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
+</span><span class="hll"><span class="w">         </span><span class="n">my_package</span><span class="p">.</span><span class="n">do_black</span><span class="p">();</span><span class="w"></span>
+</span><span class="hll"><span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="k">case</span><span class="p">;</span><span class="w"></span>
+</span><span class="k">end</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
 

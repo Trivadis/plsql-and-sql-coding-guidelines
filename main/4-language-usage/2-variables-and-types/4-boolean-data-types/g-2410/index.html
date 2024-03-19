@@ -3495,8 +3495,8 @@
 <span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">declare</span><span class="w"></span>
 <span class="w">   </span><span class="n">co_newfile</span><span class="w"> </span><span class="n">constant</span><span class="w"> </span><span class="n">pls_integer</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="n">co_oldfile</span><span class="w"> </span><span class="n">constant</span><span class="w"> </span><span class="n">pls_integer</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">500</span><span class="p">;</span><span class="w"></span>
-<span class="w">   </span><span class="n">l_bigger</span><span class="w">   </span><span class="n">pls_integer</span><span class="p">;</span><span class="w"></span>
-<span class="k">begin</span><span class="w"></span>
+<span class="hll"><span class="w">   </span><span class="n">l_bigger</span><span class="w">   </span><span class="n">pls_integer</span><span class="p">;</span><span class="w"></span>
+</span><span class="k">begin</span><span class="w"></span>
 <span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="n">co_newfile</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">co_oldfile</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
 <span class="w">      </span><span class="n">l_bigger</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">constants_up</span><span class="p">.</span><span class="n">co_numeric_true</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">else</span><span class="w"></span>
@@ -3522,10 +3522,10 @@
 <span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">declare</span><span class="w"></span>
 <span class="w">   </span><span class="n">co_newfile</span><span class="w"> </span><span class="n">constant</span><span class="w"> </span><span class="n">pls_integer</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="n">co_oldfile</span><span class="w"> </span><span class="n">constant</span><span class="w"> </span><span class="n">pls_integer</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">500</span><span class="p">;</span><span class="w"></span>
-<span class="w">   </span><span class="n">l_bigger</span><span class="w">   </span><span class="nb">boolean</span><span class="p">;</span><span class="w"></span>
-<span class="k">begin</span><span class="w"></span>
-<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="n">co_newfile</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">co_oldfile</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
-<span class="w">      </span><span class="n">l_bigger</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="p">;</span><span class="w"></span>
+<span class="hll"><span class="w">   </span><span class="n">l_bigger</span><span class="w">   </span><span class="nb">boolean</span><span class="p">;</span><span class="w"></span>
+</span><span class="k">begin</span><span class="w"></span>
+<span class="hll"><span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="n">co_newfile</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">co_oldfile</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
+</span><span class="w">      </span><span class="n">l_bigger</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">else</span><span class="w"></span>
 <span class="w">      </span><span class="n">l_bigger</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="k">false</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span><span class="w"></span>
@@ -3545,10 +3545,10 @@
 <span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">declare</span><span class="w"></span>
 <span class="w">   </span><span class="n">co_newfile</span><span class="w"> </span><span class="n">constant</span><span class="w"> </span><span class="n">pls_integer</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="n">co_oldfile</span><span class="w"> </span><span class="n">constant</span><span class="w"> </span><span class="n">pls_integer</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">500</span><span class="p">;</span><span class="w"></span>
-<span class="w">   </span><span class="n">l_bigger</span><span class="w">   </span><span class="nb">boolean</span><span class="p">;</span><span class="w"></span>
-<span class="k">begin</span><span class="w"></span>
-<span class="w">   </span><span class="n">l_bigger</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">nvl</span><span class="p">(</span><span class="n">co_newfile</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">co_oldfile</span><span class="p">,</span><span class="k">false</span><span class="p">);</span><span class="w"></span>
-<span class="w">   </span><span class="n">do_something</span><span class="p">(</span><span class="n">l_bigger</span><span class="p">);</span><span class="w"></span>
+<span class="hll"><span class="w">   </span><span class="n">l_bigger</span><span class="w">   </span><span class="nb">boolean</span><span class="p">;</span><span class="w"></span>
+</span><span class="k">begin</span><span class="w"></span>
+<span class="hll"><span class="w">   </span><span class="n">l_bigger</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">nvl</span><span class="p">(</span><span class="n">co_newfile</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">co_oldfile</span><span class="p">,</span><span class="k">false</span><span class="p">);</span><span class="w"></span>
+</span><span class="w">   </span><span class="n">do_something</span><span class="p">(</span><span class="n">l_bigger</span><span class="p">);</span><span class="w"></span>
 <span class="k">end</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>

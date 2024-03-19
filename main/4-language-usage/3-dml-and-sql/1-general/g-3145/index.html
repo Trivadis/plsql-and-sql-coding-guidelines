@@ -3484,8 +3484,8 @@
 <span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">begin</span><span class="w"></span>
 <span class="w">   </span><span class="o">&lt;&lt;</span><span class="n">raise_salary</span><span class="o">&gt;&gt;</span><span class="w"></span>
 <span class="w">   </span><span class="k">for</span><span class="w"> </span><span class="n">r_employee</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">      </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"></span>
-<span class="w">        </span><span class="k">from</span><span class="w"> </span><span class="n">employees</span><span class="w"></span>
+<span class="hll"><span class="w">      </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"></span>
+</span><span class="w">        </span><span class="k">from</span><span class="w"> </span><span class="n">employees</span><span class="w"></span>
 <span class="w">   </span><span class="p">)</span><span class="w"></span>
 <span class="w">   </span><span class="n">loop</span><span class="w"></span>
 <span class="w">      </span><span class="n">employee_api</span><span class="p">.</span><span class="n">calculate_raise_by_seniority</span><span class="p">(</span><span class="w"></span>
@@ -3515,8 +3515,8 @@
 <span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">begin</span><span class="w"></span>
 <span class="w">   </span><span class="o">&lt;&lt;</span><span class="n">raise_salary</span><span class="o">&gt;&gt;</span><span class="w"></span>
 <span class="w">   </span><span class="k">for</span><span class="w"> </span><span class="n">r_employee</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">      </span><span class="k">select</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="n">salary</span><span class="p">,</span><span class="n">hiredate</span><span class="w"></span>
-<span class="w">        </span><span class="k">from</span><span class="w"> </span><span class="n">employees</span><span class="w"></span>
+<span class="hll"><span class="w">      </span><span class="k">select</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="n">salary</span><span class="p">,</span><span class="n">hiredate</span><span class="w"></span>
+</span><span class="w">        </span><span class="k">from</span><span class="w"> </span><span class="n">employees</span><span class="w"></span>
 <span class="w">   </span><span class="p">)</span><span class="w"></span>
 <span class="w">   </span><span class="n">loop</span><span class="w"></span>
 <span class="w">      </span><span class="n">employee_api</span><span class="p">.</span><span class="n">calculate_raise_by_seniority</span><span class="p">(</span><span class="w"></span>

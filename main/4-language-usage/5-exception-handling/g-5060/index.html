@@ -3486,9 +3486,9 @@
 <span class="w">      </span><span class="n">co_id</span><span class="w">             </span><span class="n">constant</span><span class="w"> </span><span class="n">departments</span><span class="p">.</span><span class="n">department_id</span><span class="o">%</span><span class="k">type</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">in_id</span><span class="p">;</span><span class="w"></span>
 <span class="w">      </span><span class="n">l_department_name</span><span class="w"> </span><span class="n">departments</span><span class="p">.</span><span class="n">department_name</span><span class="o">%</span><span class="k">type</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">begin</span><span class="w"></span>
-<span class="w">      </span><span class="k">select</span><span class="w"> </span><span class="n">department_name</span><span class="w"></span>
-<span class="w">        </span><span class="k">into</span><span class="w"> </span><span class="n">l_department_name</span><span class="w"></span>
-<span class="w">        </span><span class="k">from</span><span class="w"> </span><span class="n">departments</span><span class="w"></span>
+<span class="hll"><span class="w">      </span><span class="k">select</span><span class="w"> </span><span class="n">department_name</span><span class="w"></span>
+</span><span class="hll"><span class="w">        </span><span class="k">into</span><span class="w"> </span><span class="n">l_department_name</span><span class="w"></span>
+</span><span class="w">        </span><span class="k">from</span><span class="w"> </span><span class="n">departments</span><span class="w"></span>
 <span class="w">       </span><span class="k">where</span><span class="w"> </span><span class="n">department_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">co_id</span><span class="p">;</span><span class="w"></span>
 
 <span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">l_department_name</span><span class="p">;</span><span class="w"></span>
@@ -3522,18 +3522,18 @@
 <span class="w">      </span><span class="n">co_id</span><span class="w">             </span><span class="n">constant</span><span class="w"> </span><span class="n">departments</span><span class="p">.</span><span class="n">department_id</span><span class="o">%</span><span class="k">type</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">in_id</span><span class="p">;</span><span class="w"></span>
 <span class="w">      </span><span class="n">l_department_name</span><span class="w"> </span><span class="n">departments</span><span class="p">.</span><span class="n">department_name</span><span class="o">%</span><span class="k">type</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">begin</span><span class="w"></span>
-<span class="w">      </span><span class="k">select</span><span class="w"> </span><span class="n">department_name</span><span class="w"></span>
-<span class="w">        </span><span class="k">into</span><span class="w"> </span><span class="n">l_department_name</span><span class="w"></span>
-<span class="w">        </span><span class="k">from</span><span class="w"> </span><span class="n">departments</span><span class="w"></span>
+<span class="hll"><span class="w">      </span><span class="k">select</span><span class="w"> </span><span class="n">department_name</span><span class="w"></span>
+</span><span class="hll"><span class="w">        </span><span class="k">into</span><span class="w"> </span><span class="n">l_department_name</span><span class="w"></span>
+</span><span class="w">        </span><span class="k">from</span><span class="w"> </span><span class="n">departments</span><span class="w"></span>
 <span class="w">       </span><span class="k">where</span><span class="w"> </span><span class="n">department_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">co_id</span><span class="p">;</span><span class="w"></span>
 
 <span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">l_department_name</span><span class="p">;</span><span class="w"></span>
-<span class="w">   </span><span class="k">exception</span><span class="w"></span>
-<span class="w">      </span><span class="k">when</span><span class="w"> </span><span class="n">no_data_found</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
-<span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="k">null</span><span class="p">;</span><span class="w"></span>
-<span class="w">      </span><span class="k">when</span><span class="w"> </span><span class="n">too_many_rows</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
-<span class="w">         </span><span class="n">raise</span><span class="p">;</span><span class="w"></span>
-<span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">name_by_id</span><span class="p">;</span><span class="w"></span>
+<span class="hll"><span class="w">   </span><span class="k">exception</span><span class="w"></span>
+</span><span class="hll"><span class="w">      </span><span class="k">when</span><span class="w"> </span><span class="n">no_data_found</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
+</span><span class="hll"><span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="k">null</span><span class="p">;</span><span class="w"></span>
+</span><span class="hll"><span class="w">      </span><span class="k">when</span><span class="w"> </span><span class="n">too_many_rows</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
+</span><span class="hll"><span class="w">         </span><span class="n">raise</span><span class="p">;</span><span class="w"></span>
+</span><span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">name_by_id</span><span class="p">;</span><span class="w"></span>
 <span class="k">end</span><span class="w"> </span><span class="n">department_api</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>

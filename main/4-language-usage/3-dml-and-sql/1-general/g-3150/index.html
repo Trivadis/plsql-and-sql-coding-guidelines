@@ -3514,8 +3514,8 @@
 <span class="k">before</span><span class="w"> </span><span class="k">insert</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">locations</span><span class="w"></span>
 <span class="k">for</span><span class="w"> </span><span class="k">each</span><span class="w"> </span><span class="k">row</span><span class="w"></span>
 <span class="k">begin</span><span class="w"></span>
-<span class="w">   </span><span class="p">:</span><span class="k">new</span><span class="p">.</span><span class="n">location_id</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">location_seq</span><span class="p">.</span><span class="n">nextval</span><span class="p">;</span><span class="w"></span>
-<span class="k">end</span><span class="p">;</span><span class="w"></span>
+<span class="hll"><span class="w">   </span><span class="p">:</span><span class="k">new</span><span class="p">.</span><span class="n">location_id</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">location_seq</span><span class="p">.</span><span class="n">nextval</span><span class="p">;</span><span class="w"></span>
+</span><span class="k">end</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
 <h2 id="example-good">Example (good)</h2>
@@ -3525,8 +3525,8 @@
 <span class="normal">4</span>
 <span class="normal">5</span>
 <span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">locations</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">   </span><span class="n">location_id</span><span class="w">        </span><span class="nb">number</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w">  </span><span class="k">generated</span><span class="w"> </span><span class="n">always</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">identity</span><span class="w"></span>
-<span class="w">  </span><span class="p">,</span><span class="n">location_name</span><span class="w">      </span><span class="n">varchar2</span><span class="p">(</span><span class="mi">60</span><span class="w"> </span><span class="nb">char</span><span class="p">)</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"></span>
+<span class="hll"><span class="w">   </span><span class="n">location_id</span><span class="w">        </span><span class="nb">number</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w">  </span><span class="k">generated</span><span class="w"> </span><span class="n">always</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">identity</span><span class="w"></span>
+</span><span class="w">  </span><span class="p">,</span><span class="n">location_name</span><span class="w">      </span><span class="n">varchar2</span><span class="p">(</span><span class="mi">60</span><span class="w"> </span><span class="nb">char</span><span class="p">)</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"></span>
 <span class="w">  </span><span class="p">,</span><span class="n">city</span><span class="w">               </span><span class="n">varchar2</span><span class="p">(</span><span class="mi">30</span><span class="w"> </span><span class="nb">char</span><span class="p">)</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"></span>
 <span class="w">  </span><span class="p">,</span><span class="k">constraint</span><span class="w"> </span><span class="n">locations_pk</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="p">(</span><span class="n">location_id</span><span class="p">))</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>

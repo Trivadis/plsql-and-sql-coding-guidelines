@@ -3474,8 +3474,8 @@
 <span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">begin</span><span class="w"></span>
 <span class="w">   </span><span class="n">my_package</span><span class="p">.</span><span class="n">some_processing</span><span class="p">();</span><span class="w"></span>
 <span class="k">exception</span><span class="w"></span>
-<span class="w">   </span><span class="k">when</span><span class="w"> </span><span class="n">others</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
-<span class="w">      </span><span class="n">my_package</span><span class="p">.</span><span class="n">some_further_processing</span><span class="p">();</span><span class="w"></span>
+<span class="hll"><span class="w">   </span><span class="k">when</span><span class="w"> </span><span class="n">others</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
+</span><span class="w">      </span><span class="n">my_package</span><span class="p">.</span><span class="n">some_further_processing</span><span class="p">();</span><span class="w"></span>
 <span class="k">end</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
@@ -3489,8 +3489,8 @@
 <span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">begin</span><span class="w"></span>
 <span class="w">   </span><span class="n">my_package</span><span class="p">.</span><span class="n">some_processing</span><span class="p">();</span><span class="w"></span>
 <span class="k">exception</span><span class="w"></span>
-<span class="w">   </span><span class="k">when</span><span class="w"> </span><span class="n">dup_val_on_index</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
-<span class="w">      </span><span class="n">my_package</span><span class="p">.</span><span class="n">some_further_processing</span><span class="p">();</span><span class="w"></span>
+<span class="hll"><span class="w">   </span><span class="k">when</span><span class="w"> </span><span class="n">dup_val_on_index</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
+</span><span class="w">      </span><span class="n">my_package</span><span class="p">.</span><span class="n">some_further_processing</span><span class="p">();</span><span class="w"></span>
 <span class="k">end</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
@@ -3505,10 +3505,10 @@
 <span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">begin</span><span class="w"></span>
 <span class="w">   </span><span class="n">my_package</span><span class="p">.</span><span class="n">some_processing</span><span class="p">();</span><span class="w"></span>
 <span class="k">exception</span><span class="w"></span>
-<span class="w">   </span><span class="k">when</span><span class="w"> </span><span class="n">others</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
-<span class="w">      </span><span class="n">logger</span><span class="p">.</span><span class="n">log_error</span><span class="p">(</span><span class="s1">&#39;Unhandled Exception&#39;</span><span class="p">);</span><span class="w"></span>
-<span class="w">      </span><span class="n">raise</span><span class="p">;</span><span class="w"></span>
-<span class="k">end</span><span class="p">;</span><span class="w"></span>
+<span class="hll"><span class="w">   </span><span class="k">when</span><span class="w"> </span><span class="n">others</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
+</span><span class="hll"><span class="w">      </span><span class="n">logger</span><span class="p">.</span><span class="n">log_error</span><span class="p">(</span><span class="s1">&#39;Unhandled Exception&#39;</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">      </span><span class="n">raise</span><span class="p">;</span><span class="w"></span>
+</span><span class="k">end</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
 

@@ -3506,16 +3506,16 @@
 <span class="w">   </span><span class="n">r_employee</span><span class="p">.</span><span class="n">salary</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">r_employee</span><span class="p">.</span><span class="n">salary</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">constants_up</span><span class="p">.</span><span class="n">small_increase</span><span class="p">();</span><span class="w"></span>
 
 <span class="w">   </span><span class="k">update</span><span class="w"> </span><span class="n">employees</span><span class="w"></span>
-<span class="w">      </span><span class="k">set</span><span class="w"> </span><span class="k">row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r_employee</span><span class="w"></span>
-<span class="w">    </span><span class="k">where</span><span class="w"> </span><span class="n">employee_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">co_id</span><span class="p">;</span><span class="w"></span>
+<span class="hll"><span class="w">      </span><span class="k">set</span><span class="w"> </span><span class="k">row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r_employee</span><span class="w"></span>
+</span><span class="w">    </span><span class="k">where</span><span class="w"> </span><span class="n">employee_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">co_id</span><span class="p">;</span><span class="w"></span>
 <span class="k">end</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code>Error report -
-ORA-54017: update operation disallowed on virtual columns
-ORA-06512: at line 9
+<span class="hll">ORA-54017: update operation disallowed on virtual columns
+</span>ORA-06512: at line 9
 </code></pre></div></td></tr></table></div></p>
 <h2 id="example-good">Example (good)</h2>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -3535,9 +3535,9 @@ ORA-06512: at line 9
 <span class="normal">15</span>
 <span class="normal">16</span>
 <span class="normal">17</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">employees</span><span class="w"></span>
-<span class="w">   </span><span class="k">add</span><span class="w"> </span><span class="n">total_salary</span><span class="w"> </span><span class="n">invisible</span><span class="w"> </span><span class="k">generated</span><span class="w"> </span><span class="n">always</span><span class="w"> </span><span class="k">as</span><span class="w"></span>
-<span class="w">      </span><span class="p">(</span><span class="n">salary</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">nvl</span><span class="p">(</span><span class="n">commission_pct</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">salary</span><span class="p">)</span><span class="w"></span>
-<span class="o">/</span><span class="w"></span>
+<span class="hll"><span class="w">   </span><span class="k">add</span><span class="w"> </span><span class="n">total_salary</span><span class="w"> </span><span class="n">invisible</span><span class="w"> </span><span class="k">generated</span><span class="w"> </span><span class="n">always</span><span class="w"> </span><span class="k">as</span><span class="w"></span>
+</span><span class="hll"><span class="w">      </span><span class="p">(</span><span class="n">salary</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">nvl</span><span class="p">(</span><span class="n">commission_pct</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">salary</span><span class="p">)</span><span class="w"></span>
+</span><span class="o">/</span><span class="w"></span>
 
 <span class="k">declare</span><span class="w"></span>
 <span class="w">   </span><span class="n">r_employee</span><span class="w"> </span><span class="n">employees</span><span class="o">%</span><span class="n">rowtype</span><span class="p">;</span><span class="w"></span>
@@ -3547,8 +3547,8 @@ ORA-06512: at line 9
 <span class="w">   </span><span class="n">r_employee</span><span class="p">.</span><span class="n">salary</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">r_employee</span><span class="p">.</span><span class="n">salary</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">constants_up</span><span class="p">.</span><span class="n">small_increase</span><span class="p">();</span><span class="w"></span>
 
 <span class="w">   </span><span class="k">update</span><span class="w"> </span><span class="n">employees</span><span class="w"></span>
-<span class="w">      </span><span class="k">set</span><span class="w"> </span><span class="k">row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r_employee</span><span class="w"></span>
-<span class="w">    </span><span class="k">where</span><span class="w"> </span><span class="n">employee_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">co_id</span><span class="p">;</span><span class="w"></span>
+<span class="hll"><span class="w">      </span><span class="k">set</span><span class="w"> </span><span class="k">row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r_employee</span><span class="w"></span>
+</span><span class="w">    </span><span class="k">where</span><span class="w"> </span><span class="n">employee_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">co_id</span><span class="p">;</span><span class="w"></span>
 <span class="k">end</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>

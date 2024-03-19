@@ -3512,10 +3512,10 @@
 <span class="w">       </span><span class="k">where</span><span class="w"> </span><span class="n">employee_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">co_employee_id</span><span class="w"></span>
 <span class="w">   </span><span class="n">returning</span><span class="w"> </span><span class="n">department_id</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">l_dept_id</span><span class="p">;</span><span class="w"></span>
 
-<span class="w">      </span><span class="n">process_dept</span><span class="p">(</span><span class="n">in_dept_id</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">l_dept_id</span><span class="p">);</span><span class="w"></span>
-
-<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="k">sql</span><span class="o">%</span><span class="n">rowcount</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">co_one</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
-<span class="w">         </span><span class="c1">-- too many rows deleted. </span>
+<span class="hll"><span class="w">      </span><span class="n">process_dept</span><span class="p">(</span><span class="n">in_dept_id</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">l_dept_id</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll">
+</span><span class="hll"><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="k">sql</span><span class="o">%</span><span class="n">rowcount</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">co_one</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
+</span><span class="w">         </span><span class="c1">-- too many rows deleted. </span>
 <span class="w">         </span><span class="k">rollback</span><span class="p">;</span><span class="w"></span>
 <span class="w">      </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">remove_employee</span><span class="p">;</span><span class="w"></span>
@@ -3571,12 +3571,12 @@
 <span class="w">       </span><span class="k">where</span><span class="w"> </span><span class="n">employee_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">co_employee_id</span><span class="w"></span>
 <span class="w">   </span><span class="n">returning</span><span class="w"> </span><span class="n">department_id</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">l_dept_id</span><span class="p">;</span><span class="w"></span>
 
-<span class="w">      </span><span class="n">l_deleted_emps</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="k">sql</span><span class="o">%</span><span class="n">rowcount</span><span class="p">;</span><span class="w"></span>
-
-<span class="w">      </span><span class="n">process_dept</span><span class="p">(</span><span class="n">in_dept_id</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">l_dept_id</span><span class="p">);</span><span class="w"></span>
-
-<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="n">l_deleted_emps</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">co_one</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
-<span class="w">         </span><span class="c1">-- too many rows deleted. </span>
+<span class="hll"><span class="w">      </span><span class="n">l_deleted_emps</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="k">sql</span><span class="o">%</span><span class="n">rowcount</span><span class="p">;</span><span class="w"></span>
+</span><span class="hll">
+</span><span class="hll"><span class="w">      </span><span class="n">process_dept</span><span class="p">(</span><span class="n">in_dept_id</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">l_dept_id</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll">
+</span><span class="hll"><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="n">l_deleted_emps</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">co_one</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
+</span><span class="w">         </span><span class="c1">-- too many rows deleted. </span>
 <span class="w">         </span><span class="k">rollback</span><span class="p">;</span><span class="w"></span>
 <span class="w">      </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">remove_employee</span><span class="p">;</span><span class="w"></span>

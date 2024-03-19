@@ -3498,8 +3498,8 @@
 <span class="s1">        returning salary into :3&#39;</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">begin</span><span class="w"></span>
 <span class="w">      </span><span class="k">execute</span><span class="w"> </span><span class="k">immediate</span><span class="w"> </span><span class="n">co_sql_stmt</span><span class="w"></span>
-<span class="w">         </span><span class="k">using</span><span class="w"> </span><span class="n">co_increase_pct</span><span class="p">,</span><span class="n">co_employee_id</span><span class="p">,</span><span class="k">out</span><span class="w"> </span><span class="n">out_new_salary</span><span class="p">;</span><span class="w"></span>
-<span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">upd_salary</span><span class="p">;</span><span class="w"></span>
+<span class="hll"><span class="w">         </span><span class="k">using</span><span class="w"> </span><span class="n">co_increase_pct</span><span class="p">,</span><span class="n">co_employee_id</span><span class="p">,</span><span class="k">out</span><span class="w"> </span><span class="n">out_new_salary</span><span class="p">;</span><span class="w"></span>
+</span><span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">upd_salary</span><span class="p">;</span><span class="w"></span>
 <span class="k">end</span><span class="w"> </span><span class="n">employee_api</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
@@ -3539,8 +3539,8 @@
 <span class="w">   </span><span class="k">begin</span><span class="w"></span>
 <span class="w">      </span><span class="k">execute</span><span class="w"> </span><span class="k">immediate</span><span class="w"> </span><span class="n">co_sql_stmt</span><span class="w"></span>
 <span class="w">         </span><span class="k">using</span><span class="w"> </span><span class="n">co_increase_pct</span><span class="p">,</span><span class="n">co_employee_id</span><span class="w"></span>
-<span class="w">         </span><span class="n">returning</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">out_new_salary</span><span class="p">;</span><span class="w"></span>
-<span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">upd_salary</span><span class="p">;</span><span class="w"></span>
+<span class="hll"><span class="w">         </span><span class="n">returning</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">out_new_salary</span><span class="p">;</span><span class="w"></span>
+</span><span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">upd_salary</span><span class="p">;</span><span class="w"></span>
 <span class="k">end</span><span class="w"> </span><span class="n">employee_api</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>

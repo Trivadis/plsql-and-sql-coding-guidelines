@@ -3475,9 +3475,9 @@
 <span class="normal">7</span>
 <span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">declare</span><span class="w"></span>
 <span class="w">   </span><span class="n">co_department_id</span><span class="w">  </span><span class="n">constant</span><span class="w"> </span><span class="nb">integer</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span><span class="w"></span>
-<span class="w">   </span><span class="n">l_department_name</span><span class="w"> </span><span class="n">departments</span><span class="p">.</span><span class="n">department_name</span><span class="o">%</span><span class="k">type</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"></span>
-<span class="w">      </span><span class="n">department_api</span><span class="p">.</span><span class="n">name_by_id</span><span class="p">(</span><span class="n">in_id</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">co_department_id</span><span class="p">);</span><span class="w"></span>
-<span class="k">begin</span><span class="w"></span>
+<span class="hll"><span class="w">   </span><span class="n">l_department_name</span><span class="w"> </span><span class="n">departments</span><span class="p">.</span><span class="n">department_name</span><span class="o">%</span><span class="k">type</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"></span>
+</span><span class="hll"><span class="w">      </span><span class="n">department_api</span><span class="p">.</span><span class="n">name_by_id</span><span class="p">(</span><span class="n">in_id</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">co_department_id</span><span class="p">);</span><span class="w"></span>
+</span><span class="k">begin</span><span class="w"></span>
 <span class="w">   </span><span class="n">sys</span><span class="p">.</span><span class="n">dbms_output</span><span class="p">.</span><span class="n">put_line</span><span class="p">(</span><span class="n">l_department_name</span><span class="p">);</span><span class="w"></span>
 <span class="k">end</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
@@ -3505,8 +3505,8 @@
 <span class="k">begin</span><span class="w"></span>
 <span class="w">   </span><span class="o">&lt;&lt;</span><span class="n">init</span><span class="o">&gt;&gt;</span><span class="w"></span>
 <span class="w">   </span><span class="k">begin</span><span class="w"></span>
-<span class="w">      </span><span class="n">l_department_name</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">department_api</span><span class="p">.</span><span class="n">name_by_id</span><span class="p">(</span><span class="n">in_id</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">co_department_id</span><span class="p">);</span><span class="w"></span>
-<span class="w">   </span><span class="k">exception</span><span class="w"></span>
+<span class="hll"><span class="w">      </span><span class="n">l_department_name</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">department_api</span><span class="p">.</span><span class="n">name_by_id</span><span class="p">(</span><span class="n">in_id</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">co_department_id</span><span class="p">);</span><span class="w"></span>
+</span><span class="w">   </span><span class="k">exception</span><span class="w"></span>
 <span class="w">      </span><span class="k">when</span><span class="w"> </span><span class="n">value_error</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
 <span class="w">         </span><span class="n">l_department_name</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">co_unkown_name</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">init</span><span class="p">;</span><span class="w"></span>

@@ -3486,8 +3486,8 @@
 <span class="k">begin</span><span class="w"></span>
 <span class="w">   </span><span class="k">select</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">product_name</span><span class="w"></span>
 <span class="w">     </span><span class="k">into</span><span class="w"> </span><span class="n">l_product_name</span><span class="w"></span>
-<span class="w">     </span><span class="k">from</span><span class="w"> </span><span class="n">oe</span><span class="p">.</span><span class="n">products</span><span class="w"> </span><span class="n">p</span><span class="w"></span>
-<span class="w">    </span><span class="k">where</span><span class="w"> </span><span class="n">list_price</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">co_price</span><span class="p">;</span><span class="w"></span>
+<span class="hll"><span class="w">     </span><span class="k">from</span><span class="w"> </span><span class="n">oe</span><span class="p">.</span><span class="n">products</span><span class="w"> </span><span class="n">p</span><span class="w"></span>
+</span><span class="w">    </span><span class="k">where</span><span class="w"> </span><span class="n">list_price</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">co_price</span><span class="p">;</span><span class="w"></span>
 <span class="k">exception</span><span class="w"></span>
 <span class="w">   </span><span class="k">when</span><span class="w"> </span><span class="n">no_data_found</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
 <span class="w">      </span><span class="k">null</span><span class="p">;</span><span class="w"> </span><span class="c1">-- handle_no_data_found;</span>
@@ -3513,16 +3513,16 @@
 <span class="normal">14</span>
 <span class="normal">15</span>
 <span class="normal">16</span>
-<span class="normal">17</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="n">synonym</span><span class="w"> </span><span class="n">oe_products</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">oe</span><span class="p">.</span><span class="n">products</span><span class="p">;</span><span class="w"></span>
-
+<span class="normal">17</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="hll"><span class="k">create</span><span class="w"> </span><span class="n">synonym</span><span class="w"> </span><span class="n">oe_products</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">oe</span><span class="p">.</span><span class="n">products</span><span class="p">;</span><span class="w"></span>
+</span>
 <span class="k">declare</span><span class="w"></span>
 <span class="w">   </span><span class="n">l_product_name</span><span class="w"> </span><span class="n">oe_products</span><span class="p">.</span><span class="n">product_name</span><span class="o">%</span><span class="k">type</span><span class="p">;</span><span class="w"></span>
 <span class="w">   </span><span class="n">co_price</span><span class="w">       </span><span class="n">constant</span><span class="w"> </span><span class="n">oe_products</span><span class="p">.</span><span class="n">list_price</span><span class="o">%</span><span class="k">type</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span><span class="w"></span>
 <span class="k">begin</span><span class="w"></span>
 <span class="w">   </span><span class="k">select</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">product_name</span><span class="w"></span>
 <span class="w">     </span><span class="k">into</span><span class="w"> </span><span class="n">l_product_name</span><span class="w"></span>
-<span class="w">     </span><span class="k">from</span><span class="w"> </span><span class="n">oe_products</span><span class="w"> </span><span class="n">p</span><span class="w"></span>
-<span class="w">    </span><span class="k">where</span><span class="w"> </span><span class="n">list_price</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">co_price</span><span class="p">;</span><span class="w"></span>
+<span class="hll"><span class="w">     </span><span class="k">from</span><span class="w"> </span><span class="n">oe_products</span><span class="w"> </span><span class="n">p</span><span class="w"></span>
+</span><span class="w">    </span><span class="k">where</span><span class="w"> </span><span class="n">list_price</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">co_price</span><span class="p">;</span><span class="w"></span>
 <span class="k">exception</span><span class="w"></span>
 <span class="w">   </span><span class="k">when</span><span class="w"> </span><span class="n">no_data_found</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
 <span class="w">      </span><span class="k">null</span><span class="p">;</span><span class="w"> </span><span class="c1">-- handle_no_data_found;</span>

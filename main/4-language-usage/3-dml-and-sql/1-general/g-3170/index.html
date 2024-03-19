@@ -3496,8 +3496,8 @@
 <span class="normal">8</span>
 <span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">null_test</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
 <span class="w">   </span><span class="n">test_case</span><span class="w">        </span><span class="nb">number</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"></span>
-<span class="w">  </span><span class="p">,</span><span class="n">column_defaulted</span><span class="w"> </span><span class="n">varchar2</span><span class="p">(</span><span class="mi">10</span><span class="w"> </span><span class="nb">char</span><span class="p">)</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="s1">&#39;Default&#39;</span><span class="p">)</span><span class="w"></span>
-<span class="o">/</span><span class="w"></span>
+<span class="hll"><span class="w">  </span><span class="p">,</span><span class="n">column_defaulted</span><span class="w"> </span><span class="n">varchar2</span><span class="p">(</span><span class="mi">10</span><span class="w"> </span><span class="nb">char</span><span class="p">)</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="s1">&#39;Default&#39;</span><span class="p">)</span><span class="w"></span>
+</span><span class="o">/</span><span class="w"></span>
 <span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">null_test</span><span class="p">(</span><span class="n">test_case</span><span class="p">,</span><span class="n">column_defaulted</span><span class="p">)</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;Value&#39;</span><span class="p">);</span><span class="w"> </span><span class="c1">-- NOSONAR: G-1050 literal is ok for a standalone insert</span>
 <span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">null_test</span><span class="p">(</span><span class="n">test_case</span><span class="p">,</span><span class="n">column_defaulted</span><span class="p">)</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="k">default</span><span class="p">);</span><span class="w"> </span><span class="c1">-- NOSONAR: G-1050 literal is ok for a standalone insert</span>
 <span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">null_test</span><span class="p">(</span><span class="n">test_case</span><span class="p">,</span><span class="n">column_defaulted</span><span class="p">)</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="k">null</span><span class="p">);</span><span class="w">    </span><span class="c1">-- NOSONAR: G-1050 literal is ok for a standalone insert</span>
@@ -3512,8 +3512,8 @@
 ---------  -----------
         1  Value
         2  Default
-        3
-</code></pre></div></td></tr></table></div></p>
+<span class="hll">        3
+</span></code></pre></div></td></tr></table></div></p>
 <h2 id="example-good">Example (good)</h2>
 <p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
@@ -3525,8 +3525,8 @@
 <span class="normal">8</span>
 <span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">null_test</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
 <span class="w">   </span><span class="n">test_case</span><span class="w">        </span><span class="nb">number</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"></span>
-<span class="w">  </span><span class="p">,</span><span class="n">column_defaulted</span><span class="w"> </span><span class="n">varchar2</span><span class="p">(</span><span class="mi">10</span><span class="w"> </span><span class="nb">char</span><span class="p">)</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="s1">&#39;Default&#39;</span><span class="p">)</span><span class="w"></span>
-<span class="o">/</span><span class="w"></span>
+<span class="hll"><span class="w">  </span><span class="p">,</span><span class="n">column_defaulted</span><span class="w"> </span><span class="n">varchar2</span><span class="p">(</span><span class="mi">10</span><span class="w"> </span><span class="nb">char</span><span class="p">)</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="s1">&#39;Default&#39;</span><span class="p">)</span><span class="w"></span>
+</span><span class="o">/</span><span class="w"></span>
 <span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">null_test</span><span class="p">(</span><span class="n">test_case</span><span class="p">,</span><span class="n">column_defaulted</span><span class="p">)</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;Value&#39;</span><span class="p">);</span><span class="w"> </span><span class="c1">-- NOSONAR: G-1050 literal is ok for a standalone insert</span>
 <span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">null_test</span><span class="p">(</span><span class="n">test_case</span><span class="p">,</span><span class="n">column_defaulted</span><span class="p">)</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="k">default</span><span class="p">);</span><span class="w"> </span><span class="c1">-- NOSONAR: G-1050 literal is ok for a standalone insert</span>
 <span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">null_test</span><span class="p">(</span><span class="n">test_case</span><span class="p">,</span><span class="n">column_defaulted</span><span class="p">)</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="k">null</span><span class="p">);</span><span class="w">    </span><span class="c1">-- NOSONAR: G-1050 literal is ok for a standalone insert</span>
@@ -3541,8 +3541,8 @@
 ---------- ----------
          1 Value     
          2 Default   
-         3 Default
-</code></pre></div></td></tr></table></div></p>
+<span class="hll">         3 Default
+</span></code></pre></div></td></tr></table></div></p>
 
               
             </article>

@@ -3498,8 +3498,8 @@
 <span class="normal">30</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="k">trigger</span><span class="w"> </span><span class="n">dept_br_u</span><span class="w"></span>
 <span class="k">before</span><span class="w"> </span><span class="k">update</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">departments</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">each</span><span class="w"> </span><span class="k">row</span><span class="w"></span>
 <span class="k">begin</span><span class="w"></span>
-<span class="w">   </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">departments_hist</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">      </span><span class="n">department_id</span><span class="w"></span>
+<span class="hll"><span class="w">   </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">departments_hist</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+</span><span class="w">      </span><span class="n">department_id</span><span class="w"></span>
 <span class="w">     </span><span class="p">,</span><span class="n">department_name</span><span class="w"></span>
 <span class="w">     </span><span class="p">,</span><span class="n">manager_id</span><span class="w"></span>
 <span class="w">     </span><span class="p">,</span><span class="n">location_id</span><span class="w"></span>
@@ -3513,10 +3513,10 @@
 <span class="k">end</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 <span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="k">trigger</span><span class="w"> </span><span class="n">dept_hist_br_i</span><span class="w"></span>
-<span class="k">before</span><span class="w"> </span><span class="k">insert</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">departments_hist</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">each</span><span class="w"> </span><span class="k">row</span><span class="w"></span>
-<span class="k">begin</span><span class="w"></span>
-<span class="w">   </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">departments_log</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">      </span><span class="n">department_id</span><span class="w"></span>
+<span class="hll"><span class="k">before</span><span class="w"> </span><span class="k">insert</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">departments_hist</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">each</span><span class="w"> </span><span class="k">row</span><span class="w"></span>
+</span><span class="k">begin</span><span class="w"></span>
+<span class="hll"><span class="w">   </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">departments_log</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+</span><span class="w">      </span><span class="n">department_id</span><span class="w"></span>
 <span class="w">     </span><span class="p">,</span><span class="n">department_name</span><span class="w"></span>
 <span class="w">     </span><span class="p">,</span><span class="n">modification_date</span><span class="p">)</span><span class="w"></span>
 <span class="w">   </span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
@@ -3556,8 +3556,8 @@
 <span class="normal">27</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="k">trigger</span><span class="w"> </span><span class="n">dept_br_u</span><span class="w"></span>
 <span class="k">before</span><span class="w"> </span><span class="k">update</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">departments</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">each</span><span class="w"> </span><span class="k">row</span><span class="w"></span>
 <span class="k">begin</span><span class="w"></span>
-<span class="w">   </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">departments_hist</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">      </span><span class="n">department_id</span><span class="w"></span>
+<span class="hll"><span class="w">   </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">departments_hist</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+</span><span class="w">      </span><span class="n">department_id</span><span class="w"></span>
 <span class="w">     </span><span class="p">,</span><span class="n">department_name</span><span class="w"></span>
 <span class="w">     </span><span class="p">,</span><span class="n">manager_id</span><span class="w"></span>
 <span class="w">     </span><span class="p">,</span><span class="n">location_id</span><span class="w"></span>
@@ -3569,8 +3569,8 @@
 <span class="w">     </span><span class="p">,:</span><span class="k">old</span><span class="p">.</span><span class="n">location_id</span><span class="w"></span>
 <span class="w">     </span><span class="p">,</span><span class="n">sysdate</span><span class="p">);</span><span class="w"></span>
 
-<span class="w">   </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">departments_log</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">      </span><span class="n">department_id</span><span class="w"></span>
+<span class="hll"><span class="w">   </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">departments_log</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+</span><span class="w">      </span><span class="n">department_id</span><span class="w"></span>
 <span class="w">     </span><span class="p">,</span><span class="n">department_name</span><span class="w"></span>
 <span class="w">     </span><span class="p">,</span><span class="n">modification_date</span><span class="p">)</span><span class="w"></span>
 <span class="w">   </span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="w"></span>

@@ -3486,12 +3486,12 @@ messages in a manner that can be committed independently of the parent transacti
 <span class="normal"> 9</span>
 <span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="n">dept_api</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
 <span class="w">   </span><span class="k">procedure</span><span class="w"> </span><span class="n">ins_dept</span><span class="p">(</span><span class="n">in_dept_row</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">dept</span><span class="o">%</span><span class="n">rowtype</span><span class="p">)</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
-<span class="w">      </span><span class="n">pragma</span><span class="w"> </span><span class="n">autonomous_transaction</span><span class="p">;</span><span class="w"></span>
-<span class="w">   </span><span class="k">begin</span><span class="w"></span>
+<span class="hll"><span class="w">      </span><span class="n">pragma</span><span class="w"> </span><span class="n">autonomous_transaction</span><span class="p">;</span><span class="w"></span>
+</span><span class="w">   </span><span class="k">begin</span><span class="w"></span>
 <span class="w">      </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">dept</span><span class="w"></span>
 <span class="w">      </span><span class="k">values</span><span class="w"> </span><span class="n">in_dept_row</span><span class="p">;</span><span class="w"></span>
-<span class="w">      </span><span class="k">commit</span><span class="p">;</span><span class="w"> </span><span class="c1">-- required by autonomous transaction</span>
-<span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">ins_dept</span><span class="p">;</span><span class="w"></span>
+<span class="hll"><span class="w">      </span><span class="k">commit</span><span class="p">;</span><span class="w"> </span><span class="c1">-- required by autonomous transaction</span>
+</span><span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">ins_dept</span><span class="p">;</span><span class="w"></span>
 <span class="k">end</span><span class="w"> </span><span class="n">dept_api</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
@@ -3510,9 +3510,9 @@ messages in a manner that can be committed independently of the parent transacti
 <span class="w">   </span><span class="k">begin</span><span class="w"></span>
 <span class="w">      </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">dept</span><span class="w"></span>
 <span class="w">      </span><span class="k">values</span><span class="w"> </span><span class="n">in_dept_row</span><span class="p">;</span><span class="w"></span>
-<span class="w">      </span><span class="c1">-- transaction is commited in calling module</span>
-<span class="w">      </span><span class="c1">-- after the completion of the unit of work</span>
-<span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">ins_dept</span><span class="p">;</span><span class="w"></span>
+<span class="hll"><span class="w">      </span><span class="c1">-- transaction is commited in calling module</span>
+</span><span class="hll"><span class="w">      </span><span class="c1">-- after the completion of the unit of work</span>
+</span><span class="w">   </span><span class="k">end</span><span class="w"> </span><span class="n">ins_dept</span><span class="p">;</span><span class="w"></span>
 <span class="k">end</span><span class="w"> </span><span class="n">dept_api</span><span class="p">;</span><span class="w"></span>
 <span class="o">/</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>

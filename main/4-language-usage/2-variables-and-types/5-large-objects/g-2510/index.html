@@ -3475,9 +3475,9 @@
 <span class="normal">6</span>
 <span class="normal">7</span>
 <span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">declare</span><span class="w"></span>
-<span class="w">   </span><span class="n">l_long</span><span class="w"> </span><span class="n">long</span><span class="p">;</span><span class="w">     </span><span class="c1">-- violates also G-2130</span>
-<span class="w">   </span><span class="n">l_raw</span><span class="w">  </span><span class="n">long</span><span class="w"> </span><span class="n">raw</span><span class="p">;</span><span class="w"> </span><span class="c1">-- violates also G-2130</span>
-<span class="k">begin</span><span class="w"></span>
+<span class="hll"><span class="w">   </span><span class="n">l_long</span><span class="w"> </span><span class="n">long</span><span class="p">;</span><span class="w">     </span><span class="c1">-- violates also G-2130</span>
+</span><span class="hll"><span class="w">   </span><span class="n">l_raw</span><span class="w">  </span><span class="n">long</span><span class="w"> </span><span class="n">raw</span><span class="p">;</span><span class="w"> </span><span class="c1">-- violates also G-2130</span>
+</span><span class="k">begin</span><span class="w"></span>
 <span class="w">   </span><span class="n">do_something</span><span class="p">(</span><span class="n">l_long</span><span class="p">);</span><span class="w"></span>
 <span class="w">   </span><span class="n">do_something</span><span class="p">(</span><span class="n">l_raw</span><span class="p">);</span><span class="w"></span>
 <span class="k">end</span><span class="p">;</span><span class="w"></span>
@@ -3492,9 +3492,9 @@
 <span class="normal">6</span>
 <span class="normal">7</span>
 <span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">declare</span><span class="w"></span>
-<span class="w">   </span><span class="n">l_long</span><span class="w"> </span><span class="k">clob</span><span class="p">;</span><span class="w"></span>
-<span class="w">   </span><span class="n">l_raw</span><span class="w">  </span><span class="nb">blob</span><span class="p">;</span><span class="w"></span>
-<span class="k">begin</span><span class="w"></span>
+<span class="hll"><span class="w">   </span><span class="n">l_long</span><span class="w"> </span><span class="k">clob</span><span class="p">;</span><span class="w"></span>
+</span><span class="hll"><span class="w">   </span><span class="n">l_raw</span><span class="w">  </span><span class="nb">blob</span><span class="p">;</span><span class="w"></span>
+</span><span class="k">begin</span><span class="w"></span>
 <span class="w">   </span><span class="n">do_something</span><span class="p">(</span><span class="n">l_long</span><span class="p">);</span><span class="w"></span>
 <span class="w">   </span><span class="n">do_something</span><span class="p">(</span><span class="n">l_raw</span><span class="p">);</span><span class="w"></span>
 <span class="k">end</span><span class="p">;</span><span class="w"></span>
