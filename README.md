@@ -11,6 +11,7 @@ HTML is the primary output format. [Material for MkDocs](https://squidfunk.githu
 * [Current version based on the main branch, snapshot version of the coming release](https://trivadis.github.io/plsql-and-sql-coding-guidelines/main/)
 * [Latest Release](https://trivadis.github.io/plsql-and-sql-coding-guidelines/)
 * Releases
+   * [Version 4.4](https://trivadis.github.io/plsql-and-sql-coding-guidelines/v4.4/)
    * [Version 4.3](https://trivadis.github.io/plsql-and-sql-coding-guidelines/v4.3/)
    * [Version 4.2](https://trivadis.github.io/plsql-and-sql-coding-guidelines/v4.2/)
    * [Version 4.1](https://trivadis.github.io/plsql-and-sql-coding-guidelines/v4.1/)
